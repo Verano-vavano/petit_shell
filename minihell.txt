@@ -1,9 +1,3 @@
-PLAN D'ATTAQUE DU PETIT SHELL
-readline
-addhistory
-lexer line (infiles, outfiles, here_docs, arguments, commands)
-first : heredocs
-
 TRUCS CHELOUS DU PETIT SHELL
 ls hrewher | echo lol | << a > b (d'abord here_docs, puis message d'erreur quand fini)
 ls hrewher | echo lol && << a > b (demande quand meme le here_doc, mais ne fais rien dans b)

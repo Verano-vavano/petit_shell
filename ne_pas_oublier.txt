@@ -18,3 +18,5 @@ Gerer les parentheses
 variables non exportees ne doivent pas etre dans l'env, mais doivent etre remplacees si appelees directement dans une commande !
 a=12
 echo $a -> 12
+
+CD = Regarder d'abord si folder dans CDPATH (si set dans l'env), puis en chemin absolue.

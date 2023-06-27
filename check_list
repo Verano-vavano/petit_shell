@@ -1,0 +1,15 @@
+readline
+lexer into words and operators via quoting rule
+tilde expansion
+parameter and variable expansion
+filename expansion (*)
+quote removal
+redirections
+here_docs in /tmp/
+is command builtin ?
+is command in path ?
+addhistory if ok
+try execution
+else execute as shell script
+register in _
+set exit status
