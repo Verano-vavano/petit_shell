@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 11:16:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/06/30 19:02:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 	char	*s;
 	int		redir;
 
+	if (purpose != UNDEFINED)
+	{
+		cmd->purpose = purpose;
+		return (UNDEFINED);
+	}
 	s = cmd->content;
-	purpose = IN_FILE;
 	if (meta_check(cmd))
 		return (ERROR);
 	if (purpose >= IN_FILE && (s[0] == '<' || s[0] == '>'))
@@ -31,12 +35,12 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 		return (ERROR);
 	else if (redir > 1)
 		return (redir);
-	/*else if (redir == 0)
-		cmd = sub_command_check(cmd, s);*/
+	else if (redir == 0 && !is_metachar(s[0]))
+		cmd->purpose = COMMAND;
 	return (UNDEFINED);
 }
 
-void	understand_the_line(char *line)
+t_command	*understand_the_line(char *line)
 {
 	t_command		*cmd;
 	t_command		*cmd_cpy;
@@ -53,10 +57,12 @@ void	understand_the_line(char *line)
 			free_linked_list(cmd);
 			free(line);
 			line = 0;
-			return ;
+			return (0);
 		}
-		printf("lol");
+		printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
 		cmd_cpy = cmd_cpy->next;
 	}
 	get_purpose(cmd_cpy, next_purpose);
+	printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
+	return (cmd);
 }

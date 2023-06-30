@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 11:17:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/06/30 19:00:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ enum	e_cmd_part
 {
 	UNDEFINED,
 	COMMAND,
-	SUB_COMMAND,
 	IN_FILE,
 	OUT_FILE,
 	HERE_DOC_DELIM,
@@ -37,18 +36,22 @@ enum	e_cmd_part
 	ERROR
 };
 
-typedef struct	s_command
+typedef struct s_command
 {
 	char				*content;
 	enum e_cmd_part		purpose;
 	struct s_command	*next;
 }				t_command;
 
+// shellpticflesh
+int			cmd_processing(char *cmd);
+
+/*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
-void		understand_the_line(char *line);
+t_command	*understand_the_line(char *line);
 
 // checker
-int			check_redir_type(char way, int purp1, int purp2, t_command *cmd);
+int			sub_command_check(t_command *cmd, char *s);
 int			redirection_check(t_command *cmd, char *s);
 int			meta_check(t_command *cmd);
 
@@ -56,14 +59,19 @@ int			meta_check(t_command *cmd);
 t_command	*ft_split_cmd(char *cmd);
 
 // parse_args_utilities
-int			ft_strlen_arg(char *s);
+int			ft_strlen_arg(char *s, int meta);
 int			n_words(char *s);
 
+/*---------------FILES------------------*/
+int			here_doc(t_command *cmd);
+
+/*---------------UTILITIES------------------*/
 // cleaning
 void		free_linked_list(t_command *l);
 
 // cute_utils
 t_command	*init_command_arg(t_command *start);
+int			is_strict_meta(char c);
 int			is_metachar(char c);
 int			is_separator(char c);
 int			is_delim(char c);

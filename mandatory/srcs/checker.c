@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 11:37:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/06/30 18:36:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-int	check_redir_type(char way, int purp1, int purp2, t_command *cmd)
+static int	check_redir_type(char way, int purp1, int purp2, t_command *cmd)
 {
 	size_t	len;
 	char	*s;
@@ -24,28 +24,32 @@ int	check_redir_type(char way, int purp1, int purp2, t_command *cmd)
 		cmd->purpose = DELIM;
 		return (purp2);
 	}
-	else if (len > 2 && s[1] == way)
-		cmd->purpose = purp2;
 	else if (len == 1)
 	{
 		cmd->purpose = DELIM;
 		return (purp1);
 	}
-	else if (len > 1 && s[1] != way)
-		cmd->purpose = purp1;
 	return (UNDEFINED);
 }
 
 int	redirection_check(t_command *cmd, char *s)
 {
 	size_t	len;
+	char	c;
 
-	if ((s[0] == '<' && s[1] == '>') || (s[0] == '>' && s[1] == '<'))
+	len = ft_strlen(s);
+	if (len > 1
+		&& ((s[0] == '<' && s[1] == '>') || (s[0] == '>' && s[1] == '<')))
 	{
 		syntax_error(s + 1);
 		return (ERROR);
 	}
-	len = ft_strlen(s);
+	else if (cmd->next && is_metachar(cmd->next->content[0]))
+	{
+		c = cmd->next->content[0];
+		syntax_error(&c);
+		return (ERROR);
+	}
 	if (s[0] == '<')
 		return (check_redir_type('<', IN_FILE, HERE_DOC_DELIM, cmd));
 	else if (s[0] == '>')
@@ -60,14 +64,17 @@ int	meta_check(t_command *cmd)
 
 	len = ft_strlen(cmd->content);
 	s = cmd->content;
+	if (is_metachar(s[0]))
+		cmd->purpose = DELIM;
 	if (len == 1 && is_metachar(s[0])
-		&& cmd->next && is_metachar(cmd->next->content[0]))
+		&& cmd->next && is_strict_meta(cmd->next->content[0]))
 		syntax_error(cmd->next->content);
 	else if (len > 1 && s[0] == ';' && s[1] == ';')
 		syntax_error(";;");
 	else if (len > 1 && is_metachar(s[0]) && is_metachar(s[1]) && s[1] != s[0])
 		syntax_error(s + 1);
-	else if (len > 2 && is_metachar(s[0]) && is_metachar(s[1]) && is_metachar(s[2]))
+	else if (len > 2
+		&& is_metachar(s[0]) && is_metachar(s[1]) && is_metachar(s[2]))
 		syntax_error(s + 2);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:05:46 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 11:51:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/06/30 19:07:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	dup_loop(char *s, char *arg, int *i, char c)
 {
 	while (s[i[0]] && !is_separator(s[i[0]]))
 	{
-		if (is_metachar(s[i[0]]) && !is_delim(c) && c != 's')
+		if (is_metachar(s[i[0]]) && !is_delim(c))
 			return (0);
 		if (is_delim(s[i[0]]) && (s[i[0] - 1] != '\\')
 			&& (c == s[i[0]] || !is_delim(c)))
@@ -37,14 +37,15 @@ static int	ft_strdup_arg(char *s, t_command *args)
 {
 	int			i[3];
 	char		c;
+	int			meta;
 	t_command	*now_arg;
 
 	i[0] = 0;
 	i[1] = 0;
 	while (is_separator(s[i[0]]) && s[i[0]])
 		i[0]++;
-	i[2] = ft_strlen_arg(s + i[0]);
-	printf("%d\n", i[2]);
+	meta = is_metachar(s[i[0]]);
+	i[2] = ft_strlen_arg(s + i[0], meta);
 	now_arg = args;
 	while (now_arg->next)
 		now_arg = now_arg->next;
@@ -54,7 +55,17 @@ static int	ft_strdup_arg(char *s, t_command *args)
 	c = 's';
 	while (c)
 	{
-		c = dup_loop(s, now_arg->content, i, c);
+		if (!meta)
+			c = dup_loop(s, now_arg->content, i, c);
+		else
+		{
+			c = s[0];
+			while (s[i[0]] == c)
+			{
+				now_arg->content[i[1]++] = c;
+				i[0]++;
+			}
+		}
 		if (!s[i[0]] || !is_delim(c) || c == 0)
 			break ;
 		while (s[i[0]] && is_separator(s[i[0]]))
@@ -63,9 +74,10 @@ static int	ft_strdup_arg(char *s, t_command *args)
 			i[0]++;
 		}
 	}
-	if (s[i[0]])
+	while (is_separator(s[i[0]]))
+		i[0]++;
+	if (s[i[0]] && s[i[0]] != '#')
 		now_arg->next = init_command_arg(args);
-	printf("%s\n", now_arg->content);
 	return (i[0]);
 }
 
@@ -82,7 +94,7 @@ t_command	*ft_split_cmd(char *cmd)
 	i = 0;
 	while (cmd[i] && is_separator(cmd[i]))
 		i++;
-	while (cmd[i])
+	while (cmd[i] && cmd[i] != '#')
 	{
 		err_catcher = ft_strdup_arg(cmd + i, cmd_args);
 		if (err_catcher == -1)
