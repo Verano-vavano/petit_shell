@@ -1,0 +1,7 @@
+*.o
+*.dSYM
+.DS_Store
+*.a
+*.gch
+minishell
+valgrind-out.txt
