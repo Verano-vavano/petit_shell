@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 18:36:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/03 11:36:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	redirection_check(t_command *cmd, char *s)
 	size_t	len;
 	char	c;
 
+	if (s[0] != '<' && s[0] != '>')
+		return (UNDEFINED);
 	len = ft_strlen(s);
 	if (len > 1
 		&& ((s[0] == '<' && s[1] == '>') || (s[0] == '>' && s[1] == '<')))

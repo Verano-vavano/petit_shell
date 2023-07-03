@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 19:02:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/03 11:36:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_command	*understand_the_line(char *line)
 		if (next_purpose == ERROR)
 		{
 			free_linked_list(cmd);
-			free(line);
 			line = 0;
 			return (0);
 		}
