@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/04 17:19:55 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/04 18:00:39 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME=../minishell
 SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 parse_args.c		parse_args_utils.c		spliter.c\
 	 char_utils.c		utils.c					cleaning.c\
-	 error_manager.c	heredoc.c
+	 error_manager.c	heredoc.c				metal-injection.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 17:27:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:01:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdint.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10000
+# endif
 
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
@@ -30,5 +34,6 @@ char	*get_next_line(int fd);
 char	*free_buffers(char *buf1, ...);
 int		ft_strchr_int(const char *s, int c);
 char	*ft_itoa(int n);
+char	*get_next_line(int fd);
 
 #endif
