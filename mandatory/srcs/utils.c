@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 13:24:48 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/04 14:18:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-/*
-void	get_text(t_piping *p, int *pipe)
-{
-	char	*line;
 
-	while (1)
+t_command	*init_command_arg(t_command *start)
+{
+	t_command	*new_arg;
+
+	new_arg = ft_calloc(1, sizeof (t_command));
+	if (new_arg == 0)
 	{
-		line = get_next_line(STDIN_FILENO);
-		line[ft_strchr_int(line, '\n')] = 0;
-		if (!(ft_strcmp(line, p->limit)))
-			break ;
-		line[ft_strchr_int(line, '\n')] = '\n';
-		write(*pipe, line, ft_strlen(line));
-		free(line);
+		free_linked_list(start);
+		return (0);
 	}
-	free(line);
-}*/
-/*
-int	here_doc(t_command *cmd)
-{
-
-	return (0);
-}*/
+	return (new_arg);
+}

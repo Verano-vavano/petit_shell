@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 11:15:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 14:56:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ enum	e_cmd_part
 typedef struct s_command
 {
 	char				*content;
-	int					no_command;
 	enum e_cmd_part		purpose;
 	struct s_command	*next;
 }				t_command;
@@ -47,12 +46,14 @@ typedef struct s_command
 // shellpticflesh
 int			cmd_processing(char *cmd);
 
+/*--------------SPLIT-----------------*/
+t_command	*spliter_init(char *cmd);
+
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
-t_command	*understand_the_line(char *line);
+int			understand_the_line(t_command *cmd);
 
-// checker
-int			sub_command_check(t_command *cmd, char *s);
+// purposer
 int			redirection_check(t_command *cmd, char *s);
 int			meta_check(t_command *cmd);
 
@@ -63,16 +64,17 @@ t_command	*ft_split_cmd(char *cmd, t_command *cmd_args);
 int			ft_strlen_arg(char *s, int meta);
 int			n_words(char *s);
 
-/*---------------FILES------------------*/
+/*---------------HEREDOC------------------*/
 int			here_doc(t_command *cmd);
 
 /*---------------UTILITIES------------------*/
 // cleaning
 void		free_linked_list(t_command *l);
 
-// cute_utils
+// utils
 t_command	*init_command_arg(t_command *start);
-int			is_needy(char *s);
+
+// char_utils
 int			is_strict_meta(char c);
 int			is_metachar(char c);
 int			is_separator(char c);

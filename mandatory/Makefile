@@ -6,16 +6,15 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/06/30 19:07:59 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/04 15:00:47 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=../minishell
 
-SRCS=shellpticflesh.c	line_comprehension.c	checker.c\
-	 parse_args.c		parse_args_utils.c\
-	 heredoc.c\
-	 cute_utils.c		cleaning.c\
+SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
+	 parse_args.c		parse_args_utils.c		spliter.c\
+	 char_utils.c		utils.c					cleaning.c\
 	 error_manager.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}

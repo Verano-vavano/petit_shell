@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 11:28:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:00:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int	cmd_processing(char *line)
 {
 	t_command	*lexed;
 
-	lexed = understand_the_line(line);
-	if (!line || !(*line))
+	lexed = spliter_init(line);
+	free(line);
+	if (!lexed || understand_the_line(lexed))
 		return (1);
 	/*if (here_doc(lexed))
 		return (1);*/

@@ -6,24 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:49:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/03 16:22:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 14:18:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-t_command	*init_command_arg(t_command *start)
-{
-	t_command	*new_arg;
-
-	new_arg = ft_calloc(1, sizeof (t_command));
-	if (new_arg == 0)
-	{
-		free_linked_list(start);
-		return (0);
-	}
-	return (new_arg);
-}
 
 int	is_strict_meta(char c)
 {
