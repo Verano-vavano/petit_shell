@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 14:56:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:41:13 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,9 @@ int			is_ender(char c, char new_c);
 
 // error_manager
 void		syntax_error(char *token);
+
+
+// easter_egg
+void	metal_injection(void);
 
 #endif

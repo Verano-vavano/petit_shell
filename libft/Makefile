@@ -6,13 +6,13 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 09:06:31 by hdupire           #+#    #+#              #
-#    Updated: 2023/06/28 17:26:15 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/04 17:24:00 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRCS = ft_strlen.c ft_bzero.c ft_strcmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strjoin.c ft_split.c ft_strchr_int.c
+SRCS = ft_strlen.c ft_bzero.c ft_strcmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strjoin.c ft_split.c ft_strchr_int.c get_next_line.c free_buffers.c
 DEST = $(SRCS:.c=.o)
 
 all: ${NAME}

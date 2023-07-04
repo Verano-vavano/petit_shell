@@ -6,11 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 15:00:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:42:54 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+#include "libft.h"
+#include <stdlib.h>
 
 int	cmd_processing(char *line)
 {
@@ -20,6 +22,8 @@ int	cmd_processing(char *line)
 	free(line);
 	if (!lexed || understand_the_line(lexed))
 		return (1);
+	if (ft_strcmp("hell", lexed->content) == 0)
+		metal_injection();
 	/*if (here_doc(lexed))
 		return (1);*/
 	//command_expansion(lexed)
