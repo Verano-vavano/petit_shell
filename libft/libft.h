@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/25 13:48:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 17:27:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 char	*free_buffers(char *buf1, ...);
 int		ft_strchr_int(const char *s, int c);
+char	*ft_itoa(int n);
 
 #endif

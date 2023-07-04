@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 14:56:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 17:32:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define TEMP "/tmp/temp_shellptic_"
 
 enum	e_cmd_part
 {
@@ -65,6 +67,7 @@ int			ft_strlen_arg(char *s, int meta);
 int			n_words(char *s);
 
 /*---------------HEREDOC------------------*/
+void		unlink_heredocs(t_command *cmd);
 int			here_doc(t_command *cmd);
 
 /*---------------UTILITIES------------------*/
