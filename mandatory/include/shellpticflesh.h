@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 19:00:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/03 13:49:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			redirection_check(t_command *cmd, char *s);
 int			meta_check(t_command *cmd);
 
 // parse_args
-t_command	*ft_split_cmd(char *cmd);
+t_command	*ft_split_cmd(char *cmd, t_command *cmd_args);
 
 // parse_args_utilities
 int			ft_strlen_arg(char *s, int meta);
@@ -71,6 +71,7 @@ void		free_linked_list(t_command *l);
 
 // cute_utils
 t_command	*init_command_arg(t_command *start);
+int			is_needy(char *s);
 int			is_strict_meta(char c);
 int			is_metachar(char c);
 int			is_separator(char c);

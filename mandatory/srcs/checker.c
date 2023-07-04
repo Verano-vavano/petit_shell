@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/03 11:36:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/03 11:48:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	meta_check(t_command *cmd)
 	else if (len > 2
 		&& is_metachar(s[0]) && is_metachar(s[1]) && is_metachar(s[2]))
 		syntax_error(s + 2);
+	else if (is_metachar(s[0]) && cmd->next && is_metachar(cmd->next->content[0]))
+		syntax_error(cmd->next->content);
 	else
 		return (0);
 	return (1);

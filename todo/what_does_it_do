@@ -3,6 +3,7 @@ metacaracteres = | & ; ( ) < >
 read input
 breaks input into words and operators obeying the quoting rule
 tokens separated by metacharacters
+heredoc
 alias expansion
 parse tokens into simple and compound commands (not doing compounds tho pls)
 shell expansions

@@ -1,5 +1,0 @@
-TRUCS CHELOUS DU PETIT SHELL
-ls hrewher | echo lol | << a > b (d'abord here_docs, puis message d'erreur quand fini)
-ls hrewher | echo lol && << a > b (demande quand meme le here_doc, mais ne fais rien dans b)
-ls -l < a -a > b -A
-echo $'\n' && echo \n && echo '\n' && echo "\n"

@@ -1,0 +1,61 @@
+unlink les heredocs
+ne pas gerer le \ :)
+$"" $'' "" ''
+si commence par #, ignorer ce qui suit(commentaire)
+les arguments sont separes par des metacaracteres § (tabs, espaces, nl)
+signaux
+environnement (_, old_pwd, pwd)
+!! !?
+!^
+!:2
+!:2-
+!*
+!:$ ou !$ (dernier arg entre)
+$! last pid
+$$ cur pid
+Gerer les parentheses
+
+Le buffer_size est de 4096, mais tout doit etre lu !
+
+variables non exportees ne doivent pas etre dans l'env, mais doivent etre remplacees si appelees directement dans une commande !
+a=12
+echo $a -> 12
+
+CD = Regarder d'abord si folder dans CDPATH (si set dans l'env), puis en chemin absolue.
+
+echo $(ls; pwd)
+echo (ls; pwd)
+(x=10; ((x++)); echo $x; exit $x; echo lol)
+echo $(x=10; ((x++)); echo $x)
+
+unexpected token -> 258
+	   
+generer une erreur si guillemets pas fermees (ou readliner)
+
+--
+
+POUR L'ENV:
+
+CDPATH -> cd
+HOME
+IFS (word expansion, je pense pas obligatoire)
+PATH -> if 0-length dir, = ./
+PS1 -> truc au debut de chaque ligne
+PS2 -> truc au debut de chaque ligne quand il demande plus
+
+_ -> last argument
+SHELLPTICFLESH -> pathname de l'exec
+OLD_PWD -> previous work dir
+
+THEORIQUEMENT, seuls PWD, SHLVL et _ sont definis au lancement du shell
+
+--
+
+TRUCS CHELOUS DU PETIT SHELL
+ls hrewher | echo lol | << a > b (d'abord here_docs, puis message d'erreur quand fini)
+ls hrewher | echo lol && << a > b (demande quand meme le here_doc, mais ne fais rien dans b)
+ls -l < a -a > b -A
+echo $'\n' && echo \n && echo '\n' && echo "\n"
+
+si export b, alors b est dans env, mais n'affiche pas quand appel 'env' mais est dans export
+cependant, si on fait ensuit b=, alors il apparait dans env

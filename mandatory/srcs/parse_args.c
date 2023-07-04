@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:05:46 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 19:07:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/03 13:39:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_strdup_arg(char *s, t_command *args)
 		else
 		{
 			c = s[0];
-			while (s[i[0]] == c)
+			while (s[i[0]] && s[i[0]] == c)
 			{
 				now_arg->content[i[1]++] = c;
 				i[0]++;
@@ -81,16 +81,21 @@ static int	ft_strdup_arg(char *s, t_command *args)
 	return (i[0]);
 }
 
-t_command	*ft_split_cmd(char *cmd)
+t_command	*ft_split_cmd(char *cmd, t_command *cmd_args)
 {
 	int			i;
 	int			err_catcher;
-	t_command	*cmd_args;
 
 	i = 0;
 	if (!cmd[i])
 		return (0);
-	cmd_args = ft_calloc(1, sizeof (t_command));
+	if (!cmd_args)
+		cmd_args = ft_calloc(1, sizeof (t_command));
+	else
+	{
+		cmd_args->next = ft_calloc(1, sizeof (t_command));
+		cmd_args = cmd_args->next;
+	}
 	i = 0;
 	while (cmd[i] && is_separator(cmd[i]))
 		i++;
