@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 10:08:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:28:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	cmd_processing(char *line)
 	lexed = understand_the_line(line);
 	if (!line || !(*line))
 		return (1);
-	if (here_doc(lexed))
-		return (1);
-	//execute_the_line(line);
-	//free(line);
+	/*if (here_doc(lexed))
+		return (1);*/
+	//command_expansion(lexed)
+	//execute_the_line(lexed);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:05:46 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/03 13:39:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:19:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,11 @@ static int	ft_strdup_arg(char *s, t_command *args)
 t_command	*ft_split_cmd(char *cmd, t_command *cmd_args)
 {
 	int			i;
+	int			j;
 	int			err_catcher;
 
 	i = 0;
+	j = 0;
 	if (!cmd[i])
 		return (0);
 	if (!cmd_args)

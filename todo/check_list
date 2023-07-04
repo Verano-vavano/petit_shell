@@ -1,5 +1,6 @@
 readline V
 lexer into words and operators via quoting rule V
+addhistory if ok V
 here_docs in /tmp/
 history in shellptic_history
 tilde expansion
@@ -9,7 +10,6 @@ quote removal
 redirections
 is command builtin ?
 is command in path ?
-addhistory if ok
 try execution
 else execute as shell script
 register in _

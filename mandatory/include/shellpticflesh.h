@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/03 13:49:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:15:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ enum	e_cmd_part
 typedef struct s_command
 {
 	char				*content;
+	int					no_command;
 	enum e_cmd_part		purpose;
 	struct s_command	*next;
 }				t_command;

@@ -56,7 +56,6 @@ ${a:+lol} : si a est set et non nul, renvoie lol
 ${#a} : renvoie la longuer de a
 
 then command substitution
-but maybe not as it requires subshells so i dont think we can
 
 then arithmetic expansion
 but i dont think we want to recreate a full f-ing calculator
@@ -84,7 +83,6 @@ COMMAND EXPANSION !
 Variable assignements will be done after processing
 if words remain after shell expansion above, the first word is the name of the command
 redirections are performed
-variable assignements ig (dont get it)
 
 the shell now searches for the command
 if there are nos slashes, shell function ?
@@ -93,7 +91,7 @@ if neither, then searches in $PATH
 if search successful or there are slashes, tries to execute it
 if fails, it is a shell script and tries to execute it as is
 
-registers command path in $_ in env
+registers last arg in $_ in env
 
 exit status is value return of waitpid
 command not found = 127

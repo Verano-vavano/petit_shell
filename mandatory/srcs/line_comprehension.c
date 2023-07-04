@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 10:09:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:22:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	not_ended(char *s)
 	size_t	len;
 
 	len = ft_strlen(s);
-	printf("%c\n", s[len - 1]);
 	if (len >= 1 && (s[len - 1] == '|' || s[len - 1] == '\\'))
 		return (1);
 	else if (len >= 2 && !ft_strcmp(s + (len - 2), "&&"))
@@ -104,5 +103,6 @@ t_command	*understand_the_line(char *line)
 	get_purpose(cmd_cpy, next_purpose);
 	printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
 	add_history(line);
+	free(line);
 	return (cmd);
 }

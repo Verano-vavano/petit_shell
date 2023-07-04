@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/30 19:02:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:23:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ void	get_text(t_piping *p, int *pipe)
 	}
 	free(line);
 }*/
-
+/*
 int	here_doc(t_command *cmd)
 {
-	t_command	*cmd_cpy;
-
-	cmd_cpy = cmd;
 
 	return (0);
-}
+}*/
