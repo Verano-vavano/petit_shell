@@ -6,25 +6,42 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/03 13:39:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 14:04:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static char	strlen_loop(char *s, int *i, char c)
+int	handle_parenthesis(char *c, char c2, int dos)
+{
+	if (c2 == '(' && *c == ')')
+		dos = 1;
+	else if (c2 == '{' && *c == '}')
+		dos = 1;
+	return (dos);
+}
+
+static char	strlen_loop(char *s, int *i, char c, int *dos)
 {
 	while (s[*i] && !is_separator(s[*i]))
 	{
 		if (is_metachar(s[*i]) && !is_delim(c))
 			return (0);
-		if (is_delim(s[*i]) && s[*i - 1] != '\\')
+		if (is_delim(s[*i]) && (*i == 0 || s[*i - 1] != '\\')
+			&& (c == s[*i] || !is_delim(c)))
 		{
-			if (c == s[*i])
+			if (c == s[*i] && *dos == 0)
 				c = ' ';
-			else if (!(is_delim(c)))
+			else if (!(is_delim(c)) && s[*i] != ')' && s[*i] != '}')
 				c = s[*i];
+			else if (*dos == 1 && c == s[*i])
+				(*dos)--;
+			if (c == '(')
+				c = ')';
+			else if (c == '{')
+				c = '}';
 		}
+		*dos = handle_parenthesis(&c, s[*i], *dos);
 		(*i)++;
 	}
 	return (c);
@@ -33,11 +50,12 @@ static char	strlen_loop(char *s, int *i, char c)
 int	ft_strlen_arg(char *s, int meta)
 {
 	int		i;
+	int		dos;
 	char	c;
 
 	if (!s[0])
 		return (0);
-	c = s[0];
+	c = 's';
 	i = 0;
 	if (meta)
 	{
@@ -45,13 +63,11 @@ int	ft_strlen_arg(char *s, int meta)
 			i++;
 		return (i);
 	}
-	while (1)
+	dos = 0;
+	while (c)
 	{
-		c = strlen_loop(s, &i, c);
-		if (!s[i] || !is_delim(c) || c == 0)
-			break ;
-		while (s[i] && is_separator(s[i]))
-			i++;
+		c = strlen_loop(s, &i, c, &dos);
+		c = rescue_funk(s, 0, &i, c);
 	}
 	return (i);
 }

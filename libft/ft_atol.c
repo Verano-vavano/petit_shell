@@ -10,12 +10,13 @@ int is_dgt(char c)
 	return ((unsigned)c - '0' < 10);
 }
 
-long ft_atol(const char *s)
+long	ft_atol(const char *s)
 {
-	int n;
+	long n;
 	int neg;
 
 	n = 0;
+	neg = 1;
 	while(is_spc(*s))
 		s++;
 	if (*s == '-') 

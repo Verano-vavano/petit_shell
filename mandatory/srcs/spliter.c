@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 15:02:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 14:26:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,34 @@
 
 static int	not_ended(char *s)
 {
-	size_t	len;
+	int		dos;
+	int		i;
+	char	c;
 
-	len = ft_strlen(s);
-	if (len >= 1 && (s[len - 1] == '|' || s[len - 1] == '\\'
-			|| s[len - 1] == '\'' || s[len - 1] == '"'))
-		return (1);
-	else if (len >= 2 && !ft_strcmp(s + (len - 2), "&&"))
-		return (1);
+	c = 's';
+	i = 0;
+	dos = 0;
+	while (s[i])
+	{
+		if (is_delim(s[i]) && (i == 0 || s[i - 1])
+			&& (c == s[i] || !is_delim(c)))
+		{
+			if (!is_delim(c) && s[i] != ')' && s[i] != '}')
+				c = s[i];
+			else if (c == s[i] && !dos)
+				c = ' ';
+			else if (dos && c == s[i])
+				dos--;
+			c = convert_to_closing(c);
+		}
+		i++;
+	}
+	if (is_delim(c))
+		return (c);
 	return (0);
 }
 
-static char	*new_line_add(char *line, t_command *cmd_cpy)
+static char	*new_line_add(char *line)
 {
 	char	*new_line;
 	char	*joined;
@@ -33,9 +49,8 @@ static char	*new_line_add(char *line, t_command *cmd_cpy)
 	new_line = 0;
 	while (!new_line || !(*new_line))
 		new_line = readline("> ");
-	joined = ft_strjoin(line, " ");
 	free(line);
-	ft_split_cmd(new_line, cmd_cpy);
+	joined = ft_strjoin(line, "\n");
 	line = ft_strjoin(joined, new_line);
 	free(new_line);
 	free(joined);
@@ -45,24 +60,22 @@ static char	*new_line_add(char *line, t_command *cmd_cpy)
 t_command	*spliter_init(char *line)
 {
 	t_command		*cmd;
-	t_command		*cmd_cpy;
+	char			where_did_we_fail;
+	int				did_it;
 
-	cmd = 0;
-	cmd_cpy = cmd;
+	did_it = 0;
 	while (1)
 	{
-		while (cmd_cpy && cmd_cpy->next)
-			cmd_cpy = cmd_cpy->next;
-		if (cmd_cpy && !not_ended(cmd_cpy->content))
+		where_did_we_fail = not_ended(line);
+		printf("%c\n", where_did_we_fail);
+		if (!where_did_we_fail)
 			break ;
-		if (cmd_cpy)
-			line = new_line_add(line, cmd_cpy);
-		else
-		{
-			cmd = ft_split_cmd(line, cmd_cpy);
-			cmd_cpy = cmd;
-		}
+		did_it = 1;
+		line = new_line_add(line);
 	}
+	cmd = ft_split_cmd(line);
 	add_history(line);
+	if (!did_it)
+		free(line);
 	return (cmd);
 }

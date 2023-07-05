@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:55:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 13:59:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int	cmd_processing(char *line)
 {
 	t_command	*lexed;
 
+	if (!ft_strcmp(line, "exit"))
+	{
+		system("leaks minishell");
+		exit(0);
+	}
 	lexed = spliter_init(line);
-	free(line);
 	if (!lexed || understand_the_line(lexed))
 		return (1);
 	if (here_doc(lexed))
@@ -29,6 +33,7 @@ int	cmd_processing(char *line)
 	line_expansions(lexed);
 	//execute_the_line(lexed);
 	unlink_heredocs(lexed);
+	free_linked_list(lexed);
 	return (0);
 }
 
@@ -41,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	while (42)
 	{
-		line = readline("lol >> ");
+		line = readline(PS1);
 		if (!line || !(*line))
 			continue ;
 		cmd_processing(line);
