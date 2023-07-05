@@ -59,3 +59,12 @@ echo $'\n' && echo \n && echo '\n' && echo "\n"
 
 si export b, alors b est dans env, mais n'affiche pas quand appel 'env' mais est dans export
 cependant, si on fait ensuit b=, alors il apparait dans env
+
+--
+
+SYNTAX ERROR
+< >, > <, <<<, >>>, < <, > >
+( not at beginning of cmd (after start, ;, && or ||)
+() (closing after opening without anything within)
+{ } (with n spaces within and nothing before)
+| with nothing before
