@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 13:49:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 18:23:46 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ char		convert_to_closing(char c);
 // error_manager
 void		syntax_error(char *token);
 
-/*---------------EASTER_EGGS------------------*/
+/*---------------BUILTINS------------------*/
 void		metal_injection(void);
+void		exit_hell(t_command *lexed);
 
 #endif

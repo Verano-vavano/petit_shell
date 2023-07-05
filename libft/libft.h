@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 15:46:22 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:33:15 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		ft_strchr_int(const char *s, int c);
 char	*ft_itoa(int n);
 char	*get_next_line(int fd);
 long	ft_atol(const char *s);
+int		is_dgt(char c);
 
 #endif
