@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 18:01:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 12:19:23 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ char	*free_buffers(char *buf1, ...);
 int		ft_strchr_int(const char *s, int c);
 char	*ft_itoa(int n);
 char	*get_next_line(int fd);
+long	ft_atol(const char *s);
 
 #endif

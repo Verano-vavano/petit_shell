@@ -6,10 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 11:49:29 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:19:08 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
 
 static int	rand_num(void)
@@ -55,5 +56,6 @@ void	metal_injection(void)
 		group = get_next_line(fd);
 		i++;
 	}
+	printf("int = %ld and atoi = %ld\n",5534238749328,ft_atol("5534238749328"));
 	printf("%s", group);
 }
