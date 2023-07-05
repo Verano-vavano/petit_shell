@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 18:23:46 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:57:33 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ void		syntax_error(char *token);
 /*---------------BUILTINS------------------*/
 void		metal_injection(void);
 void		exit_hell(t_command *lexed);
+void		echo_des_enfers(t_command *lexed);
 
 #endif
