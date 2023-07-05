@@ -6,20 +6,20 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:54:37 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/05 21:01:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/05 21:02:32 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-int is_arg(char *arg, int *newline)
+int	is_arg(char *arg, int *newline)
 {
-	int i;
+	int	i;
 
 	if (arg[0] != '-')
 		return (0);
 	i = 1;
-	while(arg[i] == 'n')
+	while (arg[i] == 'n')
 		i++;
 	if (arg[i] != '\0')
 		return (0);
@@ -27,9 +27,9 @@ int is_arg(char *arg, int *newline)
 	return (1);
 }
 
-void echo_des_enfers(t_command *lexed)
+void	echo_des_enfers(t_command *lexed)
 {
-	int newline;
+	int	newline;
 
 	newline = 1;
 	if (lexed)
@@ -38,7 +38,7 @@ void echo_des_enfers(t_command *lexed)
 			lexed = lexed->next;
 		while (lexed)
 		{
-			printf("%s",lexed->content);
+			printf("%s", lexed->content);
 			if (lexed->next)
 				printf(" ");
 			lexed = lexed->next;
