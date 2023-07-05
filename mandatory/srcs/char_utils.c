@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:49:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 14:18:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 12:34:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	is_strict_meta(char c)
 
 int	is_metachar(char c)
 {
-	return (c == '|' || c == '&' || c == ';' || c == '(' || c == ')'
-		|| c == '<' || c == '>');
+	return (c == '|' || c == '&' || c == ';' || c == '<' || c == '>');
 }
 
 int	is_separator(char c)

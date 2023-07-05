@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:50:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 13:49:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <readline/history.h>
 
 # define TEMP "/tmp/temp_shellptic_"
+
+# define PS1 "lol >> "
+# define PS2 "> "
 
 enum	e_cmd_part
 {
@@ -60,11 +63,12 @@ int			redirection_check(t_command *cmd, char *s);
 int			meta_check(t_command *cmd);
 
 // parse_args
-t_command	*ft_split_cmd(char *cmd, t_command *cmd_args);
+t_command	*ft_split_cmd(char *cmd);
+char		rescue_funk(char *s, t_command *now_arg, int *i, char c);
 
 // parse_args_utilities
+int			handle_parenthesis(char *c, char c2, int dos);
 int			ft_strlen_arg(char *s, int meta);
-int			n_words(char *s);
 
 /*---------------HEREDOC------------------*/
 void		unlink_heredocs(t_command *cmd);
@@ -86,6 +90,9 @@ int			is_metachar(char c);
 int			is_separator(char c);
 int			is_delim(char c);
 int			is_ender(char c, char new_c);
+
+// more_char_utils
+char		convert_to_closing(char c);
 
 // error_manager
 void		syntax_error(char *token);

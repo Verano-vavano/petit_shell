@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaning.c                                         :+:      :+:    :+:   */
+/*   more_char_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 13:55:56 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/05 13:32:45 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/05 13:33:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shellpticflesh.h"
-
-void	free_linked_list(t_command *l)
+char	convert_to_closing(char c)
 {
-	t_command	*next;
-
-	while (l && l->next)
-	{
-		next = l->next;
-		free(l->content);
-		free(l);
-		l = l->next;
-	}
-	if (l && l->content)
-		free(l->content);
-	if (l)
-		free(l);
+	if (c == '(')
+		return (')');
+	else if (c == '{')
+		return ('}');
+	return (c);
 }
