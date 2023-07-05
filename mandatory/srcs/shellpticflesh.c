@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:37:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 10:55:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	cmd_processing(char *line)
 		return (1);
 	if (ft_strcmp("hell", lexed->content) == 0)
 		metal_injection();
-	line_expansions(lexed)
+	line_expansions(lexed);
 	//execute_the_line(lexed);
 	unlink_heredocs(lexed);
 	return (0);

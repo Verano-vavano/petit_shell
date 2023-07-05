@@ -6,9 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:36:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:49:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 10:56:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "shellpticflesh.h"
 
 /* EXPANSIONS TO DO LMAO
  * TILDE EXPANSION (~ = $HOME || /home/$USERNAME)
