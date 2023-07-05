@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 15:51:28 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:57:04 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,5 @@ void	metal_injection(void)
 		group = get_next_line(fd);
 		i++;
 	}
-	long test = 5534238749328;
-	char *t = "5534238749328";
-	printf("int = %ld and atoi = %ld, max min = %ld\n",test,ft_atol(t),LONG_MIN);
 	printf("%s", group);
 }
