@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 14:26:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 16:56:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,32 @@ static int	not_ended(char *s)
 				dos--;
 			c = convert_to_closing(c);
 		}
+		dos = handle_parenthesis(&c, s[i], dos);
 		i++;
 	}
-	if (is_delim(c))
+	if (is_delim(c) || dos)
 		return (c);
 	return (0);
+}
+
+static int	check_ender(char *line)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = 'L';
+	while (line[i])
+	{
+		if (line[i] == '|')
+			c = '|';
+		if (line[i + 1] == 0 && line[i] == '\\')
+			return (1);
+		else if (c == '|' && !is_separator(line[i]))
+			c = 'L';
+		i++;
+	}
+	return (c != 'L');
 }
 
 static char	*new_line_add(char *line)
@@ -48,7 +69,7 @@ static char	*new_line_add(char *line)
 
 	new_line = 0;
 	while (!new_line || !(*new_line))
-		new_line = readline("> ");
+		new_line = readline(PS2);
 	free(line);
 	joined = ft_strjoin(line, "\n");
 	line = ft_strjoin(joined, new_line);
@@ -66,7 +87,8 @@ t_command	*spliter_init(char *line)
 	did_it = 0;
 	while (1)
 	{
-		where_did_we_fail = not_ended(line);
+		//check_syntax(line);
+		where_did_we_fail = (not_ended(line) || check_ender(line));
 		printf("%c\n", where_did_we_fail);
 		if (!where_did_we_fail)
 			break ;

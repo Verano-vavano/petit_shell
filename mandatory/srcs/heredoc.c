@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 11:45:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:57:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,12 @@ void	unlink_heredocs(t_command *cmd)
 
 static void	write_heredoc(int fd, char *eof)
 {
-	int		read_ok;
 	char	*line;
 
 	line = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
 	while (1)
 	{
-		write(STDOUT_FILENO, PS2, ft_strlen(PS2));
-		read_ok = read(STDIN_FILENO, line, BUFFER_SIZE);
-		if (read_ok == -1)
-		{
-			perror("lol");
-			break ;
-		}
+		line = readline(PS2);
 		line[ft_strchr_int(line, '\n')] = 0;
 		if (!ft_strcmp(line, eof))
 		{
@@ -77,6 +70,7 @@ static void	write_heredoc(int fd, char *eof)
 		}
 		line[ft_strchr_int(line, '\n')] = '\n';
 		write(fd, line, ft_strlen(line));
+		free(line);
 	}
 }
 
