@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:26:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:49:29 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	metal_injection(void)
 
 	i = 0;
 	group_num = rand_num();
-	fd = open("/Users/tcharanc/code/minishell/mandatory/shell-on-earth.txt", O_RDONLY);
+	fd = open("/Users/tcharanc/code/minishell/mandatory/shell_on_earth.txt", O_RDONLY);
 	while (i < group_num)
 	{
 		group = get_next_line(fd);
