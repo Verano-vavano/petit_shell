@@ -67,4 +67,5 @@ SYNTAX ERROR
 ( not at beginning of cmd (after start, ;, && or ||)
 () (closing after opening without anything within)
 { } (with n spaces within and nothing before)
-| with nothing before
+V | or ; or || or && with nothing before
+| |
