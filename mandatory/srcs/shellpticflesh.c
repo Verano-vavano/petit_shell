@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/06 18:12:10 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:51:37 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int	cmd_processing(char *line)
+int	cmd_processing(char *line, t_env *env)
 {
 	t_command	*lexed;
 
@@ -29,6 +29,8 @@ int	cmd_processing(char *line)
 		exit_hell(lexed);
 	else if (ft_strcmp("echo", lexed->content) == 0)
 		echo_des_enfers(lexed->next);
+	else if (ft_strcmp("env", lexed->content) == 0)
+		env_infernal(env);
 	line_expansions(lexed);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
@@ -40,16 +42,16 @@ int	cmd_processing(char *line)
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
-	// t_env	*env;
+	t_env	*env;
 
 	(void)ac;
 	(void)av;
-	env_processing(envp);
+	env = env_processing(envp);
 	while (42)
 	{
 		line = readline(PS1);
 		if (!line || !(*line))
 			continue ;
-		cmd_processing(line);
+		cmd_processing(line, env);
 	}
 }

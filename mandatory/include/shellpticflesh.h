@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/07 13:27:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:52:31 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_env
 }				t_env;
 
 // shellpticflesh
-int			cmd_processing(char *cmd);
+int			cmd_processing(char *line, t_env *env);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char *cmd);
@@ -115,6 +115,7 @@ int			syntax_error(char *token, int l);
 void		metal_injection(void);
 void		exit_hell(t_command *lexed);
 void		echo_des_enfers(t_command *lexed);
+void		env_infernal(t_env *env);
 
 /*----------------ENV---------------------*/
 t_env		*env_processing(char **envp);
