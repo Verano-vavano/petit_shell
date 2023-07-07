@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/06 13:08:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/06 18:12:10 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ int	cmd_processing(char *line)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
+
+int	main(int ac, char **av, char **envp)
 {
 	char	*line;
+	// t_env	*env;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
+	(void)ac;
+	(void)av;
+	env_processing(envp);
 	while (42)
 	{
 		line = readline(PS1);

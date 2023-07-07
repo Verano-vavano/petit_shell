@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 18:33:15 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:59:23 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*ft_itoa(int n);
 char	*get_next_line(int fd);
 long	ft_atol(const char *s);
 int		is_dgt(char c);
+void	free_char_etoile_etoile(char **truc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/06 14:12:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:27:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct s_command
 	enum e_cmd_part		purpose;
 	struct s_command	*next;
 }				t_command;
+
+typedef struct s_env
+{
+	char			*key;
+	char			**value;
+	struct s_env	*next;
+}				t_env;
 
 // shellpticflesh
 int			cmd_processing(char *cmd);
@@ -108,5 +115,8 @@ int			syntax_error(char *token, int l);
 void		metal_injection(void);
 void		exit_hell(t_command *lexed);
 void		echo_des_enfers(t_command *lexed);
+
+/*----------------ENV---------------------*/
+t_env		*env_processing(char **envp);
 
 #endif
