@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 18:57:33 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:12:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ t_command	*spliter_init(char *cmd);
 // line_comprehension
 int			understand_the_line(t_command *cmd);
 
+// syntax checker
+int			check_syntax(char *line);
+
 // purposer
 int			redirection_check(t_command *cmd, char *s);
 int			meta_check(t_command *cmd);
@@ -77,6 +80,9 @@ int			here_doc(t_command *cmd);
 /*--------------EXPANSIONS-----------------*/
 int			line_expansions(t_command *lexed);
 
+/*--------------EXECUTION-----------------*/
+void		execute_the_line(t_command *cmd);
+
 /*---------------UTILITIES------------------*/
 // cleaning
 void		free_linked_list(t_command *l);
@@ -93,9 +99,10 @@ int			is_ender(char c, char new_c);
 
 // more_char_utils
 char		convert_to_closing(char c);
+int			is_cmd_delim(char *c);
 
 // error_manager
-void		syntax_error(char *token);
+int			syntax_error(char *token, int l);
 
 /*---------------BUILTINS------------------*/
 void		metal_injection(void);
