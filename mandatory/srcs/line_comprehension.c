@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 14:59:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:36:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 		return (ERROR);
 	if (purpose >= IN_FILE && (s[0] == '<' || s[0] == '>'))
 	{
-		syntax_error(s);
+		syntax_error(s, 1);
 		return (ERROR);
 	}
 	if (is_metachar(s[0]))
