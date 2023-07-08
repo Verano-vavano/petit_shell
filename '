@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_fleuves_infernaux.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/07 14:20:03 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/07/07 18:17:10 by tcharanc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include "shellpticflesh.h"
+#include <stdio.h>
+
+t_env	*env_last(t_env *env)
+{
+	if (!env)
+		return (env);
+	while (env->next != NULL)
+		env = env->next;
+	return (env);
+}
+
+void	add_env(t_env **env, t_env *new)
+{
+	t_env	*tmp;
+
+	if (env && *env)
+	{
+		tmp = env_last(*env);
+		tmp->next = new;
+	}
+	else
+		*env = new;
+}
+
+t_env	*dup_env(t_env *ptr)
+{
+	t_env new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new.key = ft_strdup(ptr->key);
+}
+
+void print_env(t_env *env)
+{
+	t_env *dup;
+	t_env *ptr;
+
+	ptr = env;
+	while(ptr)
+	{
+		add_env(&dup, dup_env(ptr));
+		ptr = ptr->next;
+	}
+}
+
+// ne pas s'arreter si un est faux
+// syntax = alpha, num _ 
+void	un_des_set_fleuves_infernaux(t_command *lexed, t_env *env)
+	
+{
+	if (!lexed->next)
+		print_env(env);
+}

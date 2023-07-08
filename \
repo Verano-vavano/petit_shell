@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/08 18:18:31 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:20:29 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,14 @@
 
 void free_env(t_env *env)
 {
-	int i;
+	t_env *next;
 
-	if (env)
-	{
-        free(env->key);
-		if (env->value != NULL)
-		{
-			i = -1;
-			while (env->value[++i])
-				free(env->value[i]);
-			free(env->value);
-		}
-	}
-}
-
-void free_whole_env(t_env *env)
-{
-	t_env	*next;
-
+	next = env->next;
     while (env != NULL)
     {
-		next = env->next;
-		free_env(env);
+        free(env->key);
+        if (env->value != NULL)
+			free_char_etoile_etoile(env->value);
         free(env);
         env = next;
     }

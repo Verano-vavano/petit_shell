@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/07 13:52:31 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:54:08 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void		execute_the_line(t_command *cmd);
 
 /*---------------UTILITIES------------------*/
 // cleaning
-void		free_linked_list(t_command *l);
+void		free_command(t_command *l);
+void		free_env(t_env *env);
+void		free_whole_env(t_env *env);
 
 // utils
 t_command	*init_command_arg(t_command *start);
@@ -116,8 +118,12 @@ void		metal_injection(void);
 void		exit_hell(t_command *lexed);
 void		echo_des_enfers(t_command *lexed);
 void		env_infernal(t_env *env);
+void		les_ex_portes_de_lenfer(t_command *lexed, t_env *env);
 
 /*----------------ENV---------------------*/
 t_env		*env_processing(char **envp);
+/*----------------ENV_UTILS----------------*/
+void		add_env(t_env **env, t_env *newest);
+t_env		*env_last(t_env *env);
 
 #endif
