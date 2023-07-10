@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 17:53:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:01:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_metachar(char *line)
 	if ((line[0] == '<' || line[0] == '>') && line[1] == '&')
 		return (0);
 	else if (is_metachar(line[i]) && is_metachar(line[i + 1])
-		&& line[i] != line[i + 1])
+		&& line[i] != line[i + 1] && (line[0] != '<' && line[0] != '>'))
 		return (syntax_error(line + i + 1, 1));
 	while (line[i])
 	{
