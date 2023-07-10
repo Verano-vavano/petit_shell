@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 18:45:06 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:16:31 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,31 @@ void	sort_env(t_env *head)
 	}
 }
 
+// if exporting a var, check if already exist
 void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 {
 	t_env	*ptr;
 	t_env	*sorted_env;
 
 	ptr = env;
-	sorted_env = NULL;
-	while (ptr->next)
+	if (!lexed->next)
 	{
-		add_env(&sorted_env, dup_env(ptr));
-		ptr = ptr->next;
+		sorted_env = NULL;
+		while (ptr->next)
+		{
+			add_env(&sorted_env, dup_env(ptr));
+			ptr = ptr->next;
+		}
+		sort_env(sorted_env);
+		env_infernal(sorted_env, "declare -x ", NULL);
+		free_whole_env(sorted_env);
 	}
-	sort_env(sorted_env);
-	env_infernal(sorted_env, "declare -x ", NULL);
-	free_whole_env(sorted_env);
-	(void)lexed;
+	else
+	{
+		while (lexed->next)
+		{
+			add_env(&env, env_new(lexed->next->content));
+			lexed = lexed->next;
+		}
+	}
 }
