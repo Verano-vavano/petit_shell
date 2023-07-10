@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 09:53:26 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:02:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_putstr(char *s)
 
 t_env	*dup_env(t_env *env)
 {
-	t_env *new;
+	t_env	*new;
 
 	new = malloc(sizeof(t_env));
 	if (!new)

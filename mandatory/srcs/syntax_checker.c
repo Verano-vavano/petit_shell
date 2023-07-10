@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 08:52:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:01:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_metachar(char *line)
 
 	i = 0;
 	meta = 0;
+	if ((line[0] == '<' || line[0] == '>') && line[1] == '&')
+		return (0);
 	while (line[i])
 	{
 		if (is_metachar(line[i]) && meta == 2)
@@ -44,6 +46,8 @@ static int	check_parenthesis(char *line, int first, int dollar)
 		i++;
 	if ((first || dollar) && line[i] != ')' && line[i] != '\0')
 		return (0);
+	else if (!(first || dollar) && line[i] == '(')
+		return (syntax_error(line + i, 1));
 	else if (line[i] == ')')
 		return (syntax_error(line + i, 1));
 	else if (!(first || dollar) && line[i] != ')' && line[i] != '\0')
@@ -71,6 +75,19 @@ static int	check_cbrackets(char *line)
 	return (0);
 }
 
+static int	redir_ok(char *line)
+{
+	if (line[0] == '>' && line[1] == '<')
+		return (syntax_error("<", 1));
+	else if (line[0] == '>' && line[1] == '<'
+		&& line[2] && (line[2] == '<' || line[2] == '>'))
+		return (syntax_error(line + 2, 1));
+	else if (line[0] == line[1]
+		&& (line[2] == '<' || line[2] == '>') && line[2] != line[0])
+		return (syntax_error(line + 2, 1));
+	return (0);
+}
+
 int	check_syntax(char *line)
 {
 	int	first;
@@ -83,15 +100,14 @@ int	check_syntax(char *line)
 	{
 		if (first && is_strict_meta(line[i]))
 			return (syntax_error(line + i, -1));
-		if (is_metachar(line[i]) && check_metachar(line + i))
+		else if ((is_metachar(line[i]) && check_metachar(line + i))
+			|| (line[i] == '(' && check_parenthesis(line + i, first, dollar))
+			|| (line[i] == '{' && first && check_cbrackets(line + i))
+			|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i)))
 			return (1);
-		if (line[i] == '(' && check_parenthesis(line + i, first, dollar))
-			return (1);
-		else if (line[i] == '{' && first && check_cbrackets(line + i))
-			return (1);
-		first = is_cmd_delim(line + i) || (first && is_separator(line[i]));
+		first = is_cmd_delim(line + i) || (first && is_separator(line[i]))
+			|| (first && line[i] == '(');
 		dollar = (line[i] == '$' || (dollar && line[i] == '('));
-		printf("%c %d\n", line[i], first);
 		i++;
 		while (is_separator(line[i]))
 			i++;

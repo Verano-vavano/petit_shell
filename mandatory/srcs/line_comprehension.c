@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/08 16:51:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:22:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,16 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 {
 	char	*s;
 
-	if (purpose != UNDEFINED)
+	s = cmd->content;
+	if (purpose >= IN_FILE && purpose <= OUT_FILE_APP && s[0] == '&')
+	{
+		cmd->purpose = REDIR_ID;
+		return (purpose);
+	}
+	else if (purpose != UNDEFINED)
 	{
 		cmd->purpose = purpose;
 		return (UNDEFINED);
-	}
-	s = cmd->content;
-	if (meta_check(cmd))
-		return (ERROR);
-	if (purpose >= IN_FILE && (s[0] == '<' || s[0] == '>'))
-	{
-		syntax_error(s, 1);
-		return (ERROR);
 	}
 	if (is_metachar(s[0]))
 		cmd->purpose = DELIM;
