@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 09:56:57 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:32:05 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 #include <stdlib.h>
 #include <unistd.h>
 
- static inline int    ft_getpid(void)
- {
-     long    rax;
-     {
-         asm("mov $0x2000014, %%rax\n"
-             "syscall\n"
-             "mov %%rax, %0\n":"=A"(rax));
-     }
-     return (rax);
- }
+/*
+static inline int	ft_getpid(void)
+{
+	long	rax;
+
+	{
+		asm("mov $0x2000014, %%rax\n"
+			"syscall\n"
+			"mov %%rax, %0\n":"=A"(rax));
+	}
+	return (rax);
+}*/
 
 int	cmd_processing(char *line, t_env *env)
 {

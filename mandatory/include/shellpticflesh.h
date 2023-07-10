@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/08 17:54:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:12:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ enum	e_cmd_part
 	OUT_FILE,
 	HERE_DOC_DELIM,
 	OUT_FILE_APP,
+	REDIR_ID,
 	DELIM,
 	ERROR
 };
@@ -109,6 +110,7 @@ int			is_ender(char c, char new_c);
 // more_char_utils
 char		convert_to_closing(char c);
 int			is_cmd_delim(char *c);
+int			is_num(char c);
 
 // error_manager
 int			syntax_error(char *token, int l);

@@ -6,39 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 14:23:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 16:57:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-static char	duploop(char *s, char *arg, int i[4], char c)
-{
-	int	*dos;
-
-	dos = &(i[3]);
-	while (s[i[0]] && !is_separator(s[i[0]]))
-	{
-		if (is_metachar(s[i[0]]) && !is_delim(c))
-			return (0);
-		if (is_delim(s[i[0]]) && (i == 0 || s[i[0] - 1] != '\\')
-			&& (c == s[i[0]] || !is_delim(c)))
-		{
-			arg[i[1]++] = s[i[0]];
-			if (!is_delim(c) && s[i[0]] != ')' && s[i[0]] != '}')
-				c = s[i[0]++];
-			else if (c == s[i[0]++] && *dos == 0)
-				c = ' ';
-			else if (*dos == 1 && c == s[i[0] - 1])
-				(*dos)--;
-			c = convert_to_closing(c);
-			continue ;
-		}
-		*dos = handle_parenthesis(&c, s[i[0]], *dos);
-		arg[i[1]++] = s[i[0]++];
-	}
-	return (c);
-}
 
 char	rescue_funk(char *s, t_command *now_arg, int *i, char c)
 {
@@ -53,53 +25,33 @@ char	rescue_funk(char *s, t_command *now_arg, int *i, char c)
 	return (c);
 }
 
-static t_command	*init_duping(int i[3], t_command *args, char *s, int *meta)
+static int	ft_strdup_arg(char *cmd, t_command *cmd_args)
 {
-	t_command	*now_arg;
+	int			len;
+	int			i;
+	int			total;
+	t_command	*cmd_args_cpy;
 
-	i[0] = 0;
-	i[1] = 0;
-	while (is_separator(s[i[0]]) && s[i[0]])
-		i[0]++;
-	*meta = is_metachar(s[i[0]]);
-	i[2] = ft_strlen_arg(s + i[0], *meta);
-	printf("%d\n", i[2]);
-	now_arg = args;
-	while (now_arg->next)
-		now_arg = now_arg->next;
-	now_arg->content = ft_calloc(i[2] + 1, sizeof (char));
-	if (!now_arg->content)
-		return (0);
-	return (now_arg);
-}
-
-static int	ft_strdup_arg(char *s, t_command *args, char c)
-{
-	int			i[4];
-	int			meta;
-	t_command	*now_arg;
-
-	now_arg = init_duping(i, args, s, &meta);
-	if (!now_arg)
-		return (-1);
-	i[3] = 0;
-	while (c)
+	cmd_args_cpy = cmd_args;
+	while (cmd_args_cpy->next)
+		cmd_args_cpy = cmd_args_cpy->next;
+	total = 0;
+	while (cmd[total] && is_separator(cmd[total]))
+		total++;
+	cmd = cmd + total;
+	len = ft_strlen_arg(cmd, is_metachar(cmd[0]));
+	printf("%d\n", len);
+	total += len;
+	cmd_args_cpy->content = ft_calloc(len, sizeof (char));
+	i = 0;
+	while (i < len)
 	{
-		if (!meta)
-			c = duploop(s, now_arg->content, i, c);
-		else
-		{
-			c = s[0];
-			while (s[i[0]] && s[i[0]] == c)
-				now_arg->content[i[1]++] = s[i[0]++];
-		}
-		c = rescue_funk(s, now_arg, i, c);
+		cmd_args_cpy->content[i] = cmd[i];
+		i++;
 	}
-	while (is_separator(s[i[0]]))
-		i[0]++;
-	if (s[i[0]] && s[i[0]] != '#')
-		now_arg->next = init_command_arg(args);
-	return (i[0]);
+	if (cmd[i] && cmd[i] != '#')
+		cmd_args_cpy->next = init_command_arg(cmd_args);
+	return (total);
 }
 
 t_command	*ft_split_cmd(char *cmd)
@@ -117,10 +69,11 @@ t_command	*ft_split_cmd(char *cmd)
 		i++;
 	while (cmd[i] && cmd[i] != '#')
 	{
-		err_catcher = ft_strdup_arg(cmd + i, cmd_args, 's');
+		err_catcher = ft_strdup_arg(cmd + i, cmd_args);
 		if (err_catcher == -1)
 			return (0);
 		i += err_catcher;
+		printf("%d, %c\n", i, cmd[i]);
 	}
 	return (cmd_args);
 }
