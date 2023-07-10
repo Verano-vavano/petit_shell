@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 17:01:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:10:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static int	check_cbrackets(char *line)
 
 static int	redir_ok(char *line)
 {
+	int	i;
+
 	if (line[0] == '>' && line[1] == '<')
 		return (syntax_error("<", 1));
 	else if (line[0] == '>' && line[1] == '<'
@@ -85,6 +87,13 @@ static int	redir_ok(char *line)
 	else if (line[0] == line[1]
 		&& (line[2] == '<' || line[2] == '>') && line[2] != line[0])
 		return (syntax_error(line + 2, 1));
+	i = 0;
+	while (line[i] == '<' || line[i] == '>')
+		i++;
+	while (line[i] && is_separator(i))
+		i++;
+	if (!line[i])
+		return (syntax_error("newline", 7));
 	return (0);
 }
 
