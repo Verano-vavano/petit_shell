@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 18:31:31 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:36:29 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
 static inline int	ft_getpid(void)
 {
 	long	rax;
@@ -26,7 +25,7 @@ static inline int	ft_getpid(void)
 			"mov %%rax, %0\n":"=A"(rax));
 	}
 	return (rax);
-}*/
+}
 
 int	cmd_processing(char *line, t_env *env)
 {

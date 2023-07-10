@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 17:55:40 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:36:40 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ enum	e_cmd_part
 	OUT_FILE,
 	HERE_DOC_DELIM,
 	OUT_FILE_APP,
+	IN_OUT_FILE,
 	REDIR_ID,
 	DELIM,
 	ERROR
