@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/07 16:57:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 08:50:35 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int	not_ended(char *s)
 		dos = handle_parenthesis(&c, s[i], dos);
 		i++;
 	}
-	printf("-----%d %d------\n", is_delim(c), dos);
 	return ((is_delim(c) && c != ')' && c != '}') || dos);
 }
 
@@ -88,11 +87,11 @@ t_command	*spliter_init(char *line)
 	{
 		if (check_syntax(line))
 		{
+			add_history(line);
 			free(line);
 			return (0);
 		}
 		where_did_we_fail = (not_ended(line) || check_ender(line));
-		printf("%c\n", where_did_we_fail);
 		if (!where_did_we_fail)
 			break ;
 		did_it = 1;

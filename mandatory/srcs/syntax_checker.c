@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 08:21:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 08:52:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ static int	check_parenthesis(char *line, int first, int dollar)
 	return (0);
 }
 
+static int	check_cbrackets(char *line)
+{
+	int	i;
+
+	if (line[1] == '}')
+		return (0);
+	i = 1;
+	while (line[i] && is_separator(line[i]))
+		i++;
+	if (line[i] == '}')
+		return (syntax_error("}", 1));
+	return (0);
+}
+
 int	check_syntax(char *line)
 {
 	int	first;
@@ -73,11 +87,14 @@ int	check_syntax(char *line)
 			return (1);
 		if (line[i] == '(' && check_parenthesis(line + i, first, dollar))
 			return (1);
-		first = is_cmd_delim(line + i);
+		else if (line[i] == '{' && first && check_cbrackets(line + i))
+			return (1);
+		first = is_cmd_delim(line + i) || (first && is_separator(line[i]));
 		dollar = (line[i] == '$' || (dollar && line[i] == '('));
 		printf("%c %d\n", line[i], first);
-		i += (first && line[i] != ';');
 		i++;
+		while (is_separator(line[i]))
+			i++;
 	}
 	return (0);
 }
