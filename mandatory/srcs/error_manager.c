@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 08:26:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:56:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	syntax_error(char *token, int l)
 {
-	write(2, "Syntax error near unexpected token '", 36);
+	write(2, "Syntax error near unexpected token `", 36);
 	if (l == -1 && token[1] == token[0])
 		l = 2;
 	else if (l == -1)

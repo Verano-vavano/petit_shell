@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 15:10:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:27:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	redirection_check(t_command *cmd, char *s)
 	i = 0;
 	while (s[i] && s[i] != '<' && s[i] != '>' && is_num(s[i]))
 		i++;
+	if (s[i] == '<' && s[i + 1] == '>')
+	{
+		cmd->purpose = REDIR_ID;
+		return (IN_OUT_FILE);
+	}
 	if (s[i] == '<')
 		return (check_redir_type('<', IN_FILE, cmd, s + i));
 	else if (s[i] == '>')

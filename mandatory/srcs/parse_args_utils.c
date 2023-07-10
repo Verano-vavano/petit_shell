@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 16:58:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:31:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static int	redir_parser(char *s)
 		i++;
 	if (s[i] != '<' && s[i] != '>')
 		return (0);
-	return (i + 1);
+	while (s[i] && (s[i] == '<' || s[i] == '>'))
+		i++;
+	return (i);
 }
 
 int	handle_parenthesis(char *c, char c2, int dos)
@@ -69,7 +71,7 @@ int	ft_strlen_arg(char *s, int meta)
 		return (0);
 	c = 's';
 	i = 0;
-	if (meta)
+	if (meta && s[i] != '<' && s[i] != '>')
 	{
 		c = s[i];
 		while (s[i] == c)
