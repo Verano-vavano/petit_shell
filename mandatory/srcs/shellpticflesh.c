@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 18:36:29 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:43:04 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static inline int	ft_getpid(void)
-{
-	long	rax;
-
-	{
-		asm("mov $0x2000014, %%rax\n"
-			"syscall\n"
-			"mov %%rax, %0\n":"=A"(rax));
-	}
-	return (rax);
-}
+// static inline int	ft_getpid(void)
+// {
+// 	long	rax;
+//
+// 	{
+// 		asm("mov $0x2000014, %%rax\n"
+// 			"syscall\n"
+// 			"mov %%rax, %0\n":"=A"(rax));
+// 	}
+// 	return (rax);
+// }
 
 int	cmd_processing(char *line, t_env *env)
 {
@@ -46,8 +46,6 @@ int	cmd_processing(char *line, t_env *env)
 		env_infernal(env, NULL);
 	else if (ft_strcmp("export", lexed->content) == 0)
 		les_ex_portes_de_lenfer(lexed, env);
-	// else if (ft_strcmp("$$", lexed->content) == 0)
-	// 	ft_getpid();
 	line_expansions(lexed);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);

@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/28 11:09:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:45:53 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	main(int argc, char **argv, char **envp)
 {
-	void(argc);
-	void(argv);
-	void(envp);
+	(void)argc;
+	(void)argv;
+	(void)envp;
 }

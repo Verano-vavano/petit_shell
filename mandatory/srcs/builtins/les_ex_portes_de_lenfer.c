@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 18:30:16 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:45:06 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ t_env	*dup_env(t_env *env)
 	new->key = ft_strdup(env->key);
 	if (env->value != NULL)
 	{
-		// if (ft_strcmp("PATH",env->key) == 0)
-		// 	new->value =  dup_paths(env->value);
-		// else
-		// {
+		if (ft_strcmp("PATH", env->key) == 0)
+			new->value = dup_paths(env->value);
+		else
+		{
 			new->value = malloc(sizeof(char *) * 2);
 			new->value[0] = ft_strdup(env->value[0]);
 			new->value[1] = NULL;
-		// }
+		}
 	}
 	else
 		new->value = NULL;
@@ -55,10 +55,10 @@ t_env	*dup_env(t_env *env)
 	return (new);
 }
 
-void swap_content(t_env *curr, t_env *next)
+void	swap_content(t_env *curr, t_env *next)
 {
-	char *yo_key;
-	char **yo_value;
+	char	*yo_key;
+	char	**yo_value;
 
 	yo_key = curr->key;
 	yo_value = curr->value;
@@ -70,15 +70,15 @@ void swap_content(t_env *curr, t_env *next)
 
 void	sort_env(t_env *head)
 {
-	int swapped;
-	t_env *ptr;
+	int		swapped;
+	t_env	*ptr;
 
 	swapped = 1;
-	while(swapped == 1)
+	while (swapped == 1)
 	{
 		swapped = 0;
 		ptr = head;
-		while(ptr->next)
+		while (ptr->next)
 		{
 			if (strcmp(ptr->key, ptr->next->key) > 0)
 			{
@@ -89,7 +89,6 @@ void	sort_env(t_env *head)
 		}
 	}
 }
-
 
 void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 {
