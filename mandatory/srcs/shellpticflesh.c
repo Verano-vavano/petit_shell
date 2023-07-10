@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 17:32:05 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:31:31 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	cmd_processing(char *line, t_env *env)
 	else if (ft_strcmp("echo", lexed->content) == 0)
 		echo_des_enfers(lexed->next);
 	else if (ft_strcmp("env", lexed->content) == 0)
-		env_infernal(env);
+		env_infernal(env, NULL);
 	else if (ft_strcmp("export", lexed->content) == 0)
 		les_ex_portes_de_lenfer(lexed, env);
-	else if (ft_strcmp("$$", lexed->content) == 0)
-		ft_getpid();
+	// else if (ft_strcmp("$$", lexed->content) == 0)
+	// 	ft_getpid();
 	line_expansions(lexed);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);

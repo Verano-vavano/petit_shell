@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 15:12:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:55:40 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int			syntax_error(char *token, int l);
 void		metal_injection(void);
 void		exit_hell(t_command *lexed);
 void		echo_des_enfers(t_command *lexed);
-void		env_infernal(t_env *env);
+void		env_infernal(t_env *env, ...);
 void		les_ex_portes_de_lenfer(t_command *lexed, t_env *env);
 
 /*----------------ENV---------------------*/

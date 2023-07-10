@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 17:32:18 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:30:16 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ char	**dup_paths(char **paths)
 		cpy[i] = ft_strdup(paths[i]);
 	cpy[i] = NULL;
 	return (cpy);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		write(1, s + i, 1);
-	write(1, "\n", 1);
 }
 
 t_env	*dup_env(t_env *env)
@@ -65,35 +55,6 @@ t_env	*dup_env(t_env *env)
 	return (new);
 }
 
-
-void swap2(t_env *prev, t_env *curr)
-{
-	t_env *tmp;
-
-	tmp = curr->next;
-	curr->next = prev;
-	prev->next = tmp;
-}
-
-void swap3(t_env *prev, t_env *curr, t_env *next)
-{
-	t_env *tmp;
-
-	tmp = next->next;
-	prev->next = next;
-	next->next = curr;
-	curr->next = tmp;
-}
-
-void neovimcestnul(t_env *head)
-{
-	while (head->next)
-	{
-		printf("%s\n", head->key);
-		head = head->next;
-	}
-}
-
 void swap_content(t_env *curr, t_env *next)
 {
 	char *yo_key;
@@ -117,14 +78,11 @@ void	sort_env(t_env *head)
 	{
 		swapped = 0;
 		ptr = head;
-		printf("WAW\n");
 		while(ptr->next)
 		{
-			printf("%s || %s\n", ptr->key, ptr->next->key);
 			if (strcmp(ptr->key, ptr->next->key) > 0)
 			{
 				swap_content(ptr, ptr->next);
-				printf("SWOOPED\n");
 				swapped = 1;
 			}
 			ptr = ptr->next;
@@ -145,10 +103,8 @@ void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 		add_env(&sorted_env, dup_env(ptr));
 		ptr = ptr->next;
 	}
-	printf("%s / %s\n",sorted_env->key,sorted_env->next->key);
 	sort_env(sorted_env);
-	printf("%s / %s\n",sorted_env->key,sorted_env->next->key);
-	// env_infernal(sorted_env);
-	free_whole_env(ptr);
+	env_infernal(sorted_env, "declare -x ", NULL);
+	free_whole_env(sorted_env);
 	(void)lexed;
 }

@@ -6,12 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 08:21:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:30:34 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
+#include "stdarg.h"
 
 void	print_paths(t_env *ptr)
 {
@@ -26,13 +27,19 @@ void	print_paths(t_env *ptr)
 	}
 }
 
-void	env_infernal(t_env *env)
+void	env_infernal(t_env *env, ...)
 {
 	t_env	*ptr;
+	char	*prepend;
+	va_list	list;
 
 	ptr = env;
+	va_start(list, env);
+	prepend = va_arg(list, char *);
 	while (ptr)
 	{
+		if (prepend != NULL)
+			printf("%s", prepend);
 		printf("%s=", ptr->key);
 		if (ptr->value != NULL)
 		{
