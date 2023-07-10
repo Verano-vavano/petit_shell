@@ -1,45 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_infernal.c                                     :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/08 15:45:33 by tcharanc         ###   ########.fr       */
+/*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/07/08 15:35:42 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "shellpticflesh.h"
 
-void	print_paths(t_env *ptr)
+t_env	*env_last(t_env *env)
 {
-	int i = 0;
-	while (ptr->value[i])
-	{
-		printf("%s",ptr->value[i]);
-		if (ptr->value[++i])
-			printf(":");
-	}
+	if (!env)
+		return (env);
+	while (env->next != NULL)
+		env = env->next;
+	return (env);
 }
 
-void	env_infernal(t_env *env)
+void	add_env(t_env **env, t_env *newest)
 {
-	t_env *ptr;
+	t_env	*tmp;
 
-	ptr = env;
-	while(ptr)
+	if (env && *env)
 	{
-		printf("%s=",ptr->key);
-		if (ptr->value != NULL)
-		{
-			if (ft_strcmp("PATH",ptr->key) == 0)
-				print_paths(ptr);
-			else
-				printf("%s",ptr->value[0]);
-		}
-		printf("\n");
-		ptr = ptr->next;
+		tmp = env_last(*env);
+		tmp->next = newest;
 	}
+	else
+		*env = newest;
 }

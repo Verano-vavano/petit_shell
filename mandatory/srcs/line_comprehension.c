@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/07 13:36:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:51:08 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	understand_the_line(t_command *cmd)
 		next_purpose = get_purpose(cmd_cpy, next_purpose);
 		if (next_purpose == ERROR)
 		{
-			free_linked_list(cmd);
+			free_command(cmd);
 			return (1);
 		}
 		printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
