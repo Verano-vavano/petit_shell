@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/08 18:54:49 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:17:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	cmd_processing(char *line, t_env *env)
 	free_command(lexed);
 	return (0);
 }
-
 
 int	main(int ac, char **av, char **envp)
 {

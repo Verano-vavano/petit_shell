@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 14:04:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/07 15:55:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	handle_parenthesis(char *c, char c2, int dos)
 {
 	if (c2 == '(' && *c == ')')
-		dos = 1;
+		dos++;
 	else if (c2 == '{' && *c == '}')
-		dos = 1;
+		dos++;
 	return (dos);
 }
 

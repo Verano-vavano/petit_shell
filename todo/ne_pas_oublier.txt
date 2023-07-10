@@ -64,8 +64,14 @@ cependant, si on fait ensuit b=, alors il apparait dans env
 
 SYNTAX ERROR
 < >, > <, <<<, >>>, < <, > >
-( not at beginning of cmd (after start, ;, && or ||)
-() (closing after opening without anything within)
+----- ( not at beginning of cmd (after start, ;, && or ||)
+----- () (closing after opening without anything within)
 { } (with n spaces within and nothing before)
-V | or ; or || or && with nothing before
-| |
+----- | or ; or || or && with nothing before
+----- | |
+
+
+echo lol\
+bonjour
+
+--> echo lolbonjour

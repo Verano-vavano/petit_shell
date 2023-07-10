@@ -6,20 +6,20 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/08 18:18:31 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:16:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
 
-void free_env(t_env *env)
+void	free_env(t_env *env)
 {
-	int i;
+	int	i;
 
 	if (env)
 	{
-        free(env->key);
+		free(env->key);
 		if (env->value != NULL)
 		{
 			i = -1;
@@ -30,17 +30,17 @@ void free_env(t_env *env)
 	}
 }
 
-void free_whole_env(t_env *env)
+void	free_whole_env(t_env *env)
 {
 	t_env	*next;
 
-    while (env != NULL)
-    {
+	while (env != NULL)
+	{
 		next = env->next;
 		free_env(env);
-        free(env);
-        env = next;
-    }
+		free(env);
+		env = next;
+	}
 }
 
 void	free_command(t_command *l)
