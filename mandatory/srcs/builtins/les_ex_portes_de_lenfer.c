@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 08:20:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/10 09:53:26 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,17 @@ void	ft_putstr(char *s)
 
 t_env	*dup_env(t_env *env)
 {
-	t_env	*new;
+	t_env *new;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(env->key);
-	ft_putstr(new->key);
 	if (env->value)
 	{
-		if (ft_strcmp("PATH", env->key) == 0)
-			new->value = dup_paths(env->value);
-		else
-		{
-			new->value = malloc(sizeof(char *) * 2);
-			new->value[0] = ft_strdup(env->value[0]);
-			new->value[1] = NULL;
-		}
 	}
 	else
 		new->value = NULL;
-	new->next = NULL;
 	return (new);
 }
 
