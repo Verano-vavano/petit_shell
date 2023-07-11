@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/11 15:55:10 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:14:00 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	add_env(t_env **env, t_env *newest)
 
 void	del_env(t_env **env, char *del)
 {
-	t_env *ptr;
-	t_env *prev;
+	t_env	*ptr;
+	t_env	*prev;
 
 	ptr = *env;
 	prev = NULL;

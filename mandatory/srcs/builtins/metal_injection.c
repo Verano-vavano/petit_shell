@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 18:15:13 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:12:46 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,26 @@ static int	rand_num(void)
 void	metal_injection(void)
 {
 	int		group_num;
-	int		i;
-	int		fd;
-	char	*group;
 
-	i = 0;
 	group_num = rand_num();
-	fd = open("/Users/tcharanc/code/minishell/mandatory/shell_on_earth.txt", O_RDONLY);
-	while (i < group_num)
-	{
-		group = get_next_line(fd);
-		i++;
-	}
-	printf("%s", group);
+	if (group_num == 0)
+		printf("Shelldren of Bodom\n");
+	else if (group_num == 1)
+		printf("Shellpultura\n");
+	else if (group_num == 2)
+		printf("Shelltic Frost\n");
+	else if (group_num == 3)
+		printf("Shlayer\n");
+	else if (group_num == 4)
+		printf("Shellpknot\n");
+	else if (group_num == 5)
+		printf("Shellhammer\n");
+	else if (group_num == 6)
+		printf("Alice in Shells\n");
+	else if (group_num == 7)
+		printf("Dimmu Shellgir\n");
+	else if (group_num == 8)
+		printf("Megashellth\n");
+	else
+		printf("Shellcidal Tendencies\n");
 }
