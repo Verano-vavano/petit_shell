@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 15:49:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/11 15:56:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		exit_hell(t_command *lexed);
 void		echo_des_enfers(t_command *lexed);
 void		env_infernal(t_env *env, ...);
 void		les_ex_portes_de_lenfer(t_command *lexed, t_env *env);
+void		unset_et_damnation(t_command *lexed, t_env *env);
 
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var);
@@ -130,5 +131,6 @@ t_env		*env_processing(char **envp);
 /*----------------ENV_UTILS----------------*/
 void		add_env(t_env **env, t_env *newest);
 t_env		*env_last(t_env *env);
+void		del_env(t_env **env, char *del);
 
 #endif
