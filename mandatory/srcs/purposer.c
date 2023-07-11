@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 17:27:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/11 15:41:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static int	check_redir_type(char way, int purp, t_command *cmd, char *s)
 	size_t	len;
 
 	len = ft_strlen(s);
-	printf("HEY %s\n", s);
-	if (len == 2 && s[1] == way)
+	if (len == 3 && s[0] == s[1] && s[0] == s[2])
+		return (HERE_STRING);
+	else if (len == 2 && s[1] == way)
 	{
 		cmd->purpose = REDIR_ID;
 		return (purp + 2);

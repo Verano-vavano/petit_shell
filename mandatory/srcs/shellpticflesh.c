@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 18:43:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:52:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@
 // 	}
 // 	return (rax);
 // }
+
+static void	line_expansions(t_command *line)
+{
+	while (line->next)
+	{
+		expand_str(line->content);
+		line = line->next;
+	}
+	if (line)
+		expand_str(line->content);
+}
 
 int	cmd_processing(char *line, t_env *env)
 {
