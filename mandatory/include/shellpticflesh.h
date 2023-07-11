@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 15:56:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/11 18:49:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ void		unlink_heredocs(t_command *cmd);
 int			here_doc(t_command *cmd);
 
 /*--------------EXPANSIONS-----------------*/
-int			line_expansions(t_command *lexed);
+// line_expansions
+void		expand_cmd(t_command *cmd, t_env *env);
+
+// tilde_expansion
+void		tilde_expansion(t_command *cmd, t_env *env);
 
 /*--------------EXECUTION-----------------*/
 void		execute_the_line(t_command *cmd);

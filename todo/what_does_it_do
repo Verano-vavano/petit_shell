@@ -44,7 +44,7 @@ $? : last status
 $$ : pid of shell (no getpid :( )
 
 tilde expansion
-~ = $HOME/ (si HOME unset, /home/$USERNAME/, sinon /home/)
+~ = $HOME/
 
 then parameter expansion
 brackets can be good

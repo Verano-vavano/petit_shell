@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 15:57:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/11 18:57:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,6 @@
 // 	}
 // 	return (rax);
 // }
-
-static void	line_expansions(t_command *line)
-{
-	while (line->next)
-	{
-		expand_str(line->content);
-		line = line->next;
-	}
-	if (line)
-		expand_str(line->content);
-}
 
 int	cmd_processing(char *line, t_env *env)
 {
@@ -59,7 +48,7 @@ int	cmd_processing(char *line, t_env *env)
 		les_ex_portes_de_lenfer(lexed, env);
 	else if (ft_strcmp("unset", lexed->content) == 0)
 		unset_et_damnation(lexed, env);
-	line_expansions(lexed);
+	expand_cmd(lexed, env);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
 	free_command(lexed);

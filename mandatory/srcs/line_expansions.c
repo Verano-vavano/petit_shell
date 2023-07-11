@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   line_expansions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 10:36:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/05 10:56:38 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/11 18:58:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-/* EXPANSIONS TO DO LMAO
- * TILDE EXPANSION (~ = $HOME || /home/$USERNAME)
- * PARAMETER EXPANSION ($a || ${a} and co)
- * COMMAND SUBSTITUTION ($(cmd) or `cmd`)
- * ARITHMETIC EXPANSION ($((1 + 1)))
- * FILENAME EXPANSION (* and ?)
- */
-int	line_expansions(t_command *lexed)
+void	expand_cmd(t_command *cmd, t_env *env)
 {
-	(void) lexed;
-	return (0);
+	tilde_expansion(cmd, env);
+	//paramter_expansion(str);
+	//command_substitution(str);
+	//arithmetic_expansion(str);
+	//filename_expansion(str);
 }

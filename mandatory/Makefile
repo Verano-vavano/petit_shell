@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/11 15:40:21 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/07/11 18:13:24 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,11 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 parse_args.c		parse_args_utils.c		spliter.c\
 	 char_utils.c		utils.c					cleaning.c\
 	 error_manager.c	heredoc.c				builtins/metal_injection.c\
-	 expansion.c		more_char_utils.c		builtins/exit_hell.c \
+	 more_char_utils.c	builtins/exit_hell.c \
 	 execution.c		syntax_checker.c		builtins/echo_des_enfers.c \
 	 env.c builtins/env_infernal.c builtins/les_ex_portes_de_lenfer.c env_utils.c \
-	 builtins/unset_et_damnation.c
+	 builtins/unset_et_damnation.c				line_expansions.c\
+	 tilde_expansion.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 
