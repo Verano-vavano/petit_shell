@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 19:16:31 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:50:24 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	sort_env(t_env *head)
 	}
 }
 
-// if exporting a var, check if already exist
 void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 {
 	t_env	*ptr;
