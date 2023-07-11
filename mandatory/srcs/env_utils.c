@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:49:48 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:44:51 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_existence(char *newest, t_env **env)
 
 	ptr = *env;
 	while (ptr)
-		if (strcmp(newest, ptr->key) == 0)
+		if (ft_strcmp(newest, ptr->key) == 0)
 			return (1);
 	else
 		ptr = ptr->next;

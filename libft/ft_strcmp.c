@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:07:13 by hdupire           #+#    #+#             */
-/*   Updated: 2023/06/08 18:09:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/11 14:47:04 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] != '\0' || s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])
-			return (1);
+			return (s1[i] - s2[i]);
 		i++;
 	}
 	return (0);
