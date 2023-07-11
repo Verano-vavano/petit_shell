@@ -6,10 +6,11 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/11 14:44:51 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:55:10 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
 #include <string.h>
 
@@ -48,4 +49,27 @@ void	add_env(t_env **env, t_env *newest)
 	}
 	else
 		*env = newest;
+}
+
+void	del_env(t_env **env, char *del)
+{
+	t_env *ptr;
+	t_env *prev;
+
+	ptr = *env;
+	prev = NULL;
+	while (ptr)
+	{
+		if (ft_strcmp(ptr->key, del) == 0)
+		{
+			if (prev == NULL)
+				*env = (*env)->next;
+			else
+				prev->next = ptr->next;
+			free_env(ptr);
+		}
+		prev = ptr;
+		ptr = ptr->next;
+	}
+	printf("Wesh le nom n'a pas ete trouve dans l'env\n");
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 18:43:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:35:49 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	cmd_processing(char *line, t_env *env)
 		env_infernal(env, NULL);
 	else if (ft_strcmp("export", lexed->content) == 0)
 		les_ex_portes_de_lenfer(lexed, env);
+	else if (ft_strcmp("unset", lexed->content) == 0)
+		unset_et_damnation(lexed, env);
 	line_expansions(lexed);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
