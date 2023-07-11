@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 19:12:46 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:12:08 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,23 @@ void	metal_injection(void)
 	else
 		printf("Shellcidal Tendencies\n");
 }
+// nine inch shell
+// ready set fall
+// shell against the machine
+// Shell Theater
+// Rapshelldy of Fire
+// Goshellra
+// shelltiricon
+// Shellptic Flesh
+// all shell perish
+// Shelltones
+// Shellstafir
+// Shell et Ardor
+// Black Shellbath
+// Shelloween
+// Shellgod Apocalypse
+// Shellpanther
+// MoonShpell
+// Hangman's shell
+// Five Finger shell Punch
+// Meshulluga
