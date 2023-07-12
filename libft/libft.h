@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/06 14:59:23 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:01:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char	*get_next_line(int fd);
 long	ft_atol(const char *s);
 int		is_dgt(char c);
 void	free_char_etoile_etoile(char **truc);
+char	*ft_strreplace(const char *s, int start, int len, const char *to_mod);
 
 #endif

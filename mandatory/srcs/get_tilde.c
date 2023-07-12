@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_expansions.c                                  :+:      :+:    :+:   */
+/*   get_tilde.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 10:40:16 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/12 12:24:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-void	expand_cmd(t_command *cmd, t_env *env)
+int	get_home(char **home, t_env *env)
 {
-	//braces_expansion(str);
-	tilde_expansion(cmd, env);
-	//parameter_expansion(str, env); // w. word split
-	//command_substitution(str, env); // w. word split
-	//arithmetic_expansion(str);
-	//filename_expansion(str, env);
+	if (!env)
+		return (0);
+	while (env->next)
+	{
+		if (!ft_strcmp(env->key, "HOME"))
+		{
+			*home = *(env->value);
+			return (1);
+		}
+		env = env->next;
+	}
+	if (!env || ft_strcmp(env->key, "HOME"))
+		return (0);
+	*home = *(env->value);
+	return (1);
 }

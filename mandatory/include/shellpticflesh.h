@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 19:14:28 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:10:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@
 
 enum	e_cmd_part
 {
-	UNDEFINED, 		//0
-	COMMAND, 		//1
-	IN_FILE, 		//2
-	OUT_FILE, 		//3
-	HERE_DOC_DELIM, //4
-	OUT_FILE_APP,	//5
-	IN_OUT_FILE,	//6
-	HERE_STRING, 	//7
-	REDIR_ID,		//8
-	DELIM,			//9
-	ERROR			//10
+	UNDEFINED,
+	COMMAND,
+	IN_FILE,
+	OUT_FILE,
+	HERE_DOC_DELIM,
+	OUT_FILE_APP,
+	IN_OUT_FILE,
+	HERE_STRING,
+	REDIR_ID,
+	DELIM,
+	ERROR
 };
 
 typedef struct s_command
@@ -93,6 +93,9 @@ void		expand_cmd(t_command *cmd, t_env *env);
 
 // tilde_expansion
 void		tilde_expansion(t_command *cmd, t_env *env);
+
+// get_tilde
+int			get_home(char **home, t_env *env);
 
 /*--------------EXECUTION-----------------*/
 void		execute_the_line(t_command *cmd);

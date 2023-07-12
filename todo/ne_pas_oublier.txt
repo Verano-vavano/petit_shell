@@ -77,3 +77,26 @@ bonjour
 --> echo lolbonjour
 
 echo lol <a >a <<a >>a <>a <<<a
+
+-----
+
+WORD SPLITTING
+bash va word splitter lors de la command expansion et de la parameter expansion (unquoted) en fonction de IFS
+string="apple,banana,orange"
+echo $string
+IFS=','
+echo $string
+
+-----
+
+~ 
+LOOK FOR HOME
+NO HOME -> PWD (/Users/username)
+NO PWD -> fork && whoami
+NO whoami -> LOGNAME
+NO LOGNAME -> garbage value (/Users/whatever)
+
+DONT FORGET
+~
+~+ = PWD
+~- = OLDPWD
