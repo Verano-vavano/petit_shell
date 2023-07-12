@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 17:49:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 18:46:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		expand_cmd(t_command *cmd, t_env *env);
 void		tilde_expansion(t_command *cmd, t_env *env);
 
 // get_tilde
-char		*rescue_tilde_funk(t_env *env, char *pwd);
+char		*rescue_tilde_funk(t_env *env);
 
 /*--------------EXECUTION-----------------*/
 void		execute_the_line(t_command *cmd);
