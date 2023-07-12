@@ -100,3 +100,13 @@ DONT FORGET
 ~
 ~+ = PWD
 ~- = OLDPWD
+
+LOCAL
+PS1
+PS2
+
+PROMPT CONTROL PARSING
+https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+
+PWD
+cd Users///////// => PWD = /Users
