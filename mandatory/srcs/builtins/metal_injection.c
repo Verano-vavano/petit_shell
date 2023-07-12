@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 13:32:57 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:08:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	rand_num(void)
 	}
 }
 
-void rescue_easter_funk3(int group_num)
+void	rescue_easter_funk3(int group_num)
 {
 	if (group_num == 31)
 		printf("Shell Panther\n");
@@ -54,7 +54,7 @@ void rescue_easter_funk3(int group_num)
 		printf("Black Shellbath\n");
 }
 
-void rescue_easter_funk2(int group_num)
+void	rescue_easter_funk2(int group_num)
 {
 	if (group_num == 20)
 		printf("Napalm Shell\n");
