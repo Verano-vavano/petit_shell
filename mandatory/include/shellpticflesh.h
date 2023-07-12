@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 14:24:29 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:29:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ enum	e_cmd_part
 	HERE_STRING,
 	REDIR_ID,
 	DELIM,
+	CMD_DELIM,
 	ERROR
 };
 

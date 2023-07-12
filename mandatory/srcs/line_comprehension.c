@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 16:22:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 15:24:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 		cmd->purpose = purpose;
 		return (UNDEFINED);
 	}
-	if (is_metachar(s[0]))
+	if (is_cmd_delim(s))
+		cmd->purpose = CMD_DELIM;
+	else if (is_metachar(s[0]))
 		cmd->purpose = DELIM;
 	return (redir_post(cmd, s));
 }

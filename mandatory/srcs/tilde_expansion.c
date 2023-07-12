@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 14:06:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 15:22:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	tilde_it(t_command *cmd, char **tilde, char **pwd, char **opwd)
 
 	replacer = 0;
 	to_replace = 2;
+	if (!cmd)
+		return ;
 	if (cmd->content[0] == '~' && cmd->content[1] == '+' && pwd)
 		replacer = *pwd;
 	else if (cmd->content[0] == '~' && cmd->content[1] == '-' && opwd)
@@ -40,7 +42,7 @@ static void	tilde_it(t_command *cmd, char **tilde, char **pwd, char **opwd)
 
 static void	replace_tilde(t_command *cmd, char **tilde, char **pwd, char **opwd)
 {
-	while (cmd->next)
+	while (cmd && cmd->next)
 	{
 		tilde_it(cmd, tilde, pwd, opwd);
 		cmd = cmd->next;
@@ -49,13 +51,28 @@ static void	replace_tilde(t_command *cmd, char **tilde, char **pwd, char **opwd)
 		tilde_it(cmd, tilde, pwd, opwd);
 }
 
+static int	need_tilde(t_command *cmd)
+{
+	while (cmd && cmd->next)
+	{
+		if (cmd->content[0] == '~')
+			return (1);
+		cmd = cmd->next;
+	}
+	if (cmd && cmd->content[0] == '~')
+		return (1);
+	return (0);
+}
+
 void	tilde_expansion(t_command *cmd, t_env *env)
 {
 	char	**tilde;
 	char	**pwd;
 	char	**opwd;
 
-	(void) cmd;
+	if (!need_tilde(cmd))
+		return ;
+	printf("doing it\n");
 	tilde = get_env_var(env, "HOME");
 	pwd = get_env_var(env, "PWD");
 	opwd = get_env_var(env, "OLDPWD");
