@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 12:30:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 14:09:37 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int	cmd_processing(char *line, t_env *env)
 		les_ex_portes_de_lenfer(lexed, env); // crash env-i && add pas + leaks
 	else if (ft_strcmp("unset", lexed->content) == 0)
 		unset_et_damnation(lexed, env);
+	else if (ft_strcmp("cd", lexed->content) == 0)
+		cd_mentiel(lexed, env);
+	else if (ft_strcmp("pwd", lexed->content) == 0)
+		print_working_damnation(lexed, env);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
 	free_command(lexed);
