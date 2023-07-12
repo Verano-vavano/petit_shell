@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 12:33:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:32:57 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,27 +136,3 @@ void	metal_injection(void)
 	else
 		rescue_easter_funk1(group_num);
 }
-<<<<<<< HEAD
-=======
-// nine inch shell
-// ready set fall
-// shell against the machine
-// Shell Theater
-// Rapshelldy of Fire
-// Goshellra
-// shelltiricon
-// Shellptic Flesh
-// all shell perish
-// Shelltones
-// Shellstafir
-// Shell et Ardor
-// Black Shellbath
-// Shelloween
-// Shellgod Apocalypse
-// Shellpanther
-// MoonShpell
-// Hangman's shell
-// Five Finger shell Punch
-// Meshulluga
-// thibault shellancon
->>>>>>> 4425a3b35be68527bd8d33201c734497aed73536
