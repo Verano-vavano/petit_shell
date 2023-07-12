@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 12:33:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:07:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	rand_num(void)
 	}
 }
 
-void rescue_easter_funk3(int group_num)
+void	rescue_easter_funk3(int group_num)
 {
 	if (group_num == 31)
 		printf("Shell Panther\n");
@@ -54,7 +54,7 @@ void rescue_easter_funk3(int group_num)
 		printf("Black Shellbath\n");
 }
 
-void rescue_easter_funk2(int group_num)
+void	rescue_easter_funk2(int group_num)
 {
 	if (group_num == 20)
 		printf("Napalm Shell\n");
@@ -136,8 +136,6 @@ void	metal_injection(void)
 	else
 		rescue_easter_funk1(group_num);
 }
-<<<<<<< HEAD
-=======
 // nine inch shell
 // ready set fall
 // shell against the machine
@@ -159,4 +157,3 @@ void	metal_injection(void)
 // Five Finger shell Punch
 // Meshulluga
 // thibault shellancon
->>>>>>> 4425a3b35be68527bd8d33201c734497aed73536

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 12:10:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:42:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ t_env		*env_processing(char **envp);
 void		add_env(t_env **env, t_env *newest);
 t_env		*env_last(t_env *env);
 void		del_env(t_env **env, char *del);
+char		**get_env_var(t_env *env, char *key);
 
 #endif
