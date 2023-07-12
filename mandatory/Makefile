@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/11 18:13:24 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/12 12:24:12 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 execution.c		syntax_checker.c		builtins/echo_des_enfers.c \
 	 env.c builtins/env_infernal.c builtins/les_ex_portes_de_lenfer.c env_utils.c \
 	 builtins/unset_et_damnation.c				line_expansions.c\
-	 tilde_expansion.c
+	 tilde_expansion.c	get_tilde.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

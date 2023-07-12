@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/11 19:43:25 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:30:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	cmd_processing(char *line, t_env *env)
 		return (1);
 	if (here_doc(lexed))
 		return (1);
+	expand_cmd(lexed, env);
 	if (ft_strcmp("hell", lexed->content) == 0)
 		metal_injection();
 	else if (ft_strcmp("exit", lexed->content) == 0)
@@ -48,7 +49,6 @@ int	cmd_processing(char *line, t_env *env)
 		les_ex_portes_de_lenfer(lexed, env); // crash env-i && add pas + leaks
 	else if (ft_strcmp("unset", lexed->content) == 0)
 		unset_et_damnation(lexed, env);
-	// expand_cmd(lexed, env);
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
 	free_command(lexed);
