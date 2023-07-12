@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 15:22:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 16:51:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static void	tilde_it(t_command *cmd, char **tilde, char **pwd, char **opwd)
+static void	tilde_it(t_command *cmd, char *tilde, char *pwd, char *opwd)
 {
 	char	*temp;
 	char	*replacer;
@@ -23,14 +23,14 @@ static void	tilde_it(t_command *cmd, char **tilde, char **pwd, char **opwd)
 	if (!cmd)
 		return ;
 	if (cmd->content[0] == '~' && cmd->content[1] == '+' && pwd)
-		replacer = *pwd;
+		replacer = pwd;
 	else if (cmd->content[0] == '~' && cmd->content[1] == '-' && opwd)
-		replacer = *opwd;
+		replacer = opwd;
 	else if (cmd->content[0] == '~' && tilde
 		&& cmd->content[1] != '+' && cmd->content[1] != '-')
 	{
 		to_replace = 1;
-		replacer = *tilde;
+		replacer = tilde;
 	}
 	if (cmd->content[0] == '~' && replacer)
 	{
@@ -40,7 +40,7 @@ static void	tilde_it(t_command *cmd, char **tilde, char **pwd, char **opwd)
 	}
 }
 
-static void	replace_tilde(t_command *cmd, char **tilde, char **pwd, char **opwd)
+static void	replace_tilde(t_command *cmd, char *tilde, char *pwd, char *opwd)
 {
 	while (cmd && cmd->next)
 	{
@@ -66,19 +66,30 @@ static int	need_tilde(t_command *cmd)
 
 void	tilde_expansion(t_command *cmd, t_env *env)
 {
-	char	**tilde;
-	char	**pwd;
-	char	**opwd;
+	char	**temp;
+	char	*tilde;
+	char	*pwd;
+	char	*opwd;
+	int		malloqued;
 
+	pwd = 0;
+	opwd = 0;
 	if (!need_tilde(cmd))
 		return ;
 	printf("doing it\n");
-	tilde = get_env_var(env, "HOME");
-	pwd = get_env_var(env, "PWD");
-	opwd = get_env_var(env, "OLDPWD");
-	/*if (!is_set)
-		to_sub = get_username();*/
-	/*if (!is_set)
-		get_path_from_username();*/
+	temp = get_env_var(env, "HOME");
+	if (temp)
+		tilde = *temp;
+	malloqued = !(temp);
+	temp = get_env_var(env, "PWD");
+	if (temp)
+		pwd = *temp;
+	if (malloqued)
+		tilde = rescue_tilde_funk(env, pwd);
+	temp = get_env_var(env, "OLDPWD");
+	if (temp)
+		opwd = *temp;
 	replace_tilde(cmd, tilde, pwd, opwd);
+	if (malloqued)
+		free(tilde);
 }

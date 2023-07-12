@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 17:42:29 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/07/12 17:29:56 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
 
-void	exit_hell(t_command *lexed)
+int	update_env(char *key, char **value, t_env *env)
 {
-	int	exit_code;
-	int	i;
+	t_env	*ptr;
 
-	if (lexed->next)
-	{
-		lexed = lexed->next;
-		i = 0;
-		while (is_dgt(lexed->content[i]))
-			i++;
-		if (lexed->content[i] != '\0')
+	ptr = env;
+	while(ptr)
+		if (ft_strcmp(key, ptr->key) == 0)
 		{
-			printf("%s: exit: %s: numeric argument required\n",
-				"Minishell", lexed->content);
-			exit_code = 255;
+			free_char_etoile_etoile(ptr->value);
+			ptr->value = value;
+			return (1);
 		}
 		else
-			exit_code = ft_atol(lexed->content);
-	}
-	else
-		exit_code = 0;
-	system("leaks minishell");
-	exit(exit_code);
+			ptr = ptr->next;
+	return (0);
 }

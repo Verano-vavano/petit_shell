@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_tilde.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 16:52:13 by hdupire          ###   ########.fr       */
+/*   Created: 2023/07/12 16:29:26 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/12 16:51:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shellpticflesh.h"
+#include "libft.h"
 
-static char	*get_from_pwd(char *pwd)
+char	*ft_strndup(const char *s, size_t len)
 {
-	if (!ft_strncmp(pwd, "/Users/", 7) && ft_strlen(pwd) > 7)
-		return (ft_strndup(pwd, 7 + ft_strchr_int(pwd + 7, '/')));
-	return (0);
-}
+	char	*dest;
+	size_t	i;
 
-char	*rescue_tilde_funk(t_env *env, char *pwd)
-{
-	char	*home;
-
-	(void) env;
-	if (pwd)
+	dest = ft_calloc(len + 1, sizeof (char));
+	if (!dest)
+		return (0);
+	i = 0;
+	while (i < len)
 	{
-		home = get_from_pwd(pwd);
-		printf("YAY = %s\n", home);
-		if (home)
-			return (home);
+		dest[i] = s[i];
+		i++;
 	}
-	return (0);
+	return (dest);
 }

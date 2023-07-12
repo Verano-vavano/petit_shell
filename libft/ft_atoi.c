@@ -6,18 +6,18 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:20:54 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 12:29:40 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:32:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int is_spc(char c)
+static int	is_spc(char c)
 {
 	return (c == ' ' || (unsigned)c - '\t' < 5);
 }
 
-int is_dgt(char c)
+static int	is_dgt(char c)
 {
 	return ((unsigned)c - '0' < 10);
 }
@@ -35,7 +35,7 @@ int	ft_atoi(const char *s)
 		neg = 1;
 	else if (*s == '+')
 		s++;
-	while(is_dgt(*s))
+	while (is_dgt(*s))
 		n = n * 10 - (*s++ - '0');
 	if (neg)
 		return (n);
