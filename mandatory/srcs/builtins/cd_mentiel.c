@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 18:52:17 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:13:26 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,31 @@ void cd_home(t_env *env)
 		chdir(home[0]);
 }
 //
-void cd_absolute(t_env *env, char *destination)
+void cd_absolute(t_env *env, char *dest)
 {
-	printf("dest = %s\n",destination);
-	if (chdir(destination) < 0)
-		printf("cd: %s: No such file or directory\n", destination);
+	printf("dest = %s\n",dest);
+	if (chdir(dest) < 0)
+		printf("cd: %s: No such file or directory\n", dest);
 	else
 		update_cwd(env);
 }
 
+void cd_relative(t_env *env, char *dest)
+{
+	if (chdir(dest) > 0)
+	{
+	}
+	(void)env;
+	(void)dest;
+}
+
 void	cd_mentiel(t_command *lexed, t_env *env)
 {
-	(void)lexed;
-	(void)env;
 	lexed = lexed->next;
 	if (!lexed)
 		cd_home(env);
 	else if (lexed->content[0] == '/')
 		cd_absolute(env, lexed->content);
-	// lexed->content == NULL
-	//	 cd HOME
-	// lexed->content[0] == '/'
-	//   absolute_path
-	// first char = . || "a-z A-Z"
-	//   relative 
-	//   cd_path
+	else
+		cd_relative(env, lexed->content);
 }
