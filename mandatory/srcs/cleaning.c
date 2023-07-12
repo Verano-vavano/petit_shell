@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 17:46:51 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:07:07 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ void	free_env(t_env *env)
 
 void	free_whole_env(t_env *env)
 {
+	t_env	*ptr;
 	t_env	*next;
 
-	while (env != NULL)
+	ptr = env;
+	while (ptr)
 	{
-		next = env->next;
-		free_env(env);
-		free(env);
-		env = next;
+		next = ptr->next;
+		free_env(ptr);
+		ptr = next;
 	}
+	env = NULL;
 }
 
 void	free_command(t_command *l)
