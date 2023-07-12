@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 14:09:37 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:28:13 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	cmd_processing(char *line, t_env *env)
 	else if (ft_strcmp("cd", lexed->content) == 0)
 		cd_mentiel(lexed, env);
 	else if (ft_strcmp("pwd", lexed->content) == 0)
-		print_working_damnation(lexed, env);
+		print_working_damnation();
 	execute_the_line(lexed);
 	unlink_heredocs(lexed);
 	free_command(lexed);
