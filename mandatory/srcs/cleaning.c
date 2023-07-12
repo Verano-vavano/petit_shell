@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/10 08:16:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/12 17:46:51 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_env(t_env *env)
 			free(env->value);
 		}
 	}
+	free(env);
 }
 
 void	free_whole_env(t_env *env)
