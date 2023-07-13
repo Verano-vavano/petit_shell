@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 18:30:34 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:00:50 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	env_infernal(t_env *env, ...)
 	t_env	*ptr;
 	char	*prepend;
 	va_list	list;
+	int		i;
 
 	ptr = env;
 	va_start(list, env);
@@ -43,10 +44,13 @@ void	env_infernal(t_env *env, ...)
 		printf("%s=", ptr->key);
 		if (ptr->value != NULL)
 		{
-			if (ft_strcmp("PATH", ptr->key) == 0)
-				print_paths(ptr);
-			else
-				printf("%s", ptr->value[0]);
+			i = 0;
+			while (ptr->value[i])
+			{
+				printf("%s", ptr->value[i]);
+				if (ptr->value[++i])
+					printf(":");
+			}
 		}
 		printf("\n");
 		ptr = ptr->next;

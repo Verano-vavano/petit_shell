@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 19:13:26 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:53:12 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,13 @@ void cd_absolute(t_env *env, char *dest)
 		update_cwd(env);
 }
 
+// d'abord CDPATH
+// puis
+// relatif
+// sinon ex pas
 void cd_relative(t_env *env, char *dest)
 {
+	printf("cd relatif\n");
 	if (chdir(dest) > 0)
 	{
 	}
