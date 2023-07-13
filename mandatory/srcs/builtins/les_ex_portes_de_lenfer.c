@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 18:00:58 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:00:25 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,23 @@ char	**dup_paths(char **paths)
 t_env	*dup_env(t_env *env)
 {
 	t_env	*new;
+	int		arr_size;
+	int		i;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(env->key);
+	if (ft_strcmp(new->key, "CDPATH") == 0)
+		printf("salut mdr\n");
 	if (env->value != NULL)
 	{
-		if (ft_strcmp("PATH", env->key) == 0)
-			new->value = dup_paths(env->value);
-		else
-		{
-			new->value = malloc(sizeof(char *) * 2);
-			new->value[0] = ft_strdup(env->value[0]);
-			new->value[1] = NULL;
-		}
+		arr_size = get_char_array_size(env->value);
+		new->value = malloc(sizeof(char *) * (arr_size + 1));
+		i = -1;
+		while(env->value[++i])
+			new->value[i] = ft_strdup(env->value[i]);
+		new->value[i] = NULL;
 	}
 	else
 		new->value = NULL;
@@ -99,7 +101,7 @@ void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 	if (!lexed->next)
 	{
 		sorted_env = NULL;
-		while (ptr->next)
+		while (ptr)
 		{
 			add_env(&sorted_env, dup_env(ptr));
 			ptr = ptr->next;

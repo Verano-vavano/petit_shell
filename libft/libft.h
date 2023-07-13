@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 16:43:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 12:15:10 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ int		ft_atoi(const char *s);
 int		is_dgt(char c);
 void	free_char_etoile_etoile(char **truc);
 char	*ft_strreplace(const char *s, int start, int len, const char *to_mod);
+int		get_char_array_size(char **char_etoile_etoile);
+char	**dup_char_etoile_etoile(char **char_etoile_etoile);
 
 #endif
