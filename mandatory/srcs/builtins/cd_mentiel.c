@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/13 17:36:43 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 11:23:16 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,18 @@ void cd_absolute(t_env *env, char *dest)
 // puis
 // relatif
 // sinon ex pas
-void cd_relative(t_env *env, char *dest)
+void	cd_relative(t_env *env, char *dest)
 {
+	t_env *cdpath;
+
 	printf("cd relatif\n");
+	cdpath = search_env("CDPATH", env);
+	if (!cdpath)
+		printf("C'est NULLL\n");
+	else
+		for (int i = 0; cdpath->value[i]; i++)
+			printf("alors val = %s\n",cdpath->value[i]);
+	//for (int i = 0);
 	if (chdir(dest) > 0)
 	{
 	}
