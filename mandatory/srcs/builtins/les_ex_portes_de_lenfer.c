@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 16:00:13 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:48:48 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,14 @@ void	les_ex_portes_de_lenfer(t_command *lexed, t_env *env)
 		env_infernal(sorted_env, "declare -x ", NULL);
 		free_whole_env(sorted_env);
 	}
-	// else
-	// {
-	// 	while (lexed->next)
-	// 	{
-	// 		printf("lexed.next = %s\n",lexed->next->content);
-	// 		env_append(&env, env_new(lexed->next->content));
-	// 		lexed = lexed->next;
-	// 	}
-	// }
+	else
+	{
+		lexed = lexed->next;
+		while (lexed)
+		{
+			//printf("lexed.next = %s\n",lexed->next->content);
+			env_add(env_new(lexed->content), &env);
+			lexed = lexed->next;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 16:09:49 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:55:20 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cd_home(t_env *env)
 {
 	char **home;
 
-	home = env_getval(env, "HOME");
+	home = env_getval("HOME", env);
 	if (home == NULL)
 		printf("cd: HOME not set\n");
 	else
