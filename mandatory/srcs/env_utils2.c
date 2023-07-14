@@ -6,12 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 16:11:33 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:54:52 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
+#include "stdarg.h"
 
 t_env	*env_getptr(char *key, t_env *env)
 {
@@ -26,19 +27,20 @@ t_env	*env_getptr(char *key, t_env *env)
 	return (ret);
 }
 
-int	env_update(char *key, char **value, t_env *env)
+int	env_update(char *char_arr, t_env *env, ...)
 {
+	va_list	list;
+	char	*key;
 	t_env	*ptr;
 
-	ptr = env;
-	while(ptr)
-		if (ft_strcmp(key, ptr->key) == 0)
-		{
-			free_char_etoile_etoile(ptr->value);
-			ptr->value = value;
-			return (1);
-		}
-		else
-			ptr = ptr->next;
+	va_start(list, env);
+	key = va_arg(list, char *);
+	if (key && env_contain(key, env))
+	{
+		ptr = env_getptr(key, env);
+		free_char_etoile_etoile(ptr->value);
+		ptr->value = ft_split(char_arr, ':');
+		return (1);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 17:55:20 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:39:52 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	update_cwd(t_env *env)
 {
-	char	**cwd;
+	char	*cwd;
 
-	cwd = malloc(sizeof(char *) * 2);
-	cwd[0] = getcwd(NULL, 0);
-	cwd[1] = NULL;
-	env_update("PWD", cwd, env);
+	cwd = getcwd(NULL, 0);
+	env_update(cwd, env, "PWD");
+	free(cwd);
 }
 
 // oldpwd prend la valeur de l'ancien dir
