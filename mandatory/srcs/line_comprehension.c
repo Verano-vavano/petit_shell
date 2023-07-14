@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 15:24:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 13:54:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ int	understand_the_line(t_command *cmd)
 			free_command(cmd);
 			return (1);
 		}
-		printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
 		cmd_cpy = cmd_cpy->next;
 	}
 	get_purpose(cmd_cpy, next_purpose);
-	printf("%s %d\n", cmd_cpy->content, cmd_cpy->purpose);
 	return (0);
 }

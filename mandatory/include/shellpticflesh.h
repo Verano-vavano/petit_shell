@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 18:58:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 12:54:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ typedef struct s_command
 	enum e_cmd_part		purpose;
 	struct s_command	*next;
 }				t_command;
+
+typedef struct s_redir_pipe
+{
+	int					fd_toredir;
+	int					fd_end;
+	char				*here_string;
+	bool				opened;
+	struct s_redir_pipe	*next;
+}				t_redir_pipe;
+
+typedef struct s_process_cmd
+{
+	char			**cmd;
+	t_redir_pipe	*redir;
+}				t_process_cmd;
 
 typedef struct s_env
 {
@@ -102,7 +117,11 @@ void		tilde_expansion(t_command *cmd, t_env *env);
 char		*rescue_tilde_funk(t_env *env);
 
 /*--------------EXECUTION-----------------*/
-void		execute_the_line(t_command *cmd);
+long		execute_the_line(t_command *cmd, t_env *env);
+
+int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd);
+
+int			count_cmds(t_command *cmd);
 
 /*---------------UTILITIES------------------*/
 // cleaning

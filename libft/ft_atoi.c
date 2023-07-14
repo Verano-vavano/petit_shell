@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:20:54 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 16:32:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 12:59:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 static int	is_spc(char c)
 {
 	return (c == ' ' || (unsigned)c - '\t' < 5);
-}
-
-static int	is_dgt(char c)
-{
-	return ((unsigned)c - '0' < 10);
 }
 
 int	ft_atoi(const char *s)

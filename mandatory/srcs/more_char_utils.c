@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:32:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 18:57:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 13:53:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	is_num(char c)
 
 char	is_quoted(char *s, int i, char quoted)
 {
-	printf("QUOTED = %c, s = %s\n", quoted, s + i);
 	if ((s[i] == '\'' || s[i] == '"') && (i == 0 || s[i - 1] != '\\')
 		&& (s[i] == quoted || !quoted))
 		return (!quoted * s[i]);

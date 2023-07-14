@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_char_etoile_etoile.c                           :+:      :+:    :+:   */
+/*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 12:12:18 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/13 12:17:28 by tcharanc         ###   ########.fr       */
+/*   Created: 2023/07/14 09:31:55 by hdupire           #+#    #+#             */
+/*   Updated: 2023/07/14 09:40:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shellpticflesh.h"
 
-char	**dup_char_etoile_etoile(char **char_etoile_etoile)
+int	count_cmds(t_command *cmd)
 {
-	char **new_arr;
-	int i;
+	int	n;
 
-	new_arr = malloc(sizeof(char *) * get_char_array_size(char_etoile_etoile));
-	return (new_arr);
+	n = 1;
+	while (cmd && cmd->purpose != CMD_DELIM)
+	{
+		if (cmd->purpose == DELIM)
+			n++;
+		cmd = cmd->next;
+	}
+	return (n);
 }

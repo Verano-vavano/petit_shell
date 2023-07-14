@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 14:49:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 13:53:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_command	*ft_split_cmd(char *cmd)
 		i++;
 	while (cmd[i] && cmd[i] != '#')
 	{
-		printf("%s\n", cmd + i);
 		err_catcher = ft_strdup_arg(cmd + i, cmd_args);
 		if (err_catcher == -1)
 			return (0);

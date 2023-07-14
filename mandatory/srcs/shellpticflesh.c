@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 15:19:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 09:18:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	cmd_processing(char *line, t_env *env)
 		cd_mentiel(lexed, env);
 	else if (ft_strcmp("pwd", lexed->content) == 0)
 		print_working_damnation();
-	execute_the_line(lexed);
+	//quote_removal(lexed);
+	execute_the_line(lexed, env);
 	unlink_heredocs(lexed);
 	free_command(lexed);
 	return (0);

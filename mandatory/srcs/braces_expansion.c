@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 18:54:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 13:53:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ static int	brace_expand_it(t_command *cmd)
 			i = apply_brace_exp(cmd, i);
 			if (i < 0)
 				return (1);
-			printf("EXPANSION NEEDED FOR -> ");
 			expanded = 1;
 			break ;
 		}
 		i++;
 	}
-	printf("%s\n", cmd->content);
 	/*if (expanded)
 		brace_expand_it(cmd);*/
 	return (0);
@@ -83,7 +81,6 @@ int	braces_expansion(t_command *cmd)
 {
 	int	err_man;
 
-	printf("BRACES\n");
 	while (cmd)
 	{
 		err_man = brace_expand_it(cmd);
@@ -91,6 +88,5 @@ int	braces_expansion(t_command *cmd)
 			return (-1);
 		cmd = cmd->next;
 	}
-	printf("---\n");
 	return (0);
 }
