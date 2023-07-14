@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/13 11:51:39 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:05:09 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,11 @@ t_env	*env_new(char *env_var)
 		return (NULL);
 	tmp = ft_split(env_var, '=');
 	new->key = ft_strdup(tmp[0]);
-	new->value = NULL;
-	new->next = NULL;
 	if (tmp[1])
-	{
-		if (ft_strcmp(new->key, "PATH") || ft_strcmp(new->key, "CDPATH"))
 			new->value = ft_split(tmp[1], ':');
-		else
-		{
-			new->value = malloc(sizeof(char *) * 2);
-			new->value[0] = ft_strdup(tmp[1]);
-			new->value[1] = NULL;
-		}
-	}
 	else
 		new->value = NULL;
+	new->next = NULL;
 	free_char_etoile_etoile(tmp);
 	return (new);
 }

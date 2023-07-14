@@ -6,12 +6,25 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 18:38:01 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 11:10:39 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
+
+t_env	*search_env(char *key, t_env *env)
+{
+	t_env *ret;
+
+	ret = env;
+	while(ret)
+		if (ft_strcmp(ret->key, key) == 0)
+			return (ret);
+		else
+			ret = ret->next;
+	return (ret);
+}
 
 int	update_env(char *key, char **value, t_env *env)
 {
