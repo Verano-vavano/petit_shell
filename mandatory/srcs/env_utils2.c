@@ -6,14 +6,14 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 11:10:39 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:11:33 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
 
-t_env	*search_env(char *key, t_env *env)
+t_env	*env_getptr(char *key, t_env *env)
 {
 	t_env *ret;
 
@@ -26,7 +26,7 @@ t_env	*search_env(char *key, t_env *env)
 	return (ret);
 }
 
-int	update_env(char *key, char **value, t_env *env)
+int	env_update(char *key, char **value, t_env *env)
 {
 	t_env	*ptr;
 

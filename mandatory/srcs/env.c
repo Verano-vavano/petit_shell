@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 12:05:09 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:59:37 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_env	*env_new(char *env_var)
 	return (new);
 }
 
-t_env	*env_processing(char **envp)
+t_env	*env_init(char **envp)
 {
 	t_env	*env;
 	int		i;
@@ -40,6 +40,6 @@ t_env	*env_processing(char **envp)
 	env = NULL;
 	i = 0;
 	while (envp[i])
-		add_env(&env, env_new(envp[i++]));
+		env_add(env_new(envp[i++]), &env);
 	return (env);
 }

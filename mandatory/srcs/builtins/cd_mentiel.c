@@ -6,22 +6,20 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 11:23:16 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:09:49 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-#include <unistd.h>
 
 void	update_cwd(t_env *env)
 {
-	// t_env	*pwd;
 	char	**cwd;
 
 	cwd = malloc(sizeof(char *) * 2);
 	cwd[0] = getcwd(NULL, 0);
 	cwd[1] = NULL;
-	update_env("PWD", cwd, env);
+	env_update("PWD", cwd, env);
 }
 
 // oldpwd prend la valeur de l'ancien dir
@@ -29,18 +27,18 @@ void	update_cwd(t_env *env)
 // if !pwd then !oldpwd
 // unset PWD && cd ..
 // pwd deviens locale... wtf 
-void cd_home(t_env *env)
+void	cd_home(t_env *env)
 {
 	char **home;
 
-	home = get_env_var(env, "HOME");
+	home = env_getval(env, "HOME");
 	if (home == NULL)
 		printf("cd: HOME not set\n");
 	else
 		chdir(home[0]);
 }
 //
-void cd_absolute(t_env *env, char *dest)
+void	cd_absolute(t_env *env, char *dest)
 {
 	printf("dest = %s\n",dest);
 	if (chdir(dest) < 0)
@@ -58,7 +56,7 @@ void	cd_relative(t_env *env, char *dest)
 	t_env *cdpath;
 
 	printf("cd relatif\n");
-	cdpath = search_env("CDPATH", env);
+	cdpath = env_getptr("CDPATH", env);
 	if (!cdpath)
 		printf("C'est NULLL\n");
 	else

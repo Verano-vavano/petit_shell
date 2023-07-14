@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 16:04:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:14:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,13 +166,13 @@ void		print_working_damnation();
 
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var);
-t_env		*env_processing(char **envp);
+t_env		*env_init(char **envp);
 /*----------------ENV_UTILS----------------*/
-void		add_env(t_env **env, t_env *newest);
+void		env_add(t_env *newest, t_env **env);
+void		env_del(t_env **env, char *del);
 t_env		*env_last(t_env *env);
-void		del_env(t_env **env, char *del);
-char		**get_env_var(t_env *env, char *key);
-int			update_env(char *key, char **value, t_env *env);
-t_env		*search_env(char *key, t_env *env);
+char		**env_getval(t_env *env, char *key);
+int			env_update(char *key, char **value, t_env *env);
+t_env		*env_getptr(char *key, t_env *env);
 
 #endif
