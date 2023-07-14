@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:56:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:04:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ typedef struct s_command
 
 typedef struct s_redir_pipe
 {
-	int					fd_toredir;
+	int					fd_read;
+	int					fd_write;
 	int					fd_end;
 	char				*here_string;
-	bool				opened;
+	bool				opened_read;
+	bool				opened_write;
 	struct s_redir_pipe	*next;
 }				t_redir_pipe;
 
@@ -122,6 +124,7 @@ long		execute_the_line(t_command *cmd, t_env *env);
 int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd);
 
 int			count_cmds(t_command *cmd);
+void		free_redirs(t_redir_pipe *redir);
 
 /*---------------UTILITIES------------------*/
 // cleaning
@@ -143,11 +146,13 @@ int			is_ender(char c, char new_c);
 char		convert_to_closing(char c);
 int			is_cmd_delim(char *c);
 int			is_num(char c);
+int			is_all_num(char *s);
 char		is_quoted(char *s, int i, char quoted);
 
 // error_manager
 int			syntax_error(char *token, int l);
 int			ambiguous_error(char *cmd);
+int			some_error(char *cmd, char *error);
 
 /*---------------BUILTINS------------------*/
 void		metal_injection(void);
