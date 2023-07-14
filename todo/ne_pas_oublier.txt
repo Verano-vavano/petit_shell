@@ -110,3 +110,30 @@ https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 
 PWD
 cd Users///////// => PWD = /Users
+
+
+EXPANS ARITH:
+id++ id--
+++id --id
+- +
+! ~
+**
+* / %
+<< >>
+<= >= < >
+== !=
+& ^ |
+&& ||
+expr ? expr : expr (TERNAIRE !!!)
+= *= /= %= += -= <<= >>= &= ^= |=
+
+
+BRACES EXPANSION
+{a,b}
+{a,{a,b}}
+{a{a,b}}
+{a..b}
+{a..b..1}
+{00..15}
+ambiguous redirect
+bad substitution

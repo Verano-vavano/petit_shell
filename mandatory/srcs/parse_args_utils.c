@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 15:39:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 14:50:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ static char	strlen_loop(char *s, int *i, char c, int *dos)
 int	ft_strlen_arg(char *s, int meta)
 {
 	int		i;
+	int		j;
 	int		dos;
 	char	c;
 
-	if (!s[0])
+	if (!s[0] || s[0] == '#')
 		return (0);
 	c = 's';
 	i = 0;
@@ -81,9 +82,9 @@ int	ft_strlen_arg(char *s, int meta)
 	dos = 0;
 	while (c)
 	{
-		i = redir_parser(s);
-		if (i)
-			return (i);
+		j = redir_parser(s);
+		if (j)
+			return (j);
 		c = strlen_loop(s, &i, c, &dos);
 		c = rescue_funk(s, 0, &i, c);
 	}
