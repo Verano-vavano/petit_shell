@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 20:55:23 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 21:04:00 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	env_add(t_env *newest, t_env **env)
 {
 	t_env	*tmp;
 
-	if (env_contain(newest->key, *env))
-		return ;
 	if (env && *env)
 	{
 		tmp = env_last(*env);
