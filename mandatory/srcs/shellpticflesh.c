@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 15:50:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 15:19:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	cmd_processing(char *line, t_env *env)
 	lexed = spliter_init(line);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed))
 		return (1);
-	if (here_doc(lexed))
+	if (here_doc(lexed) || expand_cmd(lexed, env))
 		return (1);
-	expand_cmd(lexed, env);
 	if (ft_strcmp("hell", lexed->content) == 0)
 		metal_injection();
 	else if (ft_strcmp("exit", lexed->content) == 0)

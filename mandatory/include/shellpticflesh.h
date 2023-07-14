@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 11:15:42 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:06:18 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int			here_doc(t_command *cmd);
 
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
-void		expand_cmd(t_command *cmd, t_env *env);
+int			expand_cmd(t_command *cmd, t_env *env);
+
+// braces_expansion
+int			braces_expansion(t_command *cmd);
 
 // tilde_expansion
 void		tilde_expansion(t_command *cmd, t_env *env);
@@ -103,7 +106,7 @@ void		execute_the_line(t_command *cmd);
 
 /*---------------UTILITIES------------------*/
 // cleaning
-void		free_command(t_command *l);
+int			free_command(t_command *l);
 void		free_env(t_env *env);
 void		free_whole_env(t_env *env);
 
@@ -121,9 +124,11 @@ int			is_ender(char c, char new_c);
 char		convert_to_closing(char c);
 int			is_cmd_delim(char *c);
 int			is_num(char c);
+char		is_quoted(char *s, int i, char quoted);
 
 // error_manager
 int			syntax_error(char *token, int l);
+int			ambiguous_error(char *cmd);
 
 /*---------------BUILTINS------------------*/
 void		metal_injection(void);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 18:07:07 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:43:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_whole_env(t_env *env)
 	env = NULL;
 }
 
-void	free_command(t_command *l)
+int	free_command(t_command *l)
 {
 	t_command	*next;
 
@@ -61,4 +61,5 @@ void	free_command(t_command *l)
 		free(l->content);
 	if (l)
 		free(l);
+	return (-1);
 }

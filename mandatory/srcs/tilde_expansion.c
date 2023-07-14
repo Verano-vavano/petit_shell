@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 18:46:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 11:33:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int	need_tilde(t_command *cmd)
 	return (0);
 }
 
+/* Expansions of sort : ~, ~+ and ~-
+ * ~n, ~+n and ~-n are not supported (yet ?) */
 void	tilde_expansion(t_command *cmd, t_env *env)
 {
 	char	**temp;

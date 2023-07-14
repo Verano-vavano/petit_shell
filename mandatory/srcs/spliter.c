@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 15:27:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 14:43:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	not_ended(char *s)
 	dos = 0;
 	while (s[i])
 	{
-		if (is_delim(s[i]) && (i == 0 || s[i - 1])
+		if (is_delim(s[i]) && (i == 0 || s[i - 1] != '\\')
 			&& (c == s[i] || !is_delim(c)))
 		{
 			if (!is_delim(c) && s[i] != ')' && s[i] != '}')
@@ -80,9 +80,7 @@ t_command	*spliter_init(char *line)
 {
 	t_command		*cmd;
 	char			where_did_we_fail;
-	int				did_it;
 
-	did_it = 0;
 	while (1)
 	{
 		if (check_syntax(line))
@@ -94,12 +92,10 @@ t_command	*spliter_init(char *line)
 		where_did_we_fail = (not_ended(line) || check_ender(line));
 		if (!where_did_we_fail)
 			break ;
-		did_it = 1;
 		line = new_line_add(line);
 	}
 	cmd = ft_split_cmd(line);
 	add_history(line);
-	if (!did_it)
-		free(line);
+	free(line);
 	return (cmd);
 }
