@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 18:50:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 15:49:11 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static char	*find_username(char *name, t_env *env)
 	whoami_get(name);
 	if (name)
 		return (name);
-	username_get = get_env_var(env, "LOGNAME");
+	username_get = env_getval(env, "LOGNAME");
 	if (username_get)
 	{
 		name = ft_strdup(*username_get);
 		return (name);
 	}
-	username_get = get_env_var(env, "USERNAME");
+	username_get = env_getval(env, "USERNAME");
 	if (!username_get)
 		return (0);
 	name = ft_strdup(*username_get);

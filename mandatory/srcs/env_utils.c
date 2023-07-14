@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/12 15:46:55 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:02:57 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_existence(char *newest, t_env **env)
 	return (0);
 }
 
-void	add_env(t_env **env, t_env *newest)
+void	env_add(t_env *newest, t_env **env)
 {
 	t_env	*tmp;
 
@@ -52,7 +52,7 @@ void	add_env(t_env **env, t_env *newest)
 }
 
 // TODO print message d'erreur
-void	del_env(t_env **env, char *del)
+void	env_del(t_env **env, char *del)
 {
 	t_env	*ptr;
 	t_env	*prev;
@@ -75,7 +75,7 @@ void	del_env(t_env **env, char *del)
 //	printf("Wesh le nom n'a pas ete trouve dans l'env\n");
 }
 
-char	**get_env_var(t_env *env, char *key)
+char	**env_getval(t_env *env, char *key)
 {
 	if (!env)
 		return (0);
