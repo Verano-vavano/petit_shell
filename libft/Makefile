@@ -6,13 +6,13 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 09:06:31 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/12 16:43:14 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/13 12:16:11 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRCS = ft_strlen.c ft_bzero.c ft_strcmp.c ft_strncmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strndup.c ft_strjoin.c ft_split.c ft_strchr_int.c get_next_line.c free_buffers.c ft_itoa.c ft_atol.c is_dgt.c free_char_etoile_etoile.c ft_strreplace.c
+SRCS = ft_strlen.c ft_bzero.c ft_strcmp.c ft_strncmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strndup.c ft_strjoin.c ft_split.c ft_strchr_int.c get_next_line.c free_buffers.c ft_itoa.c ft_atol.c is_dgt.c free_char_etoile_etoile.c ft_strreplace.c get_char_array_size.c
 DEST = $(SRCS:.c=.o)
 
 all: ${NAME}

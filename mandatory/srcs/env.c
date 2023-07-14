@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/10 08:09:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/13 11:51:39 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env	*env_new(char *env_var)
 	new->next = NULL;
 	if (tmp[1])
 	{
-		if (ft_strcmp(new->key, "PATH"))
+		if (ft_strcmp(new->key, "PATH") || ft_strcmp(new->key, "CDPATH"))
 			new->value = ft_split(tmp[1], ':');
 		else
 		{
