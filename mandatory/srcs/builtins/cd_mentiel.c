@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 18:33:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 16:09:34 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,21 @@ void	cd_absolute(t_env *env, char *dest)
 		update_cwd(env);
 }
 
+int		cd_and_print(char *path)
+{
+	int	did_cd;
+
+	if (chdir(path))
+	{
+		printf("%s\n",path);
+		did_cd = 1;
+	}
+	else
+		did_cd = 0;
+	free(path);
+	return (did_cd);
+}
+
 // d'abord CDPATH
 // puis
 // relatif
@@ -54,9 +69,14 @@ void	cd_absolute(t_env *env, char *dest)
 void	cd_relative(t_env *env, char *dest)
 {
 	t_env	*cdpath;
+<<<<<<< Updated upstream
+=======
+	int		i;
+	int		did_cd;
+>>>>>>> Stashed changes
 
-	printf("cd relatif\n");
 	cdpath = env_getptr("CDPATH", env);
+<<<<<<< Updated upstream
 	if (!cdpath)
 		printf("C'est NULLL\n");
 	else
@@ -64,10 +84,23 @@ void	cd_relative(t_env *env, char *dest)
 			printf("alors val = %s\n", cdpath->value[i]);
 	//for (int i = 0);
 	if (chdir(dest) > 0)
+=======
+	did_cd = 0;
+	if (cdpath)
+>>>>>>> Stashed changes
 	{
+		i = -1;
+		while(cdpath->value[++i])
+		{
+			did_cd = cd_and_print(ft_strjoin(cdpath->value[i], dest));
+			if (did_cd)
+				break ;
+		}
 	}
-	(void)env;
-	(void)dest;
+	if (!did_cd)
+		printf("did not cd\n");
+	else
+		printf("wow i did cd!!!\n");
 }
 
 void	cd_mentiel(t_command *lexed, t_env *env)
