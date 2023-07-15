@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 15:49:11 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:54:19 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ void	tilde_expansion(t_command *cmd, t_env *env)
 	opwd = 0;
 	if (!need_tilde(cmd))
 		return ;
-	temp = env_getval(env, "HOME");
+	temp = env_getval("HOME", env);
 	if (temp)
 		tilde = *temp;
 	malloqued = !(temp);
 	if (malloqued)
 		tilde = rescue_tilde_funk(env);
-	temp = env_getval(env, "PWD");
+	temp = env_getval("PWD", env);
 	if (temp)
 		pwd = *temp;
-	temp = env_getval(env, "OLDPWD");
+	temp = env_getval("OLDPWD", env);
 	if (temp)
 		opwd = *temp;
 	replace_tilde(cmd, tilde, pwd, opwd);

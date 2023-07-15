@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset_et_damnation.c                               :+:      :+:    :+:   */
+/*   dup_char_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 15:36:51 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 17:53:02 by tcharanc         ###   ########.fr       */
+/*   Created: 2023/07/14 18:23:54 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/07/14 20:04:18 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shellpticflesh.h"
-#include <stdlib.h>
+#include "libft.h"
 
-void	unset_et_damnation(t_command *lexed, t_env *env)
+char	**dup_char_array(char **arr)
 {
-	lexed = lexed->next;
-	while (lexed)
-	{
-		env_del(lexed->content, &env);
-		lexed = lexed->next;
-	}
+	int	i;
+	char	**ret;
+
+	ret = malloc(sizeof(char *) * (get_char_array_size(arr) + 1));
+	if (!ret)
+		return (NULL);
+	i = -1;
+	while(arr[++i])
+		ret[i] = ft_strdup(arr[i]);
+	ret[i] = NULL;
+	return (ret);
 }

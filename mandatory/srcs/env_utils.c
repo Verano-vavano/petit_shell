@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 16:02:57 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/14 21:04:00 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_env	*env_last(t_env *env)
 	return (env);
 }
 
-int	check_existence(char *newest, t_env **env)
+int	env_contain(char *newest, t_env *env)
 {
 	t_env	*ptr;
 
-	ptr = *env;
+	ptr = env;
 	while (ptr)
 		if (ft_strcmp(newest, ptr->key) == 0)
 			return (1);
@@ -40,8 +40,6 @@ void	env_add(t_env *newest, t_env **env)
 {
 	t_env	*tmp;
 
-	if (check_existence(newest->key, env))
-		return ;
 	if (env && *env)
 	{
 		tmp = env_last(*env);
@@ -52,7 +50,7 @@ void	env_add(t_env *newest, t_env **env)
 }
 
 // TODO print message d'erreur
-void	env_del(t_env **env, char *del)
+void	env_del(char *del, t_env **env)
 {
 	t_env	*ptr;
 	t_env	*prev;
@@ -75,7 +73,7 @@ void	env_del(t_env **env, char *del)
 //	printf("Wesh le nom n'a pas ete trouve dans l'env\n");
 }
 
-char	**env_getval(t_env *env, char *key)
+char	**env_getval(char *key, t_env *env)
 {
 	if (!env)
 		return (0);
