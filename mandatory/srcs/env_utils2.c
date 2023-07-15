@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 21:18:43 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:26:10 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,32 @@ t_env	*env_getptr(char *key, t_env *env)
 	return (ret);
 }
 
-int	env_update(char *char_arr, t_env *env, ...)
+void	env_change_val(char *key, char *value, t_env *env)
+{
+	t_env	*ptr;
+
+	ptr = env_getptr(key, env);
+	free_char_etoile_etoile(ptr->value);
+	ptr->value = ft_split(value, ':');
+}
+
+void	env_update(char *char_arr, t_env *env, ...)
 {
 	va_list	list;
 	char	*key;
-	t_env	*ptr;
-	char	**new_value;
+	char	**tmp;
 
 	va_start(list, env);
 	key = va_arg(list, char *);
 	if (key && env_contain(key, env))
-	{
-		ptr = env_getptr(key, env);
-		free_char_etoile_etoile(ptr->value);
-		ptr->value = ft_split(char_arr, ':');
-		return (1);
-	}
+		env_change_val(key, char_arr, env);
 	else
 	{
-		ptr = env_new(char_arr);
-		printf("update via export = %s\n",ptr->key);
-		if (env_contain(ptr->key, env))
-		{
-			key = ft_strdup(ptr->key);
-			new_value = dup_char_array(ptr->value);
-			free_env(ptr);
-			ptr = env_getptr(key, env);
-			free_char_etoile_etoile(ptr->value);
-			ptr->value = new_value;
-			free(key);
-			printf("wow ca existe\n");
-		}
+		tmp = ft_split(char_arr, '=');
+		if (env_contain(tmp[0], env))
+			env_change_val(tmp[0], tmp[1], env);
 		else
-		{
-			printf("hmm connait pas..\n");
-			env_add(ptr, &env);
-		}
+			env_add(env_new(char_arr), &env);
+		free_char_etoile_etoile(tmp);
 	}
-	return (0);
 }
