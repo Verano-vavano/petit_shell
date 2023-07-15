@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 21:09:47 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:30:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_env	*dup_env(t_env *env)
 		arr_size = get_char_array_size(env->value);
 		new->value = malloc(sizeof(char *) * (arr_size + 1));
 		i = -1;
-		while(env->value[++i])
+		while (env->value[++i])
 			new->value[i] = ft_strdup(env->value[i]);
 		new->value[i] = NULL;
 	}

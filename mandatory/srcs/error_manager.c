@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 15:42:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:04:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,14 @@ int	ambiguous_error(char *cmd)
 {
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": ambiguous redirect\n", 21);
+	return (1);
+}
+
+int	some_error(char *cmd, char *error)
+{
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": ", 2);
+	write(2, error, ft_strlen(error));
+	write(2, "\n", 1);
 	return (1);
 }

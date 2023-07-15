@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:31:55 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 09:40:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:28:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,16 @@ int	count_cmds(t_command *cmd)
 		cmd = cmd->next;
 	}
 	return (n);
+}
+
+void	free_redirs(t_redir_pipe *redir)
+{
+	t_redir_pipe	*next;
+
+	while (redir)
+	{
+		next = redir->next;
+		free(redir);
+		redir = next;
+	}
 }

@@ -6,45 +6,35 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:54:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:29:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-/*
-static void	handle_infile(t_process_cmd *cmd_p, t_command *cmd, int hd)
-{
-	char	*here_doc_file;
-	char	*no_hd;
 
-	if (cmd->purpose == IN_FILE || cmd->purpose == IN_OUT_FILE)
-		cmd_p->fd_in = open(cmd->content, O_RDONLY);
-	else if (cmd->purpose == HERE_DOC_DELIM)
+static t_redir_pipe	*get_redir_struct(t_redir_pipe *redir, int fd)
+{
+	if (!redir)
 	{
-		no_hd = ft_itoa(hd);
-		if (!no_hd)
-		{
-			cmd_p->fd_in = -1;
-			return ;
-		}
-		here_doc_file = ft_strjoin(TEMP, no_hd);
-		free(no_hd);
-		if (!here_doc_file)
-		{
-			cmd_p->fd_in = -1;
-			return ;
-		}
-		cmd_p->fd_in = open(here_doc_file, O_RDONLY);
-		free(here_doc_file);
+		redir = ft_calloc(1, sizeof (t_redir_pipe));
+		if (!redir)
+			return (redir);
+		redir->fd_end = fd;
+		return (redir);
 	}
-	else if (cmd->purpose == HERE_STRING)
-		cmd_p->fd_in = -2;
-}*/
-
-static t_redir_pipe	*get_redir_struct(t_redir_pipe *redir)
-{
-	(void) redir;
-	return (0);
+	while (redir->next)
+	{
+		if (redir->fd_end == fd)
+			return (redir);
+		redir = redir->next;
+	}
+	if (redir->fd_end == fd)
+		return (redir);
+	redir->next = ft_calloc(1, sizeof (t_redir_pipe));
+	if (!redir->next)
+		return (0);
+	redir->next->fd_end = fd;
+	return (redir->next);
 }
 
 static int	get_redir_from(enum e_cmd_part redir, char *s, int len)
@@ -80,8 +70,10 @@ static int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 	if (i2 < i1)
 		i1 = i2;
 	redir_from_fd = get_redir_from(cmd->next->purpose, cmd->content, i1);
-	redir = get_redir_struct(cmd_p->redir);
-	(void) cmd_p;
+	redir = get_redir_struct(cmd_p->redir, redir_from_fd);
+	open_redir_files(cmd->next, redir, hd);
+	if (cmd_p->redir == 0)
+		cmd_p->redir = redir;
 	return (hd + (cmd->next->purpose == HERE_DOC_DELIM));
 }
 
@@ -122,6 +114,5 @@ int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd)
 			here_docs = handle_files(cmd_processing, cmd, here_docs);
 		cmd = cmd->next;
 	}
-	free(cmd_processing->cmd);
 	return (0);
 }

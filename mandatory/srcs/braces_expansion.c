@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:53:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:44:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static int	brace_expand_it(t_command *cmd)
 		}
 		i++;
 	}
-	/*if (expanded)
-		brace_expand_it(cmd);*/
+	if (expanded)
+		brace_expand_it(cmd);
 	return (0);
 }
 

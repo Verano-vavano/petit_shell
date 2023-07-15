@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 21:01:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:34:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_env	*env_new(char *env_var)
 	tmp = ft_split(env_var, '=');
 	new->key = ft_strdup(tmp[0]);
 	if (tmp[1])
-			new->value = ft_split(tmp[1], ':');
+		new->value = ft_split(tmp[1], ':');
 	else
 		new->value = NULL;
 	new->next = NULL;

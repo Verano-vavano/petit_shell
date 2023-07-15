@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 14:26:10 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:35:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 t_env	*env_getptr(char *key, t_env *env)
 {
-	t_env *ret;
+	t_env	*ret;
 
 	ret = env;
-	while(ret)
+	while (ret)
 		if (ft_strcmp(ret->key, key) == 0)
 			return (ret);
-		else
-			ret = ret->next;
+	else
+		ret = ret->next;
 	return (ret);
 }
 

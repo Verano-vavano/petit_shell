@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:32:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:53:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 15:39:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ int	is_cmd_delim(char *c)
 int	is_num(char c)
 {
 	return (c >= '0' && c <= '9');
+}
+
+int	is_all_num(char *s)
+{
+	while (*s)
+	{
+		if (!is_num(*s))
+			return (0);
+		s++;
+	}
+	return (1);
 }
 
 char	is_quoted(char *s, int i, char quoted)

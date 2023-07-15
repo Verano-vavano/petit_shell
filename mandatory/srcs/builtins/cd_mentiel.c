@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 20:39:52 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:33:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	update_cwd(t_env *env)
 // pwd deviens locale... wtf 
 void	cd_home(t_env *env)
 {
-	char **home;
+	char	**home;
 
 	home = env_getval("HOME", env);
 	if (home == NULL)
@@ -36,10 +36,11 @@ void	cd_home(t_env *env)
 	else
 		chdir(home[0]);
 }
+
 //
 void	cd_absolute(t_env *env, char *dest)
 {
-	printf("dest = %s\n",dest);
+	printf("dest = %s\n", dest);
 	if (chdir(dest) < 0)
 		printf("cd: %s: No such file or directory\n", dest);
 	else
@@ -52,7 +53,7 @@ void	cd_absolute(t_env *env, char *dest)
 // sinon ex pas
 void	cd_relative(t_env *env, char *dest)
 {
-	t_env *cdpath;
+	t_env	*cdpath;
 
 	printf("cd relatif\n");
 	cdpath = env_getptr("CDPATH", env);
@@ -60,7 +61,7 @@ void	cd_relative(t_env *env, char *dest)
 		printf("C'est NULLL\n");
 	else
 		for (int i = 0; cdpath->value[i]; i++)
-			printf("alors val = %s\n",cdpath->value[i]);
+			printf("alors val = %s\n", cdpath->value[i]);
 	//for (int i = 0);
 	if (chdir(dest) > 0)
 	{

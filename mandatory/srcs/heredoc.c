@@ -6,11 +6,33 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 11:02:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:09:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+int	get_heredoc_file(int hd, int mode)
+{
+	char	*itoaed;
+	char	*filename;
+	int		fd;
+
+	itoaed = ft_itoa(hd);
+	if (!itoaed)
+		return (-1);
+	filename = ft_strjoin(TEMP, itoaed);
+	if (!filename)
+		return (-1);
+	free(itoaed);
+	fd = 0;
+	if (mode == READ)
+		fd = open(filename, O_RDONLY);
+	else if (mode == WRITE)
+		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0666);
+	free(filename);
+	return (fd);
+}
 
 void	unlink_heredocs(t_command *cmd)
 {
@@ -41,7 +63,6 @@ static void	write_heredoc(int fd, char *eof)
 {
 	char	*line;
 
-	line = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
 	while (1)
 	{
 		line = readline(PS2);
@@ -60,18 +81,10 @@ static void	write_heredoc(int fd, char *eof)
 static int	create_heredoc(int index, char *eof)
 {
 	int		fd_heredoc;
-	char	*itoaed;
-	char	*file_name;
 
-	itoaed = ft_itoa(index);
-	file_name = ft_strjoin(TEMP, itoaed);
-	if (!access(file_name, F_OK))
-		unlink(file_name);
-	fd_heredoc = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0666);
+	fd_heredoc = get_heredoc_file(index, WRITE);
 	if (fd_heredoc <= 0)
 		return (1);
-	free(itoaed);
-	free(file_name);
 	write_heredoc(fd_heredoc, eof);
 	close(fd_heredoc);
 	return (0);

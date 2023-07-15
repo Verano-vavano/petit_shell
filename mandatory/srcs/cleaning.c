@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 15:43:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:20:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	free_command(t_command *l)
 		next = l->next;
 		free(l->content);
 		free(l);
-		l = l->next;
+		l = next;
 	}
 	if (l && l->content)
 		free(l->content);

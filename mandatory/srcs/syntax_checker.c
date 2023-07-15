@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:43:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 18:41:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	check_syntax(char *line)
 
 	first = 1;
 	i = 0;
+	dollar = 0;
 	while (line[i])
 	{
 		if (first && is_strict_meta(line[i]))
@@ -123,8 +124,7 @@ int	check_syntax(char *line)
 			|| (first && line[i] == '(');
 		dollar = (line[i] == '$' || (dollar && line[i] == '('));
 		i += ((line[i] == '|' && line[i + 1] == '|')
-				|| (line[i] == '&' && line[i + 1] == '&'));
-		i++;
+				|| (line[i] == '&' && line[i + 1] == '&')) + 1;
 		while (is_separator(line[i]))
 			i++;
 	}
