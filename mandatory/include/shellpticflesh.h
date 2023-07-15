@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 16:14:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:52:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 # define TEMP "/tmp/temp_shellptic_"
+# define READ 0
+# define WRITE 1
 
 # define PS1 "lol >> "
 # define PS2 "> "
@@ -102,6 +105,7 @@ int			handle_parenthesis(char *c, char c2, int dos);
 int			ft_strlen_arg(char *s, int meta);
 
 /*---------------HEREDOC------------------*/
+int			get_heredoc_file(int hd, int mode);
 void		unlink_heredocs(t_command *cmd);
 int			here_doc(t_command *cmd);
 
@@ -122,6 +126,8 @@ char		*rescue_tilde_funk(t_env *env);
 long		execute_the_line(t_command *cmd, t_env *env);
 
 int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd);
+
+int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
 
 int			count_cmds(t_command *cmd);
 void		free_redirs(t_redir_pipe *redir);
