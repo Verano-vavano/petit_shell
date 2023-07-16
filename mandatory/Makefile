@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/15 20:34:07 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/16 12:24:35 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 builtins/unset_et_damnation.c				line_expansions.c\
 	 tilde_expansion.c	get_tilde.c builtins/cd_mentiel.c builtins/print_working_damnation.c \
 	 env_utils2.c		braces_expansion.c		execution_utils.c\
-	 get_cmd.c			files.c					get_path.c
+	 get_cmd.c			files.c					get_path.c\
+	 redirections.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

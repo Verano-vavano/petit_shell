@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 20:14:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/16 15:53:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ typedef struct s_process_cmd
 	char			**cmd;
 	char			*cmd_name;
 	t_redir_pipe	*redir;
+	bool			free_name;
 }				t_process_cmd;
 
 typedef struct s_env
 {
 	char			*key;
 	char			**value;
+	bool			is_local;
 	struct s_env	*next;
 }				t_env;
 
@@ -135,6 +137,9 @@ int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
 
 // get_path
 int			get_cmd_path(t_process_cmd *cmd, t_env *env);
+
+// redirections
+void		perform_redirections(t_process_cmd *cmd);
 
 // execution_utils
 int			count_cmds(t_command *cmd);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 18:42:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/16 15:33:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ int	ft_strlen_arg(char *s, int meta)
 	if (!s[0] || s[0] == '#')
 		return (0);
 	i = 0;
-	c = s[i];
+	c = 's';
 	if (meta && s[i] != '<' && s[i] != '>')
 	{
+		c = s[i];
 		while (s[i] == c)
 			i++;
 		return (i);

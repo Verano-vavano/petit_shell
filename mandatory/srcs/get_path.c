@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 20:48:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/16 12:15:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_pathing(char *cmd)
 	int		next_s;
 	char	replaced_char;
 
-	last_s = 0;
+	last_s = (cmd[0] == '/');
 	next_s = ft_strchr_int(cmd + last_s, '/');
 	while (cmd[last_s + next_s])
 	{
@@ -54,12 +54,13 @@ static int	check_org_path(char *cmd)
 	if (cmd[ft_strchr_int(cmd, '/')] != '/')
 		return (0);
 	pathing = check_pathing(cmd);
-	if (access(cmd, F_OK) == 0 || pathing)
+	if (access(cmd, F_OK) == 0)
 	{
-		if (access(cmd, X_OK) == 0)
+		if (access(cmd, X_OK) == 0 && !pathing)
 			return (-1);
-		perror(cmd);
-		return (126);
+		else if (access(cmd, X_OK) != 0 || pathing)
+			return (126);
+		return (127);
 	}
 	return (0);
 }
@@ -91,19 +92,18 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	char	*path_cmd;
 	char	*full_path;
 	int		err_catcher;
+	bool	is_rel;
 
 	cmd->cmd_name = cmd->cmd[0];
+	is_rel = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
 	path = env_getval("PATH", env);
 	if (!env_isdefined("PATH", env))
 		cmd->cmd_name = add_start(cmd->cmd_name);
 	err_catcher = check_org_path(cmd->cmd_name);
 	if (err_catcher)
 		return (err_catcher);
-	else if (!env_isdefined("PATH", env))
-	{
-		perror(cmd->cmd[0]);
+	else if (!env_isdefined("PATH", env) || is_rel)
 		return (127);
-	}
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
 	if (path_cmd == 0)
 		return (1);
@@ -112,8 +112,9 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 		full_path = check_path(path, path_cmd);
 		if (full_path)
 		{
+			cmd->free_name = true;
 			cmd->cmd_name = full_path;
-			return (1);
+			return (0);
 		}
 		path++;
 	}
