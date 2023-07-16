@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 16:41:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/15 20:14:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_redir_pipe
 typedef struct s_process_cmd
 {
 	char			**cmd;
+	char			*cmd_name;
 	t_redir_pipe	*redir;
 }				t_process_cmd;
 
@@ -123,12 +124,19 @@ void		tilde_expansion(t_command *cmd, t_env *env);
 char		*rescue_tilde_funk(t_env *env);
 
 /*--------------EXECUTION-----------------*/
+// execution
 long		execute_the_line(t_command *cmd, t_env *env);
 
+// get_cmd
 int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd);
 
+// files
 int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
 
+// get_path
+int			get_cmd_path(t_process_cmd *cmd, t_env *env);
+
+// execution_utils
 int			count_cmds(t_command *cmd);
 void		free_redirs(t_redir_pipe *redir);
 
@@ -181,5 +189,6 @@ char		**env_getval(char *key, t_env *env);
 void		env_update(char *char_arr, t_env *env, ...);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
+int			env_isdefined(char *key, t_env *env);
 
 #endif

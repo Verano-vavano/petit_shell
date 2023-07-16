@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 16:09:34 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:45:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,10 @@ int		cd_and_print(char *path)
 void	cd_relative(t_env *env, char *dest)
 {
 	t_env	*cdpath;
-<<<<<<< Updated upstream
-=======
 	int		i;
 	int		did_cd;
->>>>>>> Stashed changes
 
 	cdpath = env_getptr("CDPATH", env);
-<<<<<<< Updated upstream
 	if (!cdpath)
 		printf("C'est NULLL\n");
 	else
@@ -84,10 +80,8 @@ void	cd_relative(t_env *env, char *dest)
 			printf("alors val = %s\n", cdpath->value[i]);
 	//for (int i = 0);
 	if (chdir(dest) > 0)
-=======
 	did_cd = 0;
 	if (cdpath)
->>>>>>> Stashed changes
 	{
 		i = -1;
 		while(cdpath->value[++i])

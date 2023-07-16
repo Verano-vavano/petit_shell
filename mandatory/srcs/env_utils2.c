@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 18:35:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/16 02:26:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,15 @@ void	env_update(char *char_arr, t_env *env, ...)
 			env_add(env_new(char_arr), &env);
 		free_char_etoile_etoile(tmp);
 	}
+}
+
+int	env_isdefined(char *key, t_env *env)
+{
+	while (env)
+	{
+		if (!ft_strcmp(env->key, key))
+			return (1);
+		env = env->next;
+	}
+	return (0);
 }
