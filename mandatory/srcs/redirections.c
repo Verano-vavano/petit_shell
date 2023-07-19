@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:23:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 15:28:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:55:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	dup_redir(t_redir_pipe *redir)
 		dup2(redir->fd_write, redir->fd_end);
 }
 
-void	perform_redirections(t_process_cmd *cmd)
+void	perform_redirections(t_process_cmd *cmd, t_ret_cmd *ret)
 {
 	bool			is_in_read_duped;
 	bool			is_out_write_duped;
@@ -37,5 +37,15 @@ void	perform_redirections(t_process_cmd *cmd)
 			|| (redir->fd_end == STDIN_FILENO && redir->fd_write != -1));	
 		dup_redir(redir);
 		redir = redir->next;
+	}
+	if (!is_in_read_duped && ret->fd != -1)
+	{
+		perror("IN");
+		dup2(ret->fd, STDIN_FILENO);
+	}
+	if (!is_out_write_duped && ret->n_cmd != 1)
+	{
+		perror("OUT");
+		dup2(ret->pipes[1], STDOUT_FILENO);
 	}
 }

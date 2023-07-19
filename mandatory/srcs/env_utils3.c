@@ -6,9 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 15:58:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 13:48:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "shellpticflesh.h"
 
 static int	env_size(t_env *env)
 {
@@ -17,11 +19,43 @@ static int	env_size(t_env *env)
 	n = 0;
 	while (env)
 	{
-		if (env->is_local)
+		if (1) // !env->is_local
 			n++;
 		env = env->next;
 	}
 	return (n);
+}
+
+static char	*get_env_val(t_env *env)
+{
+	char	**val;
+	char	*return_val;
+	char	*temp;
+
+	val = env->value;
+	return_val = ft_strjoin(env->key, "=");
+	if (!return_val)
+		return (0);
+	while (val)
+	{
+		temp = ft_strjoin(return_val, *val);
+		free(return_val);
+		if (!temp)
+			return (0);
+		return_val = temp;
+		if (val[1])
+		{
+			temp = ft_strjoin(return_val, ":");
+			free(return_val);
+			if (!temp)
+				return (0);
+			return_val = temp;
+			val++;
+		}
+		else
+			break ;
+	}
+	return (return_val);
 }
 
 char	**re_char_etoile_etoilise_env(t_env *env)
@@ -37,7 +71,7 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (env->is_local)
+		if (1) // !env->is_local
 		{
 			c_env[i] = get_env_val(env);
 			if (c_env[i] == 0)
@@ -47,5 +81,7 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 			}
 			i++;
 		}
+		env = env->next;
 	}
+	return (c_env);
 }

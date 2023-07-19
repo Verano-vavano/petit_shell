@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/16 12:24:35 by hdupire          ###   ########.fr        #
+#    Updated: 2023/07/19 16:00:15 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 tilde_expansion.c	get_tilde.c builtins/cd_mentiel.c builtins/print_working_damnation.c \
 	 env_utils2.c		braces_expansion.c		execution_utils.c\
 	 get_cmd.c			files.c					get_path.c\
-	 redirections.c
+	 redirections.c		env_utils3.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 
@@ -40,12 +40,12 @@ LINKERS=-lreadline
 all:${NAME}
 
 .c.o:
-	@${GCC} ${CFLAGS} -c -I ${INCLUDES} -I ${LIBFT_PATH} $< -o ${<:.c=.o}
+	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} -c $< -o ${<:.c=.o}
 
 ${NAME}:${DEST}
 	@echo "Doing god's work"
 	@make -C ${LIBFT_PATH}
-	@${GCC} ${CFLAGS} ${LINKERS} ${LIBFT} ${DEST} -o ${NAME}
+	@${GCC} ${CFLAGS} ${LINKERS} ${LIBFT} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft
 
 clean:
 	@${RM} ${DEST}

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/13 14:43:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 11:51:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static char	*new_line_add(char *line)
 	new_line = 0;
 	while (!new_line || !(*new_line))
 		new_line = readline(PS2);
-	free(line);
 	joined = ft_strjoin(line, "\n");
+	free(line);
 	line = ft_strjoin(joined, new_line);
 	free(new_line);
 	free(joined);

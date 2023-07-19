@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 18:44:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 11:51:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	apply_brace_exp(t_command *cmd, int i)
 
 	s = cmd->content;
 	quoted = 0;
+	(void) s;
+	(void) quoted;
 	(void) cmd;
 	(void) i;
 	return (0);

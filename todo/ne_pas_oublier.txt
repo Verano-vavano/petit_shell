@@ -1,8 +1,4 @@
-unlink les heredocs
-ne pas gerer le \ :)
 $"" $'' "" ''
-si commence par #, ignorer ce qui suit(commentaire)
-les arguments sont separes par des metacaracteres § (tabs, espaces, nl)
 signaux
 environnement (_, old_pwd, pwd)
 !! !?
@@ -15,13 +11,6 @@ $! last pid
 $$ cur pid
 Gerer les parentheses
 
-Le buffer_size est de 4096, mais tout doit etre lu !
-
-variables non exportees ne doivent pas etre dans l'env, mais doivent etre remplacees si appelees directement dans une commande !
-a=12
-echo $a -> 12
-
-CD = Regarder d'abord si folder dans CDPATH (si set dans l'env), puis en chemin absolue.
 
 echo $(ls; pwd)
 echo (ls; pwd)
@@ -29,8 +18,6 @@ echo (ls; pwd)
 echo $(x=10; ((x++)); echo $x)
 
 unexpected token -> 258
-
-generer une erreur si guillemets pas fermees (ou readliner)
 
 --
 
@@ -57,9 +44,6 @@ ls hrewher | echo lol && << a > b (demande quand meme le here_doc, mais ne fais 
 ls -l < a -a > b -A
 echo $'\n' && echo \n && echo '\n' && echo "\n"
 
-si export b, alors b est dans env, mais n'affiche pas quand appel 'env' mais est dans export
-cependant, si on fait ensuit b=, alors il apparait dans env
-
 --
 
 SYNTAX ERROR
@@ -76,8 +60,6 @@ bonjour
 
 --> echo lolbonjour
 
-echo lol <a >a <<a >>a <>a <<<a
-
 -----
 
 WORD SPLITTING
@@ -88,18 +70,6 @@ IFS=','
 echo $string
 
 -----
-
-~ 
-LOOK FOR HOME
-NO HOME -> PWD (/Users/username)
-NO PWD -> fork && whoami
-NO whoami -> LOGNAME
-NO LOGNAME -> garbage value (/Users/whatever)
-
-DONT FORGET
-~
-~+ = PWD
-~- = OLDPWD
 
 LOCAL
 PS1
@@ -137,3 +107,10 @@ BRACES EXPANSION
 {00..15}
 ambiguous redirect
 bad substitution
+
+&> ou &>> : redirige STDOUT et STDERR
+echo lol >/dev/stdout
+<<-word (enleve tabs)
+
+dans execution, definir les variables dans l'enfant s'il y a au moins une commande, sinon dans le papa
+si pas de commandes, d'abord assignments, puis redirections

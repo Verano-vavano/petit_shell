@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/16 11:42:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 13:30:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ void	exit_hell(t_command *lexed)
 	}
 	else
 		exit_code = 0;
-	system("leaks minishell");
 	exit(exit_code % 256);
 }

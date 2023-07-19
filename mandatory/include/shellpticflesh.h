@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 15:53:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:54:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
+typedef struct s_ret_cmd
+{
+	pid_t	pid;
+	int		fd;
+	int		pipes[2];
+	int		n_cmd;
+}				t_ret_cmd;
+
 // shellpticflesh
 int			cmd_processing(char *line, t_env *env);
 
@@ -139,7 +147,7 @@ int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
 int			get_cmd_path(t_process_cmd *cmd, t_env *env);
 
 // redirections
-void		perform_redirections(t_process_cmd *cmd);
+void		perform_redirections(t_process_cmd *cmd, t_ret_cmd *ret);
 
 // execution_utils
 int			count_cmds(t_command *cmd);
@@ -195,5 +203,6 @@ void		env_update(char *char_arr, t_env *env, ...);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);
+char		**re_char_etoile_etoilise_env(t_env *env);
 
 #endif
