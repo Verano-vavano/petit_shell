@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 20:33:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/19 19:40:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,26 @@ int	some_error(char *cmd, char *error)
 	write(2, error, ft_strlen(error));
 	write(2, "\n", 1);
 	return (1);
+}
+
+int	command_error(char *cmd, int error)
+{
+	char *temp;
+	char *temp2;
+
+	if (error != 126 && error != 127)
+		return (error);
+	temp = ft_strjoin(cmd, ": ");
+	if (!temp)
+		return (error);
+	if (error == 126)
+		temp2 = ft_strjoin(temp, "Permission denied\n");
+	else if (error == 127)
+		temp2 = ft_strjoin(temp, "command not found...\n");
+	free(temp);
+	if (!temp2)
+		return (error);
+	write(2, temp2, ft_strlen(temp2));
+	free(temp2);
+	return (error);
 }

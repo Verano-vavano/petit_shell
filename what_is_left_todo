@@ -1,0 +1,30 @@
+Quote removal du heredoc
+heredoc -
+
+Export -> is local
+env local et exporté
+
+Tilde expansion : look for /etc/passwd
+
+Expansions :
+Braces
+Parameter
+Command
+Arithmetic
+
+Assignations de variable (lexer, parser, et post-execution)
+
+Checker si builtin
+Here_string dans fd correspondant
+Quote removal du t_command
+
+Gérer les ;, &&, ||
+
+Gérer l'history dans le HOME :
+.shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
+
+Gérer le $? (stocker dans env dans local)
+
+Tetris
+Awk v2
+Cyberpunk avec raytracing et 180fps sur les Mac mini

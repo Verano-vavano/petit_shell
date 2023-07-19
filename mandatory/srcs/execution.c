@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/18 17:54:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/19 19:51:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,33 @@ static t_command	*go_to_next_cmd(t_command *cmd)
 	return (cmd->next);
 }
 
+static long	wait_father(pid_t pid, int n_cmd)
+{
+	int	exit_st;
+	int	status;
+
+	exit_st = -1;
+	while (--n_cmd != -1)
+	{
+		if (waitpid(-1, &status, 0) == pid)
+			exit_st = status;
+	}
+	if (exit_st == -1)
+		exit_st = status;
+	return (WEXITSTATUS(exit_st));
+}
+
 long	execute_the_line(t_command *cmd, t_env *env)
 {
 	int				n_cmd;
+	int				n_cmd_cpy;
 	long			err_status;
 	char			**c_env;
 	t_process_cmd	cmd_processing;
 	t_ret_cmd		ret_cmd;
 
 	n_cmd = count_cmds(cmd);
+	n_cmd_cpy = n_cmd;
 	c_env = re_char_etoile_etoilise_env(env);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
@@ -78,7 +96,6 @@ long	execute_the_line(t_command *cmd, t_env *env)
 		}
 		ret_cmd.n_cmd = n_cmd;
 		create_child(&cmd_processing, c_env, &ret_cmd);
-		waitpid(ret_cmd.pid, 0, 0);
 		/*clean_processing(cmd_processing);*/
 		cmd = go_to_next_cmd(cmd);
 		if (cmd)
@@ -86,7 +103,10 @@ long	execute_the_line(t_command *cmd, t_env *env)
 		n_cmd--;
 		free(cmd_processing.cmd);
 		free_redirs(cmd_processing.redir);
+		if (cmd_processing.free_name)
+			free(cmd_processing.cmd_name);
 	}
+	wait_father(ret_cmd.pid, n_cmd_cpy);
 	free_char_etoile_etoile(c_env);
 	return (0);
 }

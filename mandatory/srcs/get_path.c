@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 12:15:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/19 19:50:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,16 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	bool	is_rel;
 
 	cmd->cmd_name = cmd->cmd[0];
+	cmd->free_name = false;
 	is_rel = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
 	path = env_getval("PATH", env);
 	if (!env_isdefined("PATH", env))
 		cmd->cmd_name = add_start(cmd->cmd_name);
 	err_catcher = check_org_path(cmd->cmd_name);
 	if (err_catcher)
-		return (err_catcher);
+		return (command_error(cmd->cmd[0], err_catcher));
 	else if (!env_isdefined("PATH", env) || is_rel)
-		return (127);
+		return (command_error(cmd->cmd[0], 127));
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
 	if (path_cmd == 0)
 		return (1);
@@ -119,7 +120,5 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 		path++;
 	}
 	free(path_cmd);
-	if (cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')])
-		perror(cmd->cmd_name);
-	return (127);
+	return (command_error(cmd->cmd[0], 127));
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/18 17:54:09 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/19 19:42:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ char		is_quoted(char *s, int i, char quoted);
 int			syntax_error(char *token, int l);
 int			ambiguous_error(char *cmd);
 int			some_error(char *cmd, char *error);
+int			command_error(char *cmd, int error);
 
 /*---------------BUILTINS------------------*/
 void		metal_injection(void);
