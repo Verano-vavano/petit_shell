@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/19 19:51:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/20 14:00:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ long	execute_the_line(t_command *cmd, t_env *env)
 			continue ;
 		cmd_processing.redir = 0;
 		err_status = get_cmd(&cmd_processing, cmd);
-		printf("%ld\n", err_status);
 		if (err_status && n_cmd == 1)
 			return (err_status);
 		err_status = get_cmd_path(&cmd_processing, env);
-		printf("%ld %s\n", err_status, cmd_processing.cmd_name);
 		if (err_status > 0 && n_cmd == 1)
 		{
 			free(cmd_processing.cmd);
@@ -98,8 +96,6 @@ long	execute_the_line(t_command *cmd, t_env *env)
 		create_child(&cmd_processing, c_env, &ret_cmd);
 		/*clean_processing(cmd_processing);*/
 		cmd = go_to_next_cmd(cmd);
-		if (cmd)
-			printf("NOW = %s\n", cmd->content);
 		n_cmd--;
 		free(cmd_processing.cmd);
 		free_redirs(cmd_processing.redir);

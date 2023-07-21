@@ -1,5 +1,9 @@
+Better handling of \ at eol
+
 Quote removal du heredoc
 heredoc -
+
+better asking when line incomplete (look into quote and backslash in todo)
 
 Export -> is local
 env local et exporté
