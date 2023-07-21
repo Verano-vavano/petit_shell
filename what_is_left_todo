@@ -7,6 +7,7 @@ better asking when line incomplete (look into quote and backslash in todo)
 
 Export -> is local
 env local et exporté
+SHLEVEL et autres trucs de merde (revoir la doc)
 
 Tilde expansion : look for /etc/passwd
 
@@ -20,7 +21,6 @@ Assignations de variable (lexer, parser, et post-execution)
 
 Checker si builtin
 Here_string dans fd correspondant
-Quote removal du t_command
 
 Gérer les ;, &&, ||
 

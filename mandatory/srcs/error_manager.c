@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/19 19:40:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/21 07:37:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	some_error(char *cmd, char *error)
 
 int	command_error(char *cmd, int error)
 {
-	char *temp;
-	char *temp2;
+	char	*temp;
+	char	*temp2;
 
 	if (error != 126 && error != 127)
 		return (error);

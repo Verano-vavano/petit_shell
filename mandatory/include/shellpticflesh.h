@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 06:30:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/21 08:08:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ void		perform_redirections(t_process_cmd *cmd, t_ret_cmd *ret);
 // execution_utils
 int			count_cmds(t_command *cmd);
 void		free_redirs(t_redir_pipe *redir);
+t_command	*go_to_next_cmd(t_command *cmd);
+void		exec_cleaner(t_process_cmd cmd_processing);
 
 /*---------------UTILITIES------------------*/
 // cleaning
