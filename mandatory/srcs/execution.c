@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 08:14:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:59:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 // dup2 STDIN && STDOUT from pipes
 // dup2 everything else casually baby
-static void	child_action(t_process_cmd *cmd, char **env, t_ret_cmd *ret)
+static void	child_action(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 {
 	close(ret->pipes[0]);
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
-	execve(cmd->cmd_name, cmd->cmd, env);
+	if (cmd->is_builtin)
+		exit(execute_builtin(cmd, env, false));
+	else
+		execve(cmd->cmd_name, cmd->cmd, c_env);
 }
 
-static void	create_child(t_process_cmd *cmd, char **env, t_ret_cmd *ret)
+static void	create_child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 {
 	ret->pid = fork();
 	if (ret->pid == -1)
 		perror("fork");
 	else if (ret->pid == 0)
-		child_action(cmd, env, ret);
+		child_action(cmd, env, c_env, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
 	ret->fd = dup(ret->pipes[0]);
@@ -56,7 +59,7 @@ static long	wait_father(pid_t pid, int n_cmd, char **c_env, long err)
 	return (err);
 }
 
-long	execute_the_line(t_command *cmd, t_env *env)
+long	execute_the_line(t_command *cmd, t_env *env, int *heredoc_no)
 {
 	int				n_cmd[2];
 	long			err_status;
@@ -74,7 +77,7 @@ long	execute_the_line(t_command *cmd, t_env *env)
 		if (pipe(ret_cmd.pipes) < 0)
 			continue ;
 		cmd_processing.redir = 0;
-		err_status = get_cmd(&cmd_processing, cmd);
+		err_status = get_cmd(&cmd_processing, cmd, heredoc_no);
 		if (err_status && n_cmd[0] == 1)
 			break ;
 		err_status = get_cmd_path(&cmd_processing, env);
@@ -84,7 +87,10 @@ long	execute_the_line(t_command *cmd, t_env *env)
 			break ;
 		}
 		ret_cmd.n_cmd = n_cmd[0];
-		create_child(&cmd_processing, c_env, &ret_cmd);
+		if (cmd_processing.is_builtin && n_cmd[1] == 1)
+			return (execute_builtin(&cmd_processing, env, true));
+		else
+			create_child(&cmd_processing, env, c_env, &ret_cmd);
 		cmd = go_to_next_cmd(cmd);
 		n_cmd[0]--;
 		exec_cleaner(cmd_processing);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:23:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 08:17:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:07:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static void	dup_redir(t_redir_pipe *redir)
 		dup2(redir->fd_read, redir->fd_end);
 	if (redir->fd_write != -1)
 		dup2(redir->fd_write, redir->fd_end);
+	if (redir->here_string)
+	{
+		perror(redir->here_string);
+		write(redir->fd_end, redir->here_string, ft_strlen(redir->here_string));
+	}
 }
 
 void	perform_redirections(t_process_cmd *cmd, t_ret_cmd *ret)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 18:09:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 15:59:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	unlink_heredocs(t_command *cmd)
 	i = 0;
 	while (cmd->content)
 	{
-		if (cmd->purpose == HERE_DOC_DELIM)
+		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		{
 			itoaed = ft_itoa(i);
 			file_name = ft_strjoin(TEMP, itoaed);
@@ -62,7 +62,11 @@ void	unlink_heredocs(t_command *cmd)
 static void	write_heredoc(int fd, char *eof)
 {
 	char	*line;
+	char	*eof_dup;
 
+	eof_dup = ft_strdup(eof);
+	if (eof_dup)
+		eof = quote_removal(eof_dup);
 	while (1)
 	{
 		line = readline(PS2);
@@ -76,16 +80,24 @@ static void	write_heredoc(int fd, char *eof)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	free(eof);
 }
 
-static int	create_heredoc(int index, char *eof)
+static int	create_heredoc(int index, t_command *cmd)
 {
 	int		fd_heredoc;
 
 	fd_heredoc = get_heredoc_file(index, WRITE);
 	if (fd_heredoc <= 0)
 		return (1);
-	write_heredoc(fd_heredoc, eof);
+	if (cmd->purpose == HERE_DOC_DELIM)
+		write_heredoc(fd_heredoc, cmd->content);
+	else
+	{
+		cmd->content = quote_removal(cmd->content);
+		write(fd_heredoc, cmd->content, ft_strlen(cmd->content));
+		write(fd_heredoc, "\n", 1);
+	}
 	close(fd_heredoc);
 	return (0);
 }
@@ -97,14 +109,14 @@ int	here_doc(t_command *cmd)
 	i = 0;
 	while (cmd->next)
 	{
-		if (cmd->purpose == HERE_DOC_DELIM)
+		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		{
-			create_heredoc(i, cmd->content);
+			create_heredoc(i, cmd);
 			i++;
 		}
 		cmd = cmd->next;
 	}
-	if (cmd->purpose == HERE_DOC_DELIM)
-		create_heredoc(i, cmd->content);
+	if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
+		create_heredoc(i, cmd);
 	return (0);
 }

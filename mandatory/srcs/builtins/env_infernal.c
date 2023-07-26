@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:50 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:26:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_paths(t_env *ptr)
 	}
 }
 
-void	env_infernal(t_env *env, ...)
+int	env_infernal(t_env *env, ...)
 {
 	t_env	*ptr;
 	char	*prepend;
@@ -55,4 +55,5 @@ void	env_infernal(t_env *env, ...)
 		printf("\n");
 		ptr = ptr->next;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/19 19:50:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/21 09:06:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,22 @@ static char	*check_path(char **paths, char *path_cmd)
 	return (0);
 }
 
+static bool	check_builtin(char *cmd, bool is_rel)
+{
+	if (is_rel)
+		return (false);
+	else if (!(ft_strcmp("hell", cmd)
+		&& ft_strcmp("exit", cmd)
+		&& ft_strcmp("echo", cmd)
+		&& ft_strcmp("env", cmd)
+		&& ft_strcmp("export", cmd)
+		&& ft_strcmp("unset", cmd)
+		&& ft_strcmp("cd", cmd)
+		&& ft_strcmp("pwd", cmd)))
+		return (true);
+	return (false);
+}
+
 // -1 = 0 = pas d'erreur
 // > 0 = erreur
 // .-1 = malloc
@@ -97,6 +113,9 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	cmd->cmd_name = cmd->cmd[0];
 	cmd->free_name = false;
 	is_rel = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
+	cmd->is_builtin = check_builtin(cmd->cmd_name, is_rel);
+	if (cmd->is_builtin)
+		return (0);
 	path = env_getval("PATH", env);
 	if (!env_isdefined("PATH", env))
 		cmd->cmd_name = add_start(cmd->cmd_name);

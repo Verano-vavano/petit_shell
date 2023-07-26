@@ -6,14 +6,14 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:56 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 18:30:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:27:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 #include <unistd.h>
 
-void	print_working_damnation(void)
+int	print_working_damnation(void)
 {
 	char	cwd[1024];
 
@@ -21,4 +21,5 @@ void	print_working_damnation(void)
 		printf("%s\n", cwd);
 	else
 		printf("getcwd error\n");
+	return (0);
 }

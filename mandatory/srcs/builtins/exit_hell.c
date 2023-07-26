@@ -6,31 +6,30 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/18 13:30:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:09:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-void	exit_hell(t_command *lexed)
+void	exit_hell(char **cmd)
 {
 	int	exit_code;
 	int	i;
 
-	if (lexed->next)
+	if (cmd[1])
 	{
-		lexed = lexed->next;
 		i = 0;
-		while (is_dgt(lexed->content[i]))
+		while (is_dgt(cmd[1][i]))
 			i++;
-		if (lexed->content[i] != '\0')
+		if (cmd[1][i] != '\0')
 		{
 			printf("%s: exit: %s: numeric argument required\n",
-				"Minishell", lexed->content);
+				"Minishell", cmd[1]);
 			exit_code = 255;
 		}
 		else
-			exit_code = ft_atol(lexed->content);
+			exit_code = ft_atol(cmd[1]);
 	}
 	else
 		exit_code = 0;
