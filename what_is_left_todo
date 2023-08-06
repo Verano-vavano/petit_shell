@@ -1,4 +1,3 @@
-Quote removal du heredoc
 heredoc -
 
 better asking when line incomplete (look into quote and backslash in todo)
@@ -15,9 +14,6 @@ Arithmetic
 
 Assignations de variable (lexer, parser, et post-execution)
 
-Here_doc correct
-Here_string dans fd correspondant
-
 Gérer l'history dans le HOME :
 .shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
 
@@ -33,3 +29,8 @@ EXIT : si pas arg, exit avec $?
 
 alias
 better LS_COLORS
+
+check if file open in /dev/fd else bad fd
+close fd if &-
+
+PRIORITES DES PARENTHESES
