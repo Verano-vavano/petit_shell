@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 21:15:27 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:16:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <limits.h>
+# include <sys/syscall.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096
@@ -45,5 +47,9 @@ void	free_char_etoile_etoile(char **truc);
 char	*ft_strreplace(const char *s, int start, int len, const char *to_mod);
 int		get_char_array_size(char **char_etoile_etoile);
 char	**dup_char_array(char **arr);
+time_t	ft_time(void);
+long	ft_getpid(void);
+int		ft_random(void);
+int		ft_randint(int low, int high);
 
 #endif
