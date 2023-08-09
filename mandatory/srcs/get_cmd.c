@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 14:58:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:56:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 	open_redir_files(cmd->next, redir, hd);
 	if (cmd_p->redir == 0)
 		cmd_p->redir = redir;
-	return (hd + (cmd->next->purpose == HERE_DOC_DELIM));
+	return (hd + (cmd->next->purpose == HERE_DOC_DELIM || cmd->next->purpose == HERE_STRING));
 }
 
 static int	count_args(t_command *cmd)
@@ -95,7 +95,7 @@ static int	count_args(t_command *cmd)
 	return (n);
 }
 
-int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd)
+int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *heredoc_no)
 {
 	int	n_args;
 	int	here_docs;
@@ -106,7 +106,7 @@ int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd)
 	if (cmd_processing->cmd == 0)
 		return (1);
 	i = 0;
-	here_docs = 0;
+	here_docs = *heredoc_no;
 	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != DELIM)
 	{
 		if (cmd->purpose == COMMAND)
@@ -118,5 +118,6 @@ int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd)
 			here_docs = handle_files(cmd_processing, cmd, here_docs);
 		cmd = cmd->next;
 	}
+	*heredoc_no = here_docs;
 	return (0);
 }

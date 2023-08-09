@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/12 14:08:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:25:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	rescue_easter_funk1(int group_num)
 		rescue_easter_funk2(group_num);
 }
 
-void	metal_injection(void)
+int	metal_injection(void)
 {
 	int		group_num;
 
@@ -135,4 +135,5 @@ void	metal_injection(void)
 		printf("Megashellth\n");
 	else
 		rescue_easter_funk1(group_num);
+	return (0);
 }

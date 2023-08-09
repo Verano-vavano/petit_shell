@@ -6,19 +6,20 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:36:51 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 17:53:02 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:51:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 #include <stdlib.h>
 
-void	unset_et_damnation(t_command *lexed, t_env *env)
+int	unset_et_damnation(char **cmd, t_env *env)
 {
-	lexed = lexed->next;
-	while (lexed)
+	cmd++;
+	while (*cmd)
 	{
-		env_del(lexed->content, &env);
-		lexed = lexed->next;
+		env_del(*cmd, &env);
+		cmd++;
 	}
+	return (0);
 }

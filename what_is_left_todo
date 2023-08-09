@@ -4,10 +4,11 @@ faire ps1 et ps2
 Quote removal du heredoc
 heredoc -
 
+better asking when line incomplete (look into quote and backslash in todo)
+
 Export -> is local
 env local et exporté
-
-Tilde expansion : look for /etc/passwd
+SHLEVEL et autres trucs de merde (revoir la doc)
 
 Expansions :
 Braces
@@ -19,12 +20,8 @@ word split et IFS
 
 Assignations de variable (lexer, parser, et post-execution)
 
-Checker si builtin
+Here_doc correct
 Here_string dans fd correspondant
-Quote removal du t_command
-Gérer lignes sans commande (juste assignation et/ou redirections)
-
-Gérer les ;, &&, ||
 
 Gérer l'history dans le HOME :
 .shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
@@ -34,3 +31,10 @@ Gérer le $? (stocker dans env dans local)
 Tetris
 Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
+
+CD : too many arguments
+EXPORT : si déjà exporté, seg fault
+EXIT : si pas arg, exit avec $?
+
+alias
+better LS_COLORS

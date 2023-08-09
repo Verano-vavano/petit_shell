@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/19 18:50:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 15:02:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,39 @@
 // 	return (rax);
 // }
 
+static long	line_exec(t_command *cmd, t_env *env, int *heredoc_no)
+{
+	quote_remove_cmd(cmd);
+	return (execute_the_line(cmd, env, heredoc_no));
+}
+
 int	cmd_processing(char *line, t_env *env)
 {
 	t_command	*lexed;
+	t_command	*lexed_cpy;
+	int			heredoc_no;
+	long		rt_val;
 
 	lexed = spliter_init(line);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed))
 		return (1);
-	if (here_doc(lexed) || expand_cmd(lexed, env))
+	if (here_doc(lexed))
 		return (1);
-	if (ft_strcmp("hell", lexed->content) == 0)
-		metal_injection();
-	else if (ft_strcmp("exit", lexed->content) == 0)
-		exit_hell(lexed);
-	else if (ft_strcmp("echo", lexed->content) == 0)
-		echo_des_enfers(lexed->next);
-	else if (ft_strcmp("env", lexed->content) == 0)
-		env_infernal(env, NULL);
-	else if (ft_strcmp("export", lexed->content) == 0)
-		les_ex_portes_de_lenfer(lexed, env); // crash env-i && add pas + leaks
-	else if (ft_strcmp("unset", lexed->content) == 0)
-		unset_et_damnation(lexed, env);
-	else if (ft_strcmp("cd", lexed->content) == 0)
-		cd_mentiel(lexed, env);
-	else if (ft_strcmp("pwd", lexed->content) == 0)
-		print_working_damnation();
-	//quote_removal(lexed);
-	printf("RETURN STATUS = %ld\n", execute_the_line(lexed, env));
+	if (expand_cmd(lexed, env))
+		return (1);
+	lexed_cpy = lexed;
+	heredoc_no = 0;
+	while (lexed_cpy && (lexed_cpy->purpose == COMMAND
+		|| (!ft_strcmp(lexed_cpy->content, "&&") && rt_val == 0)
+		|| (!ft_strcmp(lexed_cpy->content, "||") && rt_val != 0)
+		|| (!ft_strcmp(lexed_cpy->content, ";"))))
+	{
+		if (lexed_cpy->purpose == CMD_DELIM)
+			lexed_cpy = lexed_cpy->next;
+		rt_val = line_exec(lexed_cpy, env, &heredoc_no);
+		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
+			lexed_cpy = lexed_cpy->next;
+	}
 	unlink_heredocs(lexed);
 	free_command(lexed);
 	return (0);

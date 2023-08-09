@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/14 13:53:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:32:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ static int	ft_strdup_arg(char *cmd, t_command *cmd_args)
 		cmd_args_cpy->content[i] = cmd[i];
 		i++;
 	}
-	if (cmd[i] && cmd[i] != '#')
+	while (cmd[total] && is_separator(cmd[total]))
+		total++;
+	if (cmd[total] && cmd[total] != '#')
 		cmd_args_cpy->next = init_command_arg(cmd_args);
 	return (total);
 }

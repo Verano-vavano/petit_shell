@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 20:45:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:24:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,14 @@ void	cd_relative(t_env *env, char *dest)
 		printf("wow i did cd!!!\n");
 }
 
-void	cd_mentiel(t_command *lexed, t_env *env)
+int	cd_mentiel(char **cmd, t_env *env)
 {
-	lexed = lexed->next;
-	if (!lexed)
+	cmd++;
+	if (!cmd)
 		cd_home(env);
-	else if (lexed->content[0] == '/')
-		cd_absolute(env, lexed->content);
+	else if ((*cmd)[0] == '/')
+		cd_absolute(env, *cmd);
 	else
-		cd_relative(env, lexed->content);
+		cd_relative(env, *cmd);
+	return (0);
 }
