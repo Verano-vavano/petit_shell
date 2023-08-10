@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:58:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/09 17:55:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:47:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_map
 	unsigned long	score;
 	int				lines_destroyed;
 	int				level;
+	char			keyboard;
 }				t_map;
 
 void	start_game(t_map *map);

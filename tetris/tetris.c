@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:00:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/09 19:05:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:57:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ static int	init_term(void)
 	return (0);
 }
 
+static void	init_maper(t_map *maper, int col, char **args)
+{
+	int	i;
+
+	maper->fl_map = 2;
+	maper->fc_map = (col / 2) - (WIDTH_BOARD + 2);
+	maper->actual_declared = false;
+	maper->prev = -1;
+	maper->keyboard = 'a';
+	i = 0;
+	while (args[i])
+	{
+		if (ft_strcmp(args[i], "-q") == 0 || !ft_strcmp(args[i], "--qwerty"))
+			maper->keyboard = 'q';
+		else if (!ft_strcmp(args[i], "-a") || !ft_strcmp(args[i], "--azerty"))
+			maper->keyboard = 'a';
+		i++;
+	}
+}
+
 int	tetris(char **args)
 {
 	int				l;
@@ -46,7 +66,6 @@ int	tetris(char **args)
 	t_map			*maper;
 	struct termios	old_term;
 
-	(void) args;
 	maper = ft_calloc(1, sizeof (t_map));
 	if ((!maper) | init_term())
 		return (1);
@@ -57,10 +76,7 @@ int	tetris(char **args)
 		return (1);
 	if (tcgetattr(STDIN_FILENO, &old_term) || init_termios(old_term))
 		return (1);
-	maper->fl_map = 2;
-	maper->fc_map = (col / 2) - (WIDTH_BOARD + 2);
-	maper->actual_declared = false;
-	maper->prev = -1;
+	init_maper(maper, col, args);
 	draw_outside(maper);
 	start_game(maper);
 	tputs(tgoto(maper->cm_cap, 0, HEIGHT_BOARD + 4), 1, putchar);

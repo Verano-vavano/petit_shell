@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:19:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:40:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ long	find_exec_bltn(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
 		return (print_working_damnation());
 	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
-		return (tetris(0));
+		return (tetris(cmd->cmd));
 	return (1);
 }
 
