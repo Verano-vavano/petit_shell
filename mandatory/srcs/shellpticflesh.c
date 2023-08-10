@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 15:02:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:05:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// static inline int	ft_getpid(void)
-// {
-// 	long	rax;
-//
-// 	{
-// 		asm("mov $0x2000014, %%rax\n"
-// 			"syscall\n"
-// 			"mov %%rax, %0\n":"=A"(rax));
-// 	}
-// 	return (rax);
-// }
+int	g_sig_rec;
 
 static long	line_exec(t_command *cmd, t_env *env, int *heredoc_no)
 {
@@ -41,18 +31,15 @@ int	cmd_processing(char *line, t_env *env)
 	long		rt_val;
 
 	lexed = spliter_init(line);
-	if (!lexed || !(lexed->content) || understand_the_line(lexed))
-		return (1);
-	if (here_doc(lexed))
-		return (1);
-	if (expand_cmd(lexed, env))
+	if (!lexed || !(lexed->content) || understand_the_line(lexed)
+		|| here_doc(lexed) || expand_cmd(lexed, env))
 		return (1);
 	lexed_cpy = lexed;
 	heredoc_no = 0;
 	while (lexed_cpy && (lexed_cpy->purpose == COMMAND
-		|| (!ft_strcmp(lexed_cpy->content, "&&") && rt_val == 0)
-		|| (!ft_strcmp(lexed_cpy->content, "||") && rt_val != 0)
-		|| (!ft_strcmp(lexed_cpy->content, ";"))))
+			|| (!ft_strcmp(lexed_cpy->content, "&&") && rt_val == 0)
+			|| (!ft_strcmp(lexed_cpy->content, "||") && rt_val != 0)
+			|| (!ft_strcmp(lexed_cpy->content, ";"))))
 	{
 		if (lexed_cpy->purpose == CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
@@ -72,6 +59,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
+	g_sig_rec = 0;
 	env = env_init(envp);
 	while (42)
 	{
@@ -79,5 +67,6 @@ int	main(int ac, char **av, char **envp)
 		if (!line || !(*line))
 			continue ;
 		cmd_processing(line, env);
+		g_sig_rec = 0;
 	}
 }

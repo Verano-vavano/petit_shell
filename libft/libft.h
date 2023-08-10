@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/09 11:16:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/09 16:21:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ time_t	ft_time(void);
 long	ft_getpid(void);
 int		ft_random(void);
 int		ft_randint(int low, int high);
+void	fill_char_etoile(char *s, char c, int len);
+int		ft_tolower(int c);
+bool	ft_isupper(char c);
 
 #endif

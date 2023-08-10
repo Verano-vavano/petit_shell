@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/16 15:33:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 12:41:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ int	ft_strlen_arg(char *s, int meta)
 		j = redir_parser(s);
 		if (j)
 			return (j);
-		c = strlen_loop(s, &i, c, &dos);
-		c = rescue_funk(s, 0, &i, c);
+		c = rescue_funk(s, 0, &i, strlen_loop(s, &i, c, &dos));
 	}
 	return (i);
 }

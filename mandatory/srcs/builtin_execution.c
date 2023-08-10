@@ -6,30 +6,36 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 14:59:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:19:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-long	find_and_execute_builtin(t_process_cmd *cmd, t_env *env)
+long	find_exec_bltn(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 {
 	if (ft_strcmp("hell", cmd->cmd_name) == 0)
 		return (metal_injection());
 	else if (ft_strcmp("exit", cmd->cmd_name) == 0)
+	{
+		if (one)
+			free_char_etoile_etoile(c_env);
 		exit_hell(cmd->cmd);
+	}
 	else if (ft_strcmp("echo", cmd->cmd_name) == 0)
 		return (echo_des_enfers(cmd->cmd));
 	else if (ft_strcmp("env", cmd->cmd_name) == 0)
 		return (env_infernal(env, NULL));
 	else if (ft_strcmp("export", cmd->cmd_name) == 0)
-		return (les_ex_portes_de_lenfer(cmd->cmd, env)); // crash env-i && add pas + leaks
+		return (les_ex_portes_de_lenfer(cmd->cmd, env));
 	else if (ft_strcmp("unset", cmd->cmd_name) == 0)
 		return (unset_et_damnation(cmd->cmd, env));
 	else if (ft_strcmp("cd", cmd->cmd_name) == 0)
 		return (cd_mentiel(cmd->cmd, env));
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
 		return (print_working_damnation());
+	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
+		return (tetris(0));
 	return (1);
 }
 
@@ -47,7 +53,7 @@ static void	builtin_redirections(t_redir_pipe *redir)
 	}
 }
 
-long	execute_builtin(t_process_cmd *cmd, t_env *env, bool one)
+long	exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 {
 	long	ret_val;
 	int		save_in;
@@ -61,7 +67,7 @@ long	execute_builtin(t_process_cmd *cmd, t_env *env, bool one)
 		save_err = dup(STDERR_FILENO);
 		builtin_redirections(cmd->redir);
 	}
-	ret_val = find_and_execute_builtin(cmd, env);
+	ret_val = find_exec_bltn(cmd, env, one, c_env);
 	if (one)
 	{
 		dup2(save_in, STDIN_FILENO);

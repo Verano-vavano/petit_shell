@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 09:06:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 14:32:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ static bool	check_builtin(char *cmd, bool is_rel)
 	if (is_rel)
 		return (false);
 	else if (!(ft_strcmp("hell", cmd)
-		&& ft_strcmp("exit", cmd)
-		&& ft_strcmp("echo", cmd)
-		&& ft_strcmp("env", cmd)
-		&& ft_strcmp("export", cmd)
-		&& ft_strcmp("unset", cmd)
-		&& ft_strcmp("cd", cmd)
-		&& ft_strcmp("pwd", cmd)))
+			&& ft_strcmp("exit", cmd)
+			&& ft_strcmp("echo", cmd)
+			&& ft_strcmp("env", cmd)
+			&& ft_strcmp("export", cmd)
+			&& ft_strcmp("unset", cmd)
+			&& ft_strcmp("cd", cmd)
+			&& ft_strcmp("pwd", cmd)
+			&& ft_strcmp("tetris", cmd)))
 		return (true);
 	return (false);
 }

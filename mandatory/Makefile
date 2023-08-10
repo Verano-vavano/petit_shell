@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/07/25 16:22:33 by hdupire          ###   ########.fr        #
+#    Updated: 2023/08/09 18:04:41 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,14 @@ INCLUDES=./include/
 LIBFT_PATH=../libft/
 LIBFT=$(addsuffix libft.a, ${LIBFT_PATH})
 
+TETRIS_PATH=../tetris/
+TETRIS=$(addsuffix libtetris.a, ${TETRIS_PATH})
+
 RM=rm -f
 
 GCC=gcc
 CFLAGS=-Wall -Wextra -Werror -g
-LINKERS=-lreadline
+LINKERS=-lreadline -lncurses
 
 all:${NAME}
 
@@ -46,7 +49,8 @@ all:${NAME}
 ${NAME}:${DEST}
 	@echo "Doing god's work"
 	@make -C ${LIBFT_PATH}
-	@${GCC} ${CFLAGS} ${LINKERS} ${LIBFT} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft
+	@make -C ${TETRIS_PATH}
+	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris ${LINKERS} ${LIBFT} ${TETRIS}
 
 clean:
 	@${RM} ${DEST}

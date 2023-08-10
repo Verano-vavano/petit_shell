@@ -5,28 +5,35 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/27 09:06:31 by hdupire           #+#    #+#              #
-#    Updated: 2023/08/09 16:28:22 by hdupire          ###   ########.fr        #
+#    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
+#    Updated: 2023/08/09 18:02:17 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME=./libtetris.a
 
-SRCS = ft_strlen.c ft_bzero.c ft_strcmp.c ft_strncmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strndup.c ft_strjoin.c ft_split.c ft_strchr_int.c get_next_line.c free_buffers.c ft_itoa.c ft_atoi.c ft_atol.c is_dgt.c free_char_etoile_etoile.c ft_strreplace.c get_char_array_size.c ft_time.c ft_getpid.c ft_random.c fill_char_etoile.c ft_tolower.c ft_isupper.c
-DEST = $(SRCS:.c=.o)
+SRCS=tetris.c draw_outside.c loop.c drawing_utils.c input_read.c nexter.c downer.c side_move.c rotate.c rotate_utils.c liner.c liner_utils.c level.c scoring.c get_next.c ugly.c sleepy_time.c ft_simple_ftoa.c
+DEST=${SRCS:.c=.o}
 
-all: ${NAME}
+RM=rm -f
+
+GCC=gcc
+CFLAGS=-Wall -Wextra -Werror -g
+LINKERS=-lncurses
+
+all:${NAME}
 
 .c.o:
-	@gcc -Wall -Wextra -Werror -c -I ./ $< -o ${<:.c=.o}
+	@${GCC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME} : ${DEST}
+${NAME}:${DEST}
+	@echo "Doing god's work"
 	@ar crs ${NAME} ${DEST}
 
 clean:
-	rm -f ${DEST} ${DEST_BONUS}
+	@${RM} ${DEST}
 
-fclean: clean
-	rm -f ${NAME}
+fclean:
+	@${RM} ${NAME}
 
 re: fclean all

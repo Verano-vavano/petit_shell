@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 14:32:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 14:33:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ static int	ft_strdup_arg(char *cmd, t_command *cmd_args)
 	len = ft_strlen_arg(cmd, is_metachar(cmd[0]));
 	total += len;
 	cmd_args_cpy->content = ft_calloc(len + 1, sizeof (char));
-	i = 0;
-	while (i < len)
-	{
+	i = -1;
+	while (++i < len)
 		cmd_args_cpy->content[i] = cmd[i];
-		i++;
-	}
 	while (cmd[total] && is_separator(cmd[total]))
 		total++;
 	if (cmd[total] && cmd[total] != '#')

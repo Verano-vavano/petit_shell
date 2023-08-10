@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_char_etoile_etoile_size.c                      :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 12:07:45 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/10 12:38:31 by hdupire          ###   ########.fr       */
+/*   Created: 2023/08/09 16:20:29 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/09 16:20:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	get_char_array_size(char **char_etoile_etoile)
+int	ft_tolower(int c)
 {
-	int	i;
-
-	i = 0;
-	while (char_etoile_etoile[i])
-		i++;
-	return (i);
+	if (c >= 'A' && c <= 'Z')
+		return (c + 'a' - 'A');
+	else
+		return (c);
 }

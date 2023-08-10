@@ -28,7 +28,10 @@ Gérer l'history dans le HOME :
 
 Gérer le $? (stocker dans env dans local)
 
-Tetris
+Tetris :
+check sleep
+qwerty mode
+
 Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
 
@@ -37,4 +40,3 @@ EXPORT : si déjà exporté, seg fault
 EXIT : si pas arg, exit avec $?
 
 alias
-better LS_COLORS

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_char_array.c                                   :+:      :+:    :+:   */
+/*   fill_char_etoile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/14 18:23:54 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/14 20:04:18 by tcharanc         ###   ########.fr       */
+/*   Created: 2023/08/09 16:18:42 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/09 16:19:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**dup_char_array(char **arr)
+void	fill_char_etoile(char *s, char c, int len)
 {
 	int	i;
-	char	**ret;
 
-	ret = malloc(sizeof(char *) * (get_char_array_size(arr) + 1));
-	if (!ret)
-		return (NULL);
-	i = -1;
-	while(arr[++i])
-		ret[i] = ft_strdup(arr[i]);
-	ret[i] = NULL;
-	return (ret);
+	i = 0;
+	while (i < len)
+	{
+		s[i] = c;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:26:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/25 16:25:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:19:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,6 @@
 #include "limits.h"
 #include <limits.h>
 #include <stdio.h>
-
-static int	rand_num(void)
-{
-	int		tmp_file;
-	int		rand;
-	int		pid;
-	char	c[2];
-
-	pid = fork();
-	if (pid == 0)
-	{
-		tmp_file = open("/tmp/s-hell", O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		dup2(tmp_file, STDOUT_FILENO);
-		close(tmp_file);
-		execve("/usr/bin/jot", (char *[]){"jot", "-r", "1", "0", "33", 0}, 0);
-		return (0);
-	}
-	else
-	{
-		waitpid(pid, 0, 0);
-		tmp_file = open("/tmp/s-hell", O_RDONLY);
-		read(tmp_file, &c, 2);
-		rand = atoi(c);
-		close(tmp_file);
-		unlink("/tmp/s-hell");
-		return (rand);
-	}
-}
 
 void	rescue_easter_funk3(int group_num)
 {
@@ -114,7 +86,7 @@ int	metal_injection(void)
 {
 	int		group_num;
 
-	group_num = rand_num();
+	group_num = ft_randint(0, 34);
 	if (group_num == 0)
 		printf("Shelldren of Bodom\n");
 	else if (group_num == 1)

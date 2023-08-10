@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 14:59:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:18:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SHELLPTICFLESH_H
 
 # include "libft.h"
+# include "sig.h"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -21,7 +22,6 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <sys/wait.h>
-# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -143,11 +143,10 @@ void		quote_remove_cmd(t_command *cmd);
 long		execute_the_line(t_command *cmd, t_env *env, int *heredoc_no);
 
 // builtin_exec
-long		find_and_execute_builtin(t_process_cmd *cmd, t_env *env);
-long		execute_builtin(t_process_cmd *cmd, t_env *env, bool one);
+long		exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env);
 
 // get_cmd
-int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *heredocs_no);
+int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no);
 
 // files
 int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
@@ -194,14 +193,15 @@ int			some_error(char *cmd, char *error);
 int			command_error(char *cmd, int error);
 
 /*---------------BUILTINS------------------*/
-int		metal_injection(void);
-void	exit_hell(char **cmd);
-int		echo_des_enfers(char **cmd);
-int		env_infernal(t_env *env, ...);
-int		les_ex_portes_de_lenfer(char **cmd, t_env *env);
-int		unset_et_damnation(char **cmd, t_env *env);
-int		cd_mentiel(char **cmd, t_env *env);
-int		print_working_damnation();
+int			metal_injection(void);
+void		exit_hell(char **cmd);
+int			echo_des_enfers(char **cmd);
+int			env_infernal(t_env *env, ...);
+int			les_ex_portes_de_lenfer(char **cmd, t_env *env);
+int			unset_et_damnation(char **cmd, t_env *env);
+int			cd_mentiel(char **cmd, t_env *env);
+int			print_working_damnation(void);
+int			tetris(char **args);
 
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var);

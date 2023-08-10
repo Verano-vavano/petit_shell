@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 21:26:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:10:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	not_ended(char *s)
 	char	c;
 
 	c = 's';
-	i = 0;
+	i = -1;
 	dos = 0;
-	while (s[i])
+	while (s[++i])
 	{
 		if (is_delim(s[i]) && (i == 0 || s[i - 1] != '\\')
 			&& (c == s[i] || !is_delim(c)))
@@ -35,7 +35,6 @@ static int	not_ended(char *s)
 			c = convert_to_closing(c);
 		}
 		dos = handle_parenthesis(&c, s[i], dos);
-		i++;
 	}
 	if (!is_delim(c) && i > 0 && s[i - 1] == '\\')
 		return (-1);
@@ -87,7 +86,6 @@ t_command	*spliter_init(char *line)
 {
 	t_command		*cmd;
 	char			where_did_we_fail;
-	char			*temp;
 
 	while (1)
 	{
@@ -99,11 +97,7 @@ t_command	*spliter_init(char *line)
 		}
 		where_did_we_fail = not_ended(line);
 		if (where_did_we_fail == -1)
-		{
-			temp = ft_strreplace(line, ft_strlen(line) - 1, 1, "\0");
-			free(line);
-			line = temp;
-		}
+			line[ft_strlen(line) - 1] = 0;
 		if (!where_did_we_fail && !check_ender(line))
 			break ;
 		line = new_line_add(line, where_did_we_fail != -1);

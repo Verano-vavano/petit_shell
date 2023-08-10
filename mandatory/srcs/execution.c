@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 14:59:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:16:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 // dup2 STDIN && STDOUT from pipes
 // dup2 everything else casually baby
-static void	child_action(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
+static void	child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 {
 	close(ret->pipes[0]);
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
 	if (cmd->is_builtin)
-		exit(execute_builtin(cmd, env, false));
+		exit(exec_bltin(cmd, env, false, c_env));
 	else
 		execve(cmd->cmd_name, cmd->cmd, c_env);
 }
 
-static void	create_child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
+void	crt_child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 {
 	ret->pid = fork();
 	if (ret->pid == -1)
 		perror("fork");
 	else if (ret->pid == 0)
-		child_action(cmd, env, c_env, ret);
+		child(cmd, env, c_env, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
 	ret->fd = dup(ret->pipes[0]);
@@ -88,9 +88,9 @@ long	execute_the_line(t_command *cmd, t_env *env, int *heredoc_no)
 		}
 		ret_cmd.n_cmd = n_cmd[0];
 		if (cmd_processing.is_builtin && n_cmd[1] == 1)
-			return (execute_builtin(&cmd_processing, env, true));
+			return (exec_bltin(&cmd_processing, env, true, c_env));
 		else
-			create_child(&cmd_processing, env, c_env, &ret_cmd);
+			crt_child(&cmd_processing, env, c_env, &ret_cmd);
 		cmd = go_to_next_cmd(cmd);
 		n_cmd[0]--;
 		exec_cleaner(cmd_processing);
