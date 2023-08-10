@@ -1,7 +1,6 @@
 si motivation, faire les expansions de PS1 et PS2
 faire ps1 et ps2
 
-Quote removal du heredoc
 heredoc -
 
 better asking when line incomplete (look into quote and backslash in todo)
@@ -30,7 +29,6 @@ Gérer le $? (stocker dans env dans local)
 
 Tetris :
 check sleep
-qwerty mode
 
 Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
@@ -40,3 +38,6 @@ EXPORT : si déjà exporté, seg fault
 EXIT : si pas arg, exit avec $?
 
 alias
+
+CTRL-D : more line asking
+>> avec esoaces après

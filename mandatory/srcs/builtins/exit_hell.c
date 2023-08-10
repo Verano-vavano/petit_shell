@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/25 16:09:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:14:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exit_hell(char **cmd)
 	int	exit_code;
 	int	i;
 
-	if (cmd[1])
+	if (cmd && cmd[1])
 	{
 		i = 0;
 		while (is_dgt(cmd[1][i]))

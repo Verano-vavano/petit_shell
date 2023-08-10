@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 15:59:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:50:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,18 @@ void	unlink_heredocs(t_command *cmd)
 static void	write_heredoc(int fd, char *eof)
 {
 	char	*line;
-	char	*eof_dup;
+	int		lines;
 
-	eof_dup = ft_strdup(eof);
-	if (eof_dup)
-		eof = quote_removal(eof_dup);
-	while (1)
+	eof = quote_removal(ft_strdup(eof));
+	lines = 1;
+	while (g_sig_rec != SIGINT)
 	{
 		line = readline(PS2);
+		if (!line)
+		{
+			warning_heredoc_eof(lines, eof);
+			break ;
+		}
 		line[ft_strchr_int(line, '\n')] = 0;
 		if (!ft_strcmp(line, eof))
 		{
@@ -79,8 +83,36 @@ static void	write_heredoc(int fd, char *eof)
 		line[ft_strchr_int(line, '\n')] = '\n';
 		write(fd, line, ft_strlen(line));
 		free(line);
+		lines++;
 	}
 	free(eof);
+}
+
+static int	heredoc_child(int fd, char *eof)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		return (0);
+	else if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		write_heredoc(fd, eof);
+		exit(0);
+	}
+	while (waitpid(pid, 0, WNOHANG) == 0)
+	{
+		if (g_sig_rec == SIGINT)
+		{
+			kill(pid, SIGINT);
+			printf("\n");
+			g_sig_rec = 0;
+			return (130);
+		}
+		continue ;
+	}
+	return (1);
 }
 
 static int	create_heredoc(int index, t_command *cmd)
@@ -91,7 +123,10 @@ static int	create_heredoc(int index, t_command *cmd)
 	if (fd_heredoc <= 0)
 		return (1);
 	if (cmd->purpose == HERE_DOC_DELIM)
-		write_heredoc(fd_heredoc, cmd->content);
+	{
+		if (!heredoc_child(fd_heredoc, cmd->content))
+			return (1);
+	}
 	else
 	{
 		cmd->content = quote_removal(cmd->content);
