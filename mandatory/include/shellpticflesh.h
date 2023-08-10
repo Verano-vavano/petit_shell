@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:18:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:44:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define PS1 "lol >> "
 # define PS2 "> "
+
+# define CLEAR_LINE "\033[K"
 
 enum	e_cmd_part
 {
@@ -191,6 +193,13 @@ int			syntax_error(char *token, int l);
 int			ambiguous_error(char *cmd);
 int			some_error(char *cmd, char *error);
 int			command_error(char *cmd, int error);
+
+// warnings
+void		warning_heredoc_eof(int lines, char *eof);
+
+// signals
+void		sig_main(int sig);
+void		sig_catch(int sig);
 
 /*---------------BUILTINS------------------*/
 int			metal_injection(void);

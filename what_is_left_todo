@@ -19,9 +19,6 @@ word split et IFS
 
 Assignations de variable (lexer, parser, et post-execution)
 
-Here_doc correct
-Here_string dans fd correspondant
-
 Gérer l'history dans le HOME :
 .shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
 
@@ -41,3 +38,8 @@ alias
 
 CTRL-D : more line asking
 >> avec esoaces après
+
+check if file open in /dev/fd else bad fd
+close fd if &-
+
+PRIORITES DES PARENTHESES
