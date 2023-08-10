@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getpid.c                                        :+:      :+:    :+:   */
+/*   warnings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:38:57 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 18:58:44 by hdupire          ###   ########.fr       */
+/*   Created: 2023/08/10 16:13:33 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/10 16:21:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shellpticflesh.h"
 
-#ifdef SYS_getpid
-
-long	ft_getpid(void)
+void	warning_heredoc_eof(int lines, char *eof)
 {
-	long	result;
+	char	*n;
+	char	safety;
 
+	write(2, "warning: here_document at line ", 31);
+	n = ft_itoa(lines);
+	if (n)
 	{
-		asm (
-			"mov %1, %%rax\n"
-			"syscall\n"
-			"mov %%rax, %0\n"
-			: "=A" (result)
-			: "i" (SYS_getpid)
-			);
+		write(2, n, ft_strlen(n));
+		free(n);
 	}
-	return (result);
+	else
+	{
+		safety = '0' + (lines % 10);
+		write(2, &safety, 1);
+	}
+	write(2, " delimited by end-of-file (wanted `", 35);
+	write(2, eof, ft_strlen(eof));
+	write(2, "')\n", 3);
 }
-
-#else
-
-long	ft_getpid(void)
-{
-	return (-1);
-}
-#endif

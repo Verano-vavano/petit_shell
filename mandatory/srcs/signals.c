@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getpid.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:38:57 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 18:58:44 by hdupire          ###   ########.fr       */
+/*   Created: 2023/08/10 18:23:01 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/10 18:43:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shellpticflesh.h"
 
-#ifdef SYS_getpid
-
-long	ft_getpid(void)
+void	sig_main(int sig)
 {
-	long	result;
-
+	if (sig == SIGQUIT)
 	{
-		asm (
-			"mov %1, %%rax\n"
-			"syscall\n"
-			"mov %%rax, %0\n"
-			: "=A" (result)
-			: "i" (SYS_getpid)
-			);
+		printf("%s", CLEAR_LINE);
+		rl_redisplay();
+		return ;
 	}
-	return (result);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	(void) sig;
 }
 
-#else
-
-long	ft_getpid(void)
+void	sig_catch(int sig)
 {
-	return (-1);
+	g_sig_rec = sig;
 }
-#endif

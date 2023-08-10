@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:05:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 19:00:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_processing(char *line, t_env *env)
 
 	lexed = spliter_init(line);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed)
-		|| here_doc(lexed) || expand_cmd(lexed, env))
+		|| g_sig_rec ||  here_doc(lexed) || expand_cmd(lexed, env))
 		return (1);
 	lexed_cpy = lexed;
 	heredoc_no = 0;
@@ -63,8 +63,17 @@ int	main(int ac, char **av, char **envp)
 	env = env_init(envp);
 	while (42)
 	{
+		signal(SIGINT, sig_main);
+		signal(SIGQUIT, sig_main);
 		line = readline(PS1);
-		if (!line || !(*line))
+		signal(SIGINT, sig_catch);
+		signal(SIGQUIT, sig_catch);
+		if (!line)
+		{
+			printf("exit\n");
+			exit_hell(0);
+		}
+		else if (!(*line))
 			continue ;
 		cmd_processing(line, env);
 		g_sig_rec = 0;

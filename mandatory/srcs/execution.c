@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:16:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 17:12:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 		exit(exec_bltin(cmd, env, false, c_env));
 	else
 		execve(cmd->cmd_name, cmd->cmd, c_env);
+	exit(0);
 }
 
 void	crt_child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
