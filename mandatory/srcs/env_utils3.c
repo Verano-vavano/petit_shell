@@ -12,6 +12,21 @@
 
 #include "shellpticflesh.h"
 
+void	env_create_add(char *key, char *value, t_env *env)
+{
+	t_env *created;
+
+	created = malloc(sizeof(t_env *));
+	if (!created)
+		return (env_add(created, &env));
+	created->key = key;
+	created->value = malloc(sizeof(char *) * 2);
+	created->value[0] = value;
+	created->value[1] = NULL;
+	created->next = NULL;
+	env_add(created, &env);
+}
+
 static int	env_size(t_env *env)
 {
 	int	n;
