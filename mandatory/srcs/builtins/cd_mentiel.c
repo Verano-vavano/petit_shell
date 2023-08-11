@@ -6,105 +6,92 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/25 16:24:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/10 22:10:51 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
 
-void	update_cwd(t_env *env)
+
+// TODO & FIX
+// pour les messages d'erreurs
+// printf ne print pas sur stderr, a la diff de bash
+// voir si ca pose prblm
+// sinon faut import mon printf qui peut print vers un fd
+int	cd_home(t_env *env)
 {
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	env_update(cwd, env, "PWD");
-	free(cwd);
-}
-
-// oldpwd prend la valeur de l'ancien dir
-// oldpwd = pwd
-// if !pwd then !oldpwd
-// unset PWD && cd ..
-// pwd deviens locale... wtf 
-void	cd_home(t_env *env)
-{
-	char	**home;
+	char **home;
 
 	home = env_getval("HOME", env);
-	if (home == NULL)
-		printf("cd: HOME not set\n");
-	else
-		chdir(home[0]);
-}
-
-//
-void	cd_absolute(t_env *env, char *dest)
-{
-	printf("dest = %s\n", dest);
-	if (chdir(dest) < 0)
-		printf("cd: %s: No such file or directory\n", dest);
-	else
-		update_cwd(env);
-}
-
-int		cd_and_print(char *path)
-{
-	int	did_cd;
-
-	if (chdir(path))
+	if (!home)
 	{
-		printf("%s\n",path);
-		did_cd = 1;
+		printf("%s: cd: HOME not set\n",PROG_NAME);
+		return (1);
 	}
-	else
-		did_cd = 0;
-	free(path);
-	return (did_cd);
+	if (env_contain("OLDPWD", env))
+		env_change_val("OLDPWD", getcwd(NULL, 0), env);
+	if (chdir(home[0]))
+	{
+		printf("%s: cd: %s: %s\n", PROG_NAME, home[0], strerror(errno));
+		return (1);
+	}
+	if (env_contain("PWD", env))
+		env_change_val("PWD", getcwd(NULL, 0), env);
+	return (0);
 }
 
-// d'abord CDPATH
-// puis
-// relatif
-// sinon ex pas
-void	cd_relative(t_env *env, char *dest)
+void	simple_cd(char *dest, t_env *env)
+{
+	if (access(dest, R_OK | X_OK) != 0)
+	{
+		printf("cc %s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
+		return ;
+	}
+	if (env_contain("OLDPWD", env))
+		env_change_val("OLDPWD", getcwd(NULL, 0), env);
+	if (chdir(dest))
+	{
+		printf("%s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
+		return ;
+	}
+	if (env_contain("PWD", env))
+		env_change_val("PWD", getcwd(NULL, 0), env);
+}
+
+int	check_cdpath(char *dest, t_env *env)
 {
 	t_env	*cdpath;
 	int		i;
-	int		did_cd;
+	char	*concat_path;
 
 	cdpath = env_getptr("CDPATH", env);
 	if (!cdpath)
-		printf("C'est NULLL\n");
-	else
-		for (int i = 0; cdpath->value[i]; i++)
-			printf("alors val = %s\n", cdpath->value[i]);
-	//for (int i = 0);
-	if (chdir(dest) > 0)
-	did_cd = 0;
-	if (cdpath)
+		return (1);
+	i = -1;
+	while(cdpath->value[++i])
 	{
-		i = -1;
-		while(cdpath->value[++i])
+		concat_path = concat_multiple(
+			(char *[]){ cdpath->value[i] , "/", dest, NULL });
+		if (access(concat_path, R_OK | X_OK) == 0)
 		{
-			did_cd = cd_and_print(ft_strjoin(cdpath->value[i], dest));
-			if (did_cd)
-				break ;
+			simple_cd(concat_path, env);
+			return (free(concat_path), 0);
 		}
+		free(concat_path);
 	}
-	if (!did_cd)
-		printf("did not cd\n");
-	else
-		printf("wow i did cd!!!\n");
+	return (1);
 }
 
 int	cd_mentiel(char **cmd, t_env *env)
 {
-	cmd++;
-	if (!cmd)
-		cd_home(env);
-	else if ((*cmd)[0] == '/')
-		cd_absolute(env, *cmd);
-	else
-		cd_relative(env, *cmd);
+	if (!cmd[1])
+		return(cd_home(env));
+	else if (check_cdpath(cmd[1], env) == 0)
+		return (0);
+	simple_cd(cmd[1], env);
 	return (0);
 }

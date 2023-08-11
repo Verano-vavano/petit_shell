@@ -31,6 +31,9 @@
 
 # define PS1 "lol >> "
 # define PS2 "> "
+# define PROG_NAME "Minishell"
+
+# define CLEAR_LINE "\033[K"
 
 # define CLEAR_LINE "\033[K"
 
@@ -220,10 +223,12 @@ void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);
 t_env		*env_last(t_env *env);
 char		**env_getval(char *key, t_env *env);
+void		env_change_val(char *key, char *value, t_env *env);
 void		env_update(char *char_arr, t_env *env, ...);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);
 char		**re_char_etoile_etoilise_env(t_env *env);
+void		env_create_add(char *key, char *value, t_env *env);
 
 #endif
