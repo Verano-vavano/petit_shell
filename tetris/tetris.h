@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:58:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:47:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:42:35 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define Z_COLOR YELLOW
 
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
