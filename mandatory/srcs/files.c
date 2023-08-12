@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 14:53:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:21:25 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ static int	open_read_file(t_command *cmd, t_redir_pipe *redir, int hd)
 	return (0);
 }
 
+static bool	is_valid_fd(long fd)
+{
+	struct stat	fileStat;
+
+	if (fstat((int)fd, &fileStat) == -1)
+		return (0);
+	return (1);
+}
+
 static int	handle_fd_redir(t_command *cmd, t_redir_pipe *redir)
 {
 	long	fd;
@@ -61,7 +70,7 @@ static int	handle_fd_redir(t_command *cmd, t_redir_pipe *redir)
 	fd = ft_atol(cmd->next->content);
 	if (fd > INT_MAX)
 		return (some_error("-1", "Bad file descriptor"));
-	else if (fd > 2)
+	else if (!is_valid_fd(fd))
 		return (some_error(cmd->next->content, "Bad file descriptor"));
 	if (cmd->next->purpose == IN_FILE)
 	{
@@ -80,8 +89,8 @@ int	open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd)
 {
 	if (cmd->content[0] == '&')
 	{
-		if (!handle_fd_redir(cmd, redir))
-			return (0);
+		if (handle_fd_redir(cmd, redir))
+			return (1);
 		cmd = cmd->next;
 	}
 	if (cmd->purpose == IN_FILE || cmd->purpose == HERE_DOC_DELIM

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 18:44:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:52:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -32,8 +33,6 @@
 # define PS1 "lol >> "
 # define PS2 "> "
 # define PROG_NAME "Minishell"
-
-# define CLEAR_LINE "\033[K"
 
 # define CLEAR_LINE "\033[K"
 
@@ -50,6 +49,7 @@ enum	e_cmd_part
 	REDIR_ID,
 	DELIM,
 	CMD_DELIM,
+	MARKER,
 	ERROR
 };
 
@@ -132,6 +132,7 @@ int			expand_cmd(t_command *cmd, t_env *env);
 
 // braces_expansion
 int			braces_expansion(t_command *cmd);
+int			dots_brace_expansion(t_command *cmd, int *se);
 
 // tilde_expansion
 void		tilde_expansion(t_command *cmd, t_env *env);

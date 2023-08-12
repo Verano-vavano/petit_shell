@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/26 13:49:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 16:02:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 	s = cmd->content;
 	if (purpose >= IN_FILE && purpose <= OUT_FILE_APP && s[0] == '&')
 	{
-		cmd->purpose = REDIR_ID;
+		cmd->purpose = MARKER;
 		return (purpose);
 	}
 	else if (purpose != UNDEFINED)

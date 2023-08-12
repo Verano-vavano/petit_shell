@@ -39,11 +39,8 @@ alias
 CTRL-D : more line asking
 >> avec esoaces après
 
-check if file open in /dev/fd else bad fd
 close fd if &-
 
 PRIORITES DES PARENTHESES
 
-Get keyboard :
-/etc/vconsole.conf
-XKB_DEFAULT_LAYOUT
+SPECIAL PARAMETERS

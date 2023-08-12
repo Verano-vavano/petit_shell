@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 08:43:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:28:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,24 @@ static void	tilde_it(t_command *cmd, char *tilde, char *pwd, char *opwd)
 
 static void	replace_tilde(t_command *cmd, char *tilde, char *pwd, char *opwd)
 {
-	while (cmd && cmd->next)
+	while (cmd && cmd->next && cmd->purpose != CMD_DELIM)
 	{
 		tilde_it(cmd, tilde, pwd, opwd);
 		cmd = cmd->next;
 	}
-	if (cmd)
+	if (cmd && cmd->purpose != CMD_DELIM)
 		tilde_it(cmd, tilde, pwd, opwd);
 }
 
 static int	need_tilde(t_command *cmd)
 {
-	while (cmd && cmd->next)
+	while (cmd && cmd->next && cmd->purpose != CMD_DELIM)
 	{
 		if (cmd->content[0] == '~')
 			return (1);
 		cmd = cmd->next;
 	}
-	if (cmd && cmd->content[0] == '~')
+	if (cmd && cmd->content[0] == '~' && cmd->purpose != CMD_DELIM)
 		return (1);
 	return (0);
 }

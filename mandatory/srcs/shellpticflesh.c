@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 19:00:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:36:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_processing(char *line, t_env *env)
 
 	lexed = spliter_init(line);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed)
-		|| g_sig_rec ||  here_doc(lexed) || expand_cmd(lexed, env))
+		|| g_sig_rec ||  here_doc(lexed))
 		return (1);
 	lexed_cpy = lexed;
 	heredoc_no = 0;
@@ -43,7 +43,10 @@ int	cmd_processing(char *line, t_env *env)
 	{
 		if (lexed_cpy->purpose == CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
-		rt_val = line_exec(lexed_cpy, env, &heredoc_no);
+		if (!expand_cmd(lexed_cpy, env))
+			rt_val = line_exec(lexed_cpy, env, &heredoc_no);
+		else
+			rt_val = 1;
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
 	}

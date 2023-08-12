@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 12:57:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/11 17:11:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	fill_char_etoile(char *s, char c, int len);
 int		ft_tolower(int c);
 bool	ft_isupper(char c);
 char	*concat_multiple(char **strs);
+char	*ft_strchr(const char *s, int c);
 
 #endif

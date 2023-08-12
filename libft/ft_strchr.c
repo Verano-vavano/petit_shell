@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_expansions.c                                  :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 18:24:05 by hdupire          ###   ########.fr       */
+/*   Created: 2023/03/27 15:35:01 by hdupire           #+#    #+#             */
+/*   Updated: 2023/03/30 11:30:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shellpticflesh.h"
-
-//braces_expansion(cmd)
-//tilde_expansion(cmd, env)
-//parameter_expansion(cmd, env); // w. word split
-//command_substitution(cmd, env); // w. word split
-//arithmetic_expansion(cmd);
-//filename_expansion(cmd, env);
-int	expand_cmd(t_command *cmd, t_env *env)
+char	*ft_strchr(const char *s, int c)
 {
-	int	err;
+	int		i;
 
-	err = braces_expansion(cmd);
-	if (err)
-		return (1);
-	tilde_expansion(cmd, env);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		i++;
+	}
+	if ((char)c == 0)
+		return ((char *)(s + i));
 	return (0);
 }
