@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 17:11:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/13 14:48:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int		ft_tolower(int c);
 bool	ft_isupper(char c);
 char	*concat_multiple(char **strs);
 char	*ft_strchr(const char *s, int c);
+bool	is_valid_num(char *s);
+char	*ft_ltoa(long n);
 
 #endif
