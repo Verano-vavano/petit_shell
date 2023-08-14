@@ -44,3 +44,6 @@ close fd if &-
 PRIORITES DES PARENTHESES
 
 SPECIAL PARAMETERS
+
+Braces : si braces expansions dans braces expansions, ne pas cr&er de nouveau maillon mais directement les séparer par des virgules
+multiple braces bug

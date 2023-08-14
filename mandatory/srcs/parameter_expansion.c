@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   parameter_expansion.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 17:06:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/14 09:21:57 by hdupire          ###   ########.fr       */
+/*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/13 15:19:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shellpticflesh.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	parameter_expansion(t_command *cmd, t_env *env)
 {
-	size_t	l1;
-	size_t	l2;
-	size_t	i;
-	char	*concat;
-
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	concat = (char *)malloc(sizeof (char) * (l1 + l2 + 1));
-	if (concat == 0)
-		return (concat);
-	i = 0;
-	while (i < l1)
-	{
-		concat[i] = s1[i];
-		i++;
-	}
-	while (i - l1 < l2)
-	{
-		concat[i] = s2[i - l1];
-		i++;
-	}
-	concat[i] = '\0';
-	return (concat);
+	(void) cmd;
+	(void) env;
 }

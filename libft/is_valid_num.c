@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   is_valid_num.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 17:06:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/14 09:21:57 by hdupire          ###   ########.fr       */
+/*   Created: 2023/08/13 14:22:28 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/13 14:33:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+bool	is_valid_num(char *s)
 {
-	size_t	l1;
-	size_t	l2;
-	size_t	i;
-	char	*concat;
+	int	i;
 
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	concat = (char *)malloc(sizeof (char) * (l1 + l2 + 1));
-	if (concat == 0)
-		return (concat);
-	i = 0;
-	while (i < l1)
+	if (!is_dgt(s[0]) && s[0] != '-' && s[0] != '+')
+		return (false);
+	i = 1;
+	while (s[i])
 	{
-		concat[i] = s1[i];
+		if (!is_dgt(s[i]))
+			return (false);
 		i++;
 	}
-	while (i - l1 < l2)
-	{
-		concat[i] = s2[i - l1];
-		i++;
-	}
-	concat[i] = '\0';
-	return (concat);
+	return (true);
 }

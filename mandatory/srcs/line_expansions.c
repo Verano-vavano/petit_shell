@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 18:24:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:05:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	expand_cmd(t_command *cmd, t_env *env)
 	if (err)
 		return (1);
 	tilde_expansion(cmd, env);
+	parameter_expansion(cmd, env);
 	return (0);
 }
