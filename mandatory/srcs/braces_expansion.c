@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/14 13:05:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/14 20:24:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,15 @@ static int	coma_brace_expansion(t_command *cmd, int *start_end, bool inner)
 		printf("START RESEARCH = %s\n", cmd->content + start_end[1] + 1);
 		printf("WILL REMOVE %d\n", find_closing_brack(cmd->content + start_end[2] + ft_strchr_int(cmd->content + start_end[2], '{')) + find_end(cmd->content + start_end[1] + 1) + 2);
 		printf("BECAUSE CLOS_BRACK = %d && END = %d\n", find_closing_brack(cmd->content + start_end[2] + ft_strchr_int(cmd->content + start_end[2], '{')), find_end(cmd->content + start_end[3] + 1));
+		printf("SE[0] = %s\n", cmd->content + start_end[0]);
+		printf("SE[1] = %s\n", cmd->content + start_end[1]);
+		printf("SE[2] = %s\n", cmd->content + start_end[2]);
+		printf("SE[3] = %s\n", cmd->content + start_end[3]);
+		printf("nodes[0] = %s\n", cmd->content + nodes[0]);
+		printf("nodes[1] = %s\n", cmd->content + nodes[1]);
+		printf("nodes[2] = %s\n", cmd->content + nodes[2]);
 		cmd->content = ft_strreplace(cmd->content, start_end[2], find_closing_brack(cmd->content + start_end[2] + ft_strchr_int(cmd->content + start_end[2], '{')) + find_end(cmd->content + start_end[3] + 1) + 1, repl);
+		printf("AND NOW ITS : %s\n", cmd->content);
 	}
 	return (0);
 }
