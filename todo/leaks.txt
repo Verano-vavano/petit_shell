@@ -1,0 +1,17 @@
+- leak from re_char_etoilise_env
+
+  ~~~Notre shell
+  lol > echo "hugolebo"
+  ~~~
+
+  valgrind nous dit
+  ==33232== 3,971 (560 direct, 3,411 indirect) bytes in 1 blocks are definitely lost in loss record 55 of 84
+  ==33232==    at 0x4841848: malloc (vg_replace_malloc.c:431)
+  ==33232==    by 0x1110CA: ft_calloc (in /home/thibault/code/minishell/minishell)
+  ==33232==    by 0x10FDB9: re_char_etoile_etoilise_env (env_utils3.c:78)
+  ==33232==    by 0x10B7CF: execute_the_line (execution.c:73)
+  ==33232==    by 0x1093EF: line_exec (shellpticflesh.c:23)
+  ==33232==    by 0x1094BE: cmd_processing (shellpticflesh.c:47)
+  ==33232==    by 0x109688: main (shellpticflesh.c:82)
+
+  ==33232==    definitely lost: 560 bytes in 1 blocks
