@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 18:36:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/15 12:30:35 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	cmd_processing(char *line, t_env *env)
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
 	}
+	print_lexed(lexed);
 	unlink_heredocs(lexed);
 	free_command(lexed);
 	return (0);
