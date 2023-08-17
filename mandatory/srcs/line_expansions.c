@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/14 13:05:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/16 21:10:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //filename_expansion(cmd, env);
 int	expand_cmd(t_command *cmd, t_env *env)
 {
-	int	err;
+	int			err;
 
 	err = braces_expansion(cmd);
 	if (err)

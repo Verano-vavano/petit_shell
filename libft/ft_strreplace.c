@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:38:41 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 06:27:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/16 21:14:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strreplace(const char *s, int start, int len, const char *to_mod)
 	while (++j < start)
 		new_s[j] = s[j];
 	i = -1;
-	while (to_mod[++i])
+	while (to_mod && to_mod[++i])
 	{
 		new_s[j] = to_mod[i];
 		j++;
