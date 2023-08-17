@@ -6,10 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/16 21:44:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 01:56:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
 
 static int	find_arg_len(char *s, bool brack)
