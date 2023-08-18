@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 01:56:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 02:04:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	parameter_expand_it(t_command *cmd, int i, t_env *env)
 	}
 	else
 		to_change = dollar_comprehender(arg, env);
-	printf("%s\n", to_change);
 	if (to_change)
 	{
 		cmd->content = ft_strreplace(cmd->content, i - 1, len + 1 + brack, to_change);
