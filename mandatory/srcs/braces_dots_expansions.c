@@ -6,75 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/14 13:03:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 18:49:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-static int	dots_expansion(t_command *cmd, char **param)
-{
-	long		l_params[3];
-	bool		way;
-	bool		moved;
-	bool		charer;
-	t_command	*temp;
-
-	l_params[2] = 1;
-	if (param[2][0] != 0)
-		l_params[2] = ft_atol(param[2]);
-	if (l_params[2] == 0)
-		l_params[2] = 1;
-	l_params[2] = ((l_params[2] * (-1) * (l_params[2] < 0)) + (l_params[2] * (l_params[2] > 0)));
-	charer = false;
-	if (!is_valid_num(param[0]) && param[0][0] != '-' && param[0][0] != '+')
-	{
-		charer = true;
-		l_params[0] = param[0][0];
-	}
-	else
-		l_params[0] = ft_atol(param[0]);
-	if (charer)
-		l_params[1] = param[1][0];
-	else
-		l_params[1] = ft_atol(param[1]);
-	way = (l_params[0] < l_params[1]);
-	moved = false;
-	while ((way && l_params[0] <= l_params[1]) || (!way && l_params[0] >= l_params[1]))
-	{
-		if (!moved)
-		{
-			free(cmd->content);
-			if (!charer)
-				cmd->content = ft_ltoa(l_params[0]);
-			else
-			{
-				cmd->content = ft_calloc(2, sizeof (char));
-				cmd->content[0] = l_params[0];
-			}
-			moved = true;
-		}
-		else
-		{
-			temp = ft_calloc(1, sizeof (t_command));
-			if (!temp)
-				return (-1);
-			temp->next = cmd->next;
-			if (!charer)
-				temp->content = ft_ltoa(l_params[0]);
-			else
-			{
-				temp->content = ft_calloc(2, sizeof (char));
-				temp->content[0] = l_params[0];
-			}
-			temp->purpose = COMMAND;
-			cmd->next = temp;
-			cmd = cmd->next;
-		}
-		l_params[0] += ((way * l_params[2]) + (!way * l_params[2] * (-1)));
-	}
-	return (0);
-}
 
 static bool	is_in_bound(char c)
 {
@@ -124,19 +60,8 @@ static char	**set_param(void)
 	return (param);
 }
 
-int	dots_brace_expansion(t_command *cmd, int *se)
+static int	dots_loop(int *se, int *i, char *s, char **param)
 {
-	int		i[3];
-	char	*s;
-	char	**param;
-
-	s = cmd->content;
-	i[0] = se[0] + 1;
-	i[1] = 0;
-	i[2] = 0;
-	param = set_param();
-	if (!param)
-		return (-1);
 	while (i[0] < se[1])
 	{
 		if (is_quoted(s, i[0], 0) || i[1] > 2)
@@ -156,9 +81,27 @@ int	dots_brace_expansion(t_command *cmd, int *se)
 		i[0]++;
 		i[2]++;
 	}
+	return (0);
+}
+
+int	dots_brace_expansion(t_command *cmd, int *se)
+{
+	int		i[3];
+	char	*s;
+	char	**param;
+
+	s = cmd->content;
+	i[0] = se[0] + 1;
+	i[1] = 0;
+	i[2] = 0;
+	param = set_param();
+	if (!param)
+		return (-1);
+	if (dots_loop(se, i, s, param))
+		return (-1);
 	if (i[1] == 2 && param[2][0] == 0)
 		return (-1);
 	if (dots_check(param))
-		return (dots_expansion(cmd, param));
+		return (dots_expansion(cmd, param, se));
 	return (-1);
 }

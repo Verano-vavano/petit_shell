@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 18:21:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 18:51:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	open_read_file(t_command *cmd, t_redir_pipe *redir, int hd)
 
 static bool	is_valid_fd(long fd)
 {
-	struct stat	fileStat;
+	struct stat	file_stat;
 
-	if (fstat((int)fd, &fileStat) == -1)
+	if (fstat((int)fd, &file_stat) == -1)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/15 13:07:37 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:49:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,9 @@ int			expand_cmd(t_command *cmd, t_env *env);
 
 // braces_expansion
 int			braces_expansion(t_command *cmd);
+int			coma_brace_expansion(t_command *cmd, int *start_end);
 int			dots_brace_expansion(t_command *cmd, int *se);
+int			dots_expansion(t_command *cmd, char **param, int *se);
 
 // tilde_expansion
 void		tilde_expansion(t_command *cmd, t_env *env);
