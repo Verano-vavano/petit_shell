@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 18:52:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 00:04:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	cmd_processing(char *line, t_env *env)
 		if (!expand_cmd(lexed_cpy, env))
 			rt_val = line_exec(lexed_cpy, env, &heredoc_no);
 		else
-			rt_val = 1;
+			rt_val = 0;
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
 	}

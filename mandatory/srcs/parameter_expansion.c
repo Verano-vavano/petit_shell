@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 02:04:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 22:44:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	parameter_seeker(t_command *cmd, t_env *env)
 	while (cmd->content[i])
 	{
 		quoted = is_quoted(cmd->content, i, quoted);
-		if (cmd->content[i] == '$' && quoted != '\'')
+		if (cmd->content[i] == '$' && quoted != '\'' && cmd->content[i + 1] != '(')
 		{
 			parameter_expand_it(cmd, i, env);
 			parameter_seeker(cmd, env);

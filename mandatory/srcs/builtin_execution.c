@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 17:07:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 21:53:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ long	exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 		dup2(save_err, STDERR_FILENO);
 	}
 	exec_cleaner(*cmd);
+	free_char_etoile_etoile(c_env);
 	return (ret_val);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 16:02:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 00:04:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 	char	*s;
 
 	s = cmd->content;
+	if (cmd->next && cmd->next->purpose != CMD_DELIM && s[0] == '(')
+	{
+		syntax_error(cmd->next->content, ft_strlen(cmd->next->content));
+		return (ERROR);
+	}
 	if (purpose >= IN_FILE && purpose <= OUT_FILE_APP && s[0] == '&')
 	{
 		cmd->purpose = MARKER;

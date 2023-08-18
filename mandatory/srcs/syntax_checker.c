@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 18:41:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 22:16:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,27 @@ static int	redir_ok(char *line)
 
 int	check_syntax(char *line)
 {
-	int	first;
-	int	i;
-	int	dollar;
+	int		first;
+	int		i;
+	int		dollar;
+	char	quoted;
 
 	first = 1;
 	i = 0;
 	dollar = 0;
+	quoted = 0;
 	while (line[i])
 	{
+		quoted = is_quoted(line, i, quoted);
 		if (first && is_strict_meta(line[i]))
 			return (syntax_error(line + i, -1));
-		else if ((is_metachar(line[i]) && check_metachar(line + i))
+		else if (!quoted && ((is_metachar(line[i]) && check_metachar(line + i))
 			|| (line[i] == '(' && check_parenthesis(line + i, first, dollar))
 			|| (line[i] == '{' && first && check_cbrackets(line + i))
-			|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i)))
+			|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
 			return (1);
-		first = is_cmd_delim(line + i) || (first && is_separator(line[i]))
-			|| (first && line[i] == '(');
+		first = (is_cmd_delim(line + i) || (first && is_separator(line[i]))
+				|| (first && line[i] == '(')) && !quoted;
 		dollar = (line[i] == '$' || (dollar && line[i] == '('));
 		i += ((line[i] == '|' && line[i + 1] == '|')
 				|| (line[i] == '&' && line[i + 1] == '&')) + 1;

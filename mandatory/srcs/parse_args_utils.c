@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 12:41:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/18 22:08:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	handle_parenthesis(char *c, char c2, int dos)
 {
 	if (c2 == '(' && *c == ')')
 		dos++;
-	else if (c2 == '{' && *c == '}')
-		dos++;
 	return (dos);
 }
 
@@ -44,16 +42,14 @@ static char	strlen_loop(char *s, int *i, char c, int *dos)
 		if (is_delim(s[*i]) && (*i == 0 || s[*i - 1] != '\\')
 			&& (c == s[*i] || !is_delim(c)))
 		{
-			if (c == s[*i] && *dos == 0)
+			if (c == s[*i] && *dos != 0)
 				c = ' ';
-			else if (!(is_delim(c)) && s[*i] != ')' && s[*i] != '}')
+			else if (!(is_delim(c)) && s[*i] != ')')
 				c = s[*i];
 			else if (*dos == 1 && c == s[*i])
 				(*dos)--;
 			if (c == '(')
 				c = ')';
-			else if (c == '{')
-				c = '}';
 		}
 		*dos = handle_parenthesis(&c, s[*i], *dos);
 		(*i)++;
