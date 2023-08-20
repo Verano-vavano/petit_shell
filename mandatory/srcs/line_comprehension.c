@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 21:18:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/21 00:08:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 	}
 	else if (purpose == VAR_ASSIGN)
 		purpose = UNDEFINED;
-	if (cmd->next && cmd->next->purpose != CMD_DELIM && s[0] == '(')
+	if (cmd->next && s[0] == '(' && !is_strict_meta(cmd->next->content[0]))
 	{
 		syntax_error(cmd->next->content, ft_strlen(cmd->next->content));
 		return (ERROR);

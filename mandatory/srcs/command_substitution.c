@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 20:47:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 23:55:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static char	*get_output(int *pipes)
 	return (ret);
 }
 
-static void	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
+static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 {
-	int		se[2];
+	long	se[3];
 	int		stdout_fd;
 	int		pipes[2];
 	char	*cmd_sent;
@@ -75,18 +75,19 @@ static void	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	if (repl)
 	{
 		if (pipe(pipes) == -1)
-			return ;
+			return (1);
 		stdout_fd = dup(STDOUT_FILENO);
 		if (dup2(pipes[1], STDOUT_FILENO) == -1)
 		{
 			dup2(STDOUT_FILENO, stdout_fd);
-			return ;
+			return (1);
 		}
 	}
 	cmd_sent = ft_strndup(cmd->content + se[0] + repl + 1, se[1] - 1 - repl);
 	signal(SIGINT, SIG_DFL);
+	se[3] = 1;
 	if (cmd_sent)
-		cmd_processing(cmd_sent, env, false);
+		se[3] = cmd_processing(cmd_sent, env, false);
 	if (repl)
 	{
 		dup2(stdout_fd, STDOUT_FILENO);
@@ -96,13 +97,15 @@ static void	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 		else
 			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, "\0");
 	}
+	return (se[3]);
 }
 
-static bool	srch_exec_comm(t_command *cmd, t_env *env)
+static long	srch_exec_comm(t_command *cmd, t_env *env)
 {
 	bool	repl;
 	char	quoted;
 	int		start;
+	long	ret;
 
 	quoted = 0;
 	start = 0;
@@ -113,17 +116,20 @@ static bool	srch_exec_comm(t_command *cmd, t_env *env)
 		{
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;
-			perform_exec(cmd, env, start, repl);
+			ret = perform_exec(cmd, env, start, repl);
 		}
 		start++;
 	}
-	return (repl);
+	if (!repl)
+		return (ret);
+	else
+		return (-1);
 }
 
-bool	command_substitution(t_command *cmd, t_env *env)
+long	command_substitution(t_command *cmd, t_env *env)
 {
 	bool	skip_first;
-	bool	ret;
+	long	ret;
 
 	skip_first = false;
 	while (cmd && cmd->purpose != CMD_DELIM)
@@ -131,10 +137,13 @@ bool	command_substitution(t_command *cmd, t_env *env)
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			ret = srch_exec_comm(cmd, env);
-			if (!ret && !skip_first)
+			if (ret >= 0 && !skip_first)
 				skip_first = true;
 		}
 		cmd = cmd->next;
 	}
-	return (skip_first);
+	if (skip_first)
+		return (ret);
+	else
+		return (-1);
 }

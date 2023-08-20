@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 20:18:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/21 00:08:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	strlen_loop(char *s, int *i, char c, int *dos)
 		if (is_delim(s[*i]) && (*i == 0 || s[*i - 1] != '\\')
 			&& (c == s[*i] || !is_delim(c)))
 		{
-			if (c == s[*i] && *dos == 0)
+			if (c == s[*i] && *dos == 1)
 				c = ' ';
 			else if (!(is_delim(c)) && s[*i] != ')')
 				c = s[*i];

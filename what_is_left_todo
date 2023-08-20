@@ -5,17 +5,14 @@ heredoc -
 
 better asking when line incomplete (look into quote and backslash in todo)
 
-Export -> is local
-env local et exporté
 SHLEVEL et autres trucs de merde (revoir la doc)
 
 Expansions :
 Parameter
 Arithmetic
+Filename
 
 word split et IFS
-
-Assignations de variable (lexer, parser, et post-execution)
 
 Gérer l'history dans le HOME :
 .shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
@@ -24,13 +21,11 @@ Gérer le $? (stocker dans env dans local)
 
 Tetris :
 check sleep
-pourquoi si je ctrl+c le tetris, et qu'apres je fais un ls, le retour a la ligne ne fonctionne pas de la meme maniere ;O :((((
 
 Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
 
 CD : too many arguments
-EXPORT : si déjà exporté, seg fault
 EXIT : si pas arg, exit avec $?
 
 alias

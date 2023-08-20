@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/20 15:20:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 23:26:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_ret_cmd
 }				t_ret_cmd;
 
 // shellpticflesh
-int			cmd_processing(char *line, t_env *env, bool add_line);
+long		cmd_processing(char *line, t_env *env, bool add_line);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char *cmd, bool add_line);
@@ -147,7 +147,7 @@ char		*rescue_tilde_funk(t_env *env);
 void		parameter_expansion(t_command *cmd, t_env *env);
 
 // command substitution
-bool		command_substitution(t_command *cmd,t_env *env);
+long		command_substitution(t_command *cmd,t_env *env);
 
 /*-------------QUOTE_REMOVAL--------------*/
 char		*quote_removal(char *cmd);
