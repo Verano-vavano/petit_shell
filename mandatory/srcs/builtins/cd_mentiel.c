@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/10 22:10:51 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/08/20 11:53:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	cd_home(t_env *env)
 		return (1);
 	}
 	if (env_contain("OLDPWD", env))
-		env_change_val("OLDPWD", getcwd(NULL, 0), env);
+		env_change_val("OLDPWD", getcwd(NULL, 0), env, 0);
 	if (chdir(home[0]))
 	{
 		printf("%s: cd: %s: %s\n", PROG_NAME, home[0], strerror(errno));
 		return (1);
 	}
 	if (env_contain("PWD", env))
-		env_change_val("PWD", getcwd(NULL, 0), env);
+		env_change_val("PWD", getcwd(NULL, 0), env, 0);
 	return (0);
 }
 
@@ -52,14 +52,14 @@ void	simple_cd(char *dest, t_env *env)
 		return ;
 	}
 	if (env_contain("OLDPWD", env))
-		env_change_val("OLDPWD", getcwd(NULL, 0), env);
+		env_change_val("OLDPWD", getcwd(NULL, 0), env, 0);
 	if (chdir(dest))
 	{
 		printf("%s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
 		return ;
 	}
 	if (env_contain("PWD", env))
-		env_change_val("PWD", getcwd(NULL, 0), env);
+		env_change_val("PWD", getcwd(NULL, 0), env, 0);
 }
 
 int	check_cdpath(char *dest, t_env *env)

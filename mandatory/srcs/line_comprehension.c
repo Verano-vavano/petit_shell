@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 00:04:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 21:18:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,44 @@ static enum e_cmd_part	redir_post(t_command *cmd, char *s)
 	return (UNDEFINED);
 }
 
+static bool	is_valid_var_char(char c)
+{
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9')
+		|| c == '_');
+}
+
+static bool	check_assign(char *s)
+{
+	int	i;
+
+	if (is_valid_var_char(s[0]) && is_num(s[0]))
+		return (false);
+	i = 0;
+	while (s[i] && s[i] != '=')
+	{
+		if (!is_valid_var_char(s[i]))
+			return (false);
+		i++;
+	}
+	if (s[i] == '=')
+		return (true);
+	return (false);
+}
+
 static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 {
 	char	*s;
 
 	s = cmd->content;
+	if (purpose == VAR_ASSIGN && check_assign(cmd->content))
+	{
+		cmd->purpose = purpose;
+		return (purpose);
+	}
+	else if (purpose == VAR_ASSIGN)
+		purpose = UNDEFINED;
 	if (cmd->next && cmd->next->purpose != CMD_DELIM && s[0] == '(')
 	{
 		syntax_error(cmd->next->content, ft_strlen(cmd->next->content));
@@ -59,7 +92,7 @@ int	understand_the_line(t_command *cmd)
 	enum e_cmd_part	next_purpose;
 
 	cmd_cpy = cmd;
-	next_purpose = UNDEFINED;
+	next_purpose = VAR_ASSIGN;
 	while (cmd_cpy->next)
 	{
 		next_purpose = get_purpose(cmd_cpy, next_purpose);
@@ -68,10 +101,8 @@ int	understand_the_line(t_command *cmd)
 			free_command(cmd);
 			return (1);
 		}
-		printf("%s is %d\n", cmd_cpy->content, cmd_cpy->purpose);
 		cmd_cpy = cmd_cpy->next;
 	}
 	get_purpose(cmd_cpy, next_purpose);
-	printf("%s is %d\n", cmd_cpy->content, cmd_cpy->purpose);
 	return (0);
 }

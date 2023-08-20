@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:10:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 20:25:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*new_line_add(char *line, bool nl)
 	return (line);
 }
 
-t_command	*spliter_init(char *line)
+t_command	*spliter_init(char *line, bool add_line)
 {
 	t_command		*cmd;
 	char			where_did_we_fail;
@@ -91,7 +91,8 @@ t_command	*spliter_init(char *line)
 	{
 		if (check_syntax(line))
 		{
-			add_history(line);
+			if (add_line)
+				add_history(line);
 			free(line);
 			return (0);
 		}
@@ -103,7 +104,8 @@ t_command	*spliter_init(char *line)
 		line = new_line_add(line, where_did_we_fail != -1);
 	}
 	cmd = ft_split_cmd(line);
-	add_history(line);
+	if (add_line)
+		add_history(line);
 	free(line);
 	return (cmd);
 }

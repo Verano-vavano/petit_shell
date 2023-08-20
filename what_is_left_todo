@@ -10,9 +10,7 @@ env local et exporté
 SHLEVEL et autres trucs de merde (revoir la doc)
 
 Expansions :
-Braces
 Parameter
-Command
 Arithmetic
 
 word split et IFS

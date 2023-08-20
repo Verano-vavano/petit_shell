@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 12:24:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/15 12:28:00 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/08/19 21:17:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print_lexed(t_command *lexed)
 		"DELIM",
 		"CMD_DELIM",
 		"MARKER",
+		"VAR_ASSIGN",
 		"ERROR",
 	};
 	printf("----\n");

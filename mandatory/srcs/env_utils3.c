@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 12:49:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 15:42:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	env_size(t_env *env)
 	n = 0;
 	while (env)
 	{
-		if (1) // !env->is_local
+		if (env->is_exported)
 			n++;
 		env = env->next;
 	}
@@ -81,7 +81,7 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (1) // !env->is_local
+		if (env->is_exported)
 		{
 			c_env[i] = get_env_val(env);
 			if (c_env[i] == 0)

@@ -6,14 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/15 18:34:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 15:11:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "shellpticflesh.h"
 
-t_env	*env_new(char *env_var)
+t_env	*env_new(char *env_var, bool is_exported)
 {
 	t_env	*new;
 	char	**tmp;
@@ -28,6 +27,7 @@ t_env	*env_new(char *env_var)
 	else
 		new->value = NULL;
 	new->next = NULL;
+	new->is_exported = is_exported;
 	free_char_etoile_etoile(tmp);
 	return (new);
 }
@@ -40,6 +40,6 @@ t_env	*env_init(char **envp)
 	env = NULL;
 	i = 0;
 	while (envp[i])
-		env_add(env_new(envp[i++]), &env);
+		env_add(env_new(envp[i++], true), &env);
 	return (env);
 }

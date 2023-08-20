@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 21:52:35 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 21:29:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ long	execute_the_line(t_command *cmd, t_env *env, int *heredoc_no)
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];
 	c_env = re_char_etoile_etoilise_env(env);
+	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != COMMAND)
+		cmd = cmd->next;
+	if (!cmd || cmd->purpose == CMD_DELIM)
+		return (0);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
 	while (n_cmd[0])

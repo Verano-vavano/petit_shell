@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 21:53:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 20:58:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ long	find_exec_bltn(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 	else if (ft_strcmp("exit", cmd->cmd_name) == 0)
 	{
 		if (one)
+		{
+			printf("exit\n");
 			free_char_etoile_etoile(c_env);
+		}
 		exit_hell(cmd->cmd);
 	}
 	else if (ft_strcmp("echo", cmd->cmd_name) == 0)

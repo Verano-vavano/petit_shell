@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 23:35:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 15:20:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum	e_cmd_part
 	DELIM,
 	CMD_DELIM,
 	MARKER,
+	VAR_ASSIGN,
 	ERROR
 };
 
@@ -84,7 +85,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			**value;
-	bool			is_local;
+	bool			is_exported;
 	struct s_env	*next;
 }				t_env;
 
@@ -97,10 +98,10 @@ typedef struct s_ret_cmd
 }				t_ret_cmd;
 
 // shellpticflesh
-int			cmd_processing(char *line, t_env *env);
+int			cmd_processing(char *line, t_env *env, bool add_line);
 
 /*--------------SPLIT-----------------*/
-t_command	*spliter_init(char *cmd);
+t_command	*spliter_init(char *cmd, bool add_line);
 
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
@@ -225,15 +226,15 @@ int			print_working_damnation(void);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/
-t_env		*env_new(char *env_var);
+t_env		*env_new(char *env_var, bool is_exported);
 t_env		*env_init(char **envp);
 /*----------------ENV_UTILS----------------*/
 void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);
 t_env		*env_last(t_env *env);
 char		**env_getval(char *key, t_env *env);
-void		env_change_val(char *key, char *value, t_env *env);
-void		env_update(char *char_arr, t_env *env, ...);
+void		env_change_val(char *key, char *value, t_env *env, bool is_exported);
+void		env_update(char *char_arr, bool is_exported, t_env *env, ...);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);

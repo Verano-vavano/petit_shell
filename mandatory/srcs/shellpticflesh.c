@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 00:04:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 15:30:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,37 @@
 
 int	g_sig_rec;
 
+static void	assign_vars(t_command *cmd, t_env *env)
+{
+	while (cmd && cmd->purpose == VAR_ASSIGN)
+	{
+		env_update(cmd->content, false, env, NULL);
+		cmd = cmd->next;
+	}
+}
+
 static long	line_exec(t_command *cmd, t_env *env, int *heredoc_no)
 {
 	quote_remove_cmd(cmd);
 	return (execute_the_line(cmd, env, heredoc_no));
 }
 
-int	cmd_processing(char *line, t_env *env)
+int	cmd_processing(char *line, t_env *env, bool add_line)
 {
 	t_command	*lexed;
 	t_command	*lexed_cpy;
+	bool		start;
 	int			heredoc_no;
 	long		rt_val;
 
-	lexed = spliter_init(line);
+	lexed = spliter_init(line, add_line);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed)
 		|| g_sig_rec || here_doc(lexed))
 		return (1);
 	lexed_cpy = lexed;
 	heredoc_no = 0;
-	while (lexed_cpy && (lexed_cpy->purpose == COMMAND
+	start = true;
+	while (lexed_cpy && (start
 			|| (!ft_strcmp(lexed_cpy->content, "&&") && rt_val == 0)
 			|| (!ft_strcmp(lexed_cpy->content, "||") && rt_val != 0)
 			|| (!ft_strcmp(lexed_cpy->content, ";"))))
@@ -47,8 +58,10 @@ int	cmd_processing(char *line, t_env *env)
 			rt_val = line_exec(lexed_cpy, env, &heredoc_no);
 		else
 			rt_val = 0;
+		assign_vars(lexed_cpy, env);
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
+		start = false;
 	}
 	print_lexed(lexed);
 	unlink_heredocs(lexed);
@@ -79,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		else if (!(*line))
 			continue ;
-		cmd_processing(line, env);
+		cmd_processing(line, env, true);
 		g_sig_rec = 0;
 	}
 }

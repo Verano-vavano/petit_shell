@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/25 16:26:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/20 15:38:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,27 @@ int	env_infernal(t_env *env, ...)
 	prepend = va_arg(list, char *);
 	while (ptr)
 	{
-		if (prepend != NULL)
-			printf("%s", prepend);
-		printf("%s=", ptr->key);
-		if (ptr->value != NULL)
+		if (ptr->is_exported)
 		{
-			i = 0;
-			while (ptr->value[i])
-			{
-				printf("%s", ptr->value[i]);
-				if (ptr->value[++i])
-					printf(":");
+			if (prepend != NULL)
+				printf("%s", prepend);
+			printf("%s=", ptr->key);
+			if (prepend)
+				printf("\"");
+			if (ptr->value != NULL)
+				{
+				i = 0;
+				while (ptr->value[i])
+				{
+					printf("%s", ptr->value[i]);
+					if (ptr->value[++i])
+						printf(":");
+				}
 			}
+			if (prepend)
+				printf("\"");
+			printf("\n");
 		}
-		printf("\n");
 		ptr = ptr->next;
 	}
 	return (0);

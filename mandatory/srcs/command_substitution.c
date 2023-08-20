@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 00:01:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/19 20:47:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ static char	*get_output(int *pipes)
 	if (!ret)
 		return (0);
 	readed = 1023;
+	close(pipes[1]);
 	while (readed == 1023)
 	{
 		readed = read(pipes[0], buffer, 1023);
-		if (readed == 0)
+		if (readed == 0 || readed == -1)
 			break ;
 		buffer[readed] = 0;
 		temp = ft_strjoin(ret, buffer);
@@ -83,8 +84,9 @@ static void	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 		}
 	}
 	cmd_sent = ft_strndup(cmd->content + se[0] + repl + 1, se[1] - 1 - repl);
+	signal(SIGINT, SIG_DFL);
 	if (cmd_sent)
-		cmd_processing(cmd_sent, env);
+		cmd_processing(cmd_sent, env, false);
 	if (repl)
 	{
 		dup2(stdout_fd, STDOUT_FILENO);
