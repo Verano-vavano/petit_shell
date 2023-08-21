@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/20 23:26:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/21 10:01:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <limits.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/types.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -97,6 +99,12 @@ typedef struct s_ret_cmd
 	int		n_cmd;
 }				t_ret_cmd;
 
+typedef struct s_list_file
+{
+	char				*content;
+	struct s_list_file	*next;
+}				t_list_file;
+
 // shellpticflesh
 long		cmd_processing(char *line, t_env *env, bool add_line);
 
@@ -149,6 +157,9 @@ void		parameter_expansion(t_command *cmd, t_env *env);
 // command substitution
 long		command_substitution(t_command *cmd,t_env *env);
 
+// filename expansion
+void		filename_expansion(t_command *cmd);
+
 /*-------------QUOTE_REMOVAL--------------*/
 char		*quote_removal(char *cmd);
 void		quote_remove_cmd(t_command *cmd);
@@ -186,6 +197,7 @@ void		free_whole_env(t_env *env);
 
 // utils
 t_command	*init_command_arg(t_command *start);
+bool		is_dir(char *path);
 
 // char_utils
 int			is_strict_meta(char c);

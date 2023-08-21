@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 09:00:55 by hdupire          ###   ########.fr       */
+/*   Created: 2023/03/27 16:40:32 by hdupire           #+#    #+#             */
+/*   Updated: 2023/08/21 10:02:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shellpticflesh.h"
+#include "libft.h"
 
-t_command	*init_command_arg(t_command *start)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	t_command	*new_arg;
+	size_t	i;
+	size_t	j;
 
-	new_arg = ft_calloc(1, sizeof (t_command));
-	if (new_arg == 0)
+	i = 0;
+	if (needle[0] == '\0')
+		return ((char *)haystack);
+	while (haystack[i])
 	{
-		free_command(start);
-		return (0);
+		if (haystack[i] == needle[0])
+		{
+			j = 1;
+			while (needle[j] == haystack[i + j] && needle[j])
+				j++;
+			if (needle[j] == '\0')
+				return ((char *)(haystack + i));
+		}
+		i++;
 	}
-	return (new_arg);
-}
-
-bool	is_dir(char *path)
-{
-	struct stat	fileStat;
-
-	if (lstat(path, &fileStat) == 0)
-		return (S_ISDIR(fileStat.st_mode));
-	return (false);
+	return (0);
 }
