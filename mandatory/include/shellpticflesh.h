@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 10:01:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/23 16:05:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void		free_whole_env(t_env *env);
 // utils
 t_command	*init_command_arg(t_command *start);
 bool		is_dir(char *path);
+int			unquote_search(char *s, char c);
 
 // char_utils
 int			is_strict_meta(char c);

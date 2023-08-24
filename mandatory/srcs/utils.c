@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 09:00:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/23 16:04:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,21 @@ bool	is_dir(char *path)
 	if (lstat(path, &fileStat) == 0)
 		return (S_ISDIR(fileStat.st_mode));
 	return (false);
+}
+
+int	unquote_search(char *s, char c)
+{
+	char	quoted;
+	int		i;
+
+	quoted = 0;
+	i = 0;
+	while (s[i])
+	{
+		quoted = is_quoted(s, i, quoted);
+		if (s[i] == c && !quoted)
+			return (i);
+		i++;
+	}
+	return (i);
 }
