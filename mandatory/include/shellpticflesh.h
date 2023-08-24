@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/23 16:05:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:08:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char		*rescue_tilde_funk(t_env *env);
 void		parameter_expansion(t_command *cmd, t_env *env);
 
 // command substitution
-long		command_substitution(t_command *cmd,t_env *env);
+long		command_substitution(t_command *cmd, t_env *env);
 
 // filename expansion
 void		filename_expansion(t_command *cmd);
@@ -246,7 +246,7 @@ void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);
 t_env		*env_last(t_env *env);
 char		**env_getval(char *key, t_env *env);
-void		env_change_val(char *key, char *value, t_env *env, bool is_exported);
+void		env_change_val(char *key, char *value, t_env *env, bool is_exp);
 void		env_update(char *char_arr, bool is_exported, t_env *env, ...);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
@@ -255,6 +255,5 @@ char		**re_char_etoile_etoilise_env(t_env *env);
 void		env_create_add(char *key, char *value, t_env *env);
 /*----------------TO_DELETE_UTILS----------------*/
 void		print_lexed(t_command *lexed);
-
 
 #endif

@@ -6,16 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/20 11:53:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:18:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
 #include <errno.h>
-#include <string.h>
-#include <unistd.h>
-
 
 // TODO & FIX
 // pour les messages d'erreurs
@@ -24,12 +21,12 @@
 // sinon faut import mon printf qui peut print vers un fd
 int	cd_home(t_env *env)
 {
-	char **home;
+	char	**home;
 
 	home = env_getval("HOME", env);
 	if (!home)
 	{
-		printf("%s: cd: HOME not set\n",PROG_NAME);
+		printf("%s: cd: HOME not set\n", PROG_NAME);
 		return (1);
 	}
 	if (env_contain("OLDPWD", env))
@@ -72,10 +69,10 @@ int	check_cdpath(char *dest, t_env *env)
 	if (!cdpath)
 		return (1);
 	i = -1;
-	while(cdpath->value[++i])
+	while (cdpath->value[++i])
 	{
 		concat_path = concat_multiple(
-			(char *[]){ cdpath->value[i] , "/", dest, NULL });
+				(char *[]){cdpath->value[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
 		{
 			simple_cd(concat_path, env);
@@ -89,7 +86,7 @@ int	check_cdpath(char *dest, t_env *env)
 int	cd_mentiel(char **cmd, t_env *env)
 {
 	if (!cmd[1])
-		return(cd_home(env));
+		return (cd_home(env));
 	else if (check_cdpath(cmd[1], env) == 0)
 		return (0);
 	simple_cd(cmd[1], env);

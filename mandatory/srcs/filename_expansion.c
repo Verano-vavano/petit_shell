@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/24 13:42:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 17:45:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	sort_lf(t_list_file *lf)
 	{
 		swaped = false;
 		temp = lf;
-		while (temp->next)
+		while (temp && temp->next)
 		{
 			if (ft_strcmp(temp->content, temp->next->content) > 0)
 			{
@@ -117,7 +117,7 @@ static bool	check_end(char *qr_match, char *file)
 	int	j;
 
 	i = ft_strlen(file) - 1;
-	j = ft_strlen(qr_match) - 1;
+	j = ft_strchr_int(qr_match, '/') - 1;
 	while (qr_match[j] != '*')
 	{
 		if (qr_match[j] != file[i])
@@ -164,11 +164,12 @@ static bool	is_valid_fe(char *file, char *matcher)
 		return (false);
 	while (file[i] && qr_match[j] && !(qr_match[j] == '/'))
 	{
-		if (qr_match[j] == '*' && qr_match[j + 1 + unquote_search(qr_match + j + 1, '*')])
+		if (qr_match[j] == '*' && qr_match[j + 1 + unquote_search(qr_match + j + 1, '*')]
+			&& get_path_star_fe(qr_match + j + 1) > unquote_search(qr_match + j + 1, '*'))
 			move_to_next(qr_match, file, &i, &j);
 		else if (qr_match[j] == '*')
-			return (check_end(qr_match, file));
-		if (i == -1 || qr_match[j] != file[i])
+			return (check_end(qr_match + j, file));
+		if (i == -1 || (qr_match[j] != '/' && qr_match[j] != file[i]))
 			return (false);
 		i++;
 		j++;
@@ -176,7 +177,7 @@ static bool	is_valid_fe(char *file, char *matcher)
 	return (true);
 }
 
-static bool	get_all_valid_files(t_command *cmd, int index, t_list_file *lf)
+static void	get_all_valid_files(t_command *cmd, int index, t_list_file *lf)
 {
 	char			*path;
 	DIR				*dir;
@@ -211,13 +212,107 @@ static bool	get_all_valid_files(t_command *cmd, int index, t_list_file *lf)
 	if (path)
 		free(path);
 	closedir(dir);
-	return (cmd->content[index + unquote_search(cmd->content + index, '/')] != '\0');
 }
 
-static bool	get_all_vf_flf(t_command *cmd, int index, t_list_file *lf)
+static t_list_file	*remove_flf(t_list_file *act, t_list_file *lf)
 {
-	(void) lf;
-	return (cmd->content[index + unquote_search(cmd->content + index, '/')] != '\0');
+	t_list_file	*lf2;
+
+	if (act == lf)
+	{
+		lf = lf->next;
+		free(act->content);
+		free(act);
+		return (lf);
+	}
+	lf2 = lf;
+	while (lf2->next != act)
+		lf2 = lf2->next;
+	if (act->next)
+		lf2->next = act->next;
+	else
+		lf2->next = 0;
+	free(act->content);
+	free(act);
+	return (lf);
+}
+
+static t_list_file	*check_all_subfiles(t_command *cmd, int index, t_list_file *lf, t_list_file *nlf)
+{
+	DIR				*dir;
+	struct dirent	*file;
+	char			*file_n_path;
+	t_list_file		*temp;
+	t_list_file		*next;
+
+	temp = lf;
+	while (temp)
+	{
+		dir = opendir(temp->content);
+		file = readdir(dir);
+		while (file)
+		{
+			if (is_valid_fe(file->d_name, cmd->content + index))
+			{
+				file_n_path = ft_strjoin(temp->content, file->d_name);
+				if (file_n_path)
+				{
+					add_to_lf(file_n_path, nlf);
+					free(file_n_path);
+				}
+				else
+					add_to_lf(file->d_name, nlf);
+			}
+			file = readdir(dir);
+		}
+		closedir(dir);
+		next = temp->next;
+		temp = next;
+	}
+	return (nlf);
+}
+
+static t_list_file	*get_all_vf_flf(t_command *cmd, int index, int last, t_list_file *lf)
+{
+	char			*temp;
+	char			*path;
+	t_list_file		*act;
+	t_list_file		*next_cpy;
+	t_list_file		*new_lf;
+
+	path = ft_strndup(cmd->content + last, index - last);
+	if (!path)
+		return (0);
+	act = lf;
+	while (act)
+	{
+		temp = ft_strjoin(act->content, path);
+		if (!is_dir(temp))
+		{
+			next_cpy = act->next;
+			lf = remove_flf(act, lf);
+			act = next_cpy;
+			free(temp);
+		}
+		else
+		{
+			free(act->content);
+			act->content = temp;
+			act = act->next;
+		}
+	}
+	if (!lf || !(lf->content))
+		return (0);
+	new_lf = ft_calloc(1, sizeof (t_list_file));
+	if (!new_lf)
+	{
+		free_lf(lf);
+		return (0);
+	}
+	new_lf = check_all_subfiles(cmd, index, lf, new_lf);
+	free_lf(lf);
+	free(path);
+	return (new_lf);
 }
 
 static void	perform_file_exp(t_command *cmd)
@@ -226,6 +321,7 @@ static void	perform_file_exp(t_command *cmd)
 	int				index;
 	bool			not_ended;
 	bool			start;
+	int				last;
 
 	index = 0;
 	lf = ft_calloc(1, sizeof (t_list_file));
@@ -238,10 +334,14 @@ static void	perform_file_exp(t_command *cmd)
 		index += get_path_star_fe(cmd->content + index);
 		index += (cmd->content[index] == '/');
 		if (start)
-			not_ended = get_all_valid_files(cmd, index, lf);
+		{
+			get_all_valid_files(cmd, index, lf);
+		}
 		else
-			not_ended = get_all_vf_flf(cmd, index, lf);
+			lf = get_all_vf_flf(cmd, index, last, lf);
+		not_ended = cmd->content[index + unquote_search(cmd->content + index, '/')] != '\0';
 		index += unquote_search(cmd->content + index, '/');
+		last = index;
 		start = false;
 	}
 	sort_lf(lf);

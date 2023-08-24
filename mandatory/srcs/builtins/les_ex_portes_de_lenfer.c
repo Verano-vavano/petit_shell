@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/20 15:17:35 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:23:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_env	*dup_env(t_env *env)
 	else
 		new->value = NULL;
 	new->next = NULL;
-	new->is_exported  = env->is_exported;
+	new->is_exported = env->is_exported;
 	return (new);
 }
 
@@ -111,15 +111,13 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env *env)
 		ptr = sorted_env;
 		env_infernal(sorted_env, "declare -x ", NULL);
 		free_whole_env(sorted_env);
+		return (0);
 	}
-	else
+	cmd++;
+	while (*cmd)
 	{
+		env_update(*cmd, true, env, NULL);
 		cmd++;
-		while (*cmd)
-		{
-			env_update(*cmd, true, env, NULL);
-			cmd++;
-		}
 	}
 	return (0);
 }

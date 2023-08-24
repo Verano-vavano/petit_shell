@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/20 16:46:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:08:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env	*env_getptr(char *key, t_env *env)
 	return (ret);
 }
 
-void	env_change_val(char *key, char *value, t_env *env, bool is_exported)
+void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 {
 	t_env	*ptr;
 
@@ -39,7 +39,7 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exported)
 			free_char_etoile_etoile(ptr->value);
 		ptr->value = ft_split(value, ':');
 	}
-	if (is_exported)
+	if (is_exp)
 		ptr->is_exported = true;
 }
 

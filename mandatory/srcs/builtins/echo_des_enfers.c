@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:54:37 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/25 16:25:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:19:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	echo_des_enfers(char **cmd)
 	if (cmd[i])
 	{
 		while (cmd[i] && is_arg(cmd[i], &newline))
-			i++;;
+			i++;
 		while (cmd[i])
 		{
 			printf("%s", cmd[i]);
 			if (cmd[i + 1])
 				printf(" ");
-			i++;;
+			i++;
 		}
 	}
 	if (newline)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/20 23:55:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/24 19:04:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char	*get_output(int *pipes)
 			return (0);
 		ret = temp;
 	}
+	ret[ft_strlen(ret) - 1] = 0;
 	return (ret);
 }
 
@@ -68,7 +69,7 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	int		stdout_fd;
 	int		pipes[2];
 	char	*cmd_sent;
-	char	*output;
+	char	*out;
 
 	se[0] = start - repl;
 	se[1] = find_end_comm(cmd->content + start) + repl;
@@ -84,18 +85,20 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 		}
 	}
 	cmd_sent = ft_strndup(cmd->content + se[0] + repl + 1, se[1] - 1 - repl);
-	signal(SIGINT, SIG_DFL);
 	se[3] = 1;
 	if (cmd_sent)
 		se[3] = cmd_processing(cmd_sent, env, false);
+	printf("\n");
 	if (repl)
 	{
 		dup2(stdout_fd, STDOUT_FILENO);
-		output = get_output(pipes);
-		if (output)
-			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, output);
+		out = get_output(pipes);
+		if (out && *out)
+			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
 		else
 			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, "\0");
+		if (out)
+			free(out);
 	}
 	return (se[3]);
 }
