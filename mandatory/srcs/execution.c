@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 21:29:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 15:15:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,16 @@ static long	wait_father(pid_t pid, int n_cmd, char **c_env, long err)
 	return (err);
 }
 
-long	execute_the_line(t_command *cmd, t_env *env, int *heredoc_no)
+static void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
+{
+	if (n_cmd == 1 && ft_strcmp(cmd->content, "exit") == 0)
+	{
+		write_hist(hist, env);
+		free_history(hist);
+	}
+}
+
+long	execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 {
 	int				n_cmd[2];
 	long			err_status;
@@ -77,6 +86,7 @@ long	execute_the_line(t_command *cmd, t_env *env, int *heredoc_no)
 		return (0);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
+	check_hist(cmd, hist, env, n_cmd[0]);
 	while (n_cmd[0])
 	{
 		if (pipe(ret_cmd.pipes) < 0)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/23 16:04:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 11:46:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,9 @@ int	unquote_search(char *s, char c)
 		i++;
 	}
 	return (i);
+}
+
+bool	is_file_valid(char *file, int mode)
+{
+	return (access(file, mode) == 0);
 }

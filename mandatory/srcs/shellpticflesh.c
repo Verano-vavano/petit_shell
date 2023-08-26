@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 00:08:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 15:36:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static void	assign_vars(t_command *cmd, t_env *env)
 	}
 }
 
-static long	line_exec(t_command *cmd, t_env *env, int *heredoc_no)
+static long	line_exec(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 {
 	quote_remove_cmd(cmd);
-	return (execute_the_line(cmd, env, heredoc_no));
+	return (execute_the_line(cmd, env, hist, heredoc_no));
 }
 
-long	cmd_processing(char *line, t_env *env, bool add_line)
+long	cmd_processing(char *line, t_env *env, t_hist *hist, bool add_line)
 {
 	t_command	*lexed;
 	t_command	*lexed_cpy;
@@ -40,7 +40,7 @@ long	cmd_processing(char *line, t_env *env, bool add_line)
 	int			heredoc_no;
 	long		rt_val;
 
-	lexed = spliter_init(line, add_line);
+	lexed = spliter_init(line, add_line, hist, env);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed)
 		|| g_sig_rec || here_doc(lexed))
 		return (1);
@@ -57,7 +57,7 @@ long	cmd_processing(char *line, t_env *env, bool add_line)
 			lexed_cpy = lexed_cpy->next;
 		rt_val = expand_cmd(lexed_cpy, env);
 		if (rt_val < 0)
-			rt_val = line_exec(lexed_cpy, env, &heredoc_no);
+			rt_val = line_exec(lexed_cpy, env, hist, &heredoc_no);
 		assign_vars(lexed_cpy, env);
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
@@ -73,6 +73,7 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_env	*env;
+	t_hist	*hist;
 	long	ret;
 
 	(void)ac;
@@ -80,6 +81,7 @@ int	main(int ac, char **av, char **envp)
 	g_sig_rec = 0;
 	ret = 0;
 	env = env_init(envp);
+	hist = load_history(env);
 	while (42)
 	{
 		signal(SIGINT, sig_main);
@@ -94,7 +96,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		else if (!(*line))
 			continue ;
-		ret = cmd_processing(line, env, true);
+		ret = cmd_processing(line, env, hist, true);
 		g_sig_rec = 0;
 	}
 	printf("%ld\n", ret);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 10:01:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 13:44:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/syscall.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+#  define BUFFER_SIZE 1
 # endif
 
 size_t	ft_strlen(const char *s);

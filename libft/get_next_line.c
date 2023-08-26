@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:11:09 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/04 17:07:05 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/08/26 13:47:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ static char	*read_file(int fd, char *buf)
 	free(temp);
 	return (buf);
 }
+
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {

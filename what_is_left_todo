@@ -10,7 +10,6 @@ SHLEVEL et autres trucs de merde (revoir la doc)
 Expansions :
 Parameter
 Arithmetic
-Filename
 
 word split et IFS
 
@@ -26,6 +25,7 @@ Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
 
 CD : too many arguments
+CD : CDPATH
 EXIT : si pas arg, exit avec $?
 
 alias
@@ -34,8 +34,6 @@ CTRL-D : more line asking
 >> avec esoaces après
 
 close fd if &-
-
-PRIORITES DES PARENTHESES
 
 SPECIAL PARAMETERS
 

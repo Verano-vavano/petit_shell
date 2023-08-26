@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/24 18:08:24 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 15:16:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,19 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
+typedef struct s_hist_ll
+{
+	char				*content;
+	struct s_hist_ll	*next;
+}				t_hist_ll;
+
+typedef struct s_hist
+{
+	int			len_hist;
+	t_hist_ll	*hist_start;
+	t_hist_ll	*hist_end;
+}				t_hist;
+
 typedef struct s_ret_cmd
 {
 	pid_t	pid;
@@ -106,10 +119,10 @@ typedef struct s_list_file
 }				t_list_file;
 
 // shellpticflesh
-long		cmd_processing(char *line, t_env *env, bool add_line);
+long		cmd_processing(char *line, t_env *env, t_hist *hist, bool add_line);
 
 /*--------------SPLIT-----------------*/
-t_command	*spliter_init(char *cmd, bool add_line);
+t_command	*spliter_init(char *cmd, bool add_line, t_hist *hist, t_env *env);
 
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
@@ -166,7 +179,7 @@ void		quote_remove_cmd(t_command *cmd);
 
 /*--------------EXECUTION-----------------*/
 // execution
-long		execute_the_line(t_command *cmd, t_env *env, int *heredoc_no);
+long		execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no);
 
 // builtin_exec
 long		exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env);
@@ -189,6 +202,12 @@ void		free_redirs(t_redir_pipe *redir);
 t_command	*go_to_next_cmd(t_command *cmd);
 void		exec_cleaner(t_process_cmd cmd_processing);
 
+/*--------------HISTORY--------------*/
+t_hist		*load_history(t_env *env);
+void		add_to_hist(t_env *env, t_hist *hist, char *line);
+void		write_hist(t_hist *hist, t_env *env);
+void		free_history(t_hist *hist);
+
 /*---------------UTILITIES------------------*/
 // cleaning
 int			free_command(t_command *l);
@@ -199,6 +218,7 @@ void		free_whole_env(t_env *env);
 t_command	*init_command_arg(t_command *start);
 bool		is_dir(char *path);
 int			unquote_search(char *s, char c);
+bool		is_file_valid(char *file, int mode);
 
 // char_utils
 int			is_strict_meta(char c);

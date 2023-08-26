@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/24 19:04:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:36:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	cmd_sent = ft_strndup(cmd->content + se[0] + repl + 1, se[1] - 1 - repl);
 	se[3] = 1;
 	if (cmd_sent)
-		se[3] = cmd_processing(cmd_sent, env, false);
+		se[3] = cmd_processing(cmd_sent, env, 0, false);
 	printf("\n");
 	if (repl)
 	{
