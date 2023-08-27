@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 15:16:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 17:21:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no);
 
 // files
 int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
+void		close_files(t_redir_pipe *redir);
 
 // get_path
 int			get_cmd_path(t_process_cmd *cmd, t_env *env);

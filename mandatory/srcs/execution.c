@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 16:04:09 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 17:53:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	crt_child(t_process_cmd *cmd, t_env *env, char **c_env, t_ret_cmd *ret)
 	close(ret->fd);
 	ret->fd = dup(ret->pipes[0]);
 	close(ret->pipes[0]);
+	close_files(cmd->redir);
 }
 
 static long	wait_father(pid_t pid, int n_cmd, char **c_env, long err)
@@ -103,7 +104,11 @@ long	execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 		}
 		ret_cmd.n_cmd = n_cmd[0];
 		if (cmd_processing.is_builtin && n_cmd[1] == 1)
+		{
+			close(ret_cmd.pipes[0]);
+			close(ret_cmd.pipes[1]);
 			return (exec_bltin(&cmd_processing, env, true, c_env));
+		}
 		else
 			crt_child(&cmd_processing, env, c_env, &ret_cmd);
 		cmd = go_to_next_cmd(cmd);

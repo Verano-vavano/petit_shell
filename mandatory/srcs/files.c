@@ -6,11 +6,30 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/19 20:32:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 17:49:25 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+void	close_files(t_redir_pipe *redir)
+{
+	printf("LOL\n");
+	while (redir)
+	{
+		if (redir->opened_read && redir->fd_read >= 0)
+		{
+			printf("Closing %d\n", redir->fd_read);
+			close(redir->fd_read);
+		}
+		if (redir->opened_write && redir->fd_write >= 0)
+		{
+			printf("Closing %d\n", redir->fd_write);
+			close(redir->fd_write);
+		}
+		redir = redir->next;
+	}
+}
 
 static int	open_write_file(t_command *cmd, t_redir_pipe *redir)
 {
@@ -19,6 +38,7 @@ static int	open_write_file(t_command *cmd, t_redir_pipe *redir)
 	s = cmd->content;
 	if (redir->opened_write)
 		close(redir->fd_write);
+	redir->opened_write = 1;
 	if (cmd->purpose == OUT_FILE || cmd->purpose == IN_OUT_FILE)
 		redir->fd_write = open(s, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (cmd->purpose == OUT_FILE_APP)
@@ -31,6 +51,7 @@ static int	open_read_file(t_command *cmd, t_redir_pipe *redir, int hd)
 	redir->here_string = 0;
 	if (redir->opened_read)
 		close(redir->fd_read);
+	redir->opened_read = 1;
 	if (cmd->purpose == IN_FILE || cmd->purpose == IN_OUT_FILE)
 	{
 		redir->fd_read = open(cmd->content, O_RDONLY);
