@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/24 17:45:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 12:39:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ static bool	is_valid_fe(char *file, char *matcher)
 	while (file[i] && qr_match[j] && !(qr_match[j] == '/'))
 	{
 		if (qr_match[j] == '*' && qr_match[j + 1 + unquote_search(qr_match + j + 1, '*')]
-			&& get_path_star_fe(qr_match + j + 1) > unquote_search(qr_match + j + 1, '*'))
+			&& unquote_search(qr_match + j + 1, '/') > unquote_search(qr_match + j + 1, '*'))
 			move_to_next(qr_match, file, &i, &j);
 		else if (qr_match[j] == '*')
 			return (check_end(qr_match + j, file));
@@ -303,6 +303,8 @@ static t_list_file	*get_all_vf_flf(t_command *cmd, int index, int last, t_list_f
 	}
 	if (!lf || !(lf->content))
 		return (0);
+	else if (!(cmd->content[index]))
+		return (lf);
 	new_lf = ft_calloc(1, sizeof (t_list_file));
 	if (!new_lf)
 	{
@@ -336,6 +338,11 @@ static void	perform_file_exp(t_command *cmd)
 		if (start)
 		{
 			get_all_valid_files(cmd, index, lf);
+			if (!(lf->content))
+			{
+				free(lf);
+				return ;
+			}
 		}
 		else
 			lf = get_all_vf_flf(cmd, index, last, lf);

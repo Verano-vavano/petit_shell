@@ -13,9 +13,6 @@ Arithmetic
 
 word split et IFS
 
-Gérer l'history dans le HOME :
-.shellhistory ? .shistory ? .shellpticstory ? brainstorming nécesaire
-
 Gérer le $? (stocker dans env dans local)
 
 Tetris :
@@ -39,3 +36,11 @@ SPECIAL PARAMETERS
 
 Braces : si braces expansions dans braces expansions, ne pas cr&er de nouveau maillon mais directement les séparer par des virgules
 multiple braces bug
+
+echo "$(echo lol)"
+echo *s*/
+
+CORRIGER FILENAME EXPANSION ^
+CORRIGER BUG BIZARRE $()
+GERER ERREURS VALGRIND HIST
+NORM
