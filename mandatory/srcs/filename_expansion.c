@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 12:39:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 12:43:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,7 +381,6 @@ static void	perform_quest_expand(t_command *cmd)
 
 void	filename_expansion(t_command *cmd)
 {
-	signal(SIGINT, SIG_DFL); // TO REM
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (cmd->purpose == COMMAND && ft_strchr(cmd->content, '*'))

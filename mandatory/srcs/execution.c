@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 16:04:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ long	execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 		n_cmd[0]--;
 		exec_cleaner(cmd_processing);
 	}
+	close(ret_cmd.fd);
 	return (wait_father(ret_cmd.pid, n_cmd[1] - n_cmd[0], c_env, err_status));
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 13:43:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 16:05:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*get_from_passwd(char *username)
 	int		fd_passwd;
 
 	fd_passwd = open("/etc/passwd", O_RDONLY);
+	if (fd_passwd < 0)
+		return (0);
 	line = get_next_line(fd_passwd);
 	while (line && ft_strncmp(line, username, ft_strlen(username)))
 	{
@@ -26,6 +28,7 @@ static char	*get_from_passwd(char *username)
 			free(line);
 		line = get_next_line(fd_passwd);
 	}
+	close(fd_passwd);
 	if (!line)
 		return (0);
 	split_line = ft_split(line, ':');

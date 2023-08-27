@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 14:36:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 13:01:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	find_end_comm(char *s)
 	while (s[i])
 	{
 		quoted = is_quoted(s, i, quoted);
-		if (s[i] == '(' && !quoted)
+		if (s[i] == '(' && quoted != '\'')
 			inside++;
-		else if (s[i] == ')' && !quoted && !inside)
+		else if (s[i] == ')' && quoted != '\'' && !inside)
 			return (i);
-		else if (s[i] == ')' && !quoted)
+		else if (s[i] == ')' && quoted != '\'')
 			inside--;
 		i++;
 	}
@@ -112,10 +112,12 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 
 	quoted = 0;
 	start = 0;
+	repl = false;
+	ret = -1;
 	while (cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
-		if (cmd->content[start] == '(' && !quoted)
+		if (cmd->content[start] == '(' && quoted != '\'')
 		{
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;
@@ -140,6 +142,7 @@ long	command_substitution(t_command *cmd, t_env *env)
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			ret = srch_exec_comm(cmd, env);
+			printf("%ld\n", ret);
 			if (ret >= 0 && !skip_first)
 				skip_first = true;
 		}
