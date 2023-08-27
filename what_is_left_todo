@@ -40,3 +40,4 @@ multiple braces bug
 GERER ERREURS VALGRIND HIST
 NORM
 'e'"$coucou"""'o' >out1 coucou > out2 | >out3 wc <out1 -l >out4
+filename expansion : ?

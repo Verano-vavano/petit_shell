@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 22:16:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 18:16:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static int	check_metachar(char *line)
 {
 	int	i;
-	int	meta;
+	//int	meta;
 
 	i = 0;
-	meta = 0;
+	//meta = 0;
 	if ((line[0] == '<' || line[0] == '>') && line[1] == '&')
 		return (0);
 	else if (line[0] == '<' && line[1] == '<' && line[2] == '<')
 		return (0);
-	else if (is_metachar(line[i]) && is_metachar(line[i + 1])
-		&& line[i] != line[i + 1] && (line[0] != '<' && line[0] != '>'))
+	else if (is_strict_meta(line[i]) && is_strict_meta(line[i + 1])
+		&& line[i] != line[i + 1])
 		return (syntax_error(line + i + 1, 1));
-	while (line[i])
+	/*while (line[i])
 	{
 		if (is_metachar(line[i]) && meta == 2)
 			return (syntax_error(line + i, 1));
@@ -37,7 +37,7 @@ static int	check_metachar(char *line)
 		else if (meta && !is_separator(line[i]))
 			return (0);
 		i++;
-	}
+	}*/
 	return (0);
 }
 

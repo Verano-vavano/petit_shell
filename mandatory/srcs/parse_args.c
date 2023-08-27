@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 00:05:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 18:18:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	ft_strdup_arg(char *cmd, t_command *cmd_args)
 	i = -1;
 	while (++i < len)
 		cmd_args_cpy->content[i] = cmd[i];
+	printf("%s\n", cmd_args_cpy->content);
 	while (cmd[total] && is_separator(cmd[total]))
 		total++;
 	if (cmd[total] && cmd[total] != '#')
