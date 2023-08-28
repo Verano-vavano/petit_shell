@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/24 18:08:46 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 23:43:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,35 @@ t_env	*env_getptr(char *key, t_env *env)
 void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 {
 	t_env	*ptr;
+	bool	add;
+	int		len;
+	char	*temp;
 
+	len = ft_strlen(key);
+	add = (key[len - 1] == '+');
+	if (add)
+		key[len - 1] = 0;
 	ptr = env_getptr(key, env);
 	if (value)
 	{
+		if (add)
+		{
+			temp = ft_strjoin(ptr->value[0], value);
+			free(ptr->value[0]);
+			ptr->value[0] = temp;
+		}
+		else
+		{
+			if (ptr->value)
+				free_char_etoile_etoile(ptr->value);
+			ptr->value = ft_split(value, ':');
+		}
+	}
+	else
+	{
 		if (ptr->value)
 			free_char_etoile_etoile(ptr->value);
-		ptr->value = ft_split(value, ':');
+		ptr->value = 0;
 	}
 	if (is_exp)
 		ptr->is_exported = true;

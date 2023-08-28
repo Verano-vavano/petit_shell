@@ -15,9 +15,6 @@ word split et IFS
 
 Gérer le $? (stocker dans env dans local)
 
-Tetris :
-check sleep
-
 Awk v2
 Cyberpunk avec raytracing et 180fps sur les Mac mini
 
@@ -39,3 +36,10 @@ multiple braces bug
 GERER ERREURS VALGRIND HIST
 NORM
 Braces expansion . revoir dots quasi entièrement, c'est une cata
+
+ls hizrhgei | echo lol | <<a >b : seg fault
+echo {a{a,b}}
+echo {00..15}
+a=12 | echo lol (a tjs assigné)
+echo $a+
+a+=3

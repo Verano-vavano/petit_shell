@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 13:02:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 23:22:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ int	g_sig_rec;
 
 static void	assign_vars(t_command *cmd, t_env *env)
 {
+	bool		one;
+	t_command	*cpy;
+
+	one = true;
+	cpy = cmd;
+	while (cpy && cpy->purpose != CMD_DELIM)
+	{
+		if (cpy->purpose == DELIM)
+			one = false;
+		cpy = cpy->next;
+	}
+	if (!one)
+		return ;
 	while (cmd && cmd->purpose == VAR_ASSIGN)
 	{
 		env_update(cmd->content, false, env, NULL);

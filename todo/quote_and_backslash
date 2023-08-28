@@ -1,7 +1,0 @@
-\
-
-no quote : kept if not in front of special char
-simple quotes : kept
-double quotes : kept if not in front of special char
-simple quotes and dollar sign : kept
-double quotes and dollar sign : same as double quotes

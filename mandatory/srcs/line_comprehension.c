@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/21 00:08:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 23:33:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ static bool	check_assign(char *s)
 	while (s[i] && s[i] != '=')
 	{
 		if (!is_valid_var_char(s[i]))
-			return (false);
+		{
+			if (s[i] != '+' || s[i + 1] != '=')
+				return (false);
+		}
 		i++;
 	}
 	if (s[i] == '=')

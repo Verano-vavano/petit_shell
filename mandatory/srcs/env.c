@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/20 15:11:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 23:30:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_env	*env_new(char *env_var, bool is_exported)
 		return (NULL);
 	tmp = ft_split(env_var, '=');
 	new->key = ft_strdup(tmp[0]);
+	if (new->key[ft_strlen(new->key) - 1] == '+')
+		new->key[ft_strlen(new->key) - 1] = 0;
 	if (tmp[1])
 		new->value = ft_split(tmp[1], ':');
 	else
