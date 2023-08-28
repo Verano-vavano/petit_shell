@@ -6,12 +6,14 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:58:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 12:57:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 22:30:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TETRIS_H
 # define TETRIS_H
+
+# define NANO_IN_SEC 1000000000
 
 # define SQUARE "██"
 # define WIDTH_BOARD 12
@@ -86,6 +88,7 @@ typedef struct s_map
 	int				lines_destroyed;
 	int				level;
 	char			keyboard;
+	char			*sleep_path;
 }				t_map;
 
 void	start_game(t_map *map);

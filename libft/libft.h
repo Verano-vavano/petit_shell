@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 13:44:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 22:25:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <sys/syscall.h>
+# include <syscall.h>
+# include <time.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -59,5 +60,6 @@ char	*concat_multiple(char **strs);
 char	*ft_strchr(const char *s, int c);
 bool	is_valid_num(char *s);
 char	*ft_ltoa(long n);
+int		ft_nanosleep(const struct timespec *req);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:00:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/20 16:16:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 22:38:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	tetris(char **args)
 	t_map			*maper;
 	struct termios	old_term;
 
+	if (access("/usr/bin/sleep", X_OK) != 0)
+		return (1);
 	maper = ft_calloc(1, sizeof (t_map));
 	if ((!maper) | init_term())
 		return (1);
