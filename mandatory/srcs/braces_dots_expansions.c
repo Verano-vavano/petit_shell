@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 18:49:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 17:49:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static char	**set_param(void)
 		param[i] = ft_calloc(100, sizeof(char));
 		if (!param[i])
 		{
-			free_char_etoile_etoile(param);
+			while (--i)
+				free(param[i]);
+			free(param);
 			return (0);
 		}
 		i++;
@@ -67,6 +69,8 @@ static int	dots_loop(int *se, int *i, char *s, char **param)
 		if (is_quoted(s, i[0], 0) || i[1] > 2)
 			return (-1);
 		if (s[i[0]] == '.' && s[i[0] + 1] != '.')
+			return (-1);
+		else if (s[i[0]] == '{')
 			return (-1);
 		else if (s[i[0]] == '.')
 		{
