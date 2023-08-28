@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 12:43:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/28 17:25:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	get_path_star_fe(char *cnt)
 	i = 0;
 	last_s = 0;
 	quoted = 0;
-	while (cnt[i] && (quoted || cnt[i] != '*'))
+	while (cnt[i] && (quoted || (cnt[i] != '*' && cnt[i] != '?')))
 	{
 		quoted = is_quoted(cnt, i, quoted);
 		if (cnt[i] == '/' && !quoted)
@@ -120,7 +120,9 @@ static bool	check_end(char *qr_match, char *file)
 	j = ft_strchr_int(qr_match, '/') - 1;
 	while (qr_match[j] != '*')
 	{
-		if (qr_match[j] != file[i])
+		if (i < 0)
+			return (false);
+		if (qr_match[j] != file[i] && qr_match[j] != '?')
 			return (false);
 		i--;
 		j--;
@@ -128,15 +130,45 @@ static bool	check_end(char *qr_match, char *file)
 	return (true);
 }
 
+static char	*ft_strstr_fe(char *haystack, char *needle)
+{
+	int		i;
+	int		j;
+	bool	found;
+
+	i = 0;
+	while (haystack[i])
+	{
+		if (haystack[i] == needle[0] || needle[0] == '?')
+		{
+			found = true;
+			j = 0;
+			while (haystack[i + j] && needle[j])
+			{
+				if (needle[j] != '?' && needle[j] != haystack[i + j])
+				{
+					found = false;
+					break ;
+				}
+				j++;
+			}
+			if (found && !needle[j])
+				return (haystack + i);
+		}
+		i++;
+	}
+	return (0);
+}
+
 static void	move_to_next(char *qr_match, char *file, int *i, int *j)
 {
 	char	*cpy;
 	char	*finder;
 
-	cpy = ft_strndup(qr_match + *j + 1, unquote_search(qr_match + *j + 1, '*'));
+	cpy = ft_strndup(qr_match + *j + 1, ft_strchr_int(qr_match + *j + 1, '*'));
 	if (cpy)
 	{
-		finder = ft_strstr(file, cpy);
+		finder = ft_strstr_fe(file + *i, cpy);
 		(*j)++;
 		if (finder)
 			(*i) += (finder - (file + *i));
@@ -147,6 +179,23 @@ static void	move_to_next(char *qr_match, char *file, int *i, int *j)
 	}
 	(*i)++;
 	(*j)++;
+}
+
+static bool	not_over(char *s)
+{
+	int	j;
+
+	j = 0;
+	if (s[j] != '*')
+		return (false);
+	j++;
+	while (s[j] && s[j] != '/')
+	{
+		if (s[j] == '*')
+		return (true);
+		j++;
+	}
+	return (false);
 }
 
 static bool	is_valid_fe(char *file, char *matcher)
@@ -160,21 +209,25 @@ static bool	is_valid_fe(char *file, char *matcher)
 	qr_match = quote_removal(matcher);
 	if (qr_match == 0)
 		return (false);
-	if (qr_match[0] == '*' && file[0] == '.')
+	if ((qr_match[0] == '*' || qr_match[0] == '?') && file[0] == '.')
 		return (false);
 	while (file[i] && qr_match[j] && !(qr_match[j] == '/'))
 	{
-		if (qr_match[j] == '*' && qr_match[j + 1 + unquote_search(qr_match + j + 1, '*')]
-			&& unquote_search(qr_match + j + 1, '/') > unquote_search(qr_match + j + 1, '*'))
+		if (not_over(qr_match + j))
+		{
 			move_to_next(qr_match, file, &i, &j);
+			continue ;
+		}
 		else if (qr_match[j] == '*')
-			return (check_end(qr_match + j, file));
-		if (i == -1 || (qr_match[j] != '/' && qr_match[j] != file[i]))
+			return (check_end(qr_match + j, file + i));
+		if (i == -1 || (qr_match[j] != '/' && qr_match[j] != '?' && qr_match[j] != file[i]) || (qr_match[j] == '/' && file[i]))
 			return (false);
 		i++;
 		j++;
 	}
-	return (true);
+	while (qr_match[j] == '*')
+		j++;
+	return ((!qr_match[j] || qr_match[j] == '/') && !file[i]);
 }
 
 static void	get_all_valid_files(t_command *cmd, int index, t_list_file *lf)
@@ -356,37 +409,12 @@ static void	perform_file_exp(t_command *cmd)
 	free_lf(lf);
 }
 
-static void	perform_quest_expand(t_command *cmd)
-{
-	DIR				*dir;
-	struct dirent	*file;
-	t_list_file		*lf;
-
-	lf = ft_calloc(1, sizeof (t_list_file));
-	if (!lf)
-		return ;
-	dir = opendir("./");
-	file = readdir(dir);
-	while (file)
-	{
-		if (ft_strlen(file->d_name) == 1 && file->d_name[0] != '.')
-			add_to_lf(file->d_name, lf);
-		file = readdir(dir);
-	}
-	closedir(dir);
-	sort_lf(lf);
-	add_lf_cmd(cmd, lf);
-	free_lf(lf);
-}
-
 void	filename_expansion(t_command *cmd)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		if (cmd->purpose == COMMAND && ft_strchr(cmd->content, '*'))
+		if (cmd->purpose == COMMAND && (ft_strchr(cmd->content, '*') || ft_strchr(cmd->content, '?')))
 			perform_file_exp(cmd);
-		else if (cmd->purpose == COMMAND && ft_strlen(cmd->content) == 1 && cmd->content[0] == '?')
-			perform_quest_expand(cmd);
 		cmd = cmd->next;
 	}
 }

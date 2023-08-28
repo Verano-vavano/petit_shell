@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 17:49:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/27 20:48:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,12 @@
 
 void	close_files(t_redir_pipe *redir)
 {
-	printf("LOL\n");
 	while (redir)
 	{
 		if (redir->opened_read && redir->fd_read >= 0)
-		{
-			printf("Closing %d\n", redir->fd_read);
 			close(redir->fd_read);
-		}
 		if (redir->opened_write && redir->fd_write >= 0)
-		{
-			printf("Closing %d\n", redir->fd_write);
 			close(redir->fd_write);
-		}
 		redir = redir->next;
 	}
 }
