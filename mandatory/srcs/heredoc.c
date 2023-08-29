@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 18:50:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 19:22:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	unlink_heredocs(t_command *cmd)
 	}
 }
 
-static void	write_heredoc(int fd, char *eof)
+static void	write_heredoc(int fd, char *eof, t_env *env)
 {
 	char	*line;
 	int		lines;
@@ -68,7 +68,7 @@ static void	write_heredoc(int fd, char *eof)
 	lines = 1;
 	while (g_sig_rec != SIGINT)
 	{
-		line = readline(PS2);
+		line = new_prompt(2, env);
 		if (!line)
 		{
 			warning_heredoc_eof(lines, eof);
@@ -88,7 +88,7 @@ static void	write_heredoc(int fd, char *eof)
 	free(eof);
 }
 
-static int	heredoc_child(int fd, char *eof)
+static int	heredoc_child(int fd, char *eof, t_env *env)
 {
 	pid_t	pid;
 
@@ -98,7 +98,7 @@ static int	heredoc_child(int fd, char *eof)
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		write_heredoc(fd, eof);
+		write_heredoc(fd, eof, env);
 		exit(0);
 	}
 	while (waitpid(pid, 0, WNOHANG) == 0)
@@ -115,7 +115,7 @@ static int	heredoc_child(int fd, char *eof)
 	return (1);
 }
 
-static int	create_heredoc(int index, t_command *cmd)
+static int	create_heredoc(int index, t_command *cmd, t_env *env)
 {
 	int		fd_heredoc;
 
@@ -124,7 +124,7 @@ static int	create_heredoc(int index, t_command *cmd)
 		return (1);
 	if (cmd->purpose == HERE_DOC_DELIM)
 	{
-		if (!heredoc_child(fd_heredoc, cmd->content))
+		if (!heredoc_child(fd_heredoc, cmd->content, env))
 			return (1);
 	}
 	else
@@ -137,7 +137,7 @@ static int	create_heredoc(int index, t_command *cmd)
 	return (0);
 }
 
-int	here_doc(t_command *cmd)
+int	here_doc(t_command *cmd, t_env *env)
 {
 	int	i;
 
@@ -146,12 +146,12 @@ int	here_doc(t_command *cmd)
 	{
 		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		{
-			create_heredoc(i, cmd);
+			create_heredoc(i, cmd, env);
 			i++;
 		}
 		cmd = cmd->next;
 	}
 	if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
-		create_heredoc(i, cmd);
+		create_heredoc(i, cmd, env);
 	return (0);
 }

@@ -1,5 +1,4 @@
 si motivation, faire les expansions de PS1 et PS2
-faire ps1 et ps2
 
 heredoc -
 
@@ -15,14 +14,9 @@ word split et IFS
 
 Gérer le $? (stocker dans env dans local)
 
-Awk v2
-Cyberpunk avec raytracing et 180fps sur les Mac mini
-
 CD : too many arguments
 CD : CDPATH
 EXIT : si pas arg, exit avec $?
-
-alias
 
 CTRL-D : more line asking
 >> avec esoaces après
@@ -36,3 +30,6 @@ multiple braces bug
 NORM
 
 echo {00..15}
+echo $(exit) : segfault
+
+retirer le valgrind core du registre des commits parce que je suis con
