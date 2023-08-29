@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/28 23:43:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 15:53:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 	{
 		if (add)
 		{
-			temp = ft_strjoin(ptr->value[0], value);
-			free(ptr->value[0]);
-			ptr->value[0] = temp;
+			if (ptr->value[0])
+			{
+				temp = ft_strjoin(ptr->value[0], value);
+				free(ptr->value[0]);
+				ptr->value[0] = temp;
+			}
+			else
+				ptr->value[0] = ft_strdup(value);
 		}
 		else
 		{
@@ -55,7 +60,7 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 			ptr->value = ft_split(value, ':');
 		}
 	}
-	else
+	else if (!add)
 	{
 		if (ptr->value)
 			free_char_etoile_etoile(ptr->value);
