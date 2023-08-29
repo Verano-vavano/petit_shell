@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 17:49:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 17:18:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	brace_expand_it(t_command *cmd)
 					return (some_error(cmd->content, "ambiguous redirect"));
 				indeces[0] = i;
 				ret = apply_brace_exp(cmd, indeces);
+				if (ret == -1)
+					return (1);
 				ret += brace_expand_it(cmd);
 				break ;
 			}

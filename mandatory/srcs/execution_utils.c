@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:31:55 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 09:04:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 16:17:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_cmds(t_command *cmd)
 {
-	int	n;
+	int		n;
 
 	n = 1;
 	while (cmd && cmd->purpose != CMD_DELIM)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 17:53:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 16:57:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ long	execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 	t_process_cmd	cmd_processing;
 	t_ret_cmd		ret_cmd;
 
+	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != COMMAND)
+		cmd = cmd->next;
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];
 	c_env = re_char_etoile_etoilise_env(env);
-	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != COMMAND)
-		cmd = cmd->next;
 	if (!cmd || cmd->purpose == CMD_DELIM)
 		return (0);
 	ret_cmd.pid = -1;
@@ -96,6 +96,18 @@ long	execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no)
 		err_status = get_cmd(&cmd_processing, cmd, heredoc_no);
 		if (err_status && n_cmd[0] == 1)
 			break ;
+		else if (!cmd_processing.cmd || !(*(cmd_processing.cmd)))
+		{
+			close(ret_cmd.pipes[0]);
+			close(ret_cmd.pipes[1]);
+			n_cmd[0]--;
+			n_cmd[1]--;
+			if (ret_cmd.fd != -1)
+				close(ret_cmd.fd);
+			ret_cmd.fd = -2;
+			cmd = go_to_next_cmd(cmd);
+			continue ;
+		}
 		err_status = get_cmd_path(&cmd_processing, env);
 		if (err_status > 0 && n_cmd[0] == 1)
 		{

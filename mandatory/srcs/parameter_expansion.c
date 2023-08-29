@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 15:52:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 16:04:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	find_arg_len(char *s, bool brack, char quoted)
 	i = 0;
 	while (s[i])
 	{
-		if (!brack && (is_separator(s[i]) || s[i] == '-' || s[i] == ':'))
+		if (!brack && (s[i] < '0' || s[i] > '9') && (s[i] < 'a' || s[i] > 'z')
+			&& (s[i] < 'A' || s[i] > 'Z') && s[i] != '_')
 			break ;
 		else if (!brack && s[i] == quoted)
 			break ;
