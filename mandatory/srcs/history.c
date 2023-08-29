@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 16:06:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 17:34:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 	first = false;
 	if (hist->hist_start == 0)
 	{
+		printf("lol\n");
 		first = true;
 		hist->hist_start = ft_calloc(1, sizeof (t_hist_ll));
 		if (hist->hist_start == 0)
@@ -116,9 +117,9 @@ static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 		if (!hist_now->next)
 			return ;
 		hist_now = hist_now->next;
+		hist->hist_end = hist->hist_end->next;
 	}
 	hist_now->content = line;
-	hist->hist_end = hist_now;
 	hist->len_hist++;
 	while (hist->len_hist > histsize)
 		remove_first_el(hist);
@@ -180,9 +181,10 @@ t_hist	*load_history(t_env *env)
 	char	*home;
 	int		histsize;
 
-	hist = ft_calloc(1, sizeof (hist));
+	hist = ft_calloc(1, sizeof (t_hist));
 	if (!hist)
 		return (0);
+	hist->hist_start = 0;
 	temp_val = env_getval("HISTFILE", env);
 	if (!temp_val || !(*temp_val) || !is_file_valid(*temp_val, R_OK))
 	{

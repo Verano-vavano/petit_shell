@@ -33,7 +33,6 @@ SPECIAL PARAMETERS
 
 multiple braces bug
 
-GERER ERREURS VALGRIND HIST
 NORM
 
 echo {00..15}
