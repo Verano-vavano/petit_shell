@@ -6,16 +6,18 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 18:37:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 20:19:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static int	redir_parser(char *s)
+static int	redir_parser(char *s, char quoted)
 {
 	int	i;
 
+	if (quoted)
+		return (0);
 	i = 0;
 	while (s[i] && is_num(s[i]))
 		i++;
@@ -32,46 +34,28 @@ int	handle_parenthesis(char *c, char c2, int dos)
 		dos++;
 	return (dos);
 }
-/*
-static char	strlen_loop(char *s, int *i, char c, int *dos)
-{
-	while (s[*i] && !is_separator(s[*i]))
-	{
-		if (is_metachar(s[*i]) && !is_delim(c))
-			return (0);
-		if (is_delim(s[*i]) && (*i == 0 || s[*i - 1] != '\\')
-			&& (c == s[*i] || !is_delim(c)))
-		{
-			if (c == s[*i] && *dos == 1)
-				c = ' ';
-			else if (!(is_delim(c)) && s[*i] != ')')
-				c = s[*i];
-			else if (*dos == 1 && c == s[*i])
-				(*dos)--;
-			if (c == '(')
-				c = ')';
-		}
-		*dos = handle_parenthesis(&c, s[*i], *dos);
-		(*i)++;
-	}
-	return (c);
-}*/
 
 int	better_strlen(char *s)
 {
 	int		i;
 	int		j;
+	int		in_par;
 	char	quoted;
 
 	quoted = 0;
+	in_par = 0;
 	i = 0;
 	while (s[i])
 	{
-		j = redir_parser(s + i);
+		j = redir_parser(s + i, quoted);
 		if (j)
-			return (j);
+			return (i + j - 1);
 		quoted = is_quoted(s, i, quoted);
-		if (is_separator(s[i]) && !quoted)
+		if (s[i] == '(' && !quoted)
+			in_par++;
+		else if (s[i] == ')' && !quoted)
+			in_par--;
+		if (is_separator(s[i]) && !quoted && !in_par)
 			return (i);
 		i++;
 	}
@@ -87,7 +71,7 @@ int	ft_strlen_arg(char *s, int meta)
 		return (0);
 	i = 0;
 	c = 's';
-	if (meta && s[i] != '<' && s[i] != '>')
+	if (meta)
 	{
 		c = s[i];
 		while (s[i] == c)

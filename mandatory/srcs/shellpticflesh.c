@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/28 23:22:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 19:24:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ long	cmd_processing(char *line, t_env *env, t_hist *hist, bool add_line)
 
 	lexed = spliter_init(line, add_line, hist, env);
 	if (!lexed || !(lexed->content) || understand_the_line(lexed)
-		|| g_sig_rec || here_doc(lexed))
+		|| g_sig_rec || here_doc(lexed, env))
 		return (1);
 	lexed_cpy = lexed;
 	heredoc_no = 0;
@@ -99,7 +99,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		signal(SIGINT, sig_main);
 		signal(SIGQUIT, sig_main);
-		line = readline(PS1);
+		line = new_prompt(1, env);
 		signal(SIGINT, sig_catch);
 		signal(SIGQUIT, sig_catch);
 		if (!line)

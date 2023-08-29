@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 13:01:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 21:34:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*get_output(int *pipes)
 
 static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 {
-	long	se[3];
+	int		se[3];
 	int		stdout_fd;
 	int		pipes[2];
 	char	*cmd_sent;
@@ -94,9 +94,9 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 		dup2(stdout_fd, STDOUT_FILENO);
 		out = get_output(pipes);
 		if (out && *out)
-			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
+			word_split(cmd, out, se, env);
 		else
-			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, "\0");
+			word_split(cmd, "\0", se, env);
 		if (out)
 			free(out);
 	}
@@ -142,7 +142,6 @@ long	command_substitution(t_command *cmd, t_env *env)
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			ret = srch_exec_comm(cmd, env);
-			printf("%ld\n", ret);
 			if (ret >= 0 && !skip_first)
 				skip_first = true;
 		}

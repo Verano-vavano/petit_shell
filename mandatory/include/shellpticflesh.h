@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 17:21:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/29 21:20:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int			ft_strlen_arg(char *s, int meta);
 /*---------------HEREDOC------------------*/
 int			get_heredoc_file(int hd, int mode);
 void		unlink_heredocs(t_command *cmd);
-int			here_doc(t_command *cmd);
+int			here_doc(t_command *cmd, t_env *env);
 
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
@@ -173,7 +173,10 @@ long		command_substitution(t_command *cmd, t_env *env);
 // filename expansion
 void		filename_expansion(t_command *cmd);
 
-/*-------------QUOTE_REMOVAL--------------*/
+// word split
+void		word_split(t_command *cmd, char *newer, int *se, t_env *env);
+
+// quote removal
 char		*quote_removal(char *cmd);
 void		quote_remove_cmd(t_command *cmd);
 
@@ -208,6 +211,9 @@ t_hist		*load_history(t_env *env);
 void		add_to_hist(t_env *env, t_hist *hist, char *line);
 void		write_hist(t_hist *hist, t_env *env);
 void		free_history(t_hist *hist);
+
+/*--------PROMPT----------*/
+char		*new_prompt(int n_ps, t_env *env);
 
 /*---------------UTILITIES------------------*/
 // cleaning
