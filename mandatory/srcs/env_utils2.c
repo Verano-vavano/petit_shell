@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/29 15:53:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 14:52:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ void	env_update(char *char_arr, bool is_exported, t_env *env, ...)
 	{
 		tmp = ft_split(char_arr, '=');
 		if (env_contain(tmp[0], env))
-		{
-			printf("lol\n");
 			env_change_val(tmp[0], tmp[1], env, is_exported);
-		}
 		else
 			env_add(env_new(char_arr, is_exported), &env);
 		free_char_etoile_etoile(tmp);
