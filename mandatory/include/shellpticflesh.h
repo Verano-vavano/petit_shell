@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 16:38:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 16:40:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_process_cmd
 	bool			is_builtin;
 	t_redir_pipe	*redir;
 	bool			free_name;
+	bool			sub_cmd;
 }				t_process_cmd;
 
 typedef struct s_env
@@ -105,6 +106,13 @@ typedef struct s_hist
 	t_hist_ll	*hist_end;
 }				t_hist;
 
+typedef struct s_tools
+{
+	t_env	*env;
+	t_hist	*hist;
+	long	rt_val;
+}				t_tools;
+
 typedef struct s_ret_cmd
 {
 	pid_t	pid;
@@ -120,7 +128,7 @@ typedef struct s_list_file
 }				t_list_file;
 
 // shellpticflesh
-long		cmd_processing(char *line, t_env *env, t_hist *hist, bool add_line);
+long		cmd_processing(char *line, t_tools *tools, bool add_line);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char *cmd, bool add_line, t_hist *hist, t_env *env);
@@ -151,7 +159,7 @@ int			here_doc(t_command *cmd, t_env *env);
 
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
-int			expand_cmd(t_command *cmd, t_env *env);
+int			expand_cmd(t_command *cmd, t_tools *tools);
 
 // braces_expansion
 int			braces_expansion(t_command *cmd);
@@ -183,10 +191,10 @@ void		quote_remove_cmd(t_command *cmd);
 
 /*--------------EXECUTION-----------------*/
 // execution
-long		execute_the_line(t_command *cmd, t_env *env, t_hist *hist, int *heredoc_no);
+long		execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no);
 
 // builtin_exec
-long		exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env);
+long		exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env);
 
 // get_cmd
 int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no);
@@ -258,7 +266,7 @@ void		heredoc_handle(int sig);
 
 /*---------------BUILTINS------------------*/
 int			metal_injection(void);
-void		exit_hell(char **cmd);
+void		exit_hell(char **cmd, long ret);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
 int			les_ex_portes_de_lenfer(char **cmd, t_env *env);

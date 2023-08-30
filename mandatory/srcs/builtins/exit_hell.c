@@ -6,13 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/19 20:58:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 16:36:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-void	exit_hell(char **cmd)
+void	exit_hell(char **cmd, long ret)
 {
 	int	exit_code;
 	int	i;
@@ -32,6 +32,6 @@ void	exit_hell(char **cmd)
 			exit_code = ft_atol(cmd[1]);
 	}
 	else
-		exit_code = 0;
+		exit_code = ret;
 	exit(exit_code % 256);
 }
