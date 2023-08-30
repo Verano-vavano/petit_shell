@@ -1,6 +1,7 @@
 si motivation, faire les expansions de PS1 et PS2
 
 heredoc -
+fermer correctement les heredoc qd pb
 
 better asking when line incomplete (look into quote and backslash in todo)
 
@@ -10,15 +11,12 @@ Expansions :
 Parameter
 Arithmetic
 
-word split et IFS
-
 Gérer le $? (stocker dans env dans local)
 
 CD : too many arguments
 CD : CDPATH
 EXIT : si pas arg, exit avec $?
 
-CTRL-D : more line asking
 >> avec esoaces après
 
 close fd if &-
@@ -33,3 +31,5 @@ echo {00..15}
 echo $(exit) : segfault
 
 retirer le valgrind core du registre des commits parce que je suis con
+
+utiliser QEMU pour voir si le code marche sur d'autres architectures (là il marche en x86_64, ce qui est cool, mais il nous faut plus ! je veux que les dinosaures puissent utiliser notre shell)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 21:20:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 16:38:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <termios.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -253,6 +254,7 @@ void		warning_heredoc_eof(int lines, char *eof);
 // signals
 void		sig_main(int sig);
 void		sig_catch(int sig);
+void		heredoc_handle(int sig);
 
 /*---------------BUILTINS------------------*/
 int			metal_injection(void);
