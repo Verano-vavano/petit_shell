@@ -17,10 +17,6 @@ CD : too many arguments
 CD : CDPATH
 EXIT : si pas arg, exit avec $?
 
->> avec esoaces après
-
-close fd if &-
-
 SPECIAL PARAMETERS
 
 multiple braces bug
@@ -28,7 +24,6 @@ multiple braces bug
 NORM
 
 echo {00..15}
-echo $(exit) : segfault
 
 retirer le valgrind core du registre des commits parce que je suis con
 

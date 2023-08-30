@@ -6,24 +6,24 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/27 17:51:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 16:40:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static long	more_bltn(t_process_cmd *cmd, bool one, char **c_env)
+static long	more_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 {
 	int	pid;
 
-	if (ft_strcmp("exit", cmd->cmd_name) == 0)
+	if (ft_strcmp("exit", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 	{
 		if (one)
 		{
 			printf("exit\n");
 			free_char_etoile_etoile(c_env);
 		}
-		exit_hell(cmd->cmd);
+		exit_hell(cmd->cmd, t->rt_val);
 	}
 	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
 	{
@@ -35,27 +35,29 @@ static long	more_bltn(t_process_cmd *cmd, bool one, char **c_env)
 		else
 			return (0 * waitpid(pid, 0, 0));
 	}
+	else if (!cmd->sub_cmd)
+		return (0);
 	return (1);
 }
 
-long	find_exec_bltn(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
+long	find_exec_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 {
 	if (ft_strcmp("hell", cmd->cmd_name) == 0)
 		return (metal_injection());
 	else if (ft_strcmp("echo", cmd->cmd_name) == 0)
 		return (echo_des_enfers(cmd->cmd));
 	else if (ft_strcmp("env", cmd->cmd_name) == 0)
-		return (env_infernal(env, NULL));
-	else if (ft_strcmp("export", cmd->cmd_name) == 0)
-		return (les_ex_portes_de_lenfer(cmd->cmd, env));
-	else if (ft_strcmp("unset", cmd->cmd_name) == 0)
-		return (unset_et_damnation(cmd->cmd, env));
-	else if (ft_strcmp("cd", cmd->cmd_name) == 0)
-		return (cd_mentiel(cmd->cmd, env));
+		return (env_infernal(t->env, NULL));
+	else if (ft_strcmp("export", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (les_ex_portes_de_lenfer(cmd->cmd, t->env));
+	else if (ft_strcmp("unset", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (unset_et_damnation(cmd->cmd, t->env));
+	else if (ft_strcmp("cd", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (cd_mentiel(cmd->cmd, t->env));
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
 		return (print_working_damnation());
 	else
-		return (more_bltn(cmd, one, c_env));
+		return (more_bltn(cmd, t, one, c_env));
 }
 
 static void	builtin_redirections(t_redir_pipe *redir)
@@ -72,7 +74,7 @@ static void	builtin_redirections(t_redir_pipe *redir)
 	}
 }
 
-long	exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
+long	exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 {
 	long	ret_val;
 	int		save_in;
@@ -86,7 +88,7 @@ long	exec_bltin(t_process_cmd *cmd, t_env *env, bool one, char **c_env)
 		save_err = dup(STDERR_FILENO);
 		builtin_redirections(cmd->redir);
 	}
-	ret_val = find_exec_bltn(cmd, env, one, c_env);
+	ret_val = find_exec_bltn(cmd, t, one, c_env);
 	if (one)
 	{
 		dup2(save_in, STDIN_FILENO);

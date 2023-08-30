@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 21:34:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 16:28:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	int		pipes[2];
 	char	*cmd_sent;
 	char	*out;
+	t_tools	empty_tools;
 
 	se[0] = start - repl;
 	se[1] = find_end_comm(cmd->content + start) + repl;
@@ -86,8 +87,11 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	}
 	cmd_sent = ft_strndup(cmd->content + se[0] + repl + 1, se[1] - 1 - repl);
 	se[3] = 1;
+	empty_tools.env = 0;
+	empty_tools.hist = 0;
+	empty_tools.rt_val = 0;
 	if (cmd_sent)
-		se[3] = cmd_processing(cmd_sent, env, 0, false);
+		se[3] = cmd_processing(cmd_sent, &empty_tools, false);
 	printf("\n");
 	if (repl)
 	{
