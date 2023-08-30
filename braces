@@ -1,8 +1,0 @@
-{a,b} -> a b		PRIORITE VIRGULE
-{A..z} -> tous de A à z en ascii
-{0..9} -> tous de 0 à 9
-pas de mélange
-{A..z..5} -> pas de 5 -> pas obligatoirement chiffres jusqu'à LONG_MAX
-{-15..12}i			ECART DE INT MAX
-
-l{o,a}l
