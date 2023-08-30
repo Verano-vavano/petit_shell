@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 17:34:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 14:52:25 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 	first = false;
 	if (hist->hist_start == 0)
 	{
-		printf("lol\n");
 		first = true;
 		hist->hist_start = ft_calloc(1, sizeof (t_hist_ll));
 		if (hist->hist_start == 0)
