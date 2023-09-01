@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 14:04:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 14:58:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	write_hist(t_hist *hist, t_env *env)
 		histfile = ft_strdup(*temp_val);
 	if (!histfile)
 		return ;
-	printf("%s\n", histfile);
 	temp_val = env_getval("HISTFILESIZE", env);
 	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
 		histsize = STD_HISTSIZE;
@@ -199,7 +198,6 @@ t_hist	*load_history(t_env *env)
 	}
 	else
 		histfile = ft_strdup(*temp_val);
-	printf("%s\n", histfile);
 	temp_val = env_getval("HISTSIZE", env);
 	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
 		histsize = STD_HISTSIZE;
