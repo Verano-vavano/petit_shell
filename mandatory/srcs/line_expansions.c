@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 16:20:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 21:15:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	expand_cmd(t_command *cmd, t_tools *tools)
 {
 	int			ret;
 
-	braces_expansion(cmd);
+	ret = braces_expansion(cmd);
+	if (ret < 0)
+		return (1);
 	tilde_expansion(cmd, tools->env);
 	parameter_expansion(cmd, tools->env);
 	ret = command_substitution(cmd, tools->env);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 16:40:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 19:12:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ static void	builtin_redirections(t_redir_pipe *redir)
 	}
 }
 
+static void	redir_back(int in, int out, int err)
+{
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	dup2(err, STDERR_FILENO);
+	close(in);
+	close(out);
+	close(err);
+}
+
 long	exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 {
 	long	ret_val;
@@ -90,14 +100,7 @@ long	exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 	}
 	ret_val = find_exec_bltn(cmd, t, one, c_env);
 	if (one)
-	{
-		dup2(save_in, STDIN_FILENO);
-		dup2(save_out, STDOUT_FILENO);
-		dup2(save_err, STDERR_FILENO);
-		close(save_in);
-		close(save_out);
-		close(save_err);
-	}
+		redir_back(save_in, save_out, save_err);
 	close_files(cmd->redir);
 	exec_cleaner(*cmd);
 	free_char_etoile_etoile(c_env);

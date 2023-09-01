@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 16:40:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 13:47:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_hist
 typedef struct s_tools
 {
 	t_env	*env;
+	char	**c_env;
 	t_hist	*hist;
 	long	rt_val;
 }				t_tools;
@@ -119,6 +120,7 @@ typedef struct s_ret_cmd
 	int		fd;
 	int		pipes[2];
 	int		n_cmd;
+	int		*heredoc_no;
 }				t_ret_cmd;
 
 typedef struct s_list_file
@@ -178,6 +180,7 @@ void		parameter_expansion(t_command *cmd, t_env *env);
 
 // command substitution
 long		command_substitution(t_command *cmd, t_env *env);
+char		*get_output(int *pipes);
 
 // filename expansion
 void		filename_expansion(t_command *cmd);
@@ -192,6 +195,11 @@ void		quote_remove_cmd(t_command *cmd);
 /*--------------EXECUTION-----------------*/
 // execution
 long		execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no);
+
+// execution_doer
+void		check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd);
+long		wait_father(t_ret_cmd *ret, int n_cmd, char **c_env, long err);
+void		crt_child(t_process_cmd *cmd, t_tools *t, t_ret_cmd *ret);
 
 // builtin_exec
 long		exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env);

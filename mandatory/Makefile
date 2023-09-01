@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/08/29 20:13:54 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/01 13:48:33 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 parameter_expansion.c to_delete_utils.c	braces_coma_expansion.c\
 	 braces_dots_expansions_more.c				command_substitution.c\
 	 filename_expansion.c						history.c\
-	 prompt.c			word_split.c
+	 prompt.c			word_split.c			get_output.c\
+	 execution_doer.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

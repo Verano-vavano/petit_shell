@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 16:37:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 11:21:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ long	cmd_processing(char *line, t_tools *tools, bool add_line)
 		rt_val = expand_cmd(lexed_cpy, tools);
 		if (rt_val < 0)
 			rt_val = line_exec(lexed_cpy, tools, &heredoc_no);
+		perror("jpp");
 		assign_vars(lexed_cpy, tools->env);
 		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
 			lexed_cpy = lexed_cpy->next;
@@ -124,6 +125,7 @@ int	main(int ac, char **av, char **envp)
 		else if (!(*line))
 			continue ;
 		tools.rt_val = cmd_processing(line, &tools, true);
+		printf("%ld\n", tools.rt_val);
 		g_sig_rec = 0;
 	}
 }
