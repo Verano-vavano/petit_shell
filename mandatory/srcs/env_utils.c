@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/29 15:40:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 10:44:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ int	env_contain(char *newest, t_env *env)
 	ptr = env;
 	changed = false;
 	len = ft_strlen(newest);
-	if (newest[len - 1] == '+')
-	{
-		changed = true;
+	changed = (newest[len - 1] == '+');
+	if (changed)
 		newest[len - 1] = 0;
-	}
 	while (ptr)
+	{
 		if (ft_strcmp(newest, ptr->key) == 0)
 		{
 			if (changed)
 				newest[len - 1] = '+';
 			return (1);
 		}
-	else
-		ptr = ptr->next;
+		else
+			ptr = ptr->next;
+	}
 	if (changed)
 		newest[len - 1] = '+';
 	return (0);

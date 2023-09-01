@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 14:52:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 14:04:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	write_hist(t_hist *hist, t_env *env)
 		histfile = ft_strdup(*temp_val);
 	if (!histfile)
 		return ;
+	printf("%s\n", histfile);
 	temp_val = env_getval("HISTFILESIZE", env);
 	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
 		histsize = STD_HISTSIZE;
@@ -69,7 +70,7 @@ void	write_hist(t_hist *hist, t_env *env)
 	}
 	while (histsize < hist->len_hist)
 		remove_first_el(hist);
-	fd = open(histfile, O_CREAT | O_WRONLY, 0644);
+	fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return ;
 	while (hist->len_hist)
@@ -130,6 +131,9 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 	bool	refresh;
 	char	**temp_val;
 
+	if (hist && hist->hist_end && hist->hist_end->content
+		&& ft_strcmp(hist->hist_end->content, line) == 0)
+		return ;
 	temp_val = env_getval("HISTSIZE", env);
 	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
 		histsize = STD_HISTSIZE;
@@ -195,6 +199,7 @@ t_hist	*load_history(t_env *env)
 	}
 	else
 		histfile = ft_strdup(*temp_val);
+	printf("%s\n", histfile);
 	temp_val = env_getval("HISTSIZE", env);
 	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
 		histsize = STD_HISTSIZE;

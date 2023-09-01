@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 17:18:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/08/30 21:15:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	apply_brace_exp(t_command *cmd, int *indeces)
 	char	*s;
 	char	quoted;
 
+	if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING)
+		return (0 * (some_error(cmd->content, "ambiguous redirect")) - 1);
 	s = cmd->content;
 	quoted = 0;
 	index = indeces[0];
@@ -101,12 +103,10 @@ int	brace_expand_it(t_command *cmd)
 			indeces[1] = i + check_brace_exp(cmd->content + i);
 			if (indeces[1] != i)
 			{
-				if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING)
-					return (some_error(cmd->content, "ambiguous redirect"));
 				indeces[0] = i;
 				ret = apply_brace_exp(cmd, indeces);
 				if (ret == -1)
-					return (1);
+					return (-5);
 				ret += brace_expand_it(cmd);
 				break ;
 			}

@@ -15,7 +15,6 @@ Gérer le $? (stocker dans env dans local)
 
 CD : too many arguments
 CD : CDPATH
-EXIT : si pas arg, exit avec $?
 
 SPECIAL PARAMETERS
 
@@ -28,3 +27,5 @@ echo {00..15}
 retirer le valgrind core du registre des commits parce que je suis con
 
 utiliser QEMU pour voir si le code marche sur d'autres architectures (là il marche en x86_64, ce qui est cool, mais il nous faut plus ! je veux que les dinosaures puissent utiliser notre shell)
+
+=4 marche ? et echo $ marche aussi ?

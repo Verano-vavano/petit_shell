@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/20 15:42:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 10:42:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	env_create_add(char *key, char *value, t_env *env)
 {
-	t_env *created;
+	t_env	*created;
 
 	created = malloc(sizeof(t_env *));
 	if (!created)

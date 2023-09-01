@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/30 14:52:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 10:40:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,34 @@ t_env	*env_getptr(char *key, t_env *env)
 	return (ret);
 }
 
+static void	env_change_val_rfunk(t_env *ptr, char *value, bool add)
+{
+	char	*temp;
+
+	if (add)
+	{
+		if (ptr->value && ptr->value[0])
+		{
+			temp = ft_strjoin(ptr->value[0], value);
+			free(ptr->value[0]);
+			ptr->value[0] = temp;
+		}
+		else
+			ptr->value[0] = ft_strdup(value);
+	}
+	else
+	{
+		if (ptr->value)
+			free_char_etoile_etoile(ptr->value);
+		ptr->value = ft_split(value, ':');
+	}
+}
+
 void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 {
 	t_env	*ptr;
 	bool	add;
 	int		len;
-	char	*temp;
 
 	len = ft_strlen(key);
 	add = (key[len - 1] == '+');
@@ -41,30 +63,12 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 		key[len - 1] = 0;
 	ptr = env_getptr(key, env);
 	if (value)
-	{
-		if (add)
-		{
-			if (ptr->value[0])
-			{
-				temp = ft_strjoin(ptr->value[0], value);
-				free(ptr->value[0]);
-				ptr->value[0] = temp;
-			}
-			else
-				ptr->value[0] = ft_strdup(value);
-		}
-		else
-		{
-			if (ptr->value)
-				free_char_etoile_etoile(ptr->value);
-			ptr->value = ft_split(value, ':');
-		}
-	}
+		env_change_val_rfunk(ptr, value, add);
 	else if (!add)
 	{
 		if (ptr->value)
 			free_char_etoile_etoile(ptr->value);
-		ptr->value = 0;
+		ptr->value = ft_calloc(2, sizeof (char *));
 	}
 	if (is_exp)
 		ptr->is_exported = true;
