@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 13:56:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 14:58:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
 {
 	if (hist && n_cmd == 1 && ft_strcmp(cmd->content, "exit") == 0)
 	{
-		printf("LOL\n");
 		write_hist(hist, env);
 		free_history(hist);
 	}

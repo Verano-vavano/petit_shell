@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 13:47:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 16:16:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_list_file
 {
 	char				*content;
 	struct s_list_file	*next;
-}				t_list_file;
+}				t_lf;
 
 // shellpticflesh
 long		cmd_processing(char *line, t_tools *tools, bool add_line);
@@ -184,6 +184,22 @@ char		*get_output(int *pipes);
 
 // filename expansion
 void		filename_expansion(t_command *cmd);
+// subverif
+void		get_all_valid_files(t_command *cmd, int index, t_lf *lf);
+t_lf		*check_subfiles(t_command *cmd, int index, t_lf *lf, t_lf *nlf);
+// file check
+bool		is_valid_fe(char *file, char *matcher);
+// lf
+void		sort_lf(t_lf *lf);
+void		add_lf_cmd(t_command *cmd, t_lf *lf);
+void		free_lf(t_lf *lf);
+void		add_to_lf(char *file, t_lf *lf);
+t_lf		*remove_flf(t_lf *act, t_lf *lf);
+// utils
+int			get_path_star_fe(char *cnt);
+char		*ft_strstr_fe(char *haystack, char *needle);
+bool		not_over(char *s);
+int			move_end_stars(char *qmat);
 
 // word split
 void		word_split(t_command *cmd, char *newer, int *se, t_env *env);
@@ -210,6 +226,8 @@ int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no);
 // files
 int			open_redir_files(t_command *cmd, t_redir_pipe *redir, int hd);
 void		close_files(t_redir_pipe *redir);
+int			open_write_file(t_command *cmd, t_redir_pipe *redir);
+int			open_read_file(t_command *cmd, t_redir_pipe *redir, int hd);
 
 // get_path
 int			get_cmd_path(t_process_cmd *cmd, t_env *env);
@@ -241,7 +259,7 @@ void		free_whole_env(t_env *env);
 // utils
 t_command	*init_command_arg(t_command *start);
 bool		is_dir(char *path);
-int			unquote_search(char *s, char c);
+int			usearch(char *s, char c);
 bool		is_file_valid(char *file, int mode);
 
 // char_utils

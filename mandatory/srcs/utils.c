@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/26 11:46:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/01 14:51:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_dir(char *path)
 	return (false);
 }
 
-int	unquote_search(char *s, char c)
+int	usearch(char *s, char c)
 {
 	char	quoted;
 	int		i;
