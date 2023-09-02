@@ -1,7 +1,7 @@
 si motivation, faire les expansions de PS1 et PS2
 
 heredoc -
-fermer correctement les heredoc qd pb
+fermer correctement les heredoc qd pb +++++
 
 better asking when line incomplete (look into quote and backslash in todo)
 
