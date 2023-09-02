@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 15:19:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/02 23:52:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,6 @@ int	get_heredoc_file(int hd, int mode)
 		fd = open(filename, O_CREAT | O_WRONLY, 0666);
 	free(filename);
 	return (fd);
-}
-
-void	unlink_heredocs(t_command *cmd)
-{
-	int		i;
-	char	*itoaed;
-	char	*file_name;
-
-	i = 0;
-	while (cmd->content)
-	{
-		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
-		{
-			itoaed = ft_itoa(i);
-			file_name = ft_strjoin(TEMP, itoaed);
-			unlink(file_name);
-			free(itoaed);
-			free(file_name);
-			i++;
-		}
-		if (cmd->next)
-			cmd = cmd->next;
-		else
-			break ;
-	}
 }
 
 static void	write_heredoc(int fd, char *eof, t_env *env)

@@ -6,11 +6,36 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 16:16:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/02 23:52:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+void	unlink_heredocs(t_command *cmd)
+{
+	int		i;
+	char	*itoaed;
+	char	*file_name;
+
+	i = 0;
+	while (cmd->content)
+	{
+		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
+		{
+			itoaed = ft_itoa(i);
+			file_name = ft_strjoin(TEMP, itoaed);
+			unlink(file_name);
+			free(itoaed);
+			free(file_name);
+			i++;
+		}
+		if (cmd->next)
+			cmd = cmd->next;
+		else
+			break ;
+	}
+}
 
 void	close_files(t_redir_pipe *redir)
 {
