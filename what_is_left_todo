@@ -29,3 +29,4 @@ retirer le valgrind core du registre des commits parce que je suis con
 utiliser QEMU pour voir si le code marche sur d'autres architectures (là il marche en x86_64, ce qui est cool, mais il nous faut plus ! je veux que les dinosaures puissent utiliser notre shell)
 
 =4 marche ? et echo $ marche aussi ?
+leaks quand param expansion ou param declaration idk

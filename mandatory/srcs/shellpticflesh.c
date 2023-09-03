@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 11:21:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:27:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,12 @@ static void	assign_vars(t_command *cmd, t_env *env)
 	}
 }
 
-static long	line_exec(t_command *cmd, t_tools *tools, int *heredoc_no)
-{
-	quote_remove_cmd(cmd);
-	return (execute_the_line(cmd, tools, heredoc_no));
-}
-
 static long	line_beauty(t_command *lexed, t_env *env)
 {
 	long	ret;
 
 	if (!lexed || !(lexed->content))
-	   return (1);
+		return (1);
 	ret = understand_the_line(lexed);
 	if (ret)
 		return (ret);
@@ -60,11 +54,38 @@ static long	line_beauty(t_command *lexed, t_env *env)
 	return (0);
 }
 
+static long	exec_loop(t_command *lexed, t_tools *tools, int *hd_no)
+{
+	long	rt_val;
+	bool	start;
+
+	rt_val = tools->rt_val;
+	start = true;
+	while (lexed && (start
+			|| (!ft_strcmp(lexed->content, "&&") && rt_val == 0)
+			|| (!ft_strcmp(lexed->content, "||") && rt_val != 0)
+			|| (!ft_strcmp(lexed->content, ";"))))
+	{
+		if (lexed->purpose == CMD_DELIM)
+			lexed = lexed->next;
+		rt_val = expand_cmd(lexed, tools);
+		if (rt_val < 0)
+		{
+			quote_remove_cmd(lexed);
+			rt_val = execute_the_line(lexed, tools, hd_no);
+		}
+		assign_vars(lexed, tools->env);
+		while (lexed && lexed->purpose != CMD_DELIM)
+			lexed = lexed->next;
+		start = false;
+		tools->rt_val = rt_val;
+	}
+	return (rt_val);
+}
+
 long	cmd_processing(char *line, t_tools *tools, bool add_line)
 {
 	t_command	*lexed;
-	t_command	*lexed_cpy;
-	bool		start;
 	int			heredoc_no;
 	long		rt_val;
 
@@ -72,31 +93,11 @@ long	cmd_processing(char *line, t_tools *tools, bool add_line)
 	rt_val = line_beauty(lexed, tools->env);
 	if (rt_val)
 		return (rt_val);
-	lexed_cpy = lexed;
 	heredoc_no = 0;
-	start = true;
-	rt_val = tools->rt_val;
-	while (lexed_cpy && (start
-			|| (!ft_strcmp(lexed_cpy->content, "&&") && rt_val == 0)
-			|| (!ft_strcmp(lexed_cpy->content, "||") && rt_val != 0)
-			|| (!ft_strcmp(lexed_cpy->content, ";"))))
-	{
-		if (lexed_cpy->purpose == CMD_DELIM)
-			lexed_cpy = lexed_cpy->next;
-		rt_val = expand_cmd(lexed_cpy, tools);
-		if (rt_val < 0)
-			rt_val = line_exec(lexed_cpy, tools, &heredoc_no);
-		perror("jpp");
-		assign_vars(lexed_cpy, tools->env);
-		while (lexed_cpy && lexed_cpy->purpose != CMD_DELIM)
-			lexed_cpy = lexed_cpy->next;
-		start = false;
-		tools->rt_val = rt_val;
-	}
-	//print_lexed(lexed);
+	rt_val = exec_loop(lexed, tools, &heredoc_no);
 	unlink_heredocs(lexed);
 	free_command(lexed);
-	return (rt_val);
+	return (tools->rt_val);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -125,7 +126,5 @@ int	main(int ac, char **av, char **envp)
 		else if (!(*line))
 			continue ;
 		tools.rt_val = cmd_processing(line, &tools, true);
-		printf("%ld\n", tools.rt_val);
-		g_sig_rec = 0;
 	}
 }

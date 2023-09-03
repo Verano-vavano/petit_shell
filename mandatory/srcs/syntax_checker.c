@@ -6,99 +6,35 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 15:54:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:56:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static int	check_metachar(char *line)
+static int	check_loop(char *line, int f, int i, int d)
 {
-	int	i;
-	//int	meta;
+	char	q;
 
-	i = 0;
-	//meta = 0;
-	if ((line[0] == '<' || line[0] == '>') && line[1] == '&')
-		return (0);
-	else if (line[0] == '<' && line[1] == '<' && line[2] == '<')
-		return (0);
-	else if (is_strict_meta(line[i]) && is_strict_meta(line[i + 1])
-		&& line[i] != line[i + 1])
-		return (syntax_error(line + i + 1, 1));
-	/*while (line[i])
+	q = 0;
+	while (line[i])
 	{
-		if (is_metachar(line[i]) && meta == 2)
-			return (syntax_error(line + i, 1));
-		else if (!meta && is_metachar(line[i]))
-			meta = 1;
-		else if (meta && (is_metachar(line[i]) || is_separator(line[i])))
-			meta = 2;
-		else if (meta && !is_separator(line[i]))
-			return (0);
-		i++;
-	}*/
-	return (0);
-}
-
-static int	check_parenthesis(char *line, int first, int dollar)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (is_separator(line[i]))
-		i++;
-	if ((first || dollar) && line[i] != ')' && line[i] != '\0')
-		return (0);
-	else if (!(first || dollar) && line[i] == '(')
-		return (syntax_error(line + i, 1));
-	else if (line[i] == ')')
-		return (syntax_error(line + i, 1));
-	else if (!(first || dollar) && line[i] != ')' && line[i] != '\0')
-	{
-		j = 1;
-		while (line[i + j - 1]
-			&& line[i + j - 1] != ')' && !is_separator(line[i + j - 1]))
-			j++;
-		return (syntax_error(line + i, j - 1));
+		q = is_quoted(line, i, q);
+		if (f && is_strict_meta(line[i]))
+			return (syntax_error(line + i, -1));
+		else if (!q && ((is_metachar(line[i]) && check_metachar(line + i))
+				|| (line[i] == '(' && check_parenthesis(line + i, f, d))
+				|| (line[i] == '{' && f && check_cbrackets(line + i))
+				|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
+			return (1);
+		f = ((is_cmd_delim(line + i) || (f && is_separator(line[i]))
+					|| (f && line[i] == '(')) && !q);
+		d = (line[i] == '$' || (d && line[i] == '('));
+		i += ((line[i] == '|' && line[i + 1] == '|')
+				|| (line[i] == '&' && line[i + 1] == '&')) + 1;
+		while (is_separator(line[i]))
+			i++;
 	}
-	return (0);
-}
-
-static int	check_cbrackets(char *line)
-{
-	int	i;
-
-	if (line[1] == '}')
-		return (0);
-	i = 1;
-	while (line[i] && is_separator(line[i]))
-		i++;
-	if (line[i] == '}')
-		return (syntax_error("}", 1));
-	return (0);
-}
-
-static int	redir_ok(char *line)
-{
-	int	i;
-
-	if (line[0] == '>' && line[1] == '<')
-		return (syntax_error("<", 1));
-	else if (line[0] == '>' && line[1] == '<'
-		&& line[2] && (line[2] == '<' || line[2] == '>'))
-		return (syntax_error(line + 2, 1));
-	else if (line[0] == line[1]
-		&& (line[2] == '<' || line[2] == '>') && line[2] != line[0])
-		return (syntax_error(line + 2, 1));
-	i = 0;
-	while (line[i] == '<' || line[i] == '>')
-		i++;
-	while (line[i] && is_separator(line[i]))
-		i++;
-	if (!line[i] || (line[i] == '&' && line[i + 1] == '\0'))
-		return (syntax_error("newline", 7));
 	return (0);
 }
 
@@ -107,29 +43,9 @@ int	check_syntax(char *line)
 	int		first;
 	int		i;
 	int		dollar;
-	char	quoted;
 
 	first = 1;
 	i = 0;
 	dollar = 0;
-	quoted = 0;
-	while (line[i])
-	{
-		quoted = is_quoted(line, i, quoted);
-		if (first && is_strict_meta(line[i]))
-			return (syntax_error(line + i, -1));
-		else if (!quoted && ((is_metachar(line[i]) && check_metachar(line + i))
-			|| (line[i] == '(' && check_parenthesis(line + i, first, dollar))
-			|| (line[i] == '{' && first && check_cbrackets(line + i))
-			|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
-			return (1);
-		first = (is_cmd_delim(line + i) || (first && is_separator(line[i]))
-				|| (first && line[i] == '(')) && !quoted;
-		dollar = (line[i] == '$' || (dollar && line[i] == '('));
-		i += ((line[i] == '|' && line[i + 1] == '|')
-				|| (line[i] == '&' && line[i + 1] == '&')) + 1;
-		while (is_separator(line[i]))
-			i++;
-	}
-	return (0);
+	return (check_loop(line, first, i, dollar));
 }

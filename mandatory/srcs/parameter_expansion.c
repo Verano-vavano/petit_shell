@@ -6,31 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 12:44:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:12:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "shellpticflesh.h"
-
-static int	find_arg_len(char *s, bool brack, char quoted)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (!brack && (s[i] < '0' || s[i] > '9') && (s[i] < 'a' || s[i] > 'z')
-			&& (s[i] < 'A' || s[i] > 'Z') && s[i] != '_')
-			break ;
-		else if (!brack && s[i] == quoted)
-			break ;
-		else if (brack && s[i] == '}')
-			break ;
-		i++;
-	}
-	return (i);
-}
 
 static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 {
@@ -38,20 +18,12 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	bool	dollar;
 	char	*param;
 	char	*param_val;
-	char	*operator;
-	char	*replacor;
 	char	**temp;
 
-	operator = 0;
-	replacor = 0;
 	param_val = 0;
 	temp = 0;
-	if (arg[0] == '#')
-	{
-		dollar = true;
-		arg++;
-	}
-	param = ft_strndup(arg, len_key);
+	dollar = arg[0] == '#';
+	param = ft_strndup(arg + dollar, len_key);
 	if (env_contain(param, env))
 		temp = env_getval(param, env);
 	if (temp)
@@ -62,9 +34,16 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 		free(param);
 		return (ft_itoa(len));
 	}
-	(void) operator;
-	(void) replacor;
 	return (param_val);
+}
+
+static void	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
+{
+	se[0]--;
+	if (to_change && *to_change)
+		word_split(cmd, to_change, se, env);
+	else
+		word_split(cmd, "\0", se, env);
 }
 
 static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
@@ -75,29 +54,22 @@ static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
 	char	*to_change;
 	char	**temp;
 
-	i++;
+	se[0] = i + 1;
 	to_change = 0;
-	brack = (cmd->content[i] == '{');
-	se[1] = find_arg_len(cmd->content + i, brack, quoted);
-	arg = ft_strndup(cmd->content + i + brack, se[1] - brack);
+	brack = (cmd->content[se[0]] == '{');
+	se[1] = find_arg_len(cmd->content + se[0], brack, quoted);
+	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
 	to_change = 0;
-	if (!brack)
+	if (!brack && env_contain(arg, env))
 	{
-		if (env_contain(arg, env))
-		{
-			temp = env_getval(arg, env);
-			if (temp)
-				to_change = temp[0];
-		}
+		temp = env_getval(arg, env);
+		if (temp)
+			to_change = temp[0];
 	}
-	else
+	else if (brack)
 		to_change = dollar_comprehender(arg, env, se[1]);
-	se[0] = i - 1;
 	se[1] += brack;
-	if (to_change && *to_change)
-		word_split(cmd, to_change, se, env);
-	else
-		word_split(cmd, "\0", se, env);
+	put_param_in(cmd, se, to_change, env);
 	free(arg);
 	if (brack)
 		free(to_change);
@@ -113,7 +85,8 @@ static void	parameter_seeker(t_command *cmd, t_env *env)
 	while (cmd->content[i])
 	{
 		quoted = is_quoted(cmd->content, i, quoted);
-		if (cmd->content[i] == '$' && quoted != '\'' && cmd->content[i + 1] != '(')
+		if (cmd->content[i] == '$'
+			&& quoted != '\'' && cmd->content[i + 1] != '(')
 		{
 			parameter_expand_it(cmd, i, env, quoted);
 			parameter_seeker(cmd, env);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 09:23:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 18:59:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 00:02:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ static bool	is_rdrand_sup(void)
 {
 	bool	result;
 
-	asm volatile (
-		"mov $1, %%eax\n"
-		"cpuid\n"
-		"mov $0, %[result]\n"
-		"bt $30, %%ecx\n"
-		"setc %[result]\n"
-		: [result] "=r" (result)
-		:
-		: "eax", "ebx", "ecx", "edx"
-	);
+	{
+		asm (
+			"mov $1, %%eax\n"
+			"cpuid\n"
+			"mov $0, %[result]\n"
+			"bt $30, %%ecx\n"
+			"setc %[result]\n"
+			: [result] "=r" (result)
+			:
+			: "eax", "ebx", "ecx", "edx"
+			);
+	}
 	return (result);
 }
 

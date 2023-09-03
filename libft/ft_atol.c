@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:44:02 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/07/05 18:45:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/03 23:59:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long	ft_atol(const char *s)
 	neg = 1;
 	while (is_spc(*s))
 		s++;
-	if (*s == '-') 
+	if (*s == '-')
 		neg = 1;
 	else if (*s == '+')
 		s++;
