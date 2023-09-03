@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/02 23:50:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:56:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,10 @@ int			understand_the_line(t_command *cmd);
 
 // syntax checker
 int			check_syntax(char *line);
+int			check_metachar(char *line);
+int			check_parenthesis(char *line, int first, int dollar);
+int			check_cbrackets(char *line);
+int			redir_ok(char *line);
 
 // purposer
 int			redirection_check(t_command *cmd, char *s);
@@ -177,6 +181,8 @@ char		*rescue_tilde_funk(t_env *env);
 
 // parameter_expansion
 void		parameter_expansion(t_command *cmd, t_env *env);
+// utils
+int			find_arg_len(char *s, bool brack, char quoted);
 
 // command substitution
 long		command_substitution(t_command *cmd, t_env *env);
@@ -251,6 +257,10 @@ t_hist		*load_history(t_env *env);
 void		add_to_hist(t_env *env, t_hist *hist, char *line);
 void		write_hist(t_hist *hist, t_env *env);
 void		free_history(t_hist *hist);
+char		*get_histfile(t_env *env);
+int			get_histsize(char *type, int stdval, t_env *env);
+void		remove_first_el(t_hist *hist);
+void		add_all_hist(t_hist *hist);
 
 /*--------PROMPT----------*/
 char		*new_prompt(int n_ps, t_env *env);
@@ -266,6 +276,7 @@ t_command	*init_command_arg(t_command *start);
 bool		is_dir(char *path);
 int			usearch(char *s, char c);
 bool		is_file_valid(char *file, int mode);
+bool		is_valid_var_char(char c);
 
 // char_utils
 int			is_strict_meta(char c);

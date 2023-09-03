@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 16:57:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 13:43:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ static enum e_cmd_part	redir_post(t_command *cmd, char *s)
 	else if (redir == 0 && !is_metachar(s[0]))
 		cmd->purpose = COMMAND;
 	return (UNDEFINED);
-}
-
-static bool	is_valid_var_char(char c)
-{
-	return ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9')
-		|| c == '_');
 }
 
 static bool	check_assign(char *s)
@@ -53,6 +45,20 @@ static bool	check_assign(char *s)
 	if (s[i] == '=')
 		return (true);
 	return (false);
+}
+
+static enum e_cmd_part	get_more_purpose(t_command *cmd, int p, char *s)
+{
+	if (p != UNDEFINED)
+	{
+		cmd->purpose = p;
+		return (UNDEFINED);
+	}
+	if (is_cmd_delim(s))
+		cmd->purpose = CMD_DELIM;
+	else if (is_metachar(s[0]))
+		cmd->purpose = DELIM;
+	return (redir_post(cmd, s));
 }
 
 static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
@@ -77,16 +83,7 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 		cmd->purpose = MARKER;
 		return (purpose);
 	}
-	else if (purpose != UNDEFINED)
-	{
-		cmd->purpose = purpose;
-		return (UNDEFINED);
-	}
-	if (is_cmd_delim(s))
-		cmd->purpose = CMD_DELIM;
-	else if (is_metachar(s[0]))
-		cmd->purpose = DELIM;
-	return (redir_post(cmd, s));
+	return (get_more_purpose(cmd, purpose, s));
 }
 
 int	understand_the_line(t_command *cmd)

@@ -6,94 +6,37 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 14:58:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 13:36:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+#include "history.h"
 
-#define STD_HISTFILE ".shellpt_history"
-#define STD_HISTSIZE 500
-#define STD_HISTFILESIZE 500
-
-static void	remove_first_el(t_hist *hist)
-{
-	t_hist_ll	*next;
-
-	if (!hist->hist_start)
-		return ;
-	next = hist->hist_start->next;
-	if (hist->hist_start->content)
-		free(hist->hist_start->content);
-	free(hist->hist_start);
-	hist->hist_start = next;
-	hist->len_hist--;
-}
-
-void	free_history(t_hist *hist)
-{
-	while (hist->len_hist)
-		remove_first_el(hist);
-	free(hist);
-}
-
-void	write_hist(t_hist *hist, t_env *env)
+void	write_hist(t_hist *h, t_env *env)
 {
 	char		*histfile;
-	char		*home;
-	char		**temp_val;
 	int			fd;
 	int			histsize;
 
-	temp_val = env_getval("HISTFILE", env);
-	if (!temp_val || !(*temp_val) || !is_file_valid(*temp_val, W_OK))
-	{
-		histfile = rescue_tilde_funk(env);
-		home = ft_strjoin(histfile, "/");
-		free(histfile);
-		histfile = ft_strjoin(home, STD_HISTFILE);
-		free(home);
-	}
-	else
-		histfile = ft_strdup(*temp_val);
+	histfile = get_histfile(env);
 	if (!histfile)
 		return ;
-	temp_val = env_getval("HISTFILESIZE", env);
-	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
-		histsize = STD_HISTSIZE;
-	else
-	{
-		histsize = ft_atoi(*temp_val);
-		if (histsize < 1)
-			histsize = STD_HISTSIZE;
-	}
-	while (histsize < hist->len_hist)
-		remove_first_el(hist);
+	histsize = get_histsize("HISTFILESIZE", STD_HISTFILESIZE, env);
+	while (histsize < h->len_hist)
+		remove_first_el(h);
 	fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return ;
-	while (hist->len_hist)
+	while (h->len_hist)
 	{
-		write(fd, hist->hist_start->content, ft_strlen(hist->hist_start->content));
+		write(fd, h->hist_start->content, ft_strlen(h->hist_start->content));
 		write(fd, "\n", 1);
-		remove_first_el(hist);
+		remove_first_el(h);
 	}
 	close(fd);
 	free(histfile);
 }
-
-static void	add_all_hist(t_hist *hist)
-{
-	t_hist_ll	*hist_now;
-
-	hist_now = hist->hist_start;
-	while (hist_now && hist_now->content)
-	{
-		add_history(hist_now->content);
-		hist_now = hist_now->next;
-	}
-}
-
 
 static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 {
@@ -128,20 +71,11 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 {
 	int		histsize;
 	bool	refresh;
-	char	**temp_val;
 
 	if (hist && hist->hist_end && hist->hist_end->content
 		&& ft_strcmp(hist->hist_end->content, line) == 0)
 		return ;
-	temp_val = env_getval("HISTSIZE", env);
-	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
-		histsize = STD_HISTSIZE;
-	else
-	{
-		histsize = ft_atoi(*temp_val);
-		if (histsize < 1)
-			histsize = STD_HISTSIZE;
-	}
+	histsize = get_histsize("HISTSIZE", STD_HISTSIZE, env);
 	refresh = (histsize == hist->len_hist);
 	add_hist_struct(hist, line, histsize);
 	add_history(line);
@@ -178,35 +112,17 @@ static void	cpy_history(t_hist *hist, char *histfile, int histsize)
 t_hist	*load_history(t_env *env)
 {
 	t_hist	*hist;
-	char	**temp_val;
 	char	*histfile;
-	char	*home;
 	int		histsize;
 
 	hist = ft_calloc(1, sizeof (t_hist));
 	if (!hist)
 		return (0);
 	hist->hist_start = 0;
-	temp_val = env_getval("HISTFILE", env);
-	if (!temp_val || !(*temp_val) || !is_file_valid(*temp_val, R_OK))
-	{
-		histfile = rescue_tilde_funk(env);
-		home = ft_strjoin(histfile, "/");
-		free(histfile);
-		histfile = ft_strjoin(home, STD_HISTFILE);
-		free(home);
-	}
-	else
-		histfile = ft_strdup(*temp_val);
-	temp_val = env_getval("HISTSIZE", env);
-	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val) || ft_strlen(*temp_val) > 4)
-		histsize = STD_HISTSIZE;
-	else
-	{
-		histsize = ft_atoi(*temp_val);
-		if (histsize < 1)
-			histsize = STD_HISTSIZE;
-	}
+	histfile = get_histfile(env);
+	if (!histfile)
+		return (0);
+	histsize = get_histsize("HISTSIZE", STD_HISTSIZE, env);
 	cpy_history(hist, histfile, histsize);
 	add_all_hist(hist);
 	free(histfile);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 14:58:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 13:25:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, char **c_env, long err)
 	}
 	if (exit_st == -1)
 		exit_st = status;
-	if (!err)
-		return (WEXITSTATUS(exit_st));
-	return (err);
+	if (err != -1)
+		return (err);
+	return (WEXITSTATUS(exit_st));
 }
 
 void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)

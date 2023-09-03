@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 14:51:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/03 23:57:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_command	*init_command_arg(t_command *start)
 
 bool	is_dir(char *path)
 {
-	struct stat	fileStat;
+	struct stat	file_stat;
 
-	if (lstat(path, &fileStat) == 0)
-		return (S_ISDIR(fileStat.st_mode));
+	if (lstat(path, &file_stat) == 0)
+		return (S_ISDIR(file_stat.st_mode));
 	return (false);
 }
 
@@ -54,4 +54,12 @@ int	usearch(char *s, char c)
 bool	is_file_valid(char *file, int mode)
 {
 	return (access(file, mode) == 0);
+}
+
+bool	is_valid_var_char(char c)
+{
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9')
+		|| c == '_');
 }
