@@ -13,7 +13,6 @@ Arithmetic
 
 Gérer le $? (stocker dans env dans local)
 
-CD : too many arguments
 CD : CDPATH
 
 SPECIAL PARAMETERS
