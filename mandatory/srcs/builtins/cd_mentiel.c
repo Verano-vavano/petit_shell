@@ -85,6 +85,11 @@ int	check_cdpath(char *dest, t_env *env)
 
 int	cd_mentiel(char **cmd, t_env *env)
 {
+	if (cmd[1] && cmd[2])
+	{
+		printf("%s: cd: too many arguments\n", PROG_NAME);
+		return (1);
+	}
 	if (!cmd[1])
 		return (cd_home(env));
 	else if (check_cdpath(cmd[1], env) == 0)
