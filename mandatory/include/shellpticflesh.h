@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 23:56:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 15:28:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,9 @@ int			move_end_stars(char *qmat);
 
 // word split
 void		word_split(t_command *cmd, char *newer, int *se, t_env *env);
+// utils
+int			search_next_ifs(char *newer, char *ifs);
+char		*get_ifs(t_env *env);
 
 // quote removal
 char		*quote_removal(char *cmd);
@@ -332,7 +335,5 @@ int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);
 char		**re_char_etoile_etoilise_env(t_env *env);
 void		env_create_add(char *key, char *value, t_env *env);
-/*----------------TO_DELETE_UTILS----------------*/
-void		print_lexed(t_command *lexed);
 
 #endif
