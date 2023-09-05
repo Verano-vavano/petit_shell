@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 13:14:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:51:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ long	find_exec_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 	else if (ft_strcmp("export", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (les_ex_portes_de_lenfer(cmd->cmd, t->env));
 	else if (ft_strcmp("unset", cmd->cmd_name) == 0 && !cmd->sub_cmd)
-		return (unset_et_damnation(cmd->cmd, t->env));
+		return (unset_et_damnation(cmd->cmd, &(t->env)));
 	else if (ft_strcmp("cd", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (cd_mentiel(cmd->cmd, t->env));
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)

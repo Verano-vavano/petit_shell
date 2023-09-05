@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 10:42:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:36:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 	int		len;
 	int		i;
 
+	if (!env)
+		return (0);
 	len = env_size(env);
 	c_env = ft_calloc(len + 1, sizeof (char *));
 	if (c_env == 0)

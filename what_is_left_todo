@@ -21,3 +21,8 @@ ERR VALGRIND :
 - Unset
 - echo {#param}
 - wordsplit
+
+ENV -I
+PATH=
+
+env -i export

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/01 10:44:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:48:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,22 @@ void	env_del(char *del, t_env **env)
 	t_env	*ptr;
 	t_env	*prev;
 
+	if (!env || !(*env))
+		return ;
 	ptr = *env;
 	prev = NULL;
 	while (ptr)
 	{
 		if (ft_strcmp(ptr->key, del) == 0)
 		{
-			if (prev == NULL)
+			if (prev == NULL && (*env)->next == NULL)
+				*env = NULL;
+			else if (prev == NULL)
 				*env = (*env)->next;
 			else
 				prev->next = ptr->next;
 			free_env(ptr);
+			return ;
 		}
 		prev = ptr;
 		ptr = ptr->next;
@@ -92,7 +97,7 @@ char	**env_getval(char *key, t_env *env)
 {
 	if (!env)
 		return (0);
-	while (env->next)
+	while (env && env->next)
 	{
 		if (ft_strcmp(env->key, key) == 0)
 			return (env->value);

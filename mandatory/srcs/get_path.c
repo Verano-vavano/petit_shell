@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/02 23:48:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:02:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	int		err_catcher;
 	bool	is_rel;
 
-	cmd->cmd_name = cmd->cmd[0];
-	cmd->free_name = false;
+	cmd->cmd_name = ft_strdup(cmd->cmd[0]);
+	cmd->free_name = true;
 	is_rel = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
 	cmd->is_builtin = check_builtin(cmd->cmd_name, is_rel);
 	if (cmd->is_builtin)
+		return (0);
+	if (is_rel && access(cmd->cmd_name, F_OK) == 0)
 		return (0);
 	path = env_getval("PATH", env);
 	if (!env_isdefined("PATH", env))
