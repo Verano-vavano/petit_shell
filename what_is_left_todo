@@ -12,4 +12,12 @@ SPECIAL PARAMETERS
 
 retirer le valgrind core du registre des commits parce que je suis con
 
-leaks quand param expansion ou param declaration idk
+(echo lol && cat gigipokp) >a 2>b
+echo lol <<<<
+
+ERR VALGRIND :
+- Dots braces exp
+- Command not found
+- Unset
+- echo {#param}
+- wordsplit

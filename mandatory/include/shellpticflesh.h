@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 17:52:04 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:49:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,13 +223,14 @@ long		execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no);
 
 // execution_doer
 void		check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd);
-long		wait_father(t_ret_cmd *ret, int n_cmd, char **c_env, long err);
+long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
 void		crt_child(t_process_cmd *cmd, t_tools *t, t_ret_cmd *ret);
 
 // builtin_exec
 long		exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env);
 
 // get_cmd
+int			handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd);
 int			get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no);
 
 // files

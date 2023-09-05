@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/31 22:29:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 12:57:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@ static int	find_end_comm(char *s)
 
 static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 {
-	t_tools	empty_tools;
+	t_tools	*empty_tools;
 	char	*out;
 	int		ret;
 
-	empty_tools.env = 0;
-	empty_tools.hist = 0;
-	empty_tools.rt_val = 0;
+	empty_tools = ft_calloc(1, sizeof (t_tools));
+	if (!empty_tools)
+		return (1);
+	empty_tools->env = env;
 	ret = 1;
 	if (cmd_sent)
-		ret = cmd_processing(cmd_sent, &empty_tools, false);
+		ret = cmd_processing(cmd_sent, empty_tools, false);
+	free(cmd_sent);
 	printf("\n");
+	free(empty_tools);
 	if (se[2])
 	{
 		dup2(se[3], STDOUT_FILENO);
@@ -115,17 +118,21 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 
 long	command_substitution(t_command *cmd, t_env *env)
 {
-	bool	skip_first;
-	long	ret;
+	t_command	*next;
+	bool		skip_first;
+	long		ret;
 
 	skip_first = false;
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
+			next = cmd->next;
 			ret = srch_exec_comm(cmd, env);
 			if (ret >= 0 && !skip_first)
 				skip_first = true;
+			cmd = next;
+			continue ;
 		}
 		cmd = cmd->next;
 	}
