@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 17:16:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 15:43:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	dots_loop(int *se, int *i, char *s, char **param)
 		if (s[i[0]] == '.' && s[i[0] + 1] != '.')
 			return (-1);
 		else if (s[i[0]] == '{')
-			return (-1);
+			return (-2);
 		else if (s[i[0]] == '.')
 		{
 			i[0] += 2;
@@ -91,6 +91,7 @@ static int	dots_loop(int *se, int *i, char *s, char **param)
 int	dots_brace_expansion(t_command *cmd, int *se)
 {
 	int		i[3];
+	int		err;
 	char	*s;
 	char	**param;
 
@@ -101,8 +102,12 @@ int	dots_brace_expansion(t_command *cmd, int *se)
 	param = set_param();
 	if (!param)
 		return (-1);
-	if (dots_loop(se, i, s, param))
+	printf("Bonjour\n");
+	err = dots_loop(se, i, s, param);
+	if (err == -1)
 		return (-1);
+	else if (err == -2)
+		return (-2);
 	if (i[1] == 2 && param[2][0] == 0)
 		return (-1);
 	if (dots_check(param))
