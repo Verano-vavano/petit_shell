@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 13:43:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 16:30:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static bool	check_assign(char *s)
 	int	i;
 
 	if (is_valid_var_char(s[0]) && is_num(s[0]))
+		return (false);
+	else if (s[0] == '=')
 		return (false);
 	i = 0;
 	while (s[i] && s[i] != '=')

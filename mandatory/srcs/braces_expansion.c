@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:01:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/30 21:15:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 15:44:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	brace_expand_it(t_command *cmd)
 			{
 				indeces[0] = i;
 				ret = apply_brace_exp(cmd, indeces);
-				if (ret == -1)
+				if (ret == -1 || ret == -2)
 					return (-5);
 				ret += brace_expand_it(cmd);
 				break ;
@@ -130,7 +130,7 @@ int	braces_expansion(t_command *cmd)
 		if (ft_strchr(cmd->content, '{') && ft_strchr(cmd->content, '}')
 			&& (ft_strchr(cmd->content, '.') || ft_strchr(cmd->content, ',')))
 			err_man = brace_expand_it(cmd);
-		if (err_man == -5)
+		if (err_man == -1)
 			return (-1);
 		cmd = cmd->next;
 	}

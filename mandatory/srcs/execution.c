@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 13:53:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 16:35:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 long	execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no)
 {
 	int				n_cmd[2];
+	int				ret;
 	t_ret_cmd		ret_cmd;
 
 	ret_cmd.heredoc_no = heredoc_no;
@@ -94,11 +95,14 @@ long	execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no)
 		cmd = cmd->next;
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];
-	tools->c_env = re_char_etoile_etoilise_env(tools->env);
 	if (!cmd || cmd->purpose == CMD_DELIM)
 		return (0);
+	tools->c_env = re_char_etoile_etoilise_env(tools->env);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
 	check_hist(cmd, tools->hist, tools->env, n_cmd[0]);
-	return (ex_loop(cmd, tools, &ret_cmd, n_cmd));
+	ret = ex_loop(cmd, tools, &ret_cmd, n_cmd);
+	if (tools->c_env)
+		free_char_etoile_etoile(tools->c_env);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 15:27:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 23:18:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	handle_one(t_command *cmd, t_command *to_merge, int *se)
 	if (!to_merge->content)
 	{
 		free(cmd->content);
+		free(to_merge);
 		cmd->content = temp2;
 		return ;
 	}
@@ -39,6 +40,8 @@ static void	handle_one(t_command *cmd, t_command *to_merge, int *se)
 		return ;
 	free(cmd->content);
 	cmd->content = temp;
+	free(to_merge->content);
+	free(to_merge);
 }
 
 static void	change_to_merge(t_command *cmd, t_command *to_merge, int *se)
@@ -56,9 +59,10 @@ static void	change_to_merge(t_command *cmd, t_command *to_merge, int *se)
 			return ;
 		free(temp);
 		free(to_merge->content);
-		free(to_merge);
 		cmd->content = temp2;
 	}
+	if (to_merge)
+		free(to_merge);
 }
 
 static void	merge_it(t_command *cmd, t_command *to_merge, int *se)

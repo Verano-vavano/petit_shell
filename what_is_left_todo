@@ -1,15 +1,8 @@
 si motivation, faire les expansions de PS1 et PS2
 
-heredoc -
 fermer correctement les heredoc qd pb +++++
 
-better asking when line incomplete (look into quote and backslash in todo)
-
 SHLEVEL et autres trucs de merde (revoir la doc)
-
-Expansions :
-Parameter
-Arithmetic
 
 Gérer le $? (stocker dans env dans local)
 
@@ -17,15 +10,6 @@ CD : CDPATH
 
 SPECIAL PARAMETERS
 
-multiple braces bug
-
-NORM
-
-echo {00..15}
-
 retirer le valgrind core du registre des commits parce que je suis con
 
-utiliser QEMU pour voir si le code marche sur d'autres architectures (là il marche en x86_64, ce qui est cool, mais il nous faut plus ! je veux que les dinosaures puissent utiliser notre shell)
-
-=4 marche ? et echo $ marche aussi ?
 leaks quand param expansion ou param declaration idk
