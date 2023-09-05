@@ -26,3 +26,4 @@ ENV -I
 PATH=
 
 env -i export
+a=12 && export a

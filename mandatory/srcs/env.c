@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/05 15:15:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:13:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ t_env	*env_new(char *env_var, bool is_exported)
 		new->key[ft_strlen(new->key) - 1] = 0;
 	if (tmp[1])
 		new->value = ft_split(tmp[1], ':');
-	else
+	else if (!ft_strchr(env_var, '='))
 		new->value = NULL;
+	else
+		new->value = ft_calloc(1, sizeof (char));
 	new->next = NULL;
 	new->is_exported = is_exported;
 	free_char_etoile_etoile(tmp);

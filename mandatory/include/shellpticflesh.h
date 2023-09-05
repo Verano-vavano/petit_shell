@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 15:52:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:07:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int			metal_injection(void);
 void		exit_hell(char **cmd, long ret);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
-int			les_ex_portes_de_lenfer(char **cmd, t_env *env);
+int			les_ex_portes_de_lenfer(char **cmd, t_env **env);
 int			unset_et_damnation(char **cmd, t_env **env);
 int			cd_mentiel(char **cmd, t_env *env);
 int			print_working_damnation(void);

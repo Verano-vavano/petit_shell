@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/05 15:54:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:08:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,15 @@ void	sort_env(t_env *head)
 	}
 }
 
-int	les_ex_portes_de_lenfer(char **cmd, t_env *env)
+int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 {
 	t_env	*ptr;
 	t_env	*sorted_env;
 
-	ptr = env;
-	if (!cmd[1] && !env)
+	if (!cmd[1] && (!env || !(*env)))
 		return (0);
+	if (env && *env)
+		ptr = *env;
 	if (!cmd[1])
 	{
 		sorted_env = NULL;
@@ -118,7 +119,10 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env *env)
 	cmd++;
 	while (*cmd)
 	{
-		env_update(*cmd, true, env, NULL);
+		if (!env || !(*env))
+			*env = env_new(*cmd, true);
+		else
+			env_update(*cmd, true, *env, NULL);
 		cmd++;
 	}
 	return (0);
