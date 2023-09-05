@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 16:31:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 09:11:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,12 @@ static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
 	{
 		temp = env_getval(arg, env);
 		if (temp)
-			to_change = temp[0];
+		{
+			if (temp[1] != NULL)
+				to_change = char_array_unite(temp);
+			else
+				to_change = temp[0];
+		}
 	}
 	else if (brack)
 		to_change = dollar_comprehender(arg, env, se[1]);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 15:28:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 17:52:04 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,5 +335,9 @@ int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);
 char		**re_char_etoile_etoilise_env(t_env *env);
 void		env_create_add(char *key, char *value, t_env *env);
+
+/*----------------TO_DELETE_UTILS----------------*/
+void		print_char_arr(char **arr);
+void		print_cmd(t_command *cmd);
 
 #endif
