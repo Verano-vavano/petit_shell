@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 16:54:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 13:14:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	get_redir_from(enum e_cmd_part redir, char *s, int len)
 	return (STDOUT_FILENO);
 }
 
-static int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
+int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 {
 	int				i1;
 	int				i2;

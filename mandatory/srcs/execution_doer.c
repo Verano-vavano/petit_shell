@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 13:25:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 13:23:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ void	crt_child(t_process_cmd *cmd, t_tools *t, t_ret_cmd *ret)
 	close_files(cmd->redir);
 }
 
-long	wait_father(t_ret_cmd *ret, int n_cmd, char **c_env, long err)
+long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 {
 	int	exit_st;
 	int	status;
 
 	close(ret->fd);
-	if (c_env)
-		free_char_etoile_etoile(c_env);
 	exit_st = -1;
 	while (--n_cmd != -1)
 	{
 		if (waitpid(-1, &status, 0) == ret->pid)
 			exit_st = status;
 	}
+	if (g_sig_rec)
+		printf("\n");
 	if (exit_st == -1)
 		exit_st = status;
 	if (err != -1)

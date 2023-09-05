@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 16:35:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 10:23:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 	{
 		if (pipe(ret->pipes) < 0)
 			continue ;
-		cmd_processing.sub_cmd = !(tools->env);
+		cmd_processing.sub_cmd = !(tools->hist);
 		err_status = c_get(&cmd_processing, &cmd, ret, n_cmd);
 		if (err_status == -1)
 			break ;
@@ -81,7 +81,7 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 			return (err_status);
 		cmd = go_to_next_cmd(cmd);
 	}
-	return (wait_father(ret, n_cmd[1] - n_cmd[0], tools->c_env, err_status));
+	return (wait_father(ret, n_cmd[1] - n_cmd[0], err_status));
 }
 
 long	execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no)

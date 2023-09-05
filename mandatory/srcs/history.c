@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 13:36:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 14:42:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 		hist_now = hist_now->next;
 		hist->hist_end = hist->hist_end->next;
 	}
-	hist_now->content = line;
+	hist_now->content = ft_strdup(line);
 	hist->len_hist++;
 	while (hist->len_hist > histsize)
 		remove_first_el(hist);
@@ -76,11 +76,12 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 		&& ft_strcmp(hist->hist_end->content, line) == 0)
 		return ;
 	histsize = get_histsize("HISTSIZE", STD_HISTSIZE, env);
-	refresh = (histsize == hist->len_hist);
+	refresh = (histsize <= hist->len_hist);
 	add_hist_struct(hist, line, histsize);
 	add_history(line);
 	if (refresh)
 	{
+		printf("LOL\n");
 		rl_clear_history();
 		add_all_hist(hist);
 	}
@@ -102,7 +103,7 @@ static void	cpy_history(t_hist *hist, char *histfile, int histsize)
 			line[ft_strlen(line) - 1] = 0;
 			add_hist_struct(hist, line, histsize);
 		}
-		else if (line && !(*line))
+		if (line)
 			free(line);
 		line = get_next_line(fd);
 	}

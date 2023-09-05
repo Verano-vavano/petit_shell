@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:48:22 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/18 18:49:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 09:33:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*get_content(long arg, char **s, bool is_num)
 	if (!temp)
 		return (0);
 	temp2 = ft_strjoin(temp, s[1]);
+	free(temp);
 	return (temp2);
 }
 
@@ -106,9 +107,7 @@ static int	add_it_all(t_command *cmd, long *l_p, int *se, bool charer)
 		moved = true;
 		l_p[0] += ((way * l_p[2]) + (!way * l_p[2] * (-1)));
 	}
-	free(strs[0]);
-	free(strs[1]);
-	free(strs);
+	free_char_etoile_etoile(strs);
 	return (0);
 }
 
@@ -116,6 +115,7 @@ int	dots_expansion(t_command *cmd, char **param, int *se)
 {
 	long		l_p[3];
 	bool		charer;
+	int			ret;
 
 	l_p[2] = 1;
 	if (param[2][0] != 0)
@@ -135,5 +135,7 @@ int	dots_expansion(t_command *cmd, char **param, int *se)
 		l_p[1] = param[1][0];
 	else
 		l_p[1] = ft_atol(param[1]);
-	return (add_it_all(cmd, l_p, se, charer));
+	ret = add_it_all(cmd, l_p, se, charer);
+	free_char_etoile_etoile(param);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 16:37:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 13:14:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static void	builtin_redirections(t_redir_pipe *redir)
 	{
 		if (redir->fd_end == STDIN_FILENO && redir->fd_read != -1)
 			dup2(redir->fd_read, STDIN_FILENO);
-		else if (redir->fd_end == STDOUT_FILENO && redir->fd_write != -1)
+		if (redir->fd_end == STDOUT_FILENO && redir->fd_write != -1)
 			dup2(redir->fd_write, STDOUT_FILENO);
-		else if (redir->fd_end == STDERR_FILENO && redir->fd_write != -1)
+		if (redir->fd_end == STDERR_FILENO && redir->fd_write != -1)
 			dup2(redir->fd_write, STDERR_FILENO);
 		redir = redir->next;
 	}

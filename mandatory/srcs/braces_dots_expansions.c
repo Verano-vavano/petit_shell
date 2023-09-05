@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/04 15:43:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 09:37:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,19 @@ int	dots_brace_expansion(t_command *cmd, int *se)
 	param = set_param();
 	if (!param)
 		return (-1);
-	printf("Bonjour\n");
 	err = dots_loop(se, i, s, param);
-	if (err == -1)
-		return (-1);
-	else if (err == -2)
+	if (err == -2)
+	{
+		free_char_etoile_etoile(param);
 		return (-2);
-	if (i[1] == 2 && param[2][0] == 0)
+	}
+	if (err == -1 || (i[1] == 2 && param[2][0] == 0))
+	{
+		free_char_etoile_etoile(param);
 		return (-1);
+	}
 	if (dots_check(param))
 		return (dots_expansion(cmd, param, se));
+	free_char_etoile_etoile(param);
 	return (-1);
 }
