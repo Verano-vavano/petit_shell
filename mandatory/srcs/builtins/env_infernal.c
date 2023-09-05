@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/24 18:21:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:32:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	env_infernal(t_env *env, ...)
 	char	*prepend;
 	va_list	list;
 
+	printf("lol\n");
 	ptr = env;
 	va_start(list, env);
 	prepend = va_arg(list, char *);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 12:49:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:52:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define PS1 "lol >> "
 # define PS2 "> "
 # define PROG_NAME "Minishell"
+
+# define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
 # define CLEAR_LINE "\033[K"
 
@@ -316,7 +318,7 @@ void		exit_hell(char **cmd, long ret);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
 int			les_ex_portes_de_lenfer(char **cmd, t_env *env);
-int			unset_et_damnation(char **cmd, t_env *env);
+int			unset_et_damnation(char **cmd, t_env **env);
 int			cd_mentiel(char **cmd, t_env *env);
 int			print_working_damnation(void);
 int			tetris(char **args);

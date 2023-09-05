@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 14:41:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:01:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	g_sig_rec;
 
-static void	assign_vars(t_command *cmd, t_env *env)
+static void	assign_vars(t_command *cmd, t_env **env)
 {
 	bool		one;
 	t_command	*cpy;
@@ -34,7 +34,10 @@ static void	assign_vars(t_command *cmd, t_env *env)
 		return ;
 	while (cmd && cmd->purpose == VAR_ASSIGN)
 	{
-		env_update(cmd->content, false, env, NULL);
+		if (!env || !(*env))
+			*env = env_new(cmd->content, false);
+		else
+			env_update(cmd->content, false, *env, NULL);
 		cmd = cmd->next;
 	}
 }
@@ -74,7 +77,7 @@ static long	exec_loop(t_command *lexed, t_tools *tools, int *hd_no)
 			quote_remove_cmd(lexed);
 			rt_val = execute_the_line(lexed, tools, hd_no);
 		}
-		assign_vars(lexed, tools->env);
+		assign_vars(lexed, &(tools->env));
 		while (lexed && lexed->purpose != CMD_DELIM)
 			lexed = lexed->next;
 		start = false;

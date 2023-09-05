@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 14:42:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:56:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 	add_history(line);
 	if (refresh)
 	{
-		printf("LOL\n");
 		rl_clear_history();
 		add_all_hist(hist);
 	}

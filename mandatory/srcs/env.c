@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/28 23:30:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 15:15:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ t_env	*env_init(char **envp)
 	i = 0;
 	while (envp[i])
 		env_add(env_new(envp[i++], true), &env);
+	if (!env_contain("PATH", env))
+		env_add(env_new(STD_PATH, true), &env);
 	return (env);
 }
