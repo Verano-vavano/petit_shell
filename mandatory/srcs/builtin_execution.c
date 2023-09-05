@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 16:07:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:31:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static long	more_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 		if (one)
 		{
 			printf("exit\n");
-			free_char_etoile_etoile(c_env);
+			if (c_env)
+				free_char_etoile_etoile(c_env);
 		}
 		exit_hell(cmd->cmd, t->rt_val);
 	}

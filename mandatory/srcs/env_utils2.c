@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/01 10:40:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/05 16:28:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,6 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 	ptr = env_getptr(key, env);
 	if (value)
 		env_change_val_rfunk(ptr, value, add);
-	else if (!add)
-	{
-		if (ptr->value)
-			free_char_etoile_etoile(ptr->value);
-		ptr->value = ft_calloc(2, sizeof (char *));
-	}
 	if (is_exp)
 		ptr->is_exported = true;
 }
