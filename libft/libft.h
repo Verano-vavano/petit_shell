@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/28 22:25:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/04 18:10:12 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ char	*ft_strchr(const char *s, int c);
 bool	is_valid_num(char *s);
 char	*ft_ltoa(long n);
 int		ft_nanosleep(const struct timespec *req);
+char	*char_array_unite(char **arr);
 
 #endif
