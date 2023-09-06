@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 15:36:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 10:09:35 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*get_env_val(t_env *env)
 
 	val = env->value;
 	return_val = ft_strjoin(env->key, "=");
-	while (val)
+	while (val && *val)
 	{
 		if (!return_val)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:11:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 23:12:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 09:39:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	find_arg_len(char *s, bool brack, char quoted)
 	int	i;
 
 	i = 0;
+	if (!brack && (s[0] == '?' || s[0] == '0' || s[0] == '$'))
+		return (1);
 	while (s[i])
 	{
 		if (!brack && (s[i] < '0' || s[i] > '9') && (s[i] < 'a' || s[i] > 'z')
@@ -29,4 +31,40 @@ int	find_arg_len(char *s, bool brack, char quoted)
 		i++;
 	}
 	return (i);
+}
+
+bool	is_special_param(char *arg)
+{
+	if (arg[0] == '#')
+		arg++;
+	return (arg[0] == '?' || arg[0] == '0' || arg[0] == '$');
+}
+
+static char	*param_good_ret(char *temp, bool take_len)
+{
+	int	len;
+
+	if (!take_len)
+		return (temp);
+	len = ft_strlen(temp);
+	free(temp);
+	return (ft_itoa(len));
+}
+
+char	*special_parameter(char *arg, t_tools *tools)
+{
+	bool	take_len;
+	char	*temp;
+	char	*ret;
+
+	take_len = (arg[0] == '#');
+	arg += take_len;
+	if (arg[0] == '0')
+		return (param_good_ret(ft_strdup(SHELL_NAME), take_len));
+	else if (arg[0] == '$')
+		temp = ft_ltoa(ft_getpid());
+	else if (arg[0] == '?')
+		temp = ft_itoa(tools->rt_val);
+	ret = param_good_ret(temp, take_len);
+	return (ret);
 }
