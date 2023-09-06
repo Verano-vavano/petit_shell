@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 16:07:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 09:22:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define PS1 "lol >> "
 # define PS2 "> "
 # define PROG_NAME "Minishell"
+# define SHELL_NAME "Shellpticflesh"
 
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
@@ -182,9 +183,11 @@ void		tilde_expansion(t_command *cmd, t_env *env);
 char		*rescue_tilde_funk(t_env *env);
 
 // parameter_expansion
-void		parameter_expansion(t_command *cmd, t_env *env);
+void		parameter_expansion(t_command *cmd, t_tools *tools);
 // utils
 int			find_arg_len(char *s, bool brack, char quoted);
+bool		is_special_param(char *arg);
+char		*special_parameter(char *arg, t_tools *tools);
 
 // command substitution
 long		command_substitution(t_command *cmd, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 09:52:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 09:46:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 		word_split(cmd, "\0", se, env);
 }
 
-static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
+static void	parameter_expand_it(t_command *cmd, int i, t_tools *tools, char quoted)
 {
 	int		se[2];
 	bool	brack;
@@ -62,9 +62,11 @@ static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
 	se[1] = find_arg_len(cmd->content + se[0], brack, quoted);
 	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
 	to_change = 0;
-	if (!brack && env_contain(arg, env))
+	if (is_special_param(arg))
+		to_change = special_parameter(arg, tools);
+	else if (!brack && env_contain(arg, tools->env))
 	{
-		temp = env_getval(arg, env);
+		temp = env_getval(arg, tools->env);
 		if (temp)
 		{
 			if (temp[1] != NULL)
@@ -74,15 +76,14 @@ static void	parameter_expand_it(t_command *cmd, int i, t_env *env, char quoted)
 		}
 	}
 	else if (brack)
-		to_change = dollar_comprehender(arg, env, se[1]);
+		to_change = dollar_comprehender(arg, tools->env, se[1]);
 	se[1] += brack;
-	put_param_in(cmd, se, to_change, env);
+	put_param_in(cmd, se, to_change, tools->env);
 	free(arg);
-	if (brack)
-		free(to_change);
+	free(to_change);
 }
 
-static void	parameter_seeker(t_command *cmd, t_env *env)
+static void	parameter_seeker(t_command *cmd, t_tools *tools)
 {
 	int		i;
 	char	quoted;
@@ -96,20 +97,20 @@ static void	parameter_seeker(t_command *cmd, t_env *env)
 			&& cmd->content[i + 1] && !is_separator(cmd->content[i + 1])
 			&& quoted != '\'' && cmd->content[i + 1] != '(')
 		{
-			parameter_expand_it(cmd, i, env, quoted);
-			parameter_seeker(cmd, env);
+			parameter_expand_it(cmd, i, tools, quoted);
+			parameter_seeker(cmd, tools);
 			return ;
 		}
 		i++;
 	}
 }
 
-void	parameter_expansion(t_command *cmd, t_env *env)
+void	parameter_expansion(t_command *cmd, t_tools *tools)
 {
-	while (cmd)
+	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (ft_strchr(cmd->content, '$'))
-			parameter_seeker(cmd, env);
+			parameter_seeker(cmd, tools);
 		cmd = cmd->next;
 	}
 }

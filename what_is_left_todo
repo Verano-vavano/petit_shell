@@ -21,5 +21,6 @@ ERR VALGRIND :
 - Unset
 - echo {#param}
 - wordsplit
+- re char etoile etoilise env
 
 PATH=

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 15:56:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 10:12:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 		err_status = get_cmd_path(&cmd_processing, tools->env);
 		if (err_status > 0 && n_cmd[0] == 1)
 		{
+			free(cmd_processing.cmd_name);
 			free(cmd_processing.cmd);
 			break ;
 		}
