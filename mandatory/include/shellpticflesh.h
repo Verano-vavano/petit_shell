@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 09:22:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:44:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_tools
 	t_env	*env;
 	char	**c_env;
 	t_hist	*hist;
+	char	*cwd;
 	long	rt_val;
 }				t_tools;
 
@@ -322,8 +323,10 @@ int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);
 int			unset_et_damnation(char **cmd, t_env **env);
-int			cd_mentiel(char **cmd, t_env *env);
-int			print_working_damnation(void);
+int			cd_mentiel(char **cmd, t_tools **tools);
+void		change_oldpwd(t_env **env);
+void		change_pwd(char *dest, t_tools **t);
+int			print_working_damnation(char *cwd);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/

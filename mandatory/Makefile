@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/04 17:52:44 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/09/06 11:17:52 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 file_check.c		fe_subverif.c			file_opening.c\
 	 check_path.c		history_utils.c			param_exp_utils.c\
 	 syntax_checkerers.c						word_split_utils.c\
-	 to_delete_utils.c
+	 to_delete_utils.c	builtins/cd_mentiellement_util.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 
