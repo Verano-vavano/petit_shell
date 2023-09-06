@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 09:46:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:07:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tools *tools, char quot
 			if (temp[1] != NULL)
 				to_change = char_array_unite(temp);
 			else
-				to_change = temp[0];
+				to_change = ft_strdup(temp[0]);
 		}
 	}
 	else if (brack)

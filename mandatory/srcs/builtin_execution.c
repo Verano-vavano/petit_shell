@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 16:31:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:41:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ long	find_exec_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 	else if (ft_strcmp("unset", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (unset_et_damnation(cmd->cmd, &(t->env)));
 	else if (ft_strcmp("cd", cmd->cmd_name) == 0 && !cmd->sub_cmd)
-		return (cd_mentiel(cmd->cmd, t->env));
+		return (cd_mentiel(cmd->cmd, &t));
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
-		return (print_working_damnation());
+		return (print_working_damnation(t->cwd));
 	else
 		return (more_bltn(cmd, t, one, c_env));
 }

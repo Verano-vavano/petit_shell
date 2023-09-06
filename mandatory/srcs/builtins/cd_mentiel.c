@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/08/24 18:18:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:44:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,53 +19,49 @@
 // printf ne print pas sur stderr, a la diff de bash
 // voir si ca pose prblm
 // sinon faut import mon printf qui peut print vers un fd
-int	cd_home(t_env *env)
+int	cd_home(t_tools **tools)
 {
 	char	**home;
 
-	home = env_getval("HOME", env);
+	home = env_getval("HOME", (*tools)->env);
 	if (!home)
 	{
 		printf("%s: cd: HOME not set\n", PROG_NAME);
 		return (1);
 	}
-	if (env_contain("OLDPWD", env))
-		env_change_val("OLDPWD", getcwd(NULL, 0), env, 0);
+	change_oldpwd(&((*tools)->env));
 	if (chdir(home[0]))
 	{
 		printf("%s: cd: %s: %s\n", PROG_NAME, home[0], strerror(errno));
 		return (1);
 	}
-	if (env_contain("PWD", env))
-		env_change_val("PWD", getcwd(NULL, 0), env, 0);
+	change_pwd(home[0], tools);
 	return (0);
 }
 
-void	simple_cd(char *dest, t_env *env)
+void	simple_cd(char *dest, t_tools **tools)
 {
 	if (access(dest, R_OK | X_OK) != 0)
 	{
 		printf("cc %s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
 		return ;
 	}
-	if (env_contain("OLDPWD", env))
-		env_change_val("OLDPWD", getcwd(NULL, 0), env, 0);
+	change_oldpwd(&((*tools)->env));
 	if (chdir(dest))
 	{
 		printf("%s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
 		return ;
 	}
-	if (env_contain("PWD", env))
-		env_change_val("PWD", getcwd(NULL, 0), env, 0);
+	change_pwd(dest, tools);
 }
 
-int	check_cdpath(char *dest, t_env *env)
+int	check_cdpath(char *dest, t_tools **tools)
 {
 	t_env	*cdpath;
 	int		i;
 	char	*concat_path;
 
-	cdpath = env_getptr("CDPATH", env);
+	cdpath = env_getptr("CDPATH", (*tools)->env);
 	if (!cdpath)
 		return (1);
 	i = -1;
@@ -75,7 +71,7 @@ int	check_cdpath(char *dest, t_env *env)
 				(char *[]){cdpath->value[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
 		{
-			simple_cd(concat_path, env);
+			simple_cd(concat_path, tools);
 			return (free(concat_path), 0);
 		}
 		free(concat_path);
@@ -83,7 +79,7 @@ int	check_cdpath(char *dest, t_env *env)
 	return (1);
 }
 
-int	cd_mentiel(char **cmd, t_env *env)
+int	cd_mentiel(char **cmd, t_tools **tools)
 {
 	if (cmd[1] && cmd[2])
 	{
@@ -91,9 +87,9 @@ int	cd_mentiel(char **cmd, t_env *env)
 		return (1);
 	}
 	if (!cmd[1])
-		return (cd_home(env));
-	else if (check_cdpath(cmd[1], env) == 0)
+		return (cd_home(tools));
+	else if (check_cdpath(cmd[1], tools) == 0)
 		return (0);
-	simple_cd(cmd[1], env);
+	simple_cd(cmd[1], tools);
 	return (0);
 }
