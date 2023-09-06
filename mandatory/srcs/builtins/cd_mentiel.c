@@ -66,7 +66,10 @@ int	check_cdpath(char *dest, t_tools **tools)
 		concat_path = concat_multiple(
 				(char *[]){cdpath->value[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
-			return (free(concat_path), simple_cd(concat_path, tools));
+		{
+			i = simple_cd(concat_path, tools);
+			return (free(concat_path), i);
+		}
 		free(concat_path);
 	}
 	return (1);
