@@ -37,20 +37,20 @@ static int	find_end_comm(char *s)
 
 static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 {
-	t_tools	*empty_tools;
+	t_tool	*empty_tool;
 	char	*out;
 	int		ret;
 
-	empty_tools = ft_calloc(1, sizeof (t_tools));
-	if (!empty_tools)
+	empty_tool = ft_calloc(1, sizeof (t_tool));
+	if (!empty_tool)
 		return (1);
-	empty_tools->env = env;
+	empty_tool->env = env;
 	ret = 1;
 	if (cmd_sent)
-		ret = cmd_processing(cmd_sent, empty_tools, false);
+		ret = cmd_processing(cmd_sent, empty_tool, false);
 	free(cmd_sent);
 	printf("\n");
-	free(empty_tools);
+	free(empty_tool);
 	if (se[2])
 	{
 		dup2(se[3], STDOUT_FILENO);

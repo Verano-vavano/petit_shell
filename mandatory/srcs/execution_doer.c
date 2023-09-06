@@ -14,12 +14,13 @@
 
 // dup2 STDIN && STDOUT from pipes
 // dup2 everything else casually baby
-static void	child(t_process_cmd *cmd, t_tools *t, char **c_env, t_ret_cmd *ret)
+static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 {
 	close(ret->pipes[0]);
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
+	printf("coucou = %s",cmd->cmd_name);
 	if (cmd->is_builtin)
 		exit(exec_bltin(cmd, t, false, c_env));
 	else
@@ -27,7 +28,7 @@ static void	child(t_process_cmd *cmd, t_tools *t, char **c_env, t_ret_cmd *ret)
 	exit(0);
 }
 
-void	crt_child(t_process_cmd *cmd, t_tools *t, t_ret_cmd *ret)
+void	crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret)
 {
 	ret->pid = fork();
 	if (ret->pid == -1)

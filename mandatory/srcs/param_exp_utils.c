@@ -51,7 +51,7 @@ static char	*param_good_ret(char *temp, bool take_len)
 	return (ft_itoa(len));
 }
 
-char	*special_parameter(char *arg, t_tools *tools)
+char	*special_parameter(char *arg, t_tool *tool)
 {
 	bool	take_len;
 	char	*temp;
@@ -64,7 +64,7 @@ char	*special_parameter(char *arg, t_tools *tools)
 	else if (arg[0] == '$')
 		temp = ft_ltoa(ft_getpid());
 	else if (arg[0] == '?')
-		temp = ft_itoa(tools->rt_val);
+		temp = ft_itoa(tool->rt_val);
 	ret = param_good_ret(temp, take_len);
 	return (ret);
 }
