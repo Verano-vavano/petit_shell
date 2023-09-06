@@ -39,20 +39,16 @@ int	cd_home(t_tools **tools)
 	return (0);
 }
 
-void	simple_cd(char *dest, t_tools **tools)
+int	simple_cd(char *dest, t_tools **tools)
 {
-	if (access(dest, R_OK | X_OK) != 0)
-	{
-		printf("cc %s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
-		return ;
-	}
 	change_oldpwd(&((*tools)->env));
 	if (chdir(dest))
 	{
 		printf("%s: cd: %s: %s\n", PROG_NAME, dest, strerror(errno));
-		return ;
+		return (1);
 	}
 	change_pwd(dest, tools);
+	return (0);
 }
 
 int	check_cdpath(char *dest, t_tools **tools)
@@ -70,10 +66,7 @@ int	check_cdpath(char *dest, t_tools **tools)
 		concat_path = concat_multiple(
 				(char *[]){cdpath->value[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
-		{
-			simple_cd(concat_path, tools);
-			return (free(concat_path), 0);
-		}
+			return (free(concat_path), simple_cd(concat_path, tools));
 		free(concat_path);
 	}
 	return (1);
@@ -90,6 +83,5 @@ int	cd_mentiel(char **cmd, t_tools **tools)
 		return (cd_home(tools));
 	else if (check_cdpath(cmd[1], tools) == 0)
 		return (0);
-	simple_cd(cmd[1], tools);
-	return (0);
+	return(simple_cd(cmd[1], tools));
 }
