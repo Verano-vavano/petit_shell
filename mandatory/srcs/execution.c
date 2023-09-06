@@ -40,7 +40,7 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 	return (0);
 }
 
-static long	aexec(t_process_cmd *c_p, t_tools *t, t_ret_cmd *ret, int *n_cmd)
+static long	aexec(t_process_cmd *c_p, t_tool *t, t_ret_cmd *ret, int *n_cmd)
 {
 	ret->n_cmd = n_cmd[0];
 	if (c_p->is_builtin && n_cmd[1] == 1)
@@ -55,7 +55,7 @@ static long	aexec(t_process_cmd *c_p, t_tools *t, t_ret_cmd *ret, int *n_cmd)
 	return (-1);
 }
 
-static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
+static long	ex_loop(t_command *cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 {
 	long			err_status;
 	t_process_cmd	cmd_processing;
@@ -64,20 +64,20 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 	{
 		if (pipe(ret->pipes) < 0)
 			continue ;
-		cmd_processing.sub_cmd = !(tools->hist);
+		cmd_processing.sub_cmd = !(tool->hist);
 		err_status = c_get(&cmd_processing, &cmd, ret, n_cmd);
 		if (err_status == -1)
 			break ;
 		else if (err_status == 1)
 			continue ;
-		err_status = get_cmd_path(&cmd_processing, tools->env);
+		err_status = get_cmd_path(&cmd_processing, tool->env);
 		if (err_status > 0 && n_cmd[0] == 1)
 		{
 			free(cmd_processing.cmd_name);
 			free(cmd_processing.cmd);
 			break ;
 		}
-		err_status = aexec(&cmd_processing, tools, ret, n_cmd);
+		err_status = aexec(&cmd_processing, tool, ret, n_cmd);
 		if (err_status != -1)
 			return (err_status);
 		cmd = go_to_next_cmd(cmd);
@@ -85,7 +85,7 @@ static long	ex_loop(t_command *cmd, t_tools *tools, t_ret_cmd *ret, int *n_cmd)
 	return (wait_father(ret, n_cmd[1] - n_cmd[0], err_status));
 }
 
-long	execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no)
+long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 {
 	int				n_cmd[2];
 	int				ret;
@@ -98,12 +98,12 @@ long	execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no)
 	n_cmd[1] = n_cmd[0];
 	if (!cmd || cmd->purpose == CMD_DELIM)
 		return (0);
-	tools->c_env = re_char_etoile_etoilise_env(tools->env);
+	tool->c_env = re_char_etoile_etoilise_env(tool->env);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
-	check_hist(cmd, tools->hist, tools->env, n_cmd[0]);
-	ret = ex_loop(cmd, tools, &ret_cmd, n_cmd);
-	if (tools->c_env)
-		free_char_etoile_etoile(tools->c_env);
+	check_hist(cmd, tool->hist, tool->env, n_cmd[0]);
+	ret = ex_loop(cmd, tool, &ret_cmd, n_cmd);
+	if (tool->c_env)
+		free_char_etoile_etoile(tool->c_env);
 	return (ret);
 }

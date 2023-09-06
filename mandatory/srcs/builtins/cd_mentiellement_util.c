@@ -44,7 +44,7 @@ void	change_oldpwd(t_env **env)
 	old_pwd->value[0] = ft_strdup(pwd->value[0]);
 }
 
-static void	no_behind(char *dest, t_env **env, t_tools **tools)
+static void	no_behind(char *dest, t_env **env, t_tool **tool)
 {
 	t_env	*pwd;
 	t_env	*old_pwd;
@@ -77,23 +77,23 @@ static void	no_behind(char *dest, t_env **env, t_tools **tools)
 	if (!temp)
 		return ;
 	pwd->value[0] = ft_strjoin(temp, dest);
-	(*tools)->cwd = ft_strdup(pwd->value[0]);
+	(*tool)->cwd = ft_strdup(pwd->value[0]);
 	free(temp);
 }
 
-void	change_pwd(char *dest, t_tools **tools)
+void	change_pwd(char *dest, t_tool **tool)
 {
 	char	*cwd;
 	t_env	*pwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd && ft_strcmp(dest, "..") == 0)
-		no_behind(dest, &((*tools)->env), tools);
+		no_behind(dest, &((*tool)->env), tool);
 	else if (!cwd)
 		perror("No destination directory");
 	else
 	{
-		pwd = env_getptr("PWD", (*tools)->env);
+		pwd = env_getptr("PWD", (*tool)->env);
 		if (pwd)
 			free(pwd->value[0]);
 		else
@@ -108,10 +108,10 @@ void	change_pwd(char *dest, t_tools **tools)
 				return ;
 			}
 			pwd->key = ft_strdup("PWD");
-			env_add(pwd, &((*tools)->env));
+			env_add(pwd, &((*tool)->env));
 			}
 		pwd->value[0] = cwd;
-		(*tools)->cwd = ft_strdup(cwd);
+		(*tool)->cwd = ft_strdup(cwd);
 	}
 	return ;
 }

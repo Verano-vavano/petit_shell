@@ -48,7 +48,7 @@ static void	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 		word_split(cmd, "\0", se, env);
 }
 
-static void	parameter_expand_it(t_command *cmd, int i, t_tools *tools, char quoted)
+static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted)
 {
 	int		se[2];
 	bool	brack;
@@ -63,10 +63,10 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tools *tools, char quot
 	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
 	to_change = 0;
 	if (is_special_param(arg))
-		to_change = special_parameter(arg, tools);
-	else if (!brack && env_contain(arg, tools->env))
+		to_change = special_parameter(arg, tool);
+	else if (!brack && env_contain(arg, tool->env))
 	{
-		temp = env_getval(arg, tools->env);
+		temp = env_getval(arg, tool->env);
 		if (temp)
 		{
 			if (temp[1] != NULL)
@@ -76,14 +76,14 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tools *tools, char quot
 		}
 	}
 	else if (brack)
-		to_change = dollar_comprehender(arg, tools->env, se[1]);
+		to_change = dollar_comprehender(arg, tool->env, se[1]);
 	se[1] += brack;
-	put_param_in(cmd, se, to_change, tools->env);
+	put_param_in(cmd, se, to_change, tool->env);
 	free(arg);
 	free(to_change);
 }
 
-static void	parameter_seeker(t_command *cmd, t_tools *tools)
+static void	parameter_seeker(t_command *cmd, t_tool *tool)
 {
 	int		i;
 	char	quoted;
@@ -97,20 +97,20 @@ static void	parameter_seeker(t_command *cmd, t_tools *tools)
 			&& cmd->content[i + 1] && !is_separator(cmd->content[i + 1])
 			&& quoted != '\'' && cmd->content[i + 1] != '(')
 		{
-			parameter_expand_it(cmd, i, tools, quoted);
-			parameter_seeker(cmd, tools);
+			parameter_expand_it(cmd, i, tool, quoted);
+			parameter_seeker(cmd, tool);
 			return ;
 		}
 		i++;
 	}
 }
 
-void	parameter_expansion(t_command *cmd, t_tools *tools)
+void	parameter_expansion(t_command *cmd, t_tool *tool)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (ft_strchr(cmd->content, '$'))
-			parameter_seeker(cmd, tools);
+			parameter_seeker(cmd, tool);
 		cmd = cmd->next;
 	}
 }
