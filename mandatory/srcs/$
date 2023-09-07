@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:06:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:02:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tools *t, bool one, char **c_env)
 
 	if (ft_strcmp("exit", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 	{
-		if (one && cmd->cmd[1] && !(cmd->cmd[2]))
+		if (one && cmd->cmd[1] && !cmd->cmd[2])
 		{
 			printf("exit\n");
 			if (c_env)

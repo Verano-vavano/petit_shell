@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:00:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 16:05:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/06 16:21:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_path_star_fe(char *cnt)
 	int		last_s;
 
 	i = 0;
-	last_s = 0;
+	last_s = -1;
 	quoted = 0;
 	while (cnt[i] && (quoted || (cnt[i] != '*' && cnt[i] != '?')))
 	{
@@ -28,6 +28,8 @@ int	get_path_star_fe(char *cnt)
 			last_s = i;
 		i++;
 	}
+	if (last_s == -1)
+		return (i);
 	return (last_s);
 }
 
