@@ -12,16 +12,16 @@
 
 #include "shellpticflesh.h"
 
-int	expand_cmd(t_command *cmd, t_tools *tools)
+int	expand_cmd(t_command *cmd, t_tool *tool)
 {
 	int			ret;
 
 	ret = braces_expansion(cmd);
 	if (ret < 0)
 		return (1);
-	tilde_expansion(cmd, tools->env);
-	parameter_expansion(cmd, tools);
-	ret = command_substitution(cmd, tools->env);
+	tilde_expansion(cmd, tool->env);
+	parameter_expansion(cmd, tool);
+	ret = command_substitution(cmd, tool->env);
 	if (ret >= 0)
 		return (ret);
 	filename_expansion(cmd);

@@ -6,8 +6,6 @@ SHLEVEL et autres trucs de merde (revoir la doc)
 
 Gérer le $? (stocker dans env dans local)
 
-CD : CDPATH
-
 SPECIAL PARAMETERS
 
 retirer le valgrind core du registre des commits parce que je suis con
