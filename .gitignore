@@ -8,3 +8,4 @@ minishell
 valgrind-out.txt
 *.out
 bonus
+minishell_tester
