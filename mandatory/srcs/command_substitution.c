@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 10:03:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:40:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ static int	find_end_comm(char *s)
 
 static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 {
-	t_tools	*empty_tools;
+	t_tool	*empty_tool;
 	char	*out;
 	int		ret;
 
-	empty_tools = ft_calloc(1, sizeof (t_tools));
-	if (!empty_tools)
+	empty_tool = ft_calloc(1, sizeof (t_tool));
+	if (!empty_tool)
 		return (1);
-	empty_tools->env = env;
+	empty_tool->env = env;
 	ret = 1;
 	if (cmd_sent)
 		ret = cmd_processing(cmd_sent, empty_tools, false);
 	printf("\n");
-	free(empty_tools);
+	free(empty_tool);
 	if (se[2])
 	{
 		dup2(se[3], STDOUT_FILENO);

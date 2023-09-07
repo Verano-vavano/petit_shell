@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:00:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:39:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_hist
 	t_hist_ll	*hist_end;
 }				t_hist;
 
-typedef struct s_tools
+typedef struct s_tool
 {
 	t_env	*env;
 	char	**c_env;
@@ -134,7 +134,7 @@ typedef struct s_list_file
 }				t_lf;
 
 // shellpticflesh
-long		cmd_processing(char *line, t_tools *tools, bool add_line);
+long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char *cmd, bool add_line, t_hist *hist, t_env *env);
@@ -169,7 +169,7 @@ int			here_doc(t_command *cmd, t_env *env);
 
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
-int			expand_cmd(t_command *cmd, t_tools *tools);
+int			expand_cmd(t_command *cmd, t_tool *tool);
 
 // braces_expansion
 int			braces_expansion(t_command *cmd);
@@ -184,11 +184,11 @@ void		tilde_expansion(t_command *cmd, t_env *env);
 char		*rescue_tilde_funk(t_env *env);
 
 // parameter_expansion
-void		parameter_expansion(t_command *cmd, t_tools *tools);
+void		parameter_expansion(t_command *cmd, t_tool *tool);
 // utils
 int			find_arg_len(char *s, bool brack, char quoted);
 bool		is_special_param(char *arg);
-char		*special_parameter(char *arg, t_tools *tools);
+char		*special_parameter(char *arg, t_tool *tool);
 
 // command substitution
 long		command_substitution(t_command *cmd, t_env *env);
@@ -225,15 +225,15 @@ void		quote_remove_cmd(t_command *cmd);
 
 /*--------------EXECUTION-----------------*/
 // execution
-long		execute_the_line(t_command *cmd, t_tools *tools, int *heredoc_no);
+long		execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
 
 // execution_doer
 void		check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd);
 long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
-void		crt_child(t_process_cmd *cmd, t_tools *t, t_ret_cmd *ret);
+void		crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret);
 
 // builtin_exec
-long		exec_bltin(t_process_cmd *cmd, t_tools *t, bool one, char **c_env);
+long		exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env);
 
 // get_cmd
 int			handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd);
@@ -323,9 +323,9 @@ int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);
 int			unset_et_damnation(char **cmd, t_env **env);
-int			cd_mentiel(char **cmd, t_tools **tools);
+int			cd_mentiel(char **cmd, t_tool **tool);
 void		change_oldpwd(t_env **env);
-void		change_pwd(char *dest, t_tools **t);
+void		change_pwd(char *dest, t_tool **t);
 int			print_working_damnation(char *cwd);
 int			tetris(char **args);
 

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/07 10:49:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:40:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@
 // printf ne print pas sur stderr, a la diff de bash
 // voir si ca pose prblm
 // sinon faut import mon printf qui peut print vers un fd
-int	cd_home(t_tools **tools)
+int	cd_home(t_tool **tool)
 {
 	char	**home;
 
-	home = env_getval("HOME", (*tools)->env);
+	home = env_getval("HOME", (*tool)->env);
 	if (!home)
 	{
 		write(2, "cd: HOME not set\n", 17);
 		return (1);
 	}
-	change_oldpwd(&((*tools)->env));
+	change_oldpwd(&((*tool)->env));
 	if (chdir(home[0]))
 	{
 		write(2, "cd: ", 4);
 		perror(home[0]);
 		return (1);
 	}
-	change_pwd(home[0], tools);
+	change_pwd(home[0], tool);
 	return (0);
 }
 
@@ -59,14 +59,14 @@ int	simple_cd(char *dest, t_tools **tools)
 	return (0);
 }
 
-int	check_cdpath(char *dest, t_tools **tools)
+int	check_cdpath(char *dest, t_tool **tool)
 {
 	t_env	*cdpath;
 	int		i;
 	int		ret;
 	char	*concat_path;
 
-	cdpath = env_getptr("CDPATH", (*tools)->env);
+	cdpath = env_getptr("CDPATH", (*tool)->env);
 	if (!cdpath)
 		return (1);
 	i = -1;
@@ -85,7 +85,7 @@ int	check_cdpath(char *dest, t_tools **tools)
 	return (1);
 }
 
-int	cd_mentiel(char **cmd, t_tools **tools)
+int	cd_mentiel(char **cmd, t_tool **tool)
 {
 	if (cmd[1] && cmd[2])
 	{
@@ -93,8 +93,8 @@ int	cd_mentiel(char **cmd, t_tools **tools)
 		return (1);
 	}
 	if (!cmd[1])
-		return (cd_home(tools));
-	else if (check_cdpath(cmd[1], tools) == 0)
+		return (cd_home(tool));
+	else if (check_cdpath(cmd[1], tool) == 0)
 		return (0);
 	return (simple_cd(cmd[1], tools));
 }
