@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:40:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:43:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	unlink_heredocs(lexed);
 	free_command(lexed);
 	free(line);
-	return (tools->rt_val);
+	return (tool->rt_val);
 }
 
 int	main(int ac, char **av, char **envp)

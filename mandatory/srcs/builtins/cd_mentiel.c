@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/07 11:40:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:50:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	cd_home(t_tool **tool)
 	return (0);
 }
 
-int	simple_cd(char *dest, t_tools **tools)
+int	simple_cd(char *dest, t_tool **tool)
 {
 	if (access(dest, R_OK | X_OK) != 0)
 	{
@@ -48,14 +48,14 @@ int	simple_cd(char *dest, t_tools **tools)
 		perror(dest);
 		return (1);
 	}
-	change_oldpwd(&((*tools)->env));
+	change_oldpwd(&((*tool)->env));
 	if (chdir(dest))
 	{
 		write(2, "cd: ", 4);
 		perror(dest);
 		return (1);
 	}
-	change_pwd(dest, tools);
+	change_pwd(dest, tool);
 	return (0);
 }
 
@@ -76,7 +76,7 @@ int	check_cdpath(char *dest, t_tool **tool)
 				(char *[]){cdpath->value[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
 		{
-			ret = simple_cd(concat_path, tools);
+			ret = simple_cd(concat_path, tool);
 			free(concat_path);
 			return (ret);
 		}
@@ -96,5 +96,5 @@ int	cd_mentiel(char **cmd, t_tool **tool)
 		return (cd_home(tool));
 	else if (check_cdpath(cmd[1], tool) == 0)
 		return (0);
-	return (simple_cd(cmd[1], tools));
+	return (simple_cd(cmd[1], tool));
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:40:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:50:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 	empty_tool->env = env;
 	ret = 1;
 	if (cmd_sent)
-		ret = cmd_processing(cmd_sent, empty_tools, false);
+		ret = cmd_processing(cmd_sent, empty_tool, false);
 	printf("\n");
 	free(empty_tool);
 	if (se[2])

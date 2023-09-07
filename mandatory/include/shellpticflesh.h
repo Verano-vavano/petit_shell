@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:39:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:42:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_tool
 	t_hist	*hist;
 	long	rt_val;
 	char	*cwd;
-}				t_tools;
+}				t_tool;
 
 typedef struct s_ret_cmd
 {
