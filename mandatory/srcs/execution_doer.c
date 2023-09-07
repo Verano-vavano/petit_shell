@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 16:31:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:04:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,19 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 
 void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
 {
+	int	n;
+
+	n = 0;
 	if (hist && n_cmd == 1 && ft_strcmp(cmd->content, "exit") == 0)
 	{
+		while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != DELIM)
+		{
+			if (cmd->purpose == COMMAND)
+				n++;
+			if (n > 2)
+				return ;
+			cmd = cmd->next;
+		}
 		write_hist(hist, env);
 		free_history(hist);
 	}

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 15:44:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 11:00:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ typedef struct s_tools
 	t_env	*env;
 	char	**c_env;
 	t_hist	*hist;
-	char	*cwd;
 	long	rt_val;
+	char	*cwd;
 }				t_tools;
 
 typedef struct s_ret_cmd
@@ -318,7 +318,7 @@ void		heredoc_handle(int sig);
 
 /*---------------BUILTINS------------------*/
 int			metal_injection(void);
-void		exit_hell(char **cmd, long ret);
+int			exit_hell(char **cmd, long ret);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, ...);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);

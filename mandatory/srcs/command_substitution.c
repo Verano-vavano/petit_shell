@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 12:57:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:03:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 	ret = 1;
 	if (cmd_sent)
 		ret = cmd_processing(cmd_sent, empty_tools, false);
-	free(cmd_sent);
 	printf("\n");
 	free(empty_tools);
 	if (se[2])
@@ -102,7 +101,7 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 	while (cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
-		if (cmd->content[start] == '(' && quoted != '\'')
+		if (cmd->content[start] == '(' && (quoted == 0 || (quoted != '\'' && start != 0 && cmd->content[start - 1] == '$')))
 		{
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;

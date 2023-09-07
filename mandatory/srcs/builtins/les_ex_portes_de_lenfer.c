@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/05 16:08:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:23:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,29 @@ void	sort_env(t_env *head)
 	}
 }
 
+static bool	check_assign(char *s)
+{
+	int	i;
+
+	if (is_valid_var_char(s[0]) && is_num(s[0]))
+		return (false);
+	else if (s[0] == '=')
+		return (false);
+	i = 0;
+	while (s[i] && s[i] != '=')
+	{
+		if (!is_valid_var_char(s[i]))
+			return (s[i] == '+' && s[i + 1] == '=');
+		i++;
+	}
+	return (true);
+}
+
 int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 {
 	t_env	*ptr;
 	t_env	*sorted_env;
+	int		ret;
 
 	if (!cmd[1] && (!env || !(*env)))
 		return (0);
@@ -117,13 +136,24 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 		return (0);
 	}
 	cmd++;
+	ret = 0;
 	while (*cmd)
 	{
-		if (!env || !(*env))
-			*env = env_new(*cmd, true);
+		if (check_assign(*cmd))
+		{
+			if (!env || !(*env))
+				*env = env_new(*cmd, true);
+			else
+				env_update(*cmd, true, *env, NULL);
+		}
 		else
-			env_update(*cmd, true, *env, NULL);
+		{
+			write(2, "export : `", 10);
+			write(2, *cmd, ft_strlen(*cmd));
+			write(2, "': not a valid identifier\n", 26);
+			ret = 1;
+		}
 		cmd++;
 	}
-	return (0);
+	return (ret);
 }

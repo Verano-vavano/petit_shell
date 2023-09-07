@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 15:07:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:07:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	parameter_seeker(t_command *cmd, t_tools *tools)
 		quoted = is_quoted(cmd->content, i, quoted);
 		if (cmd->content[i] == '$'
 			&& cmd->content[i + 1] && !is_separator(cmd->content[i + 1])
+			&& cmd->content[i + 1] != '\'' && cmd->content[i + 1] != '"'
 			&& quoted != '\'' && cmd->content[i + 1] != '(')
 		{
 			parameter_expand_it(cmd, i, tools, quoted);
