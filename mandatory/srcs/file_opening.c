@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:15:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 15:54:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:29:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int	open_write_file(t_command *cmd, t_redir_pipe *redir)
 		redir->fd_write = open(s, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (cmd->purpose == OUT_FILE_APP)
 		redir->fd_write = open(s, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	return (redir->fd_write == -1);
+	if (redir->fd_write == -1)
+	{
+		perror(s);
+		return (1);
+	}
+	return (0);
 }
 
 int	open_read_file(t_command *cmd, t_redir_pipe *redir, int hd)
