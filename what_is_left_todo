@@ -18,4 +18,8 @@ ERR VALGRIND :
 
 PATH=
 SHLEVEL
-cat <zghkep | cat
+
+syntax error : renvoie 2
+>* : ambiguous redirect
+> &
+> |

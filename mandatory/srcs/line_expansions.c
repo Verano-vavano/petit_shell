@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:53:23 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 09:52:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:56:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	expand_cmd(t_command *cmd, t_tool *tool)
 	ret = command_substitution(cmd, tool->env);
 	if (ret >= 0)
 		return (ret);
-	filename_expansion(cmd);
+	if (filename_expansion(cmd))
+		return (1);
 	return (-1);
 }

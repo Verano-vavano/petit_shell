@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 11:14:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:45:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_loop(char *line, int f, int i, int d)
 				|| (line[i] == '(' && check_parenthesis(line + i, f, d))
 				|| (line[i] == '{' && f && check_cbrackets(line + i))
 				|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
-			return (1);
+			return (2);
 		f = ((is_cmd_delim(line + i) || (f && is_separator(line[i]))) && !q);
 		d = (line[i] == '$' || (d && line[i] == '('));
 		i += ((line[i] == '|' && line[i + 1] == '|')
