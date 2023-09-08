@@ -6,11 +6,12 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 14:45:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/13 14:55:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 17:41:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	ten_pow(long n)
 {
@@ -31,7 +32,7 @@ static int	ten_pow(long n)
 	return (i);
 }
 
-static int	negate_it(char *str, long n)
+static long	negate_it(char *str, long n)
 {
 	str[0] = '-';
 	if (n == LONG_MIN)
@@ -56,7 +57,7 @@ char	*ft_ltoa(long n)
 	int		pow;
 
 	neg = 0;
-	if (n == -2147483648)
+	if (n == LONG_MIN)
 		neg++;
 	pow = ten_pow(n);
 	str = (char *)malloc(sizeof (char) * (pow + is_neg(n) + 1));
@@ -72,7 +73,7 @@ char	*ft_ltoa(long n)
 	while (pow > neg)
 	{
 		pow--;
-		str[pow] = '0' + n % 10;
+		str[pow] = '0' + (int) (n % 10);
 		n /= 10;
 	}
 	return (str);
