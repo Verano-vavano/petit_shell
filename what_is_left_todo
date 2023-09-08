@@ -18,8 +18,4 @@ ERR VALGRIND :
 
 PATH=
 SHLEVEL
-
-syntax error : renvoie 2
->* : ambiguous redirect
-> &
-> |
+<* ne fait un ambiguous ssi plusieurs files possibles ! pas ambiguous si 1 seul fichier ou aucun changement
