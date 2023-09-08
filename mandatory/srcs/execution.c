@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 10:05:24 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:00:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 	err_status = get_cmd(c_p, *cmd, r->heredoc_no);
 	if (err_status && n[0] != 1)
 	{
+		r->fd = dup(r->pipes[0]);
 		*cmd = go_to_next_cmd(*cmd);
 		return (err_status);
 	}
@@ -33,6 +34,7 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 		return (err_status * (-1));
 	else if (!c_p->cmd || !(*(c_p->cmd)))
 	{
+		r->fd = dup(r->pipes[0]);
 		close_pipes(r->pipes);
 		n[0]--;
 		n[1]--;
@@ -78,6 +80,8 @@ static long	ex_loop(t_command *cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 		}
 		else if (err_status > 0)
 		{
+			ret->fd = dup(ret->pipes[0]);
+			close_pipes(ret->pipes);
 			n_cmd[0]--;
 			continue ;
 		}
@@ -103,7 +107,7 @@ long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 	t_ret_cmd		ret_cmd;
 
 	ret_cmd.heredoc_no = heredoc_no;
-	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != COMMAND)
+	while (cmd && cmd->purpose != CMD_DELIM && (cmd->purpose != COMMAND || !cmd->content[0]))
 		cmd = cmd->next;
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];
