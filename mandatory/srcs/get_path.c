@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 10:48:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 10:57:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	cmd->cmd_name = ft_strdup(cmd->cmd[0]);
 	cmd->free_name = true;
 	is_rel = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
+	if (is_rel && is_dir(cmd->cmd[0]))
+		return (command_error(cmd->cmd[0], 125));
 	cmd->is_builtin = check_builtin(cmd->cmd_name, is_rel);
 	if (cmd->is_builtin)
 		return (0);

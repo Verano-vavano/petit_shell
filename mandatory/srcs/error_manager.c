@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/21 07:37:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 10:58:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,21 @@ int	command_error(char *cmd, int error)
 	char	*temp;
 	char	*temp2;
 
-	if (error != 126 && error != 127)
+	if (error < 125)
 		return (error);
 	temp = ft_strjoin(cmd, ": ");
 	if (!temp)
 		return (error);
-	if (error == 126)
+	if (error == 125)
+		temp2 = ft_strjoin(temp, "Is a directory\n");
+	else if (error == 126)
 		temp2 = ft_strjoin(temp, "Permission denied\n");
 	else if (error == 127)
 		temp2 = ft_strjoin(temp, "command not found...\n");
 	free(temp);
 	if (!temp2)
-		return (error);
+		return (error * (error > 125) + 126 * (error <= 125));
 	write(2, temp2, ft_strlen(temp2));
 	free(temp2);
-	return (error);
+	return (error * (error > 125) + 126 * (error <= 125));
 }
