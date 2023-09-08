@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 15:49:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 10:05:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 
 	c_p->redir = 0;
 	err_status = get_cmd(c_p, *cmd, r->heredoc_no);
-	if (err_status && n[0] == 1)
-		return (-1);
+	if (err_status && n[0] != 1)
+	{
+		*cmd = go_to_next_cmd(*cmd);
+		return (err_status);
+	}
+	else if (err_status && n[0] == 1)
+		return (err_status * (-1));
 	else if (!c_p->cmd || !(*(c_p->cmd)))
 	{
 		close_pipes(r->pipes);
@@ -66,10 +71,16 @@ static long	ex_loop(t_command *cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 			continue ;
 		cmd_processing.sub_cmd = !(tool->hist);
 		err_status = c_get(&cmd_processing, &cmd, ret, n_cmd);
-		if (err_status == -1)
+		if (err_status < 0)
+		{
+			err_status *= (-1);
 			break ;
-		else if (err_status == 1)
+		}
+		else if (err_status > 0)
+		{
+			n_cmd[0]--;
 			continue ;
+		}
 		err_status = get_cmd_path(&cmd_processing, tool->env);
 		if (err_status > 0 && n_cmd[0] == 1)
 		{

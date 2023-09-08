@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 13:14:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 09:50:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 	int				i1;
 	int				i2;
 	int				redir_from_fd;
+	int				err;
 	t_redir_pipe	*redir;
 
 	i1 = ft_strchr_int(cmd->content, '<');
@@ -75,7 +76,9 @@ int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 		i1 = i2;
 	redir_from_fd = get_redir_from(cmd->next->purpose, cmd->content, i1);
 	redir = get_redir_struct(cmd_p->redir, redir_from_fd);
-	open_redir_files(cmd->next, redir, hd);
+	err = open_redir_files(cmd->next, redir, hd);
+	if (err)
+		return (err * (-1));
 	if (cmd_p->redir == 0)
 		cmd_p->redir = redir;
 	return (hd + (cmd->next->purpose == HERE_DOC_DELIM
@@ -117,6 +120,8 @@ int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no)
 		}
 		else if (cmd->purpose == REDIR_ID)
 			here_docs = handle_files(cmd_processing, cmd, here_docs);
+		if (here_docs < 0)
+			return (here_docs * (-1));
 		cmd = cmd->next;
 	}
 	*hd_no = here_docs;
