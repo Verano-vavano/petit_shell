@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:42:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:56:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ long		command_substitution(t_command *cmd, t_env *env);
 char		*get_output(int *pipes);
 
 // filename expansion
-void		filename_expansion(t_command *cmd);
+int			filename_expansion(t_command *cmd);
 // subverif
 void		get_all_valid_files(t_command *cmd, int index, t_lf *lf);
 t_lf		*check_subfiles(t_command *cmd, int index, t_lf *lf, t_lf *nlf);

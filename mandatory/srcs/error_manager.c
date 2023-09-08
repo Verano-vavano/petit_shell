@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 17:00:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 16:05:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:45:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	syntax_error(char *token, int l)
 		l = 1;
 	write(2, token, l);
 	write(2, "'\n", 2);
-	return (1);
+	return (2);
 }
 
 int	ambiguous_error(char *cmd)

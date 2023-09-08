@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:43:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:47:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	long		rt_val;
 
 	lexed = spliter_init(line, add_line, tool->hist, tool->env);
+	if (!lexed)
+		return (2);
 	rt_val = line_beauty(lexed, tool->env);
 	if (rt_val)
 		return (rt_val);

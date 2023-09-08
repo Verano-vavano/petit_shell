@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 16:12:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 17:02:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,19 @@ static void	perform_file_exp(t_command *cmd)
 	free_lf(lf);
 }
 
-void	filename_expansion(t_command *cmd)
+int	filename_expansion(t_command *cmd)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		if (cmd->purpose == COMMAND
-			&& (ft_strchr(cmd->content, '*') || ft_strchr(cmd->content, '?')))
-			perform_file_exp(cmd);
+		if (cmd->content[usearch(cmd->content, '*')]
+			|| cmd->content[usearch(cmd->content, '?')])
+		{
+			if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING && cmd->purpose != HERE_DOC_DELIM)
+				return (ambiguous_error(cmd->content));
+			else if (cmd->purpose != HERE_DOC_DELIM)
+				perform_file_exp(cmd);
+		}
 		cmd = cmd->next;
 	}
+	return (0);
 }
