@@ -4,14 +4,9 @@ fermer correctement les heredoc qd pb +++++
 
 SHLEVEL et autres trucs de merde (revoir la doc)
 
-Gérer le $? (stocker dans env dans local)
-
-SPECIAL PARAMETERS
-
 retirer le valgrind core du registre des commits parce que je suis con
 
 (echo lol && cat gigipokp) >a 2>b
-echo lol <<<<
 
 ERR VALGRIND :
 - Dots braces exp
@@ -22,3 +17,4 @@ ERR VALGRIND :
 - re char etoile etoilise env
 
 PATH=
+SHLEVEL

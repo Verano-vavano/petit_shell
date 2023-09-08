@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:04:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 09:22:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
-	printf("coucou = %s",cmd->cmd_name);
 	if (cmd->is_builtin)
 		exit(exec_bltin(cmd, t, false, c_env));
 	else

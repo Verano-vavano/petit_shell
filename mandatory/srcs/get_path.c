@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 16:02:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 10:48:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,34 @@ static int	rel_search(t_process_cmd *cmd, char **path)
 		path++;
 	}
 	free(path_cmd);
-	return (-1);
+	return (127);
+}
+
+static int	check_rel(t_process_cmd *cmd)
+{
+	char	*now;
+	int		last;
+
+	last = 0;
+	while (cmd->cmd_name[last])
+	{
+		last += ft_strchr_int(cmd->cmd_name + last, '/');
+		now = ft_strndup(cmd->cmd_name, last + 1);
+		printf("%s\n", now);
+		if (!is_dir(now) && access(now, F_OK) != 0)
+		{
+			free(now);
+			return (command_error(cmd->cmd[0], 127));
+		}
+		if (access(now, X_OK) != 0)
+		{
+			free(now);
+			return (command_error(cmd->cmd[0], 126));
+		}
+		free(now);
+		last++;
+	}
+	return (0);
 }
 
 // -1 = 0 = pas d'erreur
@@ -52,18 +79,16 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	cmd->is_builtin = check_builtin(cmd->cmd_name, is_rel);
 	if (cmd->is_builtin)
 		return (0);
-	if (is_rel && access(cmd->cmd_name, F_OK) == 0)
-		return (0);
-	path = env_getval("PATH", env);
 	if (!env_isdefined("PATH", env))
 		cmd->cmd_name = add_start(cmd->cmd_name);
+	path = env_getval("PATH", env);
 	err_catcher = check_org_path(cmd->cmd_name);
 	if (err_catcher)
 		return (command_error(cmd->cmd[0], err_catcher));
 	else if (!env_isdefined("PATH", env) || is_rel)
-		return (command_error(cmd->cmd[0], 127));
+		return (check_rel(cmd));
 	err_catcher = rel_search(cmd, path);
-	if (err_catcher != -1)
-		return (err_catcher);
-	return (command_error(cmd->cmd[0], 127));
+	if (err_catcher != 0)
+		return (command_error(cmd->cmd[0], err_catcher));
+	return (0);
 }
