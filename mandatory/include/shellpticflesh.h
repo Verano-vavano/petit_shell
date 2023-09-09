@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 18:27:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/09 19:14:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,7 @@ int			tetris(char **args);
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var, bool is_exported);
 t_env		*env_init(char **envp);
+void		increment_shlvl(t_env **env);
 /*----------------ENV_UTILS----------------*/
 void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);
