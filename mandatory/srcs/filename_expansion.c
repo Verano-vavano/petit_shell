@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 17:02:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/09 18:45:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,25 @@ static t_lf	*fe_mainloop(t_command *cmd, int index, t_lf *lf, bool not_end)
 	return (lf);
 }
 
-static void	perform_file_exp(t_command *cmd)
+static bool	perform_file_exp(t_command *cmd, int purpose)
 {
 	t_lf	*lf;
 
 	lf = ft_calloc(1, sizeof (t_lf));
 	if (!lf)
-		return ;
+		return (false);
 	lf = fe_mainloop(cmd, 0, lf, true);
 	if (!lf)
-		return ;
+		return (false);
 	sort_lf(lf);
-	add_lf_cmd(cmd, lf);
+	if (purpose != COMMAND && lf->next && lf->next->content)
+	{
+		free_lf(lf);
+		return (true);
+	}
+	add_lf_cmd(cmd, lf, purpose);
 	free_lf(lf);
+	return (false);
 }
 
 int	filename_expansion(t_command *cmd)
@@ -113,9 +119,12 @@ int	filename_expansion(t_command *cmd)
 			|| cmd->content[usearch(cmd->content, '?')])
 		{
 			if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING && cmd->purpose != HERE_DOC_DELIM)
-				return (ambiguous_error(cmd->content));
-			else if (cmd->purpose != HERE_DOC_DELIM)
-				perform_file_exp(cmd);
+			{
+				if (perform_file_exp(cmd, cmd->purpose))
+					return (ambiguous_error(cmd->content));
+			}
+			else if (cmd->purpose == COMMAND)
+				perform_file_exp(cmd, cmd->purpose);
 		}
 		cmd = cmd->next;
 	}
