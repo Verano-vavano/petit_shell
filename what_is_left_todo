@@ -17,5 +17,3 @@ ERR VALGRIND :
 - re char etoile etoilise env
 
 PATH=
-SHLEVEL
-< et > sans commande doivent quand même ouvrir les fichiers
