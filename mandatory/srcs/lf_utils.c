@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:00:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/01 16:09:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 18:28:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sort_lf(t_lf *lf)
 	}
 }
 
-void	add_lf_cmd(t_command *cmd, t_lf *lf)
+void	add_lf_cmd(t_command *cmd, t_lf *lf, int purpose)
 {
 	t_command	*new;
 	bool		start;
@@ -57,7 +57,7 @@ void	add_lf_cmd(t_command *cmd, t_lf *lf)
 				return ;
 			new->next = cmd->next;
 			cmd->next = new;
-			new->purpose = COMMAND;
+			new->purpose = purpose;
 			cmd = cmd->next;
 		}
 		cmd->content = ft_strdup(lf->content);

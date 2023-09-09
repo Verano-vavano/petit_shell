@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 16:56:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/08 18:27:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ t_lf		*check_subfiles(t_command *cmd, int index, t_lf *lf, t_lf *nlf);
 bool		is_valid_fe(char *file, char *matcher);
 // lf
 void		sort_lf(t_lf *lf);
-void		add_lf_cmd(t_command *cmd, t_lf *lf);
+void		add_lf_cmd(t_command *cmd, t_lf *lf, int purpose);
 void		free_lf(t_lf *lf);
 void		add_to_lf(char *file, t_lf *lf);
 t_lf		*remove_flf(t_lf *act, t_lf *lf);

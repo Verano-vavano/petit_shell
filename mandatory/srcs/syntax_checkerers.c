@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:55:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 17:09:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/09 18:47:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	check_metachar(char *line)
 	else if (is_strict_meta(line[i]) && is_strict_meta(line[i + 1])
 		&& line[i] != line[i + 1])
 		return (syntax_error(line + i + 1, 1));
+	while (is_strict_meta(line[i]))
+		i++;
+	while (is_separator(line[i]))
+		i++;
+	if (is_strict_meta(line[i]))
+		return (syntax_error(line + i, -1));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 16:00:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/09 18:43:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static long	ex_loop(t_command *cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 	long			err_status;
 	t_process_cmd	cmd_processing;
 
-	while (n_cmd[0])
+	while (cmd && n_cmd[0])
 	{
 		if (pipe(ret->pipes) < 0)
 			continue ;
@@ -85,6 +85,8 @@ static long	ex_loop(t_command *cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 			n_cmd[0]--;
 			continue ;
 		}
+		else if (!cmd_processing.cmd || !cmd_processing.cmd[0])
+			return (0);
 		err_status = get_cmd_path(&cmd_processing, tool->env);
 		if (err_status > 0 && n_cmd[0] == 1)
 		{
@@ -107,7 +109,7 @@ long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 	t_ret_cmd		ret_cmd;
 
 	ret_cmd.heredoc_no = heredoc_no;
-	while (cmd && cmd->purpose != CMD_DELIM && (cmd->purpose != COMMAND || !cmd->content[0]))
+	while (cmd && cmd->purpose != CMD_DELIM && (cmd->purpose == VAR_ASSIGN || !cmd->content[0]))
 		cmd = cmd->next;
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];
