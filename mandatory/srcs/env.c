@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/10 15:36:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 18:00:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ static char	**one_split(char *str, char c)
 	ret = ft_calloc(2 + (str[index_c] != 0), sizeof (char *));
 	if (!ret)
 		return (0);
+	ret[0] = ft_strndup(str, index_c);
+	if (!ret[0])
+	{
+		free(ret);
+		return (0);
+	}
 	if (str[index_c] != 0)
 		ret[1] = ft_strdup(str + index_c + 1);
-	ret[0] = ft_strndup(str, index_c);
 	return (ret);
 }
 
@@ -74,6 +79,11 @@ t_env	*env_new(char *env_var, bool is_exported)
 	if (!new)
 		return (NULL);
 	tmp = one_split(env_var, '=');
+	if (!tmp)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->key = ft_strdup(tmp[0]);
 	if (new->key[ft_strlen(new->key) - 1] == '+')
 		new->key[ft_strlen(new->key) - 1] = 0;

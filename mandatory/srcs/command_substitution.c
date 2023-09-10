@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 11:50:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 17:43:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 
 	empty_tool = ft_calloc(1, sizeof (t_tool));
 	if (!empty_tool)
+	{
+		if (se[2])
+			dup2(se[3], STDOUT_FILENO);
+		if (cmd_sent)
+			free(cmd_sent);
 		return (1);
+	}
 	empty_tool->env = env;
 	ret = 1;
 	if (cmd_sent)
@@ -106,6 +112,8 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;
 			ret = perform_exec(cmd, env, start, repl);
+			if (ret)
+				break ;
 		}
 		start++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/10 13:44:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:55:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 		env_change_val_rfunk(ptr, value, add);
 	else if (!add)
 	{
-		free_char_etoile_etoile(ptr->value);
+		if (ptr->value)
+			free_char_etoile_etoile(ptr->value);
 		ptr->value = ft_calloc(2, sizeof (char *));
 		ptr->value[0] = ft_calloc(1, sizeof (char));
 	}
@@ -132,6 +133,8 @@ void	env_update(char *char_arr, bool is_exported, t_env *env, ...)
 		env_change_val(key, char_arr, env, is_exported);
 	else
 	{
+		if (!ft_strchr(char_arr, '='))
+			return ;
 		tmp = ft_split(char_arr, '=');
 		if (env_contain(tmp[0], env))
 			env_change_val(tmp[0], tmp[1], env, is_exported);

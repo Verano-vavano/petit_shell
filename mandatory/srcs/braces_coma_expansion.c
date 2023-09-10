@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:46:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 09:28:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 16:25:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*get_braces_ext(int *se, int *nodes, char *org)
 	return (temp);
 }
 
-static void	add_to_chain(t_command *cmd, int *se, int *nodes, char *org)
+static bool	add_to_chain(t_command *cmd, int *se, int *nodes, char *org)
 {
 	char		*temp;
 	t_command	*new_cmd;
@@ -75,6 +75,8 @@ static void	add_to_chain(t_command *cmd, int *se, int *nodes, char *org)
 			repl_index--;
 		}
 		new_cmd = ft_calloc(1, sizeof (t_command));
+		if (!new_cmd)
+			return (false);
 		new_cmd->purpose = COMMAND;
 		if (cmd->next)
 			new_cmd->next = cmd->next;
@@ -86,7 +88,9 @@ static void	add_to_chain(t_command *cmd, int *se, int *nodes, char *org)
 	{
 		free(cmd->content);
 		cmd->content = temp;
+		return (true);
 	}
+	return (false);
 }
 
 int	coma_brace_expansion(t_command *cmd, int *start_end)
@@ -107,12 +111,19 @@ int	coma_brace_expansion(t_command *cmd, int *start_end)
 		nodes[0] += find_end(org + nodes[0] + !start) + !start;
 		if (org[nodes[0]] == '}')
 			break ;
-		add_to_chain(cmd, start_end, nodes, org);
+		if (!add_to_chain(cmd, start_end, nodes, org))
+		{
+			free(org);
+			return (-1);
+		}
 		nodes[2]++;
 		nodes[1] = nodes[0];
 		start = false;
 	}
-	add_to_chain(cmd, start_end, nodes, org);
-	free(org);
+	if (!add_to_chain(cmd, start_end, nodes, org))
+	{
+		free(org);
+		return (-1);
+	}
 	return (0);
 }

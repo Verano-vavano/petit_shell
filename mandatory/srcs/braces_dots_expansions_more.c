@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:48:22 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 14:26:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 17:27:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,17 @@ static int	add_it_all(t_command *cmd, long *l_p, int *se, bool charer)
 	way = (l_p[0] <= l_p[1]);
 	strs = get_delims(cmd, se);
 	if (!strs)
-		return (0);
+		return (-1);
 	moved = false;
 	while ((way && l_p[0] <= l_p[1]) || (!way && l_p[0] >= l_p[1]))
 	{
 		to_put = get_content(l_p[0], strs, charer);
 		cmd = change_val(cmd, moved, to_put);
 		if (!to_put)
-			break ;
+		{
+			free_char_etoile_etoile(strs);
+			return (-1);
+		}
 		moved = true;
 		l_p[0] += ((way * l_p[2]) + (!way * l_p[2] * (-1)));
 	}
