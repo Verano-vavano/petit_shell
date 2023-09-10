@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 16:06:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 13:57:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	rel_search(t_process_cmd *cmd, char **path)
 {
 	char	*path_cmd;
 	char	*full_path;
+	bool	path_ok;
 
+	path_ok = (path && *path && *(path[0]));
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
 	if (path_cmd == 0)
 		return (1);
@@ -32,6 +34,8 @@ static int	rel_search(t_process_cmd *cmd, char **path)
 		path++;
 	}
 	free(path_cmd);
+	if (!path_ok)
+		return (128);
 	return (127);
 }
 
