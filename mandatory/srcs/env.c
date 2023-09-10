@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/09 19:13:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:36:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ t_env	*env_new(char *env_var, bool is_exported)
 
 t_env	*env_init(char **envp)
 {
+	char	cwd[1024];
+	char	*temp_pwd;
 	t_env	*env;
 	int		i;
 
@@ -100,6 +102,19 @@ t_env	*env_init(char **envp)
 		env_add(env_new(envp[i++], true), &env);
 	if (!env_contain("PATH", env))
 		env_add(env_new(STD_PATH, true), &env);
+	if (!env_contain("PS1", env))
+		env_add(env_new(STD_PS1, false), &env);
+	if (!env_contain("PS2", env))
+		env_add(env_new(STD_PS2, false), &env);
+	if (!env_contain("PWD", env) && getcwd(cwd, 1024))
+	{
+		temp_pwd = ft_strjoin("PWD=", cwd);
+		if (temp_pwd)
+		{
+			env_add(env_new(temp_pwd, false), &env);
+			free(temp_pwd);
+		}
+	}
 	increment_shlvl(&env);
 	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 19:24:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:03:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*new_prompt(int n_ps, t_env *env)
 	if (temp && *temp)
 		line = readline(temp[0]);
 	else if (n_ps == 1)
-		line = readline("Shell >> ");
+		line = readline("");
 	else if (n_ps == 2)
-		line = readline("-> ");
+		line = readline("");
 	else
 		line = 0;
 	return (line);

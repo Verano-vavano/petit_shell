@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:48:22 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 09:33:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 14:26:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	**get_delims(t_command *cmd, int *se)
 {
 	char	**strs;
 
-	strs = ft_calloc(2, sizeof (char *));
+	strs = ft_calloc(3, sizeof (char *));
 	if (!strs)
 		return (0);
 	strs[0] = ft_strndup(cmd->content, ft_strchr_int(cmd->content, '{'));

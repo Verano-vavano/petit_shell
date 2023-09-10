@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/09 19:14:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:02:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 # define READ 0
 # define WRITE 1
 
-# define PS1 "lol >> "
-# define PS2 "> "
 # define PROG_NAME "Minishell"
 # define SHELL_NAME "Shellpticflesh"
 
+# define STD_PS1 "PS1=Shell >> "
+# define STD_PS2 "PS2=-> "
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
 # define CLEAR_LINE "\033[K"
