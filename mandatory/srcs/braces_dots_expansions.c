@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 09:37:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 14:25:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	**set_param(void)
 	char	**param;
 	int		i;
 
-	param = ft_calloc(3, sizeof (char *));
+	param = ft_calloc(4, sizeof (char *));
 	if (!param)
 		return (0);
 	i = 0;

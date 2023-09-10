@@ -9,11 +9,16 @@ retirer le valgrind core du registre des commits parce que je suis con
 (echo lol && cat gigipokp) >a 2>b
 
 ERR VALGRIND :
-- Dots braces exp
-- Command not found
-- Unset
 - echo {#param}
-- wordsplit
-- re char etoile etoilise env
 
-PATH=
+MALLOCS TO CHECK :
+Malloc : 0/6
+Calloc : 0/38
+Itoa : 0/7
+Split : 0/4
+Strdup : 0/29
+Strndup : 0/16
+Strjoin : 0/35
+Concat_multiple : 0/1
+Char_array_unite : 0/2
+Ltoa : 0/4
