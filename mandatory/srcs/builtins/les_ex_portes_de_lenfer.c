@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/07 10:23:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 16:14:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	**dup_paths(char **paths)
 	i = 0;
 	while (paths[i])
 		i++;
-	cpy = malloc(sizeof(char *) * i + 1);
+	cpy = malloc(sizeof(char *) * i + 1); // safe
+	if (!cpy)
+		return (0);
 	i = -1;
 	while (paths[++i])
 		cpy[i] = ft_strdup(paths[i]);
@@ -40,12 +42,15 @@ t_env	*dup_env(t_env *env)
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(env->key);
-	if (ft_strcmp(new->key, "CDPATH") == 0)
-		printf("salut mdr\n");
 	if (env->value != NULL)
 	{
 		arr_size = get_char_array_size(env->value);
 		new->value = malloc(sizeof(char *) * (arr_size + 1));
+		if (!new->value)
+		{
+			free(new);
+			return (0);
+		}
 		i = -1;
 		while (env->value[++i])
 			new->value[i] = ft_strdup(env->value[i]);
@@ -81,7 +86,7 @@ void	sort_env(t_env *head)
 	{
 		swapped = 0;
 		ptr = head;
-		while (ptr->next)
+		while (ptr && ptr->next)
 		{
 			if (ft_strcmp(ptr->key, ptr->next->key) > 0)
 			{

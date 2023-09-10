@@ -11,14 +11,69 @@ retirer le valgrind core du registre des commits parce que je suis con
 ERR VALGRIND :
 - echo {#param}
 
+echo {5..1..-1}
+
 MALLOCS TO CHECK :
-Malloc : 0/6
-Calloc : 0/38
-Itoa : 0/7
-Split : 0/4
-Strdup : 0/29
-Strndup : 0/16
-Strjoin : 0/35
-Concat_multiple : 0/1
-Char_array_unite : 0/2
-Ltoa : 0/4
+V braces_coma_expansion.c
+V braces_dots_expansions.c
+V braces_dots_expansions_more.c
+V braces_expansion.c
+V builtin_execution.c
+V char_utils.c
+V check_path.c
+V cleaning.c
+V command_substitution.c
+env.c
+env_init_utils.c
+env_utils.c
+env_utils2.c
+env_utils3.c
+error_manager.c
+execution.c
+execution_doer.c
+execution_utils.c
+fe_subverif.c
+fe_utils.c
+file_check.c
+file_opening.c
+filename_expansion.c
+files.c
+get_cmd.c
+get_output.c
+get_path.c
+get_tilde.c
+heredoc.c
+history.c
+history_utils.c
+lf_utils.c
+line_comprehension.c
+line_expansions.c
+more_char_utils.c
+param_exp_utils.c
+parameter_expansion.c
+parse_args.c
+parse_args_utils.c
+prompt.c
+purposer.c
+quote_removal.c
+redirections.c
+shellpticflesh.c
+signals.c
+spliter.c
+syntax_checker.c
+syntax_checkerers.c
+tilde_expansion.c
+to_delete_utils.c
+utils.c
+warnings.c
+word_split.c
+word_split_utils.c
+cd_mentiel.c
+cd_mentiellement_util.c
+echo_des_enfers.c
+env_infernal.c
+exit_hell.c
+les_ex_portes_de_lenfer.c
+metal_injection.c
+print_working_damnation.c
+unset_et_damnation.c

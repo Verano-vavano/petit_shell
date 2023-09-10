@@ -6,26 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/06 10:09:35 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 16:09:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-void	env_create_add(char *key, char *value, t_env *env)
-{
-	t_env	*created;
-
-	created = malloc(sizeof(t_env *));
-	if (!created)
-		return (env_add(created, &env));
-	created->key = key;
-	created->value = malloc(sizeof(char *) * 2);
-	created->value[0] = value;
-	created->value[1] = NULL;
-	created->next = NULL;
-	env_add(created, &env);
-}
 
 static int	env_size(t_env *env)
 {

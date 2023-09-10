@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 14:25:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/10 16:27:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ static char	**set_param(void)
 		param[i] = ft_calloc(100, sizeof(char));
 		if (!param[i])
 		{
-			while (--i)
-				free(param[i]);
-			free(param);
+			free_char_etoile_etoile(param);
 			return (0);
 		}
 		i++;
