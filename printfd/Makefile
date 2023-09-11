@@ -1,5 +1,5 @@
-NAME = printfd.a
-SRCS = ints.c printfd.c printfd.h strings.c
+NAME = ./libprintfd.a
+SRCS = ints.c printfd.c strings.c
 DEST = $(SRCS:.c=.o)
 all: ${NAME}
 

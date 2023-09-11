@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/09 19:14:30 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/11 12:57:31 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,9 @@ LIBFT=$(addsuffix libft.a, ${LIBFT_PATH})
 TETRIS_PATH=../tetris/
 TETRIS=$(addsuffix libtetris.a, ${TETRIS_PATH})
 
+PRINTFD_PATH=../printfd/
+PRINTFD=$(addsuffix libprintfd.a, ${PRINTFD_PATH})
+
 RM=rm -f
 
 GCC=gcc
@@ -61,7 +64,8 @@ ${NAME}:${DEST}
 	@echo "Doing god's work"
 	@make -C ${LIBFT_PATH}
 	@make -C ${TETRIS_PATH}
-	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris ${LINKERS} ${LIBFT} ${TETRIS}
+	@make -C ${PRINTFD_PATH}
+	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
 
 clean:
 	@${RM} ${DEST}
