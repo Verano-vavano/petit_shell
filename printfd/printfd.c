@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 11:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 13:27:15 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:05:52 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	handle_format(int fd, const char *fmt_str, va_list args)
 {
-	fmt_str++;
 	if (*fmt_str == 'd' || *fmt_str == 'i')
 		return (ft_putnbr_fd(fd, va_arg(args, int)));
 	if (*fmt_str == 'u')
@@ -41,7 +40,7 @@ int	printfd(int fd, const char *fmt_str, ...)
 	while (*fmt_str)
 	{
 		if (*fmt_str == '%')
-			ttl_wrtn += handle_format(fd, fmt_str, args);
+			ttl_wrtn += handle_format(fd, ++fmt_str, args);
 		else
 			ttl_wrtn += ft_putchar_fd(fd, *fmt_str);
 		fmt_str++;
