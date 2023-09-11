@@ -6,15 +6,15 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 11:59:27 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 12:39:59 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:28:17 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printfd.h"
 
-int ft_putulnbr_fd(int fd, unsigned long nbr)
+int	ft_putulnbr_fd(int fd, unsigned long nbr)
 {
-	int ttl_wrtn;
+	int	ttl_wrtn;
 
 	ttl_wrtn = 1;
 	if (nbr > 9)
@@ -23,9 +23,9 @@ int ft_putulnbr_fd(int fd, unsigned long nbr)
 	return (ttl_wrtn);
 }
 
-int ft_putunbr_fd(int fd, unsigned int nbr)
+int	ft_putunbr_fd(int fd, unsigned int nbr)
 {
-	int ttl_wrtn;
+	int	ttl_wrtn;
 
 	ttl_wrtn = 1;
 	if (nbr > 9)
@@ -34,14 +34,13 @@ int ft_putunbr_fd(int fd, unsigned int nbr)
 	return (ttl_wrtn);
 }
 
-
-int ft_putnbr_fd(int fd, int nbr)
+int	ft_putnbr_fd(int fd, int nbr)
 {
-	int ttl_wrtn;
+	int	ttl_wrtn;
 
 	ttl_wrtn = 1;
 	if (nbr == INT_MIN)
-		return(ft_putstr_fd(fd, "-2147483648"));
+		return (ft_putstr_fd(fd, "-2147483648"));
 	if (nbr < 0)
 	{
 		ttl_wrtn += ft_putchar_fd(fd, '-');
