@@ -6,14 +6,14 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 11:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 12:41:38 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:18:23 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printfd.h"
 #include <stdarg.h>
 
-int handle_format(int fd, char *fmt_str, va_list args)
+int handle_format(int fd, const char *fmt_str, va_list args)
 {
 	fmt_str++;
 	if (*fmt_str == 'd' || *fmt_str == 'i')
@@ -31,7 +31,7 @@ int handle_format(int fd, char *fmt_str, va_list args)
 	return (0);
 }
 
-int	printfd(int fd, char *fmt_str, ...)
+int	printfd(int fd, const char *fmt_str, ...)
 {
 	int		ttl_wrtn;
 	va_list	args;
@@ -43,7 +43,7 @@ int	printfd(int fd, char *fmt_str, ...)
 		if (*fmt_str == '%')
 			ttl_wrtn += handle_format(fd, fmt_str, args);
 		else
-			ttl_wrtn += 1;
+			ttl_wrtn += ft_putchar_fd(fd, *fmt_str);
 		fmt_str++;
 	}
 	va_end(args);
