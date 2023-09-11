@@ -6,18 +6,18 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 11:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 13:18:23 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:27:15 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printfd.h"
 #include <stdarg.h>
 
-int handle_format(int fd, const char *fmt_str, va_list args)
+int	handle_format(int fd, const char *fmt_str, va_list args)
 {
 	fmt_str++;
 	if (*fmt_str == 'd' || *fmt_str == 'i')
-		return(ft_putnbr_fd(fd, va_arg(args, int)));
+		return (ft_putnbr_fd(fd, va_arg(args, int)));
 	if (*fmt_str == 'u')
 		return (ft_putunbr_fd(fd, va_arg(args, unsigned int)));
 	if (*fmt_str == 's')
@@ -38,7 +38,7 @@ int	printfd(int fd, const char *fmt_str, ...)
 
 	ttl_wrtn = 0;
 	va_start(args, fmt_str);
-	while(*fmt_str)
+	while (*fmt_str)
 	{
 		if (*fmt_str == '%')
 			ttl_wrtn += handle_format(fd, fmt_str, args);
