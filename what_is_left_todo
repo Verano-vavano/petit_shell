@@ -1,3 +1,8 @@
+refaire le env_init. surtout env_new
+export PATH="::::::lol"
+echo $PATH
+-> ::::::lol
+
 si motivation, faire les expansions de PS1 et PS2
 
 fermer correctement les heredoc qd pb +++++
