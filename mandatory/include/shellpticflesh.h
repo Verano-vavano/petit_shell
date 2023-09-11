@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 16:09:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 15:51:21 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SHELLPTICFLESH_H
 
 # include "libft.h"
+# include "../printfd/printfd.h"
 # include "sig.h"
 
 # include <unistd.h>

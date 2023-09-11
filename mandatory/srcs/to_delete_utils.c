@@ -13,13 +13,13 @@
 
 void	print_cmd(t_command *cmd)
 {
-	printf("--begin print cmd--\n");
+	printfd(STDOUT_FILENO, "--begin print cmd--\n");
 	while(cmd != NULL && cmd->content != NULL)
 	{
-		printf("%s\n",cmd->content);
+		printfd(STDOUT_FILENO, "%s\n",cmd->content);
 		cmd = cmd->next;
 	}
-	printf("--end print cmd--\n");
+	printfd(STDOUT_FILENO, "--end print cmd--\n");
 }
 
 void	print_char_arr(char **arr)
@@ -27,8 +27,8 @@ void	print_char_arr(char **arr)
 	int i;
 
 	i = 0;
-	printf("--begin print cmd--\n");
+	printfd(STDOUT_FILENO, "--begin print cmd--\n");
 	while(arr[i])
-		printf("%s\n",arr[i++]);
-	printf("--end print cmd--\n");
+		printfd(STDOUT_FILENO, "%s\n",arr[i++]);
+	printfd(STDOUT_FILENO, "--end print cmd--\n");
 }

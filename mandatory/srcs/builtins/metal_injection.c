@@ -19,37 +19,37 @@
 void	rescue_easter_funk3(int group_num)
 {
 	if (group_num == 31)
-		printf("Shell Panther\n");
+		printfd(STDOUT_FILENO, "Shell Panther\n");
 	else if (group_num == 32)
-		printf("In Shell\n");
+		printfd(STDOUT_FILENO, "In Shell\n");
 	else if (group_num == 33)
-		printf("Black Shellbath\n");
+		printfd(STDOUT_FILENO, "Black Shellbath\n");
 }
 
 void	rescue_easter_funk2(int group_num)
 {
 	if (group_num == 20)
-		printf("Napalm Shell\n");
+		printfd(STDOUT_FILENO, "Napalm Shell\n");
 	else if (group_num == 21)
-		printf("Shelloween\n");
+		printfd(STDOUT_FILENO, "Shelloween\n");
 	else if (group_num == 22)
-		printf("Shell et Ardor\n");
+		printfd(STDOUT_FILENO, "Shell et Ardor\n");
 	else if (group_num == 23)
-		printf("Shellgod Apocalypse\n");
+		printfd(STDOUT_FILENO, "Shellgod Apocalypse\n");
 	else if (group_num == 24)
-		printf("Shellpanther\n");
+		printfd(STDOUT_FILENO, "Shellpanther\n");
 	else if (group_num == 25)
-		printf("MoonShpell\n");
+		printfd(STDOUT_FILENO, "MoonShpell\n");
 	else if (group_num == 26)
-		printf("Hangman's shell\n");
+		printfd(STDOUT_FILENO, "Hangman's shell\n");
 	else if (group_num == 27)
-		printf("Five Finger shell Punch\n");
+		printfd(STDOUT_FILENO, "Five Finger shell Punch\n");
 	else if (group_num == 28)
-		printf("Meshulluga\n");
+		printfd(STDOUT_FILENO, "Meshulluga\n");
 	else if (group_num == 29)
-		printf("Shellstafir\n");
+		printfd(STDOUT_FILENO, "Shellstafir\n");
 	else if (group_num == 30)
-		printf("MotorShell\n");
+		printfd(STDOUT_FILENO, "MotorShell\n");
 	else
 		rescue_easter_funk3(group_num);
 }
@@ -57,27 +57,27 @@ void	rescue_easter_funk2(int group_num)
 void	rescue_easter_funk1(int group_num)
 {
 	if (group_num == 9)
-		printf("Shellcidal Tendencies\n");
+		printfd(STDOUT_FILENO, "Shellcidal Tendencies\n");
 	else if (group_num == 10)
-		printf("nine inch shell\n");
+		printfd(STDOUT_FILENO, "nine inch shell\n");
 	else if (group_num == 11)
-		printf("ready set fall\n");
+		printfd(STDOUT_FILENO, "ready set fall\n");
 	else if (group_num == 12)
-		printf("shell against the machine\n");
+		printfd(STDOUT_FILENO, "shell against the machine\n");
 	else if (group_num == 13)
-		printf("Shell Theater\n");
+		printfd(STDOUT_FILENO, "Shell Theater\n");
 	else if (group_num == 14)
-		printf("Rapshelldy of Fire\n");
+		printfd(STDOUT_FILENO, "Rapshelldy of Fire\n");
 	else if (group_num == 15)
-		printf("Goshellra\n");
+		printfd(STDOUT_FILENO, "Goshellra\n");
 	else if (group_num == 16)
-		printf("shelltiricon\n");
+		printfd(STDOUT_FILENO, "shelltiricon\n");
 	else if (group_num == 17)
-		printf("Shellptic Flesh\n");
+		printfd(STDOUT_FILENO, "Shellptic Flesh\n");
 	else if (group_num == 18)
-		printf("all shell perish\n");
+		printfd(STDOUT_FILENO, "all shell perish\n");
 	else if (group_num == 19)
-		printf("Shelltones\n");
+		printfd(STDOUT_FILENO, "Shelltones\n");
 	else
 		rescue_easter_funk2(group_num);
 }
@@ -88,23 +88,23 @@ int	metal_injection(void)
 
 	group_num = ft_randint(0, 34);
 	if (group_num == 0)
-		printf("Shelldren of Bodom\n");
+		printfd(STDOUT_FILENO, "Shelldren of Bodom\n");
 	else if (group_num == 1)
-		printf("Shellpultura\n");
+		printfd(STDOUT_FILENO, "Shellpultura\n");
 	else if (group_num == 2)
-		printf("Shelltic Frost\n");
+		printfd(STDOUT_FILENO, "Shelltic Frost\n");
 	else if (group_num == 3)
-		printf("Shlayer\n");
+		printfd(STDOUT_FILENO, "Shlayer\n");
 	else if (group_num == 4)
-		printf("Shellpknot\n");
+		printfd(STDOUT_FILENO, "Shellpknot\n");
 	else if (group_num == 5)
-		printf("Shellhammer\n");
+		printfd(STDOUT_FILENO, "Shellhammer\n");
 	else if (group_num == 6)
-		printf("Alice in Shells\n");
+		printfd(STDOUT_FILENO, "Alice in Shells\n");
 	else if (group_num == 7)
-		printf("Dimmu Shellgir\n");
+		printfd(STDOUT_FILENO, "Dimmu Shellgir\n");
 	else if (group_num == 8)
-		printf("Megashellth\n");
+		printfd(STDOUT_FILENO, "Megashellth\n");
 	else
 		rescue_easter_funk1(group_num);
 	return (0);

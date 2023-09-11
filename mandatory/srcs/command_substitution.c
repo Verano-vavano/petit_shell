@@ -54,7 +54,7 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 	ret = 1;
 	if (cmd_sent)
 		ret = cmd_processing(cmd_sent, empty_tool, false);
-	printf("\n");
+	printfd(STDOUT_FILENO, "\n");
 	free(empty_tool);
 	if (se[2])
 	{

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/05 15:48:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 15:50:57 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	env_del(char *del, t_env **env)
 		ptr = ptr->next;
 	}
 }
-//	printf("Wesh le nom n'a pas ete trouve dans l'env\n");
 
 char	**env_getval(char *key, t_env *env)
 {

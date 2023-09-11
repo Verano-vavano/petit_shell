@@ -16,12 +16,12 @@ void	sig_main(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		printf("%s", CLEAR_LINE);
+		printfd(STDOUT_FILENO, "%s", CLEAR_LINE);
 		rl_on_new_line();
 		rl_redisplay();
 		return ;
 	}
-	printf("\n");
+	printfd(STDOUT_FILENO, "\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -34,7 +34,7 @@ void	sig_catch(int sig)
 
 void	heredoc_handle(int sig)
 {
-	printf("\n");
+	printfd(STDOUT_FILENO, "\n");
 	rl_replace_line("", 0);
 	signal(sig, SIG_DFL);
 	kill(ft_getpid(), sig);

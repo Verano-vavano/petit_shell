@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/05 16:19:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 15:59:12 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	print_paths(t_env *ptr)
 	i = 0;
 	while (ptr->value[i])
 	{
-		printf("%s", ptr->value[i]);
+		printfd(STDOUT_FILENO, "%s", ptr->value[i]);
 		if (ptr->value[++i])
-			printf(":");
+			printfd(STDOUT_FILENO, ":");
 	}
 }
 
@@ -34,9 +34,9 @@ static void	print_ptr(t_env *ptr)
 	i = 0;
 	while (ptr->value[i])
 	{
-		printf("%s", ptr->value[i]);
+		printfd(STDOUT_FILENO, "%s", ptr->value[i]);
 		if (ptr->value[++i])
-			printf(":");
+			printfd(STDOUT_FILENO, ":");
 	}
 }
 
@@ -54,17 +54,17 @@ int	env_infernal(t_env *env, ...)
 		if (ptr->is_exported && (prepend || (ptr->value && ptr->value[0])))
 		{
 			if (prepend != NULL)
-				printf("%s", prepend);
-			printf("%s", ptr->key);
+				printfd(STDOUT_FILENO, "%s", prepend);
+			printfd(STDOUT_FILENO, "%s", ptr->key);
 			if (ptr->value)
-				printf("=");
+				printfd(STDOUT_FILENO, "=");
 			if (ptr->value && prepend)
-				printf("\"");
+				printfd(STDOUT_FILENO, "\"");
 			if (ptr->value)
 				print_ptr(ptr);
 			if (ptr->value && prepend)
-				printf("\"");
-			printf("\n");
+				printfd(STDOUT_FILENO, "\"");
+			printfd(STDOUT_FILENO, "\n");
 		}
 		ptr = ptr->next;
 	}
