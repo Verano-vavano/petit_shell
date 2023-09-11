@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:30:42 by hdupire           #+#    #+#              #
-#    Updated: 2023/08/24 18:13:26 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/11 12:48:34 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ MAKE_FCLEAN=make fclean
 MANDATORY=./mandatory/
 LIBFT=./libft/
 TETRIS=./tetris/
+PRINTFD=./printfd/
 
 RM=rm -rf
 
@@ -32,6 +33,7 @@ clean:
 	@${MAKE_CLEAN} -C ${MANDATORY}
 	@${MAKE_CLEAN} -C ${LIBFT}
 	@${MAKE_CLEAN} -C ${TETRIS}
+	@${MAKE_CLEAN} -C ${PRINTFD}
 	@echo "Cleaning complete !"
 
 fclean: clean
