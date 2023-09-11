@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 15:20:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 15:55:33 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	main(int ac, char **av, char **envp)
 		signal(SIGQUIT, sig_catch);
 		if (!line)
 		{
-			printf("exit\n");
+			printfd(STDOUT_FILENO, "exit\n");
 			exit_hell(0, 0);
 		}
 		else if (!(*line))

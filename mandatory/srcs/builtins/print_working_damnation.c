@@ -18,10 +18,10 @@ int	print_working_damnation(char *cwd)
 	char	cwd_save[1024];
 
 	if (cwd)
-		printf("%s\n", cwd);
+		printfd(STDOUT_FILENO, "%s\n", cwd);
 	else if (getcwd(cwd_save, sizeof(cwd_save)) != NULL)
-		printf("%s\n", cwd_save);
+		printfd(STDOUT_FILENO, "%s\n", cwd_save);
 	else
-		printf("getcwd error\n");
+		printfd(STDOUT_FILENO, "getcwd error\n");
 	return (0);
 }

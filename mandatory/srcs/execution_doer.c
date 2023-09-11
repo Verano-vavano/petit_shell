@@ -54,7 +54,7 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 			exit_st = status;
 	}
 	if (g_sig_rec)
-		printf("\n");
+		printfd(STDOUT_FILENO, "\n");
 	if (exit_st == -1)
 		exit_st = status;
 	if (err != -1)

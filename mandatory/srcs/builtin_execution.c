@@ -20,7 +20,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 	{
 		if (one && cmd->cmd[1] && !(cmd->cmd[2]))
 		{
-			printf("exit\n");
+			printfd(STDOUT_FILENO, "exit\n");
 			if (c_env)
 				free_char_etoile_etoile(c_env);
 		}
