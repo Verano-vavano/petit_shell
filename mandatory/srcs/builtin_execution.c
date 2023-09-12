@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 10:33:05 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:50:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
+static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 {
 	int	pid;
 
@@ -21,7 +21,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
 		if (one && cmd->cmd[1] && !(cmd->cmd[2]))
 			printfd(STDOUT_FILENO, "exit\n");
 		if (c_env)
-			free(c_env);
+			free_char_etoile_etoile(c_env);
 		exit_hell(cmd->cmd, t->rt_val);
 	}
 	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
@@ -39,7 +39,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
 	return (1);
 }
 
-long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
+long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 {
 	if (ft_strcmp("hell", cmd->cmd_name) == 0)
 		return (metal_injection());
@@ -83,7 +83,7 @@ static void	redir_back(int in, int out, int err)
 	close(err);
 }
 
-long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
+long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 {
 	long	ret_val;
 	int		save_in;
