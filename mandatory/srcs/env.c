@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 19:26:18 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:35:23 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,6 @@ static char	**one_split(char *str, char c)
 	return (ret);
 }
 
-// static int	count_chars(char *s, char c)
-// {
-// 	int	n;
-// 	int	i;
-//
-// 	n = 0;
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c)
-// 			n++;
-// 		i++;
-// 	}
-// 	return (n);
-// }
-
-// static char	**better_split(char *s, char c)
-// {
-// 	char	**ret;
-// 	int		count;
-// 	int		i;
-// 	int		next;
-//
-// 	count = count_chars(s, c);
-// 	ret = ft_calloc(count + 2, sizeof (char *));
-// 	if (!ret)
-// 		return (0);
-// 	i = 0;
-// 	while (i <= count)
-// 	{
-// 		next = ft_strchr_int(s, c);
-// 		ret[i] = ft_strndup(s, next);
-// 		s += next + 1;
-// 		i++;
-// 	}
-// 	return (ret);
-// }
-
 t_env	*env_new(char *env_var, bool is_exported)
 {
 	t_env	*new;
@@ -86,7 +48,7 @@ t_env	*env_new(char *env_var, bool is_exported)
 		new->key[ft_strlen(new->key) - 1] = 0;
 	new->value = NULL;
 	if (tmp[1])
-		new->value = tmp[1];
+		new->value = ft_strdup(tmp[1]);
 	new->next = NULL;
 	new->is_exported = is_exported;
 	free_char_etoile_etoile(tmp);

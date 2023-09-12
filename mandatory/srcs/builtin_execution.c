@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/11 20:16:24 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:33:05 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one, char *c_env)
 	else if (ft_strcmp("echo", cmd->cmd_name) == 0)
 		return (echo_des_enfers(cmd->cmd));
 	else if (ft_strcmp("env", cmd->cmd_name) == 0)
-		return (env_infernal(t->env, NULL));
+		return (env_infernal(t->env, false));
 	else if (ft_strcmp("export", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (les_ex_portes_de_lenfer(cmd->cmd, &(t->env)));
 	else if (ft_strcmp("unset", cmd->cmd_name) == 0 && !cmd->sub_cmd)
