@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 16:27:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 21:46:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,29 @@ static bool	dots_check(char **param)
 
 	size0 = ft_strlen(param[0]);
 	size1 = ft_strlen(param[1]);
-	if (param[2][0] != 0 && !is_all_num(param[2]))
+	if (param[2][0] != 0 && !is_valid_num(param[2]))
+	{
+		printf("1\n");
 		return (false);
+	}
 	else if ((size0 != 1 && !is_valid_num(param[0]))
 		|| (size1 != 1 && !is_valid_num(param[1])))
+	{
+		printf("2\n");
 		return (false);
+	}
 	else if ((size0 == 1 && !is_in_bound(param[0][0]))
 		|| (size1 == 1 && !is_in_bound(param[1][0])))
+	{
+		printf("3\n");
 		return (false);
+	}
 	else if ((is_valid_num(param[0]) && !is_valid_num(param[1]))
 		|| (is_valid_num(param[1]) && !is_valid_num(param[0])))
+	{
+		printf("4\n");
 		return (false);
+	}
 	return (true);
 }
 
