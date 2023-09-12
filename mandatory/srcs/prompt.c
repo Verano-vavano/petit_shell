@@ -6,15 +6,16 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 15:03:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 18:59:41 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
+// TODO getval maybe redo this function
 char	*new_prompt(int n_ps, t_env *env)
 {
-	char	**temp;
+	char	*temp;
 	char	*line;
 
 	temp = 0;
@@ -23,7 +24,7 @@ char	*new_prompt(int n_ps, t_env *env)
 	else if (n_ps == 2)
 		temp = env_getval("PS2", env);
 	if (temp && *temp)
-		line = readline(temp[0]);
+		line = readline(temp);
 	else if (n_ps == 1)
 		line = readline("");
 	else if (n_ps == 2)

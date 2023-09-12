@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 16:13:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 10:00:56 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	change_oldpwd(t_env **env)
 		old_pwd = env_getptr("OLDPWD", *env);
 	if (!pwd || !pwd->value || !pwd->value[0])
 		return ;
-	if (old_pwd && old_pwd->value && *(old_pwd->value))
-		free(old_pwd->value[0]);
+	if (old_pwd && old_pwd->value && *old_pwd->value)
+		free(old_pwd->value);
 	if (!old_pwd)
 	{
 		old_pwd = ft_calloc(1, sizeof (t_env));
@@ -41,7 +41,7 @@ void	change_oldpwd(t_env **env)
 		old_pwd->key = ft_strdup("OLDPWD");
 		env_add(old_pwd, env);
 	}
-	old_pwd->value[0] = ft_strdup(pwd->value[0]);
+	old_pwd->value = ft_strdup(pwd->value);
 }
 
 static void	no_behind(char *dest, t_env **env, t_tool **tool)
@@ -58,7 +58,7 @@ static void	no_behind(char *dest, t_env **env, t_tool **tool)
 	if (!old_pwd)
 		return ;
 	if (pwd && pwd->value && pwd->value[0])
-		free(pwd->value[0]);
+		free(pwd->value);
 	else
 	{
 		pwd = ft_calloc(1, sizeof (t_env));
@@ -73,11 +73,11 @@ static void	no_behind(char *dest, t_env **env, t_tool **tool)
 		pwd->key = ft_strdup("PWD");
 		env_add(pwd, env);
 	}
-	temp = ft_strjoin(old_pwd->value[0], "/");
+	temp = ft_strjoin(old_pwd->value, "/");
 	if (!temp)
 		return ;
-	pwd->value[0] = ft_strjoin(temp, dest);
-	(*tool)->cwd = ft_strdup(pwd->value[0]);
+	pwd->value = ft_strjoin(temp, dest);
+	(*tool)->cwd = ft_strdup(pwd->value);
 	free(temp);
 }
 
@@ -95,7 +95,7 @@ void	change_pwd(char *dest, t_tool **tool)
 	{
 		pwd = env_getptr("PWD", (*tool)->env);
 		if (pwd)
-			free(pwd->value[0]);
+			free(pwd->value);
 		else
 		{
 			pwd = ft_calloc(1, sizeof (t_env));
@@ -103,14 +103,11 @@ void	change_pwd(char *dest, t_tool **tool)
 				return ;
 			pwd->value = ft_calloc(2, sizeof (char *));
 			if (!pwd->value)
-			{
-				free(pwd);
-				return ;
-			}
+				return (free(pwd));
 			pwd->key = ft_strdup("PWD");
 			env_add(pwd, &((*tool)->env));
 			}
-		pwd->value[0] = cwd;
+		pwd->value = cwd;
 		(*tool)->cwd = ft_strdup(cwd);
 	}
 	return ;

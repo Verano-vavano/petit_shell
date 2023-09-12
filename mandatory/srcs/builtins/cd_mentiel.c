@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/07 11:50:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:37:43 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 // printf ne print pas sur stderr, a la diff de bash
 // voir si ca pose prblm
 // sinon faut import mon printf qui peut print vers un fd
+// PEROR fix with printfd
 int	cd_home(t_tool **tool)
 {
-	char	**home;
+	char	*home;
 
 	home = env_getval("HOME", (*tool)->env);
 	if (!home)
@@ -30,13 +31,13 @@ int	cd_home(t_tool **tool)
 		return (1);
 	}
 	change_oldpwd(&((*tool)->env));
-	if (chdir(home[0]))
+	if (chdir(home))
 	{
 		write(2, "cd: ", 4);
-		perror(home[0]);
+		perror(home);
 		return (1);
 	}
-	change_pwd(home[0], tool);
+	change_pwd(home, tool);
 	return (0);
 }
 
@@ -61,27 +62,28 @@ int	simple_cd(char *dest, t_tool **tool)
 
 int	check_cdpath(char *dest, t_tool **tool)
 {
-	t_env	*cdpath;
+	char	**cdpath;
 	int		i;
 	int		ret;
 	char	*concat_path;
 
-	cdpath = env_getptr("CDPATH", (*tool)->env);
+	cdpath = env_getval_split("CDPATH", (*tool)->env);
 	if (!cdpath)
 		return (1);
 	i = -1;
-	while (cdpath->value[++i])
+	while (cdpath[++i])
 	{
-		concat_path = concat_multiple(
-				(char *[]){cdpath->value[i], "/", dest, NULL });
+		concat_path = concat_multiple((char *[]){cdpath[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
 		{
 			ret = simple_cd(concat_path, tool);
 			free(concat_path);
+			free_char_etoile_etoile(cdpath);
 			return (ret);
 		}
 		free(concat_path);
 	}
+	free_char_etoile_etoile(cdpath);
 	return (1);
 }
 

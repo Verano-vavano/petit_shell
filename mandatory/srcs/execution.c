@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/09 18:43:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 20:12:38 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 	n_cmd[1] = n_cmd[0];
 	if (!cmd || cmd->purpose == CMD_DELIM)
 		return (0);
-	tool->c_env = re_char_etoile_etoilise_env(tool->env);
+	tool->c_env = ft_strdup(tool->env->value);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
 	check_hist(cmd, tool->hist, tool->env, n_cmd[0]);
 	ret = ex_loop(cmd, tool, &ret_cmd, n_cmd);
 	if (tool->c_env)
-		free_char_etoile_etoile(tool->c_env);
+		free(tool->c_env);
 	return (ret);
 }
