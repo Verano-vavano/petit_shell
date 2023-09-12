@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 18:28:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 21:17:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	main(int ac, char **av, char **envp)
 		if (!line)
 		{
 			printfd(STDOUT_FILENO, "exit\n");
-			exit_hell(0, 0);
+			exit(tool.rt_val);
 		}
 		else if (!(*line))
 			continue ;

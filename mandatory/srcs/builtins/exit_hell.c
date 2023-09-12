@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/08 17:42:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 21:30:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	str_not_long(char *s)
 	return (true);
 }
 
-int	exit_hell(char **cmd, long ret)
+int	exit_hell(char **cmd, long ret, char **c_env, bool one)
 {
 	long	exit_code;
 
@@ -68,5 +68,7 @@ int	exit_hell(char **cmd, long ret)
 	}
 	else
 		exit_code = ret;
+	if (one && c_env)
+		free_char_etoile_etoile(c_env);
 	exit(exit_code % 256);
 }
