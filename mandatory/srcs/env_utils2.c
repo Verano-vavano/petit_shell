@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 20:09:27 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:27:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	env_update(char *char_arr, bool is_exported, t_env *env, ...)
 		env_change_val(key, char_arr, env, is_exported);
 	else
 	{
-		if (!ft_strchr(char_arr, '='))
-			return ;
 		tmp = ft_split(char_arr, '=');
 		if (env_contain(tmp[0], env))
 			env_change_val(tmp[0], tmp[1], env, is_exported);

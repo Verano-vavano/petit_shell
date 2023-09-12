@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 10:33:26 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:50:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_hist
 typedef struct s_tool
 {
 	t_env	*env;
-	char	*c_env;
+	char	**c_env;
 	t_hist	*hist;
 	long	rt_val;
 	char	*cwd;
@@ -234,7 +234,7 @@ long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
 void		crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret);
 
 // builtin_exec
-long		exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char *c_env);
+long		exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env);
 
 // get_cmd
 int			handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd);
