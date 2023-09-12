@@ -14,8 +14,6 @@ retirer le valgrind core du registre des commits parce que je suis con
 ERR VALGRIND :
 - echo {#param}
 
-echo {5..1..-1}
-
 MALLOCS TO CHECK :
 V braces_coma_expansion.c
 V braces_dots_expansions.c
