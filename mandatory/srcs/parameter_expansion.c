@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/11 19:02:36 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 23:01:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	temp = 0;
 	dollar = (arg[0] == '#');
 	param = ft_strndup(arg + dollar, len_key);
+	if (!param)
+		return (0);
 	if (env_contain(param, env))
 		temp = env_getval(param, env);
 	param_val = ft_strdup(temp);
@@ -60,6 +62,8 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted
 	brack = (cmd->content[se[0]] == '{');
 	se[1] = find_arg_len(cmd->content + se[0], brack, quoted);
 	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
+	if (!arg)
+		return ;
 	to_change = 0;
 	if (is_special_param(arg))
 		to_change = special_parameter(arg, tool);

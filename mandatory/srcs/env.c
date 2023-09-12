@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 10:35:23 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:02:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ t_env	*env_new(char *env_var, bool is_exported)
 	if (!tmp)
 		return (free(new), NULL);
 	new->key = ft_strdup(tmp[0]);
+	if (!new->key)
+	{
+		free_char_etoile_etoile(tmp);
+		return (free(new), NULL);
+	}
 	if (new->key[ft_strlen(new->key) - 1] == '+')
 		new->key[ft_strlen(new->key) - 1] = 0;
 	new->value = NULL;

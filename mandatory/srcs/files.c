@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 14:50:47 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/02 23:52:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 22:18:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	unlink_heredocs(t_command *cmd)
 		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		{
 			itoaed = ft_itoa(i);
+			if (!itoaed)
+				return ;
 			file_name = ft_strjoin(TEMP, itoaed);
-			unlink(file_name);
 			free(itoaed);
+			if (!file_name)
+				return ;
+			unlink(file_name);
 			free(file_name);
 			i++;
 		}

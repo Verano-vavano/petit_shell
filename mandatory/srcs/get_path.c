@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 16:36:50 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:52:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 	if (!path)
 		return (128);
 	paths = ft_split(path, ':');
+	if (!paths)
+		return (1);
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
 	if (!path_cmd)
+	{
+		free_char_etoile_etoile(paths);
 		return (1);
+	}
 	i = 0;
-	while(paths[i])
+	while (paths[i])
 	{
 		full_path = check_path(paths[i], path_cmd);
 		if (full_path)
@@ -41,6 +46,7 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 		}
 		i++;
 	}
+	free_char_etoile_etoile(paths);
 	return (127);
 }
 
@@ -82,6 +88,8 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	bool	relative;
 
 	cmd->cmd_name = ft_strdup(cmd->cmd[0]);
+	if (!cmd->cmd_name)
+		return (1);
 	cmd->free_name = true;
 	relative = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
 	if (relative && is_dir(cmd->cmd[0]))

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 18:43:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 22:30:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_redir_pipe	*get_redir_struct(t_redir_pipe *redir, int fd)
 	{
 		redir = ft_calloc(1, sizeof (t_redir_pipe));
 		if (!redir)
-			return (redir);
+			return (0);
 		redir->fd_read = -1;
 		redir->fd_write = -1;
 		redir->fd_end = fd;
@@ -34,7 +34,7 @@ static t_redir_pipe	*get_redir_struct(t_redir_pipe *redir, int fd)
 		return (redir);
 	redir->next = ft_calloc(1, sizeof (t_redir_pipe));
 	if (!redir->next)
-		return (0);
+		return (redir);
 	redir->next->fd_read = -1;
 	redir->next->fd_write = -1;
 	redir->next->fd_end = fd;

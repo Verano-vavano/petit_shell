@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 18:24:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 22:04:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char	**env_getval_split(char *key, t_env *env)
 		return (ft_split(env->value, ':'));
 	return (0);
 }
+
 char	*env_getval(char *key, t_env *env)
 {
 	if (!env)

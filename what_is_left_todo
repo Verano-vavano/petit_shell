@@ -1,13 +1,9 @@
-refaire le env_init. surtout env_new
-export PATH="::::::lol"
-echo $PATH
--> ::::::lol
-
 si motivation, faire les expansions de PS1 et PS2
 
 fermer correctement les heredoc qd pb +++++
-
-retirer le valgrind core du registre des commits parce que je suis con
+-> je ne sais plus pourquoi j'ai mis ça. J'ai fais pleins de tests pour essayer
+   de retrouver un cas ou mes heredocs ne se ferment pas correctement en vain.
+   Si Dieu veut bien un jour m'éclairer sur mes dires passer, loué soit-Il !
 
 (echo lol && cat gigipokp) >a 2>b
 
@@ -24,42 +20,42 @@ V char_utils.c
 V check_path.c
 V cleaning.c
 V command_substitution.c
-env.c
-env_init_utils.c
-env_utils.c
-env_utils2.c
-env_utils3.c
-error_manager.c
-execution.c
-execution_doer.c
-execution_utils.c
-fe_subverif.c
-fe_utils.c
-file_check.c
-file_opening.c
-filename_expansion.c
-files.c
-get_cmd.c
-get_output.c
-get_path.c
-get_tilde.c
-heredoc.c
-history.c
-history_utils.c
-lf_utils.c
-line_comprehension.c
-line_expansions.c
-more_char_utils.c
-param_exp_utils.c
-parameter_expansion.c
-parse_args.c
-parse_args_utils.c
-prompt.c
-purposer.c
-quote_removal.c
-redirections.c
-shellpticflesh.c
-signals.c
+V env.c
+V env_init_utils.c
+V env_utils.c
+V env_utils2.c
+V env_utils3.c
+V error_manager.c
+V execution.c
+V execution_doer.c
+V execution_utils.c
+V fe_subverif.c
+V fe_utils.c
+V file_check.c
+V file_opening.c
+V filename_expansion.c
+V files.c
+V get_cmd.c
+V get_output.c
+V get_path.c
+V get_tilde.c
+V heredoc.c
+V history.c
+V history_utils.c
+V lf_utils.c
+V line_comprehension.c
+V line_expansions.c
+V more_char_utils.c
+V param_exp_utils.c
+V parameter_expansion.c
+V parse_args.c
+V parse_args_utils.c
+V prompt.c
+V purposer.c
+V quote_removal.c
+V redirections.c
+V shellpticflesh.c
+V signals.c
 spliter.c
 syntax_checker.c
 syntax_checkerers.c

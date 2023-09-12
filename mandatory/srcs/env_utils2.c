@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 18:27:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 22:06:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static void	env_change_val_rfunk(t_env *ptr, char *value, bool add)
 	char	*temp;
 
 	if (add && ptr->value)
-		{
-			temp = ft_strjoin(ptr->value, value);
-			if (!temp)
-				return ;
-			free(ptr->value);
-			ptr->value = ft_strdup(temp);
-			free(temp);
-		}
+	{
+		temp = ft_strjoin(ptr->value, value);
+		if (!temp)
+			return ;
+		free(ptr->value);
+		ptr->value = ft_strdup(temp);
+		free(temp);
+	}
 	else
 	{
 		if (ptr->value)
@@ -60,6 +60,8 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 	if (add)
 		key[len - 1] = 0;
 	ptr = env_getptr(key, env);
+	if (!ptr)
+		return ;
 	if (value)
 		env_change_val_rfunk(ptr, value, add);
 	else if (!add)
