@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 14:33:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:02:36 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	bool	dollar;
 	char	*param;
 	char	*param_val;
-	char	**temp;
+	char	*temp;
 
 	param_val = 0;
 	temp = 0;
@@ -26,10 +26,7 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	param = ft_strndup(arg + dollar, len_key);
 	if (env_contain(param, env))
 		temp = env_getval(param, env);
-	if (temp[1] != NULL)
-		param_val = char_array_unite(temp);
-	else
-		param_val = ft_strdup(temp[0]);
+	param_val = ft_strdup(temp);
 	if (dollar && temp && param_val)
 	{
 		len = ft_strlen(param_val);
@@ -56,7 +53,7 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted
 	bool	brack;
 	char	*arg;
 	char	*to_change;
-	char	**temp;
+	char	*temp;
 
 	se[0] = i + 1;
 	to_change = 0;
@@ -70,12 +67,7 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted
 	{
 		temp = env_getval(arg, tool->env);
 		if (temp)
-		{
-			if (temp[1] != NULL)
-				to_change = char_array_unite(temp);
-			else
-				to_change = ft_strdup(temp[0]);
-		}
+			to_change = ft_strdup(temp);
 	}
 	else if (brack)
 		to_change = dollar_comprehender(arg, tool->env, se[1]);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:12:14 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/09 19:28:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/12 10:02:19 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	increment_shlvl(t_env **env)
 		env_add(env_new("SHLVL=1", true), env);
 	else
 	{
-		sign = (shlvl->value[0][0] == '+' || shlvl->value[0][0] == '-');
-		if (!is_all_num(shlvl->value[0] + sign))
+		sign = (shlvl->value[0] == '+' || shlvl->value[0] == '-');
+		if (!is_all_num(shlvl->value + sign))
 		{
 			env_add(env_new("SHLVL=1", true), env);
 			return ;
 		}
-		lvl = ft_atoi(shlvl->value[0]);
+		lvl = ft_atoi(shlvl->value);
 		if (lvl < 0)
 			lvl = 0;
 		else

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/10 15:55:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 20:09:27 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,72 +28,24 @@ t_env	*env_getptr(char *key, t_env *env)
 	return (ret);
 }
 
-static char	*re_char_etoilise(t_env *ptr)
-{
-	char	*ret;
-	size_t	total_len;
-	int		index;
-	int		i_ret;
-	int		i_val;
-
-	index = 0;
-	total_len = 0;
-	while (ptr->value[index])
-	{
-		total_len += ft_strlen(ptr->value[index]);
-		total_len++;
-		index++;
-	}
-	ret = ft_calloc(total_len, sizeof (char));
-	if (!ret)
-		return (0);
-	i_ret = 0;
-	index = 0;
-	while (ptr->value[index])
-	{
-		i_val = 0;
-		while (ptr->value[index][i_val])
-		{
-			ret[i_ret] = ptr->value[index][i_val];
-			i_val++;
-			i_ret++;
-		}
-		ret[i_ret] = ':';
-		i_ret++;
-		index++;
-	}
-	ret[i_ret - 1] = 0;
-	return (ret);
-}
-
 static void	env_change_val_rfunk(t_env *ptr, char *value, bool add)
 {
 	char	*temp;
-	char	*temp2;
 
-	if (add)
-	{
-		if (ptr->value && ptr->value[0])
+	if (add && ptr->value)
 		{
-			temp = re_char_etoilise(ptr);
+			temp = ft_strjoin(ptr->value, value);
 			if (!temp)
 				return ;
-			temp2 = ft_strjoin(temp, value);
+			free(ptr->value);
+			ptr->value = ft_strdup(temp);
 			free(temp);
-			if (!temp2)
-				return ;
-			free_char_etoile_etoile(ptr->value);
-			ptr->value = ft_split(temp2, ':');
-			free(temp2);
 		}
-		else
-			ptr->value[0] = ft_strdup(value);
-	}
 	else
 	{
 		if (ptr->value)
-			free_char_etoile_etoile(ptr->value);
-		ptr->value = ft_split(value, ':');
+			free(ptr->value);
+		ptr->value = ft_strdup(value);
 	}
 }
 
@@ -112,10 +64,8 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 		env_change_val_rfunk(ptr, value, add);
 	else if (!add)
 	{
-		if (ptr->value)
-			free_char_etoile_etoile(ptr->value);
-		ptr->value = ft_calloc(2, sizeof (char *));
-		ptr->value[0] = ft_calloc(1, sizeof (char));
+		free(ptr->value);
+		ptr->value = ft_calloc(1, sizeof (char));
 	}
 	if (is_exp)
 		ptr->is_exported = true;

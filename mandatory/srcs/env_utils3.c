@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 16:09:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 20:17:03 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	env_size(t_env *env)
 
 static char	*get_env_val(t_env *env)
 {
-	char	**val;
+	char	*val;
 	char	*return_val;
 	char	*temp;
 
@@ -38,7 +38,7 @@ static char	*get_env_val(t_env *env)
 	{
 		if (!return_val)
 			return (0);
-		temp = ft_strjoin(return_val, *val);
+		temp = ft_strjoin(return_val, val);
 		free(return_val);
 		if (!temp)
 			return (0);

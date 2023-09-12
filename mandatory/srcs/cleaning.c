@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/07/15 18:20:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:20:40 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,11 @@
 
 void	free_env(t_env *env)
 {
-	int	i;
-
 	if (env)
 	{
 		free(env->key);
 		if (env->value != NULL)
-		{
-			i = -1;
-			while (env->value[++i])
-				free(env->value[i]);
 			free(env->value);
-		}
 	}
 	free(env);
 }

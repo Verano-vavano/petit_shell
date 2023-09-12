@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/10 16:14:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:29:51 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	**dup_paths(char **paths)
 t_env	*dup_env(t_env *env)
 {
 	t_env	*new;
-	int		arr_size;
-	int		i;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
@@ -44,17 +42,10 @@ t_env	*dup_env(t_env *env)
 	new->key = ft_strdup(env->key);
 	if (env->value != NULL)
 	{
-		arr_size = get_char_array_size(env->value);
-		new->value = malloc(sizeof(char *) * (arr_size + 1));
+		new->value = malloc(sizeof(char *) * ft_strlen(env->value));
 		if (!new->value)
-		{
-			free(new);
-			return (0);
-		}
-		i = -1;
-		while (env->value[++i])
-			new->value[i] = ft_strdup(env->value[i]);
-		new->value[i] = NULL;
+			return (free(new), NULL);
+		new->value = ft_strdup(env->value);
 	}
 	else
 		new->value = NULL;
@@ -66,7 +57,7 @@ t_env	*dup_env(t_env *env)
 void	swap_content(t_env *curr, t_env *next)
 {
 	char	*yo_key;
-	char	**yo_value;
+	char	*yo_value;
 
 	yo_key = curr->key;
 	yo_value = curr->value;

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/11 18:28:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:17:42 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	need_tilde(t_command *cmd)
  * ~n, ~+n and ~-n are not supported (yet ?) */
 void	tilde_expansion(t_command *cmd, t_env *env)
 {
-	char	**temp;
+	char	*temp;
 	char	*tilde;
 	char	*pwd;
 	char	*opwd;
@@ -80,16 +80,16 @@ void	tilde_expansion(t_command *cmd, t_env *env)
 		return ;
 	temp = env_getval("HOME", env);
 	if (temp)
-		tilde = *temp;
+		tilde = temp;
 	malloqued = !(temp);
 	if (malloqued)
 		tilde = rescue_tilde_funk(env);
 	temp = env_getval("PWD", env);
 	if (temp)
-		pwd = *temp;
+		pwd = temp;
 	temp = env_getval("OLDPWD", env);
 	if (temp)
-		opwd = *temp;
+		opwd = temp;
 	replace_tilde(cmd, tilde, pwd, opwd);
 	if (malloqued)
 		free(tilde);

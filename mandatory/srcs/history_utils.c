@@ -6,21 +6,22 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:31:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 14:39:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:18:55 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 #include "history.h"
 
+// TODO maybe redo this
 char	*get_histfile(t_env *env)
 {
-	char	**temp_val;
+	char	*temp_val;
 	char	*histfile;
 	char	*home;
 
 	temp_val = env_getval("HISTFILE", env);
-	if (!temp_val || !(*temp_val) || !is_file_valid(*temp_val, W_OK))
+	if (!temp_val || !*temp_val || !is_file_valid(temp_val, W_OK))
 	{
 		histfile = rescue_tilde_funk(env);
 		home = ft_strjoin(histfile, "/");
@@ -29,22 +30,22 @@ char	*get_histfile(t_env *env)
 		free(home);
 	}
 	else
-		histfile = ft_strdup(*temp_val);
+		histfile = ft_strdup(temp_val);
 	return (histfile);
 }
 
 int	get_histsize(char *type, int stdval, t_env *env)
 {
-	char	**temp_val;
+	char	*temp_val;
 	int		ret;
 
 	temp_val = env_getval(type, env);
-	if (!temp_val || !(*temp_val) || !is_all_num(*temp_val)
-		|| ft_strlen(*temp_val) > 4)
+	if (!temp_val || !(*temp_val) || !is_all_num(temp_val)
+		|| ft_strlen(temp_val) > 4)
 		return (stdval);
 	else
 	{
-		ret = ft_atoi(*temp_val);
+		ret = ft_atoi(temp_val);
 		if (ret < 1)
 			return (stdval);
 		return (ret);

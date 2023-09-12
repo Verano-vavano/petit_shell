@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 15:53:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/11 20:20:21 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // dup2 STDIN && STDOUT from pipes
 // dup2 everything else casually baby
-static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
+static void	child(t_process_cmd *cmd, t_tool *t, char *c_env, t_ret_cmd *ret)
 {
 	close(ret->pipes[0]);
 	perform_redirections(cmd, ret);
@@ -23,7 +23,7 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	if (cmd->is_builtin)
 		exit(exec_bltin(cmd, t, false, c_env));
 	else
-		execve(cmd->cmd_name, cmd->cmd, c_env);
+		execve(cmd->cmd_name, cmd->cmd, (char *const *) (char *const []){c_env, NULL});
 	exit(0);
 }
 
