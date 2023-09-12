@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/11 20:22:11 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:36:50 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,32 @@
 
 static int	rel_search(t_process_cmd *cmd, char *path)
 {
-	char	*path_cmd;
-	char	*full_path;
-	char	**paths;
-	bool	path_ok;
+	char **paths;
+	char *path_cmd;
+	char *full_path;
+	int i;
 
-	path_ok = (path && *path);
+	if (!path)
+		return (128);
 	paths = ft_split(path, ':');
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
-	if (path_cmd == 0)
+	if (!path_cmd)
 		return (1);
-	while (*paths)
+	i = 0;
+	while(paths[i])
 	{
-		full_path = check_path(*paths, path_cmd);
+		full_path = check_path(paths[i], path_cmd);
 		if (full_path)
 		{
 			cmd->free_name = true;
+			if (cmd->cmd_name)
+				free(cmd->cmd_name);
 			cmd->cmd_name = full_path;
+			free_char_etoile_etoile(paths);
 			return (0);
 		}
-		paths++;
+		i++;
 	}
-	free(path_cmd);
-	if (!path_ok)
-		return (128);
 	return (127);
 }
 
