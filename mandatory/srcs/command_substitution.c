@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 17:43:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 10:57:03 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	find_end_comm(char *s)
 	char	quoted;
 
 	i = 1;
-	inside = 0;
-	quoted = 0;
+	inside = '\0';
+	quoted = '\0';
 	while (s[i])
 	{
 		quoted = is_quoted(s, i, quoted);
@@ -100,14 +100,14 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 	int		start;
 	long	ret;
 
-	quoted = 0;
+	quoted = '\0';
 	start = 0;
 	repl = false;
 	ret = -1;
 	while (cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
-		if (cmd->content[start] == '(' && (quoted == 0 || (quoted != '\'' && start != 0 && cmd->content[start - 1] == '$')))
+		if (cmd->content[start] == '(' && (!quoted || (quoted != '\'' && start && cmd->content[start - 1] == '$')))
 		{
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;

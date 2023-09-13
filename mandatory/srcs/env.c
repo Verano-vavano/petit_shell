@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 22:02:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:02:43 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**one_split(char *str, char c)
 	int		index_c;
 
 	index_c = ft_strchr_int(str, c);
-	ret = ft_calloc(2 + (str[index_c] != 0), sizeof (char *));
+	ret = ft_calloc(2 + (str[index_c]), sizeof (char *));
 	if (!ret)
 		return (0);
 	ret[0] = ft_strndup(str, index_c);
@@ -27,7 +27,7 @@ static char	**one_split(char *str, char c)
 		free(ret);
 		return (0);
 	}
-	if (str[index_c] != 0)
+	if (str[index_c])
 		ret[1] = ft_strdup(str + index_c + 1);
 	return (ret);
 }
@@ -50,7 +50,7 @@ t_env	*env_new(char *env_var, bool is_exported)
 		return (free(new), NULL);
 	}
 	if (new->key[ft_strlen(new->key) - 1] == '+')
-		new->key[ft_strlen(new->key) - 1] = 0;
+		new->key[ft_strlen(new->key) - 1] = '\0';
 	new->value = NULL;
 	if (tmp[1])
 		new->value = ft_strdup(tmp[1]);

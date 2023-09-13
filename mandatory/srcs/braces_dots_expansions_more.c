@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:48:22 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 17:27:27 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:07:31 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	dots_expansion(t_command *cmd, char **param, int *se)
 	int			ret;
 
 	l_p[2] = 1;
-	if (param[2][0] != 0)
+	if (param[2][0])
 		l_p[2] = ft_atol(param[2]);
 	if (l_p[2] == 0)
 		l_p[2] = 1;

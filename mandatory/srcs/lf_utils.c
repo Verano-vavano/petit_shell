@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:00:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 18:28:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:06:07 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	free_lf(t_lf *lf)
 
 void	add_to_lf(char *file, t_lf *lf)
 {
-	if (lf->content != 0)
+	if (lf->content)
 	{
 		while (lf->next)
 			lf = lf->next;
@@ -109,7 +109,7 @@ t_lf	*remove_flf(t_lf *act, t_lf *lf)
 	if (act->next)
 		lf2->next = act->next;
 	else
-		lf2->next = 0;
+		lf2->next = NULL;
 	free(act->content);
 	free(act);
 	return (lf);

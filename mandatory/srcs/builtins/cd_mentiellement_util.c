@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 10:00:56 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/13 10:45:05 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	change_oldpwd(t_env **env)
 	t_env	*pwd;
 	t_env	*old_pwd;
 
-	pwd = 0;
-	old_pwd = 0;
+	pwd = NULL;
+	old_pwd = NULL;
 	if (env_contain("PWD", *env))
 		pwd = env_getptr("PWD", *env);
 	if (env_contain("OLDPWD", *env))

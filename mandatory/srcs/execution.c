@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 21:30:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 10:59:55 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 {
 	long	err_status;
 
-	c_p->redir = 0;
+	c_p->redir = NULL;
 	err_status = get_cmd(c_p, *cmd, r->heredoc_no);
 	if (err_status && n[0] != 1)
 	{

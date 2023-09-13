@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 22:14:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:01:09 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static t_lf	*fe_mainloop(t_command *cmd, int index, t_lf *lf, bool not_end)
 		}
 		else
 			lf = get_all_vf_flf(cmd, index, last, lf);
-		not_end = cmd->content[index + usearch(cmd->content + index, '/')] != 0;
+		not_end = cmd->content[index + usearch(cmd->content + index, '/')];
 		index += usearch(cmd->content + index, '/');
 		last = index;
 	}

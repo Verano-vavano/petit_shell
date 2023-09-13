@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:47:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 21:49:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:03:43 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	dots_check(char **param)
 
 	size0 = ft_strlen(param[0]);
 	size1 = ft_strlen(param[1]);
-	if (param[2][0] != 0 && !is_valid_num(param[2]))
+	if (param[2][0] && !is_valid_num(param[2]))
 		return (false);
 	else if ((size0 != 1 && !is_valid_num(param[0]))
 		|| (size1 != 1 && !is_valid_num(param[1])))
@@ -106,7 +106,7 @@ int	dots_brace_expansion(t_command *cmd, int *se)
 		free_char_etoile_etoile(param);
 		return (-2);
 	}
-	if (err == -1 || (i[1] == 2 && param[2][0] == 0))
+	if (err == -1 || (i[1] == 2 && !param[2][0]))
 	{
 		free_char_etoile_etoile(param);
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/02 23:52:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:11:55 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	write_heredoc(int fd, char *eof, t_env *env)
 			warning_heredoc_eof(lines, eof);
 			break ;
 		}
-		line[ft_strchr_int(line, '\n')] = 0;
+		line[ft_strchr_int(line, '\n')] = '\0';
 		if (!ft_strcmp(line, eof))
 		{
 			free(line);
