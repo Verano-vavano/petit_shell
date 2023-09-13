@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 22:22:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/10 15:52:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 09:50:34 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	perform_move(t_map *map, char c)
 		rotate_side(map, 'l');
 	else if (c == 'e' && verif_rotate(map, 'r'))
 		rotate_side(map, 'r');
-	else if (c == 'x')
+	else if (c == ' ')
 		hard_drop(map);
 	draw_piece(map, 0);
 }
