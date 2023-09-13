@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/05 15:56:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:09:50 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ static void	add_hist_struct(t_hist *hist, char *line, int histsize)
 	bool		first;
 
 	first = false;
-	if (hist->hist_start == 0)
+	if (hist->hist_start == NULL)
 	{
 		first = true;
 		hist->hist_start = ft_calloc(1, sizeof (t_hist_ll));
-		if (hist->hist_start == 0)
+		if (hist->hist_start == NULL)
 			return ;
 		hist->hist_end = hist->hist_start;
 	}
@@ -99,7 +99,7 @@ static void	cpy_history(t_hist *hist, char *histfile, int histsize)
 	{
 		if (line && *line)
 		{
-			line[ft_strlen(line) - 1] = 0;
+			line[ft_strlen(line) - 1] = '\0';
 			add_hist_struct(hist, line, histsize);
 		}
 		if (line)
@@ -118,7 +118,7 @@ t_hist	*load_history(t_env *env)
 	hist = ft_calloc(1, sizeof (t_hist));
 	if (!hist)
 		return (0);
-	hist->hist_start = 0;
+	hist->hist_start = '\0';
 	histfile = get_histfile(env);
 	if (!histfile)
 		return (0);

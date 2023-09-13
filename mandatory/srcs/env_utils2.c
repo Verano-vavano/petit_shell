@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 22:06:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:01:29 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 	len = ft_strlen(key);
 	add = (key[len - 1] == '+');
 	if (add)
-		key[len - 1] = 0;
+		key[len - 1] = '\0';
 	ptr = env_getptr(key, env);
 	if (!ptr)
 		return ;

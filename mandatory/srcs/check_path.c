@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:46:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/11 20:21:47 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:04:45 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_pathing(char *cmd)
 	while (cmd[last_s + next_s])
 	{
 		replaced_char = cmd[last_s + next_s];
-		cmd[last_s + next_s] = 0;
+		cmd[last_s + next_s] = '\0';
 		if (access(cmd, X_OK) != 0)
 		{
 			cmd[last_s + next_s] = replaced_char;
@@ -71,7 +71,7 @@ char	*check_path(char *path, char *path_cmd)
 	char	*full_path;
 	
 	full_path = ft_strjoin(path, path_cmd);
-	if (full_path == 0)
+	if (!full_path)
 		return (0);
 	if (access(full_path, X_OK) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/03 23:57:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 11:10:08 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_command	*init_command_arg(t_command *start)
 	t_command	*new_arg;
 
 	new_arg = ft_calloc(1, sizeof (t_command));
-	if (new_arg == 0)
+	if (!new_arg)
 	{
 		free_command(start);
 		return (0);

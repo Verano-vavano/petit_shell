@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:58:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 23:04:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 10:58:29 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	rescue_funk(char *s, t_command *now_arg, int *i, char c)
 {
-	if (!s[i[0]] || !is_delim(c) || c == 0)
+	if (!s[i[0]] || !is_delim(c) || !c)
 		return (0);
 	while (s[i[0]] && is_separator(s[i[0]]))
 	{

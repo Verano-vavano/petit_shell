@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/11 19:19:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/13 10:52:47 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*whoami_get(char *name)
 	readed = read(pipes[0], name, 256);
 	if (readed == -1)
 		return (0);
-	name[readed - 1] = 0;
+	name[readed - 1] = '\0';
 	close(pipes[0]);
 	return (name);
 }

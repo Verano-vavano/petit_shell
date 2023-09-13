@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/07 10:01:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/13 10:52:14 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_ender(char *line)
 	{
 		if (line[i] == '|')
 			c = '|';
-		if (line[i + 1] == 0 && line[i] == '\\')
+		if (!line[i + 1] && line[i] == '\\')
 			return (1);
 		else if (c == '|' && !is_separator(line[i]))
 			c = 'L';
@@ -66,7 +66,7 @@ static char	*new_line_add(char *line, bool nl, t_env *env)
 	char	*new_line;
 	char	*joined;
 
-	new_line = 0;
+	new_line = NULL;
 	while (!new_line || !(*new_line))
 		new_line = new_prompt(2, env);
 	if (nl)
@@ -97,7 +97,7 @@ t_command	*spliter_init(char *line, bool add_line, t_hist *hist, t_env *env)
 		}
 		where_did_we_fail = not_ended(line);
 		if (where_did_we_fail == -1)
-			line[ft_strlen(line) - 1] = 0;
+			line[ft_strlen(line) - 1] = '\0';
 		if (!where_did_we_fail && !check_ender(line))
 			break ;
 		line = new_line_add(line, where_did_we_fail != -1, env);
