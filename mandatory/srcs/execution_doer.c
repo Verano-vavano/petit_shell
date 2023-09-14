@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 17:57:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 17:22:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
 	close(ret->fd);
+	if (ret->n_cmd == 1)
+		print_ps0(t->env);
 	if (cmd->is_builtin)
 		exit(exec_bltin(cmd, t, false, c_env));
 	else
