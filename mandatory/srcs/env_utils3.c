@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 12:44:23 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:37:32 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ t_env *env_new_specific(char *key, char *value, bool is_exported)
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);
-	new->value = NULL;
-	if (value)
-		new->value = ft_strdup(value);
+	new->value = ft_strdup(value);
 	new->is_exported = is_exported;
 	new->next = NULL;
 	return (new);
