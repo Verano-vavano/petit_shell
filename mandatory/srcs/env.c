@@ -6,13 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/13 11:02:43 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:54:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static char	**one_split(char *str, char c)
+char	**one_split(char *str, char c)
 {
 	char	**ret;
 	int		index_c;

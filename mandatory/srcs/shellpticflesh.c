@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 10:06:46 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 18:40:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	assign_vars(t_command *cmd, t_env **env)
 	}
 }
 
-static long	line_beauty(t_command *lexed, t_env *env)
+static long	line_beauty(t_command *lexed, t_tool *tool)
 {
 	long	ret;
 
@@ -51,7 +51,7 @@ static long	line_beauty(t_command *lexed, t_env *env)
 	ret = understand_the_line(lexed);
 	if (ret)
 		return (ret);
-	ret = here_doc(lexed, env);
+	ret = here_doc(lexed, tool);
 	if (ret)
 		return (ret);
 	return (0);
@@ -92,12 +92,12 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	int			heredoc_no;
 	long		rt_val;
 
-	lexed = spliter_init(line, add_line, tool->hist, tool->env);
+	lexed = spliter_init(line, add_line, tool);
 	if (!lexed)
 		return (2);
 	else if (!lexed->content)
 		return (0);
-	rt_val = line_beauty(lexed, tool->env);
+	rt_val = line_beauty(lexed, tool);
 	if (rt_val)
 		return (rt_val);
 	heredoc_no = 0;
@@ -123,7 +123,7 @@ int	main(int ac, char **av, char **envp)
 		g_sig_rec = 0;
 		signal(SIGINT, sig_main);
 		signal(SIGQUIT, sig_main);
-		line = new_prompt(1, tool.env);
+		line = new_prompt(1, &tool);
 		signal(SIGINT, sig_catch);
 		signal(SIGQUIT, sig_catch);
 		if (!line)

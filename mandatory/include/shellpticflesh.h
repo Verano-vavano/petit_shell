@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 17:33:27 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 18:39:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct s_list_file
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
 /*--------------SPLIT-----------------*/
-t_command	*spliter_init(char *cmd, bool add_line, t_hist *hist, t_env *env);
+t_command	*spliter_init(char *cmd, bool add_line, t_tool *tool);
 
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
@@ -166,7 +166,7 @@ int			ft_strlen_arg(char *s, int meta);
 /*---------------HEREDOC------------------*/
 int			get_heredoc_file(int hd, int mode);
 void		unlink_heredocs(t_command *cmd);
-int			here_doc(t_command *cmd, t_env *env);
+int			here_doc(t_command *cmd, t_tool *tool);
 
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
@@ -274,7 +274,7 @@ void		remove_first_el(t_hist *hist);
 void		add_all_hist(t_hist *hist);
 
 /*--------PROMPT----------*/
-char		*new_prompt(int n_ps, t_env *env);
+char		*new_prompt(int n_ps, t_tool *tool);
 void		print_ps0(t_env *env);
 
 /*---------------UTILITIES------------------*/
@@ -333,6 +333,7 @@ int			tetris(char **args);
 
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var, bool is_exported);
+char		**one_split(char *str, char c);
 t_env		*env_init(char **envp);
 void		increment_shlvl(t_env **env);
 /*----------------ENV_UTILS----------------*/

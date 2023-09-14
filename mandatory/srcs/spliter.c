@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 10:43:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 18:39:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static int	check_ender(char *line)
 	return (c != 'L');
 }
 
-static char	*new_line_add(char *line, bool nl, t_env *env)
+static char	*new_line_add(char *line, bool nl, t_tool *tool)
 {
 	char	*new_line;
 	char	*joined;
 
 	new_line = NULL;
 	while (!new_line || !(*new_line))
-		new_line = new_prompt(2, env);
+		new_line = new_prompt(2, tool);
 	if (nl)
 	{
 		joined = ft_strjoin(line, "\n");
@@ -84,7 +84,7 @@ static char	*new_line_add(char *line, bool nl, t_env *env)
 	return (line);
 }
 
-t_command	*spliter_init(char *line, bool add_line, t_hist *hist, t_env *env)
+t_command	*spliter_init(char *line, bool add_line, t_tool *tool)
 {
 	t_command		*cmd;
 	char			where_did_we_fail;
@@ -94,7 +94,7 @@ t_command	*spliter_init(char *line, bool add_line, t_hist *hist, t_env *env)
 		if (check_syntax(line))
 		{
 			if (add_line)
-				add_to_hist(env, hist, line);
+				add_to_hist(tool->env, tool->hist, line);
 			return (0);
 		}
 		where_did_we_fail = not_ended(line);
@@ -102,12 +102,12 @@ t_command	*spliter_init(char *line, bool add_line, t_hist *hist, t_env *env)
 			line[ft_strlen(line) - 1] = '\0';
 		if (!where_did_we_fail && !check_ender(line))
 			break ;
-		line = new_line_add(line, where_did_we_fail != -1, env);
+		line = new_line_add(line, where_did_we_fail != -1, tool);
 	}
 	if (!line)
 		return (0);
 	cmd = ft_split_cmd(line);
 	if (add_line)
-		add_to_hist(env, hist, line);
+		add_to_hist(tool->env, tool->hist, line);
 	return (cmd);
 }
