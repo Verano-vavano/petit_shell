@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 21:15:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 17:16:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 		save_out = dup(STDOUT_FILENO);
 		save_err = dup(STDERR_FILENO);
 		builtin_redirections(cmd->redir);
+		print_ps0(t->env);
 	}
 	ret_val = find_exec_bltn(cmd, t, one, c_env);
 	if (one)

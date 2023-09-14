@@ -22,7 +22,10 @@ Fully functional history
 Redirection from fd to fd (n<&m)
 Syntax error handling
 Taking variables into account (IFS, CDPATH)
-PS1, PS2
+PS0, PS1, PS2, PROMPT_COMMAND
+- PS0 is written is stdout every time a function outputs
+- PS1 is the beginning of the main prompt
+- PS2 is the beginning of secondary prompts (heredocs && incomplete lines)
 - Performs PROMPT_COMMAND before each prompt
 Signal handling
 2 builtin easter eggs (tetris, hell)

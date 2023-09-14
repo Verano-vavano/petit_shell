@@ -6,11 +6,20 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 11:15:33 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 17:23:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+void	print_ps0(t_env *env)
+{
+	char	*ps0;
+
+	ps0 = env_getval("PS0", env);
+	if (ps0)
+		write(1, ps0, ft_strlen(ps0));
+}
 
 static void	execute_prompt_command(t_env *env)
 {
