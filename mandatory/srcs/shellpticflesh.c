@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 09:06:18 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:06:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ int	main(int ac, char **av, char **envp)
 	tool.rt_val = 0;
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);
-	signal(SIGINT, sig_main);
-	signal(SIGQUIT, sig_main);
-	signal(SIGINT, sig_catch);
-	signal(SIGQUIT, sig_catch);
 	while (42)
 	{
 		g_sig_rec = 0;
+		signal(SIGINT, sig_main);
+		signal(SIGQUIT, sig_main);
 		line = new_prompt(1, tool.env);
+		signal(SIGINT, sig_catch);
+		signal(SIGQUIT, sig_catch);
 		if (!line)
 		{
 			printfd(STDOUT_FILENO, "exit\n");
