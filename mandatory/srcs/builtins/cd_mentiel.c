@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/11 19:37:43 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:52:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "shellpticflesh.h"
 #include <errno.h>
 
-// TODO & FIX
-// pour les messages d'erreurs
-// printf ne print pas sur stderr, a la diff de bash
-// voir si ca pose prblm
-// sinon faut import mon printf qui peut print vers un fd
-// PEROR fix with printfd
 int	cd_home(t_tool **tool)
 {
 	char	*home;

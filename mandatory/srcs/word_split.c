@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/10 14:51:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 10:50:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,12 @@ static void	merge_it(t_command *cmd, t_command *to_merge, int *se)
 	if (!temp)
 		return ;
 	temp2 = ft_strjoin(now->content, temp);
+	now->next = end;
 	free(temp);
+	if (!temp2)
+		return ;
 	free(now->content);
 	now->content = temp2;
-	now->next = end;
 	if (free_org)
 		free(org);
 }
@@ -135,6 +137,8 @@ void	word_split(t_command *cmd, char *newer, int *se, t_env *env)
 	to_merge = split_it(newer, ifs);
 	if (to_merge)
 		to_merge->purpose = COMMAND;
+	else
+		return ;
 	free(ifs);
 	merge_it(cmd, to_merge, se);
 }

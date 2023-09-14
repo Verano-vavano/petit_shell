@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:05:14 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:45:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	tilde_it(t_command *cmd, char *tilde, char *pwd, char *opwd)
 	if (cmd->content[0] == '~' && replacer)
 	{
 		temp = ft_strreplace(cmd->content, 0, to_replace, replacer);
+		if (!temp)
+			return ;
 		free(cmd->content);
 		cmd->content = temp;
 	}
