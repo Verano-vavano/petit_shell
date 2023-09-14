@@ -6,11 +6,14 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 10:52:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:53:35 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shellpticflesh.h"
+#include <string.h>
+#include <unistd.h>
 
 void	change_oldpwd(t_env **env)
 {
@@ -48,37 +51,20 @@ static void	no_behind(char *dest, t_env **env, t_tool **tool)
 {
 	t_env	*pwd;
 	t_env	*old_pwd;
-	char	*temp;
 
-	write(2, "cd: error retrieving current directory: getcwd", 46);
-	write(2, ": ", 2);
+	printfd(STDERR_FILENO, "cd: error retrieving current directory: getcwd: ");
 	perror("cannot access parent directories");
 	pwd = env_getptr("PWD", *env);
 	old_pwd = env_getptr("OLDPWD", *env);
 	if (!old_pwd)
 		return ;
-	if (pwd && pwd->value && pwd->value[0])
+	if (pwd && pwd->value)
 		free(pwd->value);
 	else
-	{
-		pwd = ft_calloc(1, sizeof (t_env));
-		if (!pwd)
-			return ;
-		pwd->value = ft_calloc(2, sizeof (char *));
-		if (!pwd->value)
-		{
-			free(pwd);
-			return ;
-		}
-		pwd->key = ft_strdup("PWD");
-		env_add(pwd, env);
-	}
-	temp = ft_strjoin(old_pwd->value, "/");
-	if (!temp)
-		return ;
-	pwd->value = ft_strjoin(temp, dest);
+		env_add(env_new_specific("PWD", NULL, false), env);
+	pwd = env_getptr("PWD", *env);
+	pwd->value = concat_multiple((char *[]){old_pwd->value, "/", dest, NULL});
 	(*tool)->cwd = ft_strdup(pwd->value);
-	free(temp);
 }
 
 void	change_pwd(char *dest, t_tool **tool)
