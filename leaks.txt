@@ -1,0 +1,13 @@
+==26444== 38 bytes in 1 blocks are definitely lost in loss record 36 of 107
+==26444==    at 0x48BE7D4: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==26444==    by 0x115912: ft_strdup (in /home/thib/code/minishell/minishell)
+==26444==    by 0x11554B: change_pwd (cd_mentiellement_util.c:97)
+==26444==    by 0x10DF7B: simple_cd (cd_mentiel.c:53)
+==26444==    by 0x10E170: cd_mentiel (cd_mentiel.c:95)
+==26444==    by 0x110210: find_exec_bltn (builtin_execution.c:53)
+==26444==    by 0x1103D8: exec_bltin (builtin_execution.c:98)
+==26444==    by 0x10BEDE: aexec (execution.c:56)
+==26444==    by 0x10C091: ex_loop (execution.c:97)
+==26444==    by 0x10C1FB: execute_the_line (execution.c:122)
+==26444==    by 0x109621: exec_loop (shellpticflesh.c:78)
+==26444==    by 0x1097A1: cmd_processing (shellpticflesh.c:104)
