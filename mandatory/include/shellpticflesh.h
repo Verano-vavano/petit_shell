@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:39:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 20:40:19 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,7 @@ t_env		*env_last(t_env *env);
 char		*env_getval(char *key, t_env *env);
 char	    **env_getval_split(char *key, t_env *env);
 void		env_change_val(char *key, char *value, t_env *env, bool is_exp);
-void		env_update(char *char_arr, bool is_exported, t_env *env, ...);
+void		env_update(char *key, bool is_exported, t_env **env);
 t_env		*env_getptr(char *key, t_env *env);
 int			env_contain(char *newest, t_env *env);
 int			env_isdefined(char *key, t_env *env);

@@ -6,13 +6,14 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 17:54:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 21:30:36 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
 #include "stdarg.h"
+#include <stdio.h>
 #include <string.h>
 
 t_env	*env_getptr(char *key, t_env *env)
@@ -73,37 +74,27 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 		ptr->is_exported = true;
 }
 
-void	env_update(char *char_arr, bool is_exported, t_env *env, ...)
+void env_update(char *str, bool is_exported, t_env **env)
 {
-	va_list	list;
-	t_env	*ptr;
-	char	*key;
-	char	**tmp;
+	char **tmp;
+	t_env *ptr;
 
-	va_start(list, env);
-	key = va_arg(list, char *);
-	if (key && env_contain(key, env))
-		env_change_val(key, char_arr, env, is_exported);
-	else
+	tmp = ft_split(str, '=');
+	ptr = env_getptr(tmp[0], *env);
+	// if (!ptr )
+	// 	return (free_char_etoile_etoile(tmp));
+	if (is_exported && !tmp[1] && !ft_strchr(str, '='))
+		is_exported = !is_exported;
+	if(!ptr)
 	{
-		if (!ft_strchr(char_arr, '='))
-		{
-			if (!is_exported)
-				return ;
-			ptr = env_getptr(char_arr, env);
-			if (!ptr)
-				env_add(env_new(char_arr, true), &env);
-			else
-				ptr->is_exported = true;
-			return ;
-		}
-		tmp = one_split(char_arr, '=');
-		if (env_contain(tmp[0], env))
-			env_change_val(tmp[0], tmp[1], env, is_exported);
-		else
-			env_add(env_new(char_arr, is_exported), &env);
-		free_char_etoile_etoile(tmp);
+		env_add(env_new_specific(tmp[0], tmp[1], is_exported), env);
+		return(free_char_etoile_etoile(tmp));
 	}
+	if (ptr->value)
+		free(ptr->value);
+	ptr->value = ft_strdup(tmp[1]);
+	ptr->is_exported = is_exported;
+	free_char_etoile_etoile(tmp);
 }
 
 int	env_isdefined(char *key, t_env *env)
