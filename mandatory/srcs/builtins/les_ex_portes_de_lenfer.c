@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 18:26:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 10:34:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,17 @@ void	swap_content(t_env *curr, t_env *next)
 {
 	char	*yo_key;
 	char	*yo_value;
+	bool	yo_is_exp;
 
 	yo_key = curr->key;
 	yo_value = curr->value;
+	yo_is_exp = curr->is_exported;
 	curr->key = next->key;
 	curr->value = next->value;
+	curr->is_exported = next->is_exported;
 	next->key = yo_key;
 	next->value = yo_value;
+	next->is_exported = yo_is_exp;
 }
 
 void	sort_env(t_env *head)
