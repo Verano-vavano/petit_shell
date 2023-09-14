@@ -23,6 +23,7 @@ Redirection from fd to fd (n<&m)
 Syntax error handling
 Taking variables into account (IFS, CDPATH)
 PS1, PS2
+- Performs PROMPT_COMMAND before each prompt
 Signal handling
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
