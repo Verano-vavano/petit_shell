@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 10:26:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/14 17:54:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	env_update(char *char_arr, bool is_exported, t_env *env, ...)
 				ptr->is_exported = true;
 			return ;
 		}
-		tmp = ft_split(char_arr, '=');
+		tmp = one_split(char_arr, '=');
 		if (env_contain(tmp[0], env))
 			env_change_val(tmp[0], tmp[1], env, is_exported);
 		else

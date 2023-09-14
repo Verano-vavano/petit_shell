@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:11:55 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:37:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	get_heredoc_file(int hd, int mode)
 	return (fd);
 }
 
-static void	write_heredoc(int fd, char *eof, t_env *env)
+static void	write_heredoc(int fd, char *eof, t_tool *tool)
 {
 	char	*line;
 	int		lines;
@@ -43,7 +43,7 @@ static void	write_heredoc(int fd, char *eof, t_env *env)
 	lines = 1;
 	while (true)
 	{
-		line = new_prompt(2, env);
+		line = new_prompt(2, tool);
 		if (!line)
 		{
 			warning_heredoc_eof(lines, eof);
@@ -63,7 +63,7 @@ static void	write_heredoc(int fd, char *eof, t_env *env)
 	free(eof);
 }
 
-static int	heredoc_child(int fd, char *eof, t_env *env)
+static int	heredoc_child(int fd, char *eof, t_tool *tool)
 {
 	pid_t	pid;
 
@@ -73,7 +73,7 @@ static int	heredoc_child(int fd, char *eof, t_env *env)
 	else if (pid == 0)
 	{
 		signal(SIGINT, heredoc_handle);
-		write_heredoc(fd, eof, env);
+		write_heredoc(fd, eof, tool);
 		exit(0);
 	}
 	while (waitpid(pid, 0, WNOHANG) == 0)
@@ -90,7 +90,7 @@ static int	heredoc_child(int fd, char *eof, t_env *env)
 	return (0);
 }
 
-static int	create_heredoc(int index, t_command *cmd, t_env *env)
+static int	create_heredoc(int index, t_command *cmd, t_tool *tool)
 {
 	int	fd_heredoc;
 	int	ret;
@@ -100,7 +100,7 @@ static int	create_heredoc(int index, t_command *cmd, t_env *env)
 		return (1);
 	if (cmd->purpose == HERE_DOC_DELIM)
 	{
-		ret = heredoc_child(fd_heredoc, cmd->content, env);
+		ret = heredoc_child(fd_heredoc, cmd->content, tool);
 		if (ret)
 			return (ret);
 	}
@@ -114,7 +114,7 @@ static int	create_heredoc(int index, t_command *cmd, t_env *env)
 	return (0);
 }
 
-int	here_doc(t_command *cmd, t_env *env)
+int	here_doc(t_command *cmd, t_tool *tool)
 {
 	int	i;
 	int	ret;
@@ -125,7 +125,7 @@ int	here_doc(t_command *cmd, t_env *env)
 	{
 		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		{
-			ret = create_heredoc(i, cmd, env);
+			ret = create_heredoc(i, cmd, tool);
 			if (ret)
 				return (ret);
 			i++;
@@ -133,6 +133,6 @@ int	here_doc(t_command *cmd, t_env *env)
 		cmd = cmd->next;
 	}
 	if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
-		ret = create_heredoc(i, cmd, env);
+		ret = create_heredoc(i, cmd, tool);
 	return (ret);
 }
