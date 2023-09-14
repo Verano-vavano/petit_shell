@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 10:34:52 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:31:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	env_infernal(t_env *env, bool export)
 				printfd(STDOUT_FILENO, "=");
 				if (export)
 					printfd(STDOUT_FILENO, "\"");
-				if (ptr->value)
+				if (ptr->value && ptr->value[0])
 					printfd(STDOUT_FILENO, "%s", ptr->value);
 				if (export)
 					printfd(STDOUT_FILENO, "\"");
