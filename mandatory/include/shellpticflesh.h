@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:36:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 18:24:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define TEMP "/tmp/temp_shellptic_"
 # define READ 0
 # define WRITE 1
+# define ERR 2
 
 # define PROG_NAME "Minishell"
 # define SHELL_NAME "Shellpticflesh"
@@ -333,6 +334,8 @@ int			exit_hell(char **cmd, long ret, char **c_env, bool one);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, bool export);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);
+t_env		*dup_env(t_env *env);
+void		sort_env(t_env *head);
 int			unset_et_damnation(char **cmd, t_env **env);
 int			cd_mentiel(char **cmd, t_tool **tool);
 void		change_oldpwd(t_env **env);

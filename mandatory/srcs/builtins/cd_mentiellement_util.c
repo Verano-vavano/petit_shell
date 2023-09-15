@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 16:00:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 18:33:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include "shellpticflesh.h"
 #include <string.h>
 #include <unistd.h>
+
+static t_env	*add_to_env(char *key, t_env **env)
+{
+	t_env	*ptr;
+
+	ptr = ft_calloc(1, sizeof (t_env));
+	if (!ptr)
+		return (0);
+	ptr->value = ft_calloc(2, sizeof (char *));
+	if (!ptr->value)
+	{
+		free(ptr);
+		return (0);
+	}
+	ptr->key = ft_strdup(key);
+	env_add(ptr, env);
+	return (ptr);
+}
 
 void	change_oldpwd(t_env **env)
 {
@@ -31,19 +49,7 @@ void	change_oldpwd(t_env **env)
 	if (old_pwd && old_pwd->value && *old_pwd->value)
 		free(old_pwd->value);
 	if (!old_pwd)
-	{
-		old_pwd = ft_calloc(1, sizeof (t_env));
-		if (!old_pwd)
-			return ;
-		old_pwd->value = ft_calloc(2, sizeof (char *));
-		if (!old_pwd->value)
-		{
-			free(old_pwd);
-			return ;
-		}
-		old_pwd->key = ft_strdup("OLDPWD");
-		env_add(old_pwd, env);
-	}
+		old_pwd = add_to_env("OLDPWD", env);
 	old_pwd->value = ft_strdup(pwd->value);
 }
 
@@ -81,16 +87,7 @@ void	change_pwd(char *dest, t_tool **tool)
 		if (pwd)
 			free(pwd->value);
 		else
-		{
-			pwd = ft_calloc(1, sizeof (t_env));
-			if (!pwd)
-				return ;
-			pwd->value = ft_calloc(2, sizeof (char *));
-			if (!pwd->value)
-				return (free(pwd));
-			pwd->key = ft_strdup("PWD");
-			env_add(pwd, &((*tool)->env));
-			}
+			pwd = add_to_env("PWD", &((*tool)->env));
 		pwd->value = cwd;
 		(*tool)->cwd = ft_strdup(cwd);
 	}

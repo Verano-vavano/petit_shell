@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/15 10:12:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 18:27:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**dup_paths(char **paths)
 	i = 0;
 	while (paths[i])
 		i++;
-	cpy = malloc(sizeof(char *) * i + 1); // safe
+	cpy = malloc(sizeof(char *) * i + 1);
 	if (!cpy)
 		return (0);
 	i = -1;
@@ -30,67 +30,6 @@ char	**dup_paths(char **paths)
 		cpy[i] = ft_strdup(paths[i]);
 	cpy[i] = NULL;
 	return (cpy);
-}
-
-t_env	*dup_env(t_env *env)
-{
-	t_env	*new;
-
-	new = malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->key = ft_strdup(env->key);
-	if (env->value != NULL)
-	{
-		new->value = malloc(sizeof(char *) * ft_strlen(env->value));
-		if (!new->value)
-			return (free(new), NULL);
-		new->value = ft_strdup(env->value);
-	}
-	else
-		new->value = NULL;
-	new->next = NULL;
-	new->is_exported = env->is_exported;
-	return (new);
-}
-
-void	swap_content(t_env *curr, t_env *next)
-{
-	char	*yo_key;
-	char	*yo_value;
-	bool	yo_is_exp;
-
-	yo_key = curr->key;
-	yo_value = curr->value;
-	yo_is_exp = curr->is_exported;
-	curr->key = next->key;
-	curr->value = next->value;
-	curr->is_exported = next->is_exported;
-	next->key = yo_key;
-	next->value = yo_value;
-	next->is_exported = yo_is_exp;
-}
-
-void	sort_env(t_env *head)
-{
-	int		swapped;
-	t_env	*ptr;
-
-	swapped = 1;
-	while (swapped == 1)
-	{
-		swapped = 0;
-		ptr = head;
-		while (ptr && ptr->next)
-		{
-			if (ft_strcmp(ptr->key, ptr->next->key) > 0)
-			{
-				swap_content(ptr, ptr->next);
-				swapped = 1;
-			}
-			ptr = ptr->next;
-		}
-	}
 }
 
 static bool	check_assign(char *s)
@@ -111,10 +50,26 @@ static bool	check_assign(char *s)
 	return (true);
 }
 
+static int	print_env(t_env *ptr)
+{
+	t_env	*sorted_env;
+
+	sorted_env = NULL;
+	while (ptr)
+	{
+		env_add(dup_env(ptr), &sorted_env);
+		ptr = ptr->next;
+	}
+	sort_env(sorted_env);
+	ptr = sorted_env;
+	env_infernal(sorted_env, true);
+	free_whole_env(sorted_env);
+	return (0);
+}
+
 int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 {
 	t_env	*ptr;
-	t_env	*sorted_env;
 	int		ret;
 
 	if (!cmd[1] && (!env || !(*env)))
@@ -122,19 +77,7 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 	if (env && *env)
 		ptr = *env;
 	if (!cmd[1])
-	{
-		sorted_env = NULL;
-		while (ptr)
-		{
-			env_add(dup_env(ptr), &sorted_env);
-			ptr = ptr->next;
-		}
-		sort_env(sorted_env);
-		ptr = sorted_env;
-		env_infernal(sorted_env, true);
-		free_whole_env(sorted_env);
-		return (0);
-	}
+		return (print_env(ptr));
 	cmd++;
 	ret = 0;
 	while (*cmd)
@@ -147,12 +90,7 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 				env_update(*cmd, true, env);
 		}
 		else
-		{
-			write(2, "export : `", 10);
-			write(2, *cmd, ft_strlen(*cmd));
-			write(2, "': not a valid identifier\n", 26);
-			ret = 1;
-		}
+			printfd(WRITE, "export : `%s': not a valid identifier\n", *cmd);
 		cmd++;
 	}
 	return (ret);

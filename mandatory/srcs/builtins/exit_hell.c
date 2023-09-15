@@ -6,11 +6,27 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/12 21:30:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 18:13:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+static bool	loop_check(char *s, char *l, bool neg)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (l[i + neg] > s[i])
+			return (true);
+		else if (l[i + neg] < s[i])
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 static bool	str_not_long(char *s)
 {
@@ -33,16 +49,7 @@ static bool	str_not_long(char *s)
 		l = ft_ltoa(LONG_MAX);
 	if (!l)
 		return (false);
-	i = 0;
-	while (s[i])
-	{
-		if (l[i + neg] > s[i])
-			return (true);
-		else if (l[i + neg] < s[i])
-			return (false);
-		i++;
-	}
-	return (true);
+	return (loop_check(s, l, neg));
 }
 
 int	exit_hell(char **cmd, long ret, char **c_env, bool one)

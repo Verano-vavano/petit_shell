@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/15 17:36:34 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/15 18:20:51 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 syntax_checkerers.c						word_split_utils.c\
 	 to_delete_utils.c	builtins/cd_mentiellement_util.c\
 	 env_init_utils.c	prompt_expansions.c		get_username.c\
-	 get_hostname.c		get_cwd.c
+	 get_hostname.c		get_cwd.c				builtins/les_ex_portes_de_lutil.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 
