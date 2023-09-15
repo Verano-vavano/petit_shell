@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 10:09:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:53:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ void		add_all_hist(t_hist *hist);
 
 /*--------PROMPT----------*/
 char		*new_prompt(int n_ps, t_tool *tool);
-void		print_ps0(t_env *env);
+void		print_ps0(t_tool *tool);
 
 /*---------------UTILITIES------------------*/
 // cleaning
