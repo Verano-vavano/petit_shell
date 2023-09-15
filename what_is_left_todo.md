@@ -1,14 +1,12 @@
 si motivation, faire les expansions de PS1 et PS2
 
-fermer correctement les heredoc qd pb +++++
--> je ne sais plus pourquoi j'ai mis ça. J'ai fais pleins de tests pour essayer
-   de retrouver un cas ou mes heredocs ne se ferment pas correctement en vain.
-   Si Dieu veut bien un jour m'éclairer sur mes dires passés, loué soit-Il !
-
 (echo lol && cat gigipokp) >a 2>b
 
 ERR VALGRIND :
 - echo {#param}
+
+PS1 PS2 :
+- pas de word split -> PS1='$(ls)'
 
 # exports with $() inside them. Et PS1 avec PROMPT_COMMAND
 

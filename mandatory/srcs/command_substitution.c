@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:04:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 09:56:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 	{
 		dup2(se[3], STDOUT_FILENO);
 		out = get_output(se + 4);
-		if (out && *out && cmd->purpose != VAR_ASSIGN)
+		if (out && *out && cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
 			word_split(cmd, out, se, env);
-		else if (cmd->purpose != VAR_ASSIGN)
+		else if (cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
 			word_split(cmd, "\0", se, env);
 		else
 			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 20:40:19 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 09:57:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ enum	e_cmd_part
 	CMD_DELIM,
 	MARKER,
 	VAR_ASSIGN,
+	PS_EXP,
 	ERROR
 };
 

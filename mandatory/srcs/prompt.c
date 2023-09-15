@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:35:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 10:01:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*ps_expand(char *ps, t_tool *tool)
 	ps_cmd.content = ft_strdup(ps);
 	if (!ps_cmd.content)
 		return (0);
-	ps_cmd.purpose = COMMAND;
+	ps_cmd.purpose = PS_EXP;
 	ps_cmd.next = NULL;
 	parameter_expansion(&ps_cmd, tool);
 	command_substitution(&ps_cmd, tool->env);
