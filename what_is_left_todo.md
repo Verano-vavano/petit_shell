@@ -6,26 +6,7 @@ ERR VALGRIND :
 - echo {#param}
 
 echo lol >$(echo mdr jpp) : ambiguous redirect (very ambiguuguguoius)
-
-# exports with $() inside them. Et PS1 avec PROMPT_COMMAND
-
-```sh
-export PROMPT_COMMAND='available_space_on_root_fs=$(df -h --output=avail /)'
-```
-minisheel -> available_space_on_root_fs: command not found...
-bash ->
-
-bash le prend juste et il est ok!
-apres tu peux faire
-
-```sh
-export PS1='$available_space_on_root_fs$ '
-```
-et bash sera content de faire ca! 
-nous pas encore! Mais bientot.. j'espere
-
-venant de cette magnifique reponses stack overflow
-https://unix.stackexchange.com/a/718421
+b=12 && export b : la valeur de b n'est pas conservée
 
 # Removal of dirs
 

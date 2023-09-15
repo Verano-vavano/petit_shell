@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:10:33 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:46:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*quote_removal(char *cmd)
 
 void	quote_remove_cmd(t_command *cmd)
 {
-	while (cmd)
+	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		cmd->content = quote_removal(cmd->content);
 		cmd = cmd->next;

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 10:10:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:36:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*new_prompt(int n_ps, t_tool *tool)
 		temp = env_getval("PS2", tool->env);
 	if (temp && *temp)
 	{
+		printf("PS1 = %s\n", temp);
 		temp = ps_expand(temp, tool);
 		if (temp && *temp)
 		{

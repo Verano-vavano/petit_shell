@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 21:30:36 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:38:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void env_update(char *str, bool is_exported, t_env **env)
 	char **tmp;
 	t_env *ptr;
 
-	tmp = ft_split(str, '=');
+	tmp = one_split(str, '=');
 	ptr = env_getptr(tmp[0], *env);
-	// if (!ptr )
+	//if (!ptr)
 	// 	return (free_char_etoile_etoile(tmp));
 	if (is_exported && !tmp[1] && !ft_strchr(str, '='))
 		is_exported = !is_exported;
