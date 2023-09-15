@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 21:35:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:22:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	env_infernal(t_env *env, bool export)
 	ptr = env;
 	while (ptr)
 	{
-		if ((ptr && ptr->is_exported) || export)
+		if (ptr->is_exported && (export || (ptr->value)))
 		{
 			if (export)
 				printfd(STDOUT_FILENO, "%s",  "declare -x ");
 			printfd(STDOUT_FILENO, "%s", ptr->key);
-			if (ptr->is_exported)
+			if (ptr->value && (export || ptr->value[0]))
 			{
 				printfd(STDOUT_FILENO, "=");
 				if (export)
 					printfd(STDOUT_FILENO, "\"");
-				if (ptr->value)
+				if (ptr->value[0])
 					printfd(STDOUT_FILENO, "%s", ptr->value);
 				if (export)
 					printfd(STDOUT_FILENO, "\"");

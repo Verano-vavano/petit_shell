@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/15 11:38:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:16:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,25 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 
 void env_update(char *str, bool is_exported, t_env **env)
 {
-	char **tmp;
-	t_env *ptr;
+	char	**tmp;
+	t_env	*ptr;
+	bool	assign;
 
+	assign = ft_strchr(str, '=');
 	tmp = one_split(str, '=');
 	ptr = env_getptr(tmp[0], *env);
-	//if (!ptr)
-	// 	return (free_char_etoile_etoile(tmp));
-	if (is_exported && !tmp[1] && !ft_strchr(str, '='))
-		is_exported = !is_exported;
-	if(!ptr)
+	if (!ptr)
 	{
 		env_add(env_new_specific(tmp[0], tmp[1], is_exported), env);
 		return(free_char_etoile_etoile(tmp));
 	}
-	if (ptr->value)
+	if (ptr->value && assign)
+	{
 		free(ptr->value);
-	ptr->value = ft_strdup(tmp[1]);
+		ptr->value = 0;
+	}
+	if (assign && tmp[1])
+		ptr->value = ft_strdup(tmp[1]);
 	ptr->is_exported = is_exported;
 	free_char_etoile_etoile(tmp);
 }
