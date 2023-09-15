@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 12:53:35 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:00:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ void	change_pwd(char *dest, t_tool **tool)
 	t_env	*pwd;
 
 	cwd = getcwd(NULL, 0);
-	if (!cwd && ft_strcmp(dest, "..") == 0)
+	if (!cwd)
 		no_behind(dest, &((*tool)->env), tool);
-	else if (!cwd)
-		perror("No destination directory");
 	else
 	{
 		pwd = env_getptr("PWD", (*tool)->env);

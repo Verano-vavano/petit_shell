@@ -4,22 +4,3 @@ si motivation, faire les expansions de PS1 et PS2
 
 ERR VALGRIND :
 - echo {#param}
-
-# Removal of dirs
-
-```sh
-mkdir -p /tmp/lol/mdr
-cd tmp/lol/mdr
-rm -rf ../../tmp
-cd ../..
-```
-
-minishell -> No destination directory: No such file or directory
-bash -> cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
-
-caused by line 80 of cd_mentiel_util.c
-- ft_strcmp(dest, "..")
-    - incompatible with ../.. for example
-
-possible fix, check if !getcwd and if `dest` is relative or not
-and is relative if (!dest->value[0] != '/' || dest->value[0] != '~')
