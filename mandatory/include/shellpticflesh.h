@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 11:53:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:35:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void		tilde_expansion(t_command *cmd, t_env *env);
 char		*rescue_tilde_funk(t_env *env);
 
 // parameter_expansion
-void		parameter_expansion(t_command *cmd, t_tool *tool);
+int			parameter_expansion(t_command *cmd, t_tool *tool);
 // utils
 int			find_arg_len(char *s, bool brack, char quoted);
 bool		is_special_param(char *arg);
@@ -216,7 +216,7 @@ bool		not_over(char *s);
 int			move_end_stars(char *qmat);
 
 // word split
-void		word_split(t_command *cmd, char *newer, int *se, t_env *env);
+int			word_split(t_command *cmd, char *newer, int *se, t_env *env);
 // utils
 int			search_next_ifs(char *newer, char *ifs);
 char		*get_ifs(t_env *env);

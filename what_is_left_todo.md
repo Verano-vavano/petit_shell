@@ -5,9 +5,6 @@ si motivation, faire les expansions de PS1 et PS2
 ERR VALGRIND :
 - echo {#param}
 
-echo lol >$(echo mdr jpp) : ambiguous redirect (very ambiguuguguoius)
-b=12 && export b : la valeur de b n'est pas conservée
-
 # Removal of dirs
 
 ```sh

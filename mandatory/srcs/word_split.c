@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 10:50:54 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:37:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,25 @@ static t_command	*split_it(char *newer, char *ifs)
 	return (to_merge);
 }
 
-void	word_split(t_command *cmd, char *newer, int *se, t_env *env)
+int	word_split(t_command *cmd, char *newer, int *se, t_env *env)
 {
 	char		*ifs;
 	t_command	*to_merge;
 
 	ifs = get_ifs(env);
 	if (!ifs)
-		return ;
+		return (0);
 	to_merge = split_it(newer, ifs);
 	if (to_merge)
-		to_merge->purpose = COMMAND;
+		to_merge->purpose = cmd->purpose;
 	else
-		return ;
+		return (0);
 	free(ifs);
+	if (to_merge->next && cmd->purpose >= IN_FILE && cmd->purpose <= IN_OUT_FILE)
+	{
+		free_command(to_merge);
+		return (ambiguous_error(cmd->content));
+	}
 	merge_it(cmd, to_merge, se);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 10:09:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:42:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@ static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
 		dup2(se[3], STDOUT_FILENO);
 		out = get_output(se + 4);
 		if (out && *out && cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
-			word_split(cmd, out, se, env);
+		{
+			if (word_split(cmd, out, se, env))
+				ret = -120;
+		}
 		else if (cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
-			word_split(cmd, "\0", se, env);
+		{
+			if (word_split(cmd, "\0", se, env))
+				ret = -120;
+		}
 		else
 			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
 		if (out)
@@ -119,7 +125,9 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 		}
 		start++;
 	}
-	if (!repl)
+	if (ret < 0)
+		return (ret * (-1));
+	else if (!repl)
 		return (ret);
 	else
 		return (-1);
@@ -138,7 +146,9 @@ long	command_substitution(t_command *cmd, t_env *env)
 		{
 			next = cmd->next;
 			ret = srch_exec_comm(cmd, env);
-			if (ret >= 0 && !skip_first)
+			if (ret == 120)
+				return (1);
+			else if (ret >= 0 && !skip_first)
 				skip_first = true;
 			cmd = next;
 			continue ;

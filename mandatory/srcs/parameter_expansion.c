@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 11:45:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:36:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,26 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	return (param_val);
 }
 
-static void	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
+static int	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 {
 	se[0]--;
 	if (cmd->purpose == VAR_ASSIGN || cmd->purpose == PS_EXP)
 		cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, to_change);
 	else if (to_change && *to_change)
-		word_split(cmd, to_change, se, env);
+		return (word_split(cmd, to_change, se, env));
 	else
-		word_split(cmd, "\0", se, env);
+		return (word_split(cmd, "\0", se, env));
+	return (0);
 }
 
-static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted)
+static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted)
 {
 	int		se[2];
 	bool	brack;
 	char	*arg;
 	char	*to_change;
 	char	*temp;
+	int		ret;
 
 	se[0] = i + 1;
 	to_change = NULL;
@@ -65,7 +67,7 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted
 	se[1] = find_arg_len(cmd->content + se[0], brack, quoted);
 	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
 	if (!arg)
-		return ;
+		return (1);
 	to_change = NULL;
 	if (is_special_param(arg))
 		to_change = special_parameter(arg, tool);
@@ -78,12 +80,13 @@ static void	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted
 	else if (brack)
 		to_change = dollar_comprehender(arg, tool->env, se[1]);
 	se[1] += brack;
-	put_param_in(cmd, se, to_change, tool->env);
+	ret = put_param_in(cmd, se, to_change, tool->env);
 	free(arg);
 	free(to_change);
+	return (ret);
 }
 
-static void	parameter_seeker(t_command *cmd, t_tool *tool)
+static int	parameter_seeker(t_command *cmd, t_tool *tool)
 {
 	int		i;
 	char	quoted;
@@ -98,20 +101,25 @@ static void	parameter_seeker(t_command *cmd, t_tool *tool)
 			&& cmd->content[i + 1] != '\'' && cmd->content[i + 1] != '"'
 			&& quoted != '\'' && cmd->content[i + 1] != '(')
 		{
-			parameter_expand_it(cmd, i, tool, quoted);
-			parameter_seeker(cmd, tool);
-			return ;
+			if (parameter_expand_it(cmd, i, tool, quoted))
+				return (1);
+			return (parameter_seeker(cmd, tool));
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	parameter_expansion(t_command *cmd, t_tool *tool)
+int	parameter_expansion(t_command *cmd, t_tool *tool)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (ft_strchr(cmd->content, '$'))
-			parameter_seeker(cmd, tool);
+		{
+			if (parameter_seeker(cmd, tool))
+				return (1);
+		}
 		cmd = cmd->next;
 	}
+	return (0);
 }
