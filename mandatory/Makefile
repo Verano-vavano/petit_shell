@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/11 12:57:31 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/09/15 17:36:34 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 execution.c		syntax_checker.c		builtins/echo_des_enfers.c \
 	 env.c builtins/env_infernal.c builtins/les_ex_portes_de_lenfer.c env_utils.c \
 	 builtins/unset_et_damnation.c				line_expansions.c\
-	 tilde_expansion.c	get_tilde.c builtins/cd_mentiel.c builtins/print_working_damnation.c \
+	 tilde_expansion.c	get_home.c builtins/cd_mentiel.c builtins/print_working_damnation.c \
 	 env_utils2.c		braces_expansion.c		execution_utils.c\
 	 get_cmd.c			files.c					get_path.c\
 	 redirections.c		env_utils3.c			quote_removal.c\
@@ -35,7 +35,8 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 check_path.c		history_utils.c			param_exp_utils.c\
 	 syntax_checkerers.c						word_split_utils.c\
 	 to_delete_utils.c	builtins/cd_mentiellement_util.c\
-	 env_init_utils.c
+	 env_init_utils.c	prompt_expansions.c		get_username.c\
+	 get_hostname.c		get_cwd.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 10:45:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 17:11:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	tilde_expansion(t_command *cmd, t_env *env)
 		tilde = temp;
 	malloqued = !(temp);
 	if (malloqued)
-		tilde = rescue_tilde_funk(env);
+		tilde = get_home(env);
 	temp = env_getval("PWD", env);
 	if (temp)
 		pwd = temp;

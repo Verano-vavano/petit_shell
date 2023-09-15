@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:31:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 22:56:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 17:12:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_histfile(t_env *env)
 	temp_val = env_getval("HISTFILE", env);
 	if (!temp_val || !*temp_val || !is_file_valid(temp_val, W_OK))
 	{
-		histfile = rescue_tilde_funk(env);
+		histfile = get_home(env);
 		home = ft_strjoin(histfile, "/");
 		free(histfile);
 		histfile = ft_strjoin(home, STD_HISTFILE);

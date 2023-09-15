@@ -28,6 +28,7 @@ PS0, PS1, PS2, PROMPT_COMMAND
 - PS2 is the beginning of secondary prompts (heredocs && incomplete lines)
 - Performs PROMPT_COMMAND before each prompt
 - PS expansions allow complexe prompts such as : PS1='|->$? _$$_ $ ' and can be on par with PROMPT_COMMAND
+- PS expansions allow \ expansions such as \n \w or \u
 Signal handling
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.

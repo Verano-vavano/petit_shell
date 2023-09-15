@@ -6,13 +6,14 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 11:57:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 17:59:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static char	*ps_expand(char *ps, t_tool *tool)
+// Applies parameter and command expansions to PS
+static char	*ps_basic_expansion(char *ps, t_tool *tool)
 {
 	t_command	ps_cmd;
 
@@ -26,6 +27,7 @@ static char	*ps_expand(char *ps, t_tool *tool)
 	return (ps_cmd.content);
 }
 
+// Printed before every command
 void	print_ps0(t_tool *tool)
 {
 	char	*ps0;
@@ -34,7 +36,9 @@ void	print_ps0(t_tool *tool)
 	ps0 = env_getval("PS0", tool->env);
 	if (ps0)
 	{
-		ps_expanded = ps_expand(ps0, tool);
+		ps_expanded = ps_cool_expansion(ps0, tool);
+		if (ps_expanded)
+			ps_expanded = ps_basic_expansion(ps_expanded, tool);
 		if (ps_expanded)
 		{
 			write(1, ps_expanded, ft_strlen(ps_expanded));
@@ -45,6 +49,7 @@ void	print_ps0(t_tool *tool)
 	}
 }
 
+// Prompt_command is executed before every command
 static void	execute_prompt_command(t_tool *tool)
 {
 	char	*temp;
@@ -61,6 +66,8 @@ static void	execute_prompt_command(t_tool *tool)
 	cmd_processing(command, tool, false);
 }
 
+// PS1 : Main read
+// PS2 : Secondary read
 char	*new_prompt(int n_ps, t_tool *tool)
 {
 	char	*temp;
@@ -75,7 +82,9 @@ char	*new_prompt(int n_ps, t_tool *tool)
 		temp = env_getval("PS2", tool->env);
 	if (temp && *temp)
 	{
-		temp = ps_expand(temp, tool);
+		temp = ps_cool_expansion(temp, tool);
+		if (temp)
+			temp = ps_basic_expansion(temp, tool);
 		if (temp && *temp)
 		{
 			line = readline(temp);

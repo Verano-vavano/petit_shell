@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 12:35:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 17:36:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 # define PROG_NAME "Minishell"
 # define SHELL_NAME "Shellpticflesh"
+# define SHELL_VERSION "1.0"
 
 # define STD_PS1 "PS1=Shell >> "
 # define STD_PS2 "PS2=-> "
@@ -101,6 +102,7 @@ typedef struct s_env
 typedef struct s_hist_ll
 {
 	char				*content;
+	long				num_cmd;
 	struct s_hist_ll	*next;
 }				t_hist_ll;
 
@@ -169,6 +171,12 @@ int			get_heredoc_file(int hd, int mode);
 void		unlink_heredocs(t_command *cmd);
 int			here_doc(t_command *cmd, t_tool *tool);
 
+/*------------COOL_GETTERS-------------*/
+char		*get_username(char *name, t_env *env);
+char		*get_home(t_env *env);
+char		*get_hostname(char *name, t_env *env);
+char		*get_arranged_cwd(t_env *env, bool only_end);
+
 /*--------------EXPANSIONS-----------------*/
 // line_expansions
 int			expand_cmd(t_command *cmd, t_tool *tool);
@@ -183,7 +191,6 @@ int			dots_expansion(t_command *cmd, char **param, int *se);
 void		tilde_expansion(t_command *cmd, t_env *env);
 
 // get_tilde
-char		*rescue_tilde_funk(t_env *env);
 
 // parameter_expansion
 int			parameter_expansion(t_command *cmd, t_tool *tool);
@@ -277,6 +284,7 @@ void		add_all_hist(t_hist *hist);
 /*--------PROMPT----------*/
 char		*new_prompt(int n_ps, t_tool *tool);
 void		print_ps0(t_tool *tool);
+char		*ps_cool_expansion(char *ps, t_tool *tool);
 
 /*---------------UTILITIES------------------*/
 // cleaning
