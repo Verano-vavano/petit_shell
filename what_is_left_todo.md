@@ -5,8 +5,7 @@ si motivation, faire les expansions de PS1 et PS2
 ERR VALGRIND :
 - echo {#param}
 
-PS1 PS2 :
-- pas de word split -> PS1='$(ls)'
+echo lol >$(echo mdr jpp) : ambiguous redirect (very ambiguuguguoius)
 
 # exports with $() inside them. Et PS1 avec PROMPT_COMMAND
 

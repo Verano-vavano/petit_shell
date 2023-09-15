@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 10:34:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 10:12:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 			if (!env || !(*env))
 				*env = env_new(*cmd, true);
 			else
-				env_update(*cmd, true, *env, NULL);
+				env_update(*cmd, true, env);
 		}
 		else
 		{

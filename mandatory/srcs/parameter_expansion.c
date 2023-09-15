@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:02:00 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/15 10:15:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 static void	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 {
 	se[0]--;
-	if (to_change && *to_change)
+	if (cmd->purpose == VAR_ASSIGN || cmd->purpose == PS_EXP)
+		cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, to_change);
+	else if (to_change && *to_change)
 		word_split(cmd, to_change, se, env);
 	else
 		word_split(cmd, "\0", se, env);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:40:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/15 10:11:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	assign_vars(t_command *cmd, t_env **env)
 		if (!env || !(*env))
 			*env = env_new(cmd->content, false);
 		else
-			env_update(cmd->content, false, *env, NULL);
+			env_update(cmd->content, false, env);
 		cmd = cmd->next;
 	}
 }
