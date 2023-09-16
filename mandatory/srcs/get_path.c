@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 12:55:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:18:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static int	rel_search(t_process_cmd *cmd, char *path)
 {
-	char **paths;
-	char *path_cmd;
-	char *full_path;
-	int i;
+	char	**paths;
+	char	*path_cmd;
+	char	*full_path;
+	int		i;
 
 	if (!path)
 		return (128);
@@ -37,7 +37,6 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 		full_path = check_path(paths[i], path_cmd);
 		if (full_path)
 		{
-			cmd->free_name = true;
 			if (cmd->cmd_name)
 				free(cmd->cmd_name);
 			cmd->cmd_name = full_path;
@@ -91,7 +90,6 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	cmd->cmd_name = ft_strdup(cmd->cmd[0]);
 	if (!cmd->cmd_name)
 		return (1);
-	cmd->free_name = true;
 	relative = cmd->cmd_name[ft_strchr_int(cmd->cmd_name, '/')] == '/';
 	if (relative && is_dir(cmd->cmd[0]))
 		return (command_error(cmd->cmd[0], 125));

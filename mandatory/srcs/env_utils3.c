@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 15:40:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 21:37:32 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:00:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 		return (0);
 	len = env_size(env);
 	c_env = ft_calloc(len + 1, sizeof (char *));
-	if (c_env == 0)
-		return (0);
 	i = 0;
-	while (env)
+	while (c_env && env)
 	{
 		if (env->is_exported)
 		{
@@ -74,9 +72,9 @@ char	**re_char_etoile_etoilise_env(t_env *env)
 	return (c_env);
 }
 
-t_env *env_new_specific(char *key, char *value, bool is_exported)
+t_env	*env_new_specific(char *key, char *value, bool is_exported)
 {
-	t_env *new;
+	t_env	*new;
 
 	if (!key)
 		return (NULL);
@@ -88,4 +86,19 @@ t_env *env_new_specific(char *key, char *value, bool is_exported)
 	new->is_exported = is_exported;
 	new->next = NULL;
 	return (new);
+}
+
+char	**env_getval_split(char *key, t_env *env)
+{
+	if (!env)
+		return (0);
+	while (env && env->next)
+	{
+		if (ft_strcmp(env->key, key) == 0)
+			return (ft_split(env->value, ':'));
+		env = env->next;
+	}
+	if (!ft_strcmp(env->key, key))
+		return (ft_split(env->value, ':'));
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 13:06:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:12:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ static long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 		if (lexed->purpose == CMD_DELIM)
 			lexed = lexed->next;
 		rt_val = expand_cmd(lexed, tool);
+		quote_remove_cmd(lexed);
 		if (rt_val < 0)
-		{
-			quote_remove_cmd(lexed);
 			rt_val = execute_the_line(lexed, tool, hd_no);
-		}
 		assign_vars(lexed, &(tool->env));
 		while (lexed && lexed->purpose != CMD_DELIM)
 			lexed = lexed->next;

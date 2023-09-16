@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:41:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:58:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:32:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ static char	*get_exp_val(char c, t_tool *tool)
 		return (ft_strdup("\n"));
 	else if (c == 'r')
 		return (ft_strdup("\r"));
-	else if (c == '\'')
-		return (ft_strdup("'"));
-	else if (c == '\\')
-		return (ft_strdup("\\"));
 	else if (c == 's')
 		return (ft_strdup(SHELL_NAME));
 	else if (c == 'v')
@@ -36,8 +32,7 @@ static char	*get_exp_val(char c, t_tool *tool)
 	{
 		if (tool->hist->hist_end->num_cmd == LONG_MAX)
 			return (ft_ltoa(LONG_MAX));
-		else
-			return (ft_ltoa(tool->hist->hist_end->num_cmd + 1));
+		return (ft_ltoa(tool->hist->hist_end->num_cmd + 1));
 	}
 	else if (c == 'H')
 		return (ft_strdup(get_hostname(username, tool->env)));
@@ -66,8 +61,8 @@ char	*ps_cool_expansion(char *ps, t_tool *tool)
 	char	*to_insert;
 	char	*new;
 
-	i = 0;
-	while (ps[i])
+	i = -1;
+	while (ps[++i])
 	{
 		if (ps[i] == '\\')
 		{
@@ -85,7 +80,6 @@ char	*ps_cool_expansion(char *ps, t_tool *tool)
 				ps = new;
 			}
 		}
-		i++;
 	}
 	return (ps);
 }

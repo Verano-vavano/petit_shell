@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:01:09 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:14:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int	filename_expansion(t_command *cmd)
 		if (cmd->content[usearch(cmd->content, '*')]
 			|| cmd->content[usearch(cmd->content, '?')])
 		{
-			if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING && cmd->purpose != HERE_DOC_DELIM)
+			if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING
+				&& cmd->purpose != HERE_DOC_DELIM)
 			{
 				if (perform_file_exp(cmd, cmd->purpose))
 					return (ambiguous_error(cmd->content));

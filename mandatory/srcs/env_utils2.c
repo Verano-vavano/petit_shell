@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/15 12:16:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:57:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	env_change_val(char *key, char *value, t_env *env, bool is_exp)
 		ptr->is_exported = true;
 }
 
-void env_update(char *str, bool is_exported, t_env **env)
+void	env_update(char *str, bool is_exported, t_env **env)
 {
 	char	**tmp;
 	t_env	*ptr;
@@ -86,7 +86,7 @@ void env_update(char *str, bool is_exported, t_env **env)
 	if (!ptr)
 	{
 		env_add(env_new_specific(tmp[0], tmp[1], is_exported), env);
-		return(free_char_etoile_etoile(tmp));
+		return (free_char_etoile_etoile(tmp));
 	}
 	if (ptr->value && assign)
 	{

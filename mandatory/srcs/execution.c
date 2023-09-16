@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 17:10:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:12:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 	t_ret_cmd		ret_cmd;
 
 	ret_cmd.heredoc_no = heredoc_no;
-	while (cmd && cmd->purpose != CMD_DELIM && (cmd->purpose == VAR_ASSIGN || !cmd->content[0]))
+	while (cmd && cmd->purpose != CMD_DELIM
+		&& (cmd->purpose == VAR_ASSIGN || !cmd->content[0]))
 		cmd = cmd->next;
 	n_cmd[0] = count_cmds(cmd);
 	n_cmd[1] = n_cmd[0];

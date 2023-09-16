@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:11:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:34:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	tilde_it(t_command *cmd, char *tilde, char *pwd, char *opwd)
 	int		to_replace;
 
 	replacer = NULL;
-	to_replace = 2;
+	to_replace = 1 + (cmd->content[1] == '+' || cmd->content[1] == '-');
 	if (!cmd)
 		return ;
 	if (cmd->content[0] == '~' && cmd->content[1] == '+' && pwd)
@@ -28,10 +28,7 @@ static void	tilde_it(t_command *cmd, char *tilde, char *pwd, char *opwd)
 		replacer = opwd;
 	else if (cmd->content[0] == '~' && tilde
 		&& cmd->content[1] != '+' && cmd->content[1] != '-')
-	{
-		to_replace = 1;
 		replacer = tilde;
-	}
 	if (cmd->content[0] == '~' && replacer)
 	{
 		temp = ft_strreplace(cmd->content, 0, to_replace, replacer);

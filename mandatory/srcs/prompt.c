@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:59:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:30:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ static char	*ps_basic_expansion(char *ps, t_tool *tool)
 	ps_cmd.purpose = PS_EXP;
 	ps_cmd.next = NULL;
 	parameter_expansion(&ps_cmd, tool);
-	command_substitution(&ps_cmd, tool->env);
+	command_substitution(&ps_cmd, tool->env, true);
+	if (ps_cmd.content)
+		quote_remove_cmd(&ps_cmd);
 	return (ps_cmd.content);
 }
 
@@ -75,28 +77,22 @@ char	*new_prompt(int n_ps, t_tool *tool)
 
 	if (n_ps == 1)
 		execute_prompt_command(tool);
-	temp = NULL;
 	if (n_ps == 1)
-		temp = env_getval("PS1", tool->env);
+		temp = ft_strdup(env_getval("PS1", tool->env));
 	else if (n_ps == 2)
-		temp = env_getval("PS2", tool->env);
-	if (temp && *temp)
+		temp = ft_strdup(env_getval("PS2", tool->env));
+	if (temp)
 	{
 		temp = ps_cool_expansion(temp, tool);
 		if (temp)
 			temp = ps_basic_expansion(temp, tool);
-		if (temp && *temp)
-		{
-			line = readline(temp);
-			free(temp);
-			return (line);
-		}
 	}
-	if (n_ps == 1)
-		line = readline("");
-	else if (n_ps == 2)
-		line = readline("");
+	if (temp)
+	{
+		line = readline(temp);
+		free(temp);
+	}
 	else
-		line = NULL;
+		line = readline("");
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 13:07:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:25:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@
 # include <readline/history.h>
 
 # define TEMP "/tmp/temp_shellptic_"
-# define READ 0
-# define WRITE 1
-# define ERR 2
+# define READ STDIN_FILENO
+# define WRITE STDOUT_FILENO
+# define ERR STDERR_FILENO
 
 # define PROG_NAME "Minishell"
 # define SHELL_NAME "Shellpticflesh"
 # define SHELL_VERSION "1.0"
 
-# define STD_PS1 "PS1=Shell >> "
+# define STD_PS1 "PS1=\\s \\v ($?) $ "
 # define STD_PS2 "PS2=-> "
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
@@ -185,13 +185,13 @@ int			expand_cmd(t_command *cmd, t_tool *tool);
 // braces_expansion
 int			braces_expansion(t_command *cmd);
 int			coma_brace_expansion(t_command *cmd, int *start_end);
+int			find_end(char *s);
+char		*get_braces_ext(int *se, int *nodes, char *org);
 int			dots_brace_expansion(t_command *cmd, int *se);
 int			dots_expansion(t_command *cmd, char **param, int *se);
 
 // tilde_expansion
 void		tilde_expansion(t_command *cmd, t_env *env);
-
-// get_tilde
 
 // parameter_expansion
 int			parameter_expansion(t_command *cmd, t_tool *tool);
@@ -201,8 +201,9 @@ bool		is_special_param(char *arg);
 char		*special_parameter(char *arg, t_tool *tool);
 
 // command substitution
-long		command_substitution(t_command *cmd, t_env *env);
+long		command_substitution(t_command *cmd, t_env *env, bool only_repl);
 char		*get_output(int *pipes);
+int			command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env);
 
 // filename expansion
 int			filename_expansion(t_command *cmd);

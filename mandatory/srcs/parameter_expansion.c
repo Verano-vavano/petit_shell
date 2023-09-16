@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 12:36:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:31:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,35 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 
 static int	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 {
+	int	ret;
+
 	se[0]--;
+	ret = 0;
 	if (cmd->purpose == VAR_ASSIGN || cmd->purpose == PS_EXP)
 		cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, to_change);
 	else if (to_change && *to_change)
-		return (word_split(cmd, to_change, se, env));
+		ret = word_split(cmd, to_change, se, env);
 	else
-		return (word_split(cmd, "\0", se, env));
-	return (0);
+		ret = word_split(cmd, "\0", se, env);
+	free(to_change);
+	return (ret);
 }
 
-static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted)
+static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char q)
 {
 	int		se[2];
 	bool	brack;
 	char	*arg;
 	char	*to_change;
 	char	*temp;
-	int		ret;
 
-	se[0] = i + 1;
 	to_change = NULL;
+	se[0] = i + 1;
 	brack = (cmd->content[se[0]] == '{');
-	se[1] = find_arg_len(cmd->content + se[0], brack, quoted);
+	se[1] = find_arg_len(cmd->content + se[0], brack, q);
 	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
 	if (!arg)
 		return (1);
-	to_change = NULL;
 	if (is_special_param(arg))
 		to_change = special_parameter(arg, tool);
 	else if (!brack && env_contain(arg, tool->env))
@@ -80,10 +82,8 @@ static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char quoted)
 	else if (brack)
 		to_change = dollar_comprehender(arg, tool->env, se[1]);
 	se[1] += brack;
-	ret = put_param_in(cmd, se, to_change, tool->env);
 	free(arg);
-	free(to_change);
-	return (ret);
+	return (put_param_in(cmd, se, to_change, tool->env));
 }
 
 static int	parameter_seeker(t_command *cmd, t_tool *tool)

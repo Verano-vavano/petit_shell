@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:47:25 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 13:32:14 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:00:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,10 @@ void	env_del(char *del, t_env **env)
 	}
 }
 
-char	**env_getval_split(char *key, t_env *env)
-{
-	if (!env)
-		return (0);
-	while (env && env->next)
-	{
-		if (ft_strcmp(env->key, key) == 0)
-			return (ft_split(env->value, ':'));
-		env = env->next;
-	}
-	if (!ft_strcmp(env->key, key))
-		return (ft_split(env->value, ':'));
-	return (0);
-}
-
 char	*env_getval(char *key, t_env *env)
 {
-	t_env *ptr;
+	t_env	*ptr;
+
 	if (!env)
 		return (0);
 	ptr = env_getptr(key, env);

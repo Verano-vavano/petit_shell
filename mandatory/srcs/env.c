@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 17:54:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:52:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,31 @@ t_env	*env_new(char *env_var, bool is_exported)
 	return (new);
 }
 
-t_env	*env_init(char **envp)
+static void	init_variables(t_env **env)
 {
 	char	cwd[1024];
 	char	*temp_pwd;
+
+	if (!env_contain("PATH", *env))
+		env_add(env_new(STD_PATH, true), env);
+	if (!env_contain("PS1", *env))
+		env_add(env_new(STD_PS1, false), env);
+	if (!env_contain("PS2", *env))
+		env_add(env_new(STD_PS2, false), env);
+	if (!env_contain("PWD", *env) && getcwd(cwd, 1024))
+	{
+		temp_pwd = ft_strjoin("PWD=", cwd);
+		if (temp_pwd)
+		{
+			env_add(env_new(temp_pwd, false), env);
+			free(temp_pwd);
+		}
+	}
+	increment_shlvl(env);
+}
+
+t_env	*env_init(char **envp)
+{
 	t_env	*env;
 	int		i;
 
@@ -71,21 +92,6 @@ t_env	*env_init(char **envp)
 	i = 0;
 	while (envp[i])
 		env_add(env_new(envp[i++], true), &env);
-	if (!env_contain("PATH", env))
-		env_add(env_new(STD_PATH, true), &env);
-	if (!env_contain("PS1", env))
-		env_add(env_new(STD_PS1, false), &env);
-	if (!env_contain("PS2", env))
-		env_add(env_new(STD_PS2, false), &env);
-	if (!env_contain("PWD", env) && getcwd(cwd, 1024))
-	{
-		temp_pwd = ft_strjoin("PWD=", cwd);
-		if (temp_pwd)
-		{
-			env_add(env_new(temp_pwd, false), &env);
-			free(temp_pwd);
-		}
-	}
-	increment_shlvl(&env);
+	init_variables(&env);
 	return (env);
 }

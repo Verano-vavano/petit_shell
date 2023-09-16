@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 12:42:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:16:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,49 +35,6 @@ static int	find_end_comm(char *s)
 	return (i);
 }
 
-static int	command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env)
-{
-	t_tool	*empty_tool;
-	char	*out;
-	int		ret;
-
-	empty_tool = ft_calloc(1, sizeof (t_tool));
-	if (!empty_tool)
-	{
-		if (se[2])
-			dup2(se[3], STDOUT_FILENO);
-		if (cmd_sent)
-			free(cmd_sent);
-		return (1);
-	}
-	empty_tool->env = env;
-	ret = 1;
-	if (cmd_sent)
-		ret = cmd_processing(cmd_sent, empty_tool, false);
-	printfd(STDOUT_FILENO, "\n");
-	free(empty_tool);
-	if (se[2])
-	{
-		dup2(se[3], STDOUT_FILENO);
-		out = get_output(se + 4);
-		if (out && *out && cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
-		{
-			if (word_split(cmd, out, se, env))
-				ret = -120;
-		}
-		else if (cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
-		{
-			if (word_split(cmd, "\0", se, env))
-				ret = -120;
-		}
-		else
-			cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
-		if (out)
-			free(out);
-	}
-	return (ret);
-}
-
 static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 {
 	int		se[6];
@@ -101,7 +58,17 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	return (command_it(cmd_sent, se, cmd, env));
 }
 
-static long	srch_exec_comm(t_command *cmd, t_env *env)
+static int	good_ret(long ret, bool repl)
+{
+	if (ret < 0)
+		return (ret * (-1));
+	else if (!repl)
+		return (ret);
+	else
+		return (-1);
+}
+
+static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 {
 	bool	repl;
 	char	quoted;
@@ -115,25 +82,23 @@ static long	srch_exec_comm(t_command *cmd, t_env *env)
 	while (cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
-		if (cmd->content[start] == '(' && (!quoted || (quoted != '\'' && start && cmd->content[start - 1] == '$')))
+		if (cmd->content[start] == '(' && (!quoted
+				|| (quoted != '\'' && start && cmd->content[start - 1] == '$')))
 		{
 			if (start != 0 && cmd->content[start - 1] == '$')
 				repl = true;
+			if (!repl && only_repl)
+				return (0);
 			ret = perform_exec(cmd, env, start, repl);
 			if (ret)
 				break ;
 		}
 		start++;
 	}
-	if (ret < 0)
-		return (ret * (-1));
-	else if (!repl)
-		return (ret);
-	else
-		return (-1);
+	return (good_ret(ret, repl));
 }
 
-long	command_substitution(t_command *cmd, t_env *env)
+long	command_substitution(t_command *cmd, t_env *env, bool only_repl)
 {
 	t_command	*next;
 	bool		skip_first;
@@ -145,7 +110,7 @@ long	command_substitution(t_command *cmd, t_env *env)
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			next = cmd->next;
-			ret = srch_exec_comm(cmd, env);
+			ret = srch_exec_comm(cmd, env, only_repl);
 			if (ret == 120)
 				return (1);
 			else if (ret >= 0 && !skip_first)
