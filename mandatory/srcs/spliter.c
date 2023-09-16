@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:39:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:08:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,30 +84,30 @@ static char	*new_line_add(char *line, bool nl, t_tool *tool)
 	return (line);
 }
 
-t_command	*spliter_init(char *line, bool add_line, t_tool *tool)
+t_command	*spliter_init(char **line, bool add_line, t_tool *tool)
 {
 	t_command		*cmd;
 	char			where_did_we_fail;
 
-	while (line && *line)
+	while (line && *line && **line)
 	{
-		if (check_syntax(line))
+		if (check_syntax(*line))
 		{
 			if (add_line)
-				add_to_hist(tool->env, tool->hist, line);
+				add_to_hist(tool->env, tool->hist, *line);
 			return (0);
 		}
-		where_did_we_fail = not_ended(line);
+		where_did_we_fail = not_ended(*line);
 		if (where_did_we_fail == -1)
-			line[ft_strlen(line) - 1] = '\0';
-		if (!where_did_we_fail && !check_ender(line))
+			(*line)[ft_strlen(*line) - 1] = '\0';
+		if (!where_did_we_fail && !check_ender(*line))
 			break ;
-		line = new_line_add(line, where_did_we_fail != -1, tool);
+		*line = new_line_add(*line, where_did_we_fail != -1, tool);
 	}
-	if (!line)
+	if (!(*line))
 		return (0);
-	cmd = ft_split_cmd(line);
+	cmd = ft_split_cmd(*line);
 	if (add_line)
-		add_to_hist(tool->env, tool->hist, line);
+		add_to_hist(tool->env, tool->hist, *line);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 18:24:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:07:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct s_list_file
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
 /*--------------SPLIT-----------------*/
-t_command	*spliter_init(char *cmd, bool add_line, t_tool *tool);
+t_command	*spliter_init(char **cmd, bool add_line, t_tool *tool);
 
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
