@@ -5,6 +5,3 @@ si motivation, faire les expansions de PS1 et PS2
 a="a,,,,b"; IFS=,; echo $a
 séparer command substitution et priorités des parenthèses
 echo *(ls)
-
-ERR VALGRIND :
-- echo {#param}

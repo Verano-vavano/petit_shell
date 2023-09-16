@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 19:24:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 00:19:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@
 # define SHELL_NAME "Shellpticflesh"
 # define SHELL_VERSION "1.0"
 
-//# define STD_PS1 "PS1=\\s \\v ($?) $ "
-# define STD_PS1 "PS1=lol > "
+# define STD_PS1 "PS1=\\s \\v ($?) $ "
 # define STD_PS2 "PS2=-> "
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
