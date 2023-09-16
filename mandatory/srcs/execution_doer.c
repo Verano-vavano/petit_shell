@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 11:54:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:33:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 		printfd(STDOUT_FILENO, "\n");
 	if (exit_st == -1)
 		exit_st = status;
-	if (err != -1)
+	if (err)
 		return (err);
 	return (WEXITSTATUS(exit_st));
 }

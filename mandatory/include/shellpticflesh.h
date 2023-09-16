@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:25:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:41:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,9 @@ void		quote_remove_cmd(t_command *cmd);
 // execution
 long		execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
 
+// execution_mainloop
+long		ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd);
+
 // execution_doer
 void		check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd);
 long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
@@ -272,6 +275,7 @@ int			count_cmds(t_command *cmd);
 void		free_redirs(t_redir_pipe *redir);
 t_command	*go_to_next_cmd(t_command *cmd);
 void		exec_cleaner(t_process_cmd cmd_processing);
+void		close_pipes(int *pipes);
 
 /*--------------HISTORY--------------*/
 t_hist		*load_history(t_env *env);
@@ -282,6 +286,7 @@ char		*get_histfile(t_env *env);
 int			get_histsize(char *type, int stdval, t_env *env);
 void		remove_first_el(t_hist *hist);
 void		add_all_hist(t_hist *hist);
+void		add_hist_struct(t_hist *hist, char *line, int histsize, bool count);
 
 /*--------PROMPT----------*/
 char		*new_prompt(int n_ps, t_tool *tool);

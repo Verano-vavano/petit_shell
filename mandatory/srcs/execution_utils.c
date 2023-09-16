@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:31:55 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/29 16:17:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:07:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,10 @@ void	exec_cleaner(t_process_cmd cmd_processing)
 	free_redirs(cmd_processing.redir);
 	if (cmd_processing.free_name)
 		free(cmd_processing.cmd_name);
+}
+
+void	close_pipes(int *pipes)
+{
+	close(pipes[0]);
+	close(pipes[1]);
 }

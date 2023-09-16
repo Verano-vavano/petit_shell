@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 16:35:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:58:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,29 @@ void	write_hist(t_hist *h, t_env *env)
 	free(histfile);
 }
 
-static void	add_hist_struct(t_hist *hist, char *line, int histsize, bool count)
+static bool	create_hist_ll(t_hist *hist)
+{
+	if (hist->hist_start == NULL)
+	{
+		hist->hist_start = ft_calloc(1, sizeof (t_hist_ll));
+		if (hist->hist_start == NULL)
+			return (true);
+		hist->hist_end = hist->hist_start;
+		return (true);
+	}
+	return (false);
+}
+
+void	add_hist_struct(t_hist *hist, char *line, int histsize, bool count)
 {
 	t_hist_ll	*hist_now;
 	bool		first;
 	long		last_num;
 
-	first = false;
-	if (hist->hist_start == NULL)
-	{
-		first = true;
-		hist->hist_start = ft_calloc(1, sizeof (t_hist_ll));
-		if (hist->hist_start == NULL)
-			return ;
-		hist->hist_end = hist->hist_start;
-		last_num = 0;
-	}
+	first = create_hist_ll(hist);
+	last_num = 0;
+	if (!hist->hist_start)
+		return ;
 	hist_now = hist->hist_end;
 	if (!first)
 	{
@@ -89,47 +96,4 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 		rl_clear_history();
 		add_all_hist(hist);
 	}
-}
-
-static void	cpy_history(t_hist *hist, char *histfile, int histsize)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(histfile, O_RDONLY);
-	if (fd < 0)
-		return ;
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (line && *line)
-		{
-			line[ft_strlen(line) - 1] = '\0';
-			add_hist_struct(hist, line, histsize, false);
-		}
-		if (line)
-			free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-}
-
-t_hist	*load_history(t_env *env)
-{
-	t_hist	*hist;
-	char	*histfile;
-	int		histsize;
-
-	hist = ft_calloc(1, sizeof (t_hist));
-	if (!hist)
-		return (0);
-	hist->hist_start = '\0';
-	histfile = get_histfile(env);
-	if (!histfile)
-		return (0);
-	histsize = get_histsize("HISTSIZE", STD_HISTSIZE, env);
-	cpy_history(hist, histfile, histsize);
-	add_all_hist(hist);
-	free(histfile);
-	return (hist);
 }
