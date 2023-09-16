@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 18:42:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 00:30:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	printf("lol\n");
 	tool.rt_val = 0;
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);

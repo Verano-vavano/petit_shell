@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 00:24:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 00:28:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
+static char	*dollar_comprehender(char *arg, t_env *env)
 {
 	size_t	len;
 	bool	dollar;
@@ -23,7 +23,6 @@ static char	*dollar_comprehender(char *arg, t_env *env, int len_key)
 	param_val = NULL;
 	temp = NULL;
 	dollar = (arg[0] == '#');
-	(void) len_key;
 	param = ft_strdup(arg + dollar);
 	if (!param)
 		return (0);
@@ -85,7 +84,7 @@ static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char q)
 			to_change = ft_strdup(temp);
 	}
 	else if (se[2])
-		to_change = dollar_comprehender(arg, tool->env, se[1]);
+		to_change = dollar_comprehender(arg, tool->env);
 	se[1] += se[2];
 	free(arg);
 	return (put_param_in(cmd, se, to_change, tool->env));
