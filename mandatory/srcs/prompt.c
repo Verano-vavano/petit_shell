@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:30:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 19:29:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ps_basic_expansion(char *ps, t_tool *tool)
 {
 	t_command	ps_cmd;
 
-	ps_cmd.content = ft_strdup(ps);
+	ps_cmd.content = ps;
 	if (!ps_cmd.content)
 		return (0);
 	ps_cmd.purpose = PS_EXP;
@@ -75,11 +75,12 @@ char	*new_prompt(int n_ps, t_tool *tool)
 	char	*temp;
 	char	*line;
 
+	temp = 0;
 	if (n_ps == 1)
 		execute_prompt_command(tool);
 	if (n_ps == 1)
 		temp = ft_strdup(env_getval("PS1", tool->env));
-	else if (n_ps == 2)
+	else
 		temp = ft_strdup(env_getval("PS2", tool->env));
 	if (temp)
 	{

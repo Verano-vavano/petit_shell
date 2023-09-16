@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:31:55 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 17:07:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 19:25:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	exec_cleaner(t_process_cmd cmd_processing)
 {
 	free(cmd_processing.cmd);
 	free_redirs(cmd_processing.redir);
-	if (cmd_processing.free_name)
+	if (cmd_processing.cmd_name)
 		free(cmd_processing.cmd_name);
 }
 
