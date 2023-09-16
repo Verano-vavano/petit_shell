@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 17:41:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:23:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ int			move_end_stars(char *qmat);
 
 // word split
 int			word_split(t_command *cmd, char *newer, int *se, t_env *env);
+void		merge_it(t_command *cmd, t_command *to_merge, int *se);
 // utils
 int			search_next_ifs(char *newer, char *ifs);
 char		*get_ifs(t_env *env);
@@ -359,7 +360,7 @@ void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);
 t_env		*env_last(t_env *env);
 char		*env_getval(char *key, t_env *env);
-char	    **env_getval_split(char *key, t_env *env);
+char		**env_getval_split(char *key, t_env *env);
 void		env_change_val(char *key, char *value, t_env *env, bool is_exp);
 void		env_update(char *key, bool is_exported, t_env **env);
 t_env		*env_getptr(char *key, t_env *env);

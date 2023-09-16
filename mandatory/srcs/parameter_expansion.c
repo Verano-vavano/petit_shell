@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 14:31:27 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:53:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,29 @@ static int	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 
 static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char q)
 {
-	int		se[2];
-	bool	brack;
+	int		se[3];
 	char	*arg;
 	char	*to_change;
 	char	*temp;
 
 	to_change = NULL;
 	se[0] = i + 1;
-	brack = (cmd->content[se[0]] == '{');
-	se[1] = find_arg_len(cmd->content + se[0], brack, q);
-	arg = ft_strndup(cmd->content + se[0] + brack, se[1] - brack);
+	se[2] = (cmd->content[se[0]] == '{');
+	se[1] = find_arg_len(cmd->content + se[0], se[2], q);
+	arg = ft_strndup(cmd->content + se[0] + se[2], se[1] - se[2]);
 	if (!arg)
 		return (1);
 	if (is_special_param(arg))
 		to_change = special_parameter(arg, tool);
-	else if (!brack && env_contain(arg, tool->env))
+	else if (!se[2] && env_contain(arg, tool->env))
 	{
 		temp = env_getval(arg, tool->env);
 		if (temp)
 			to_change = ft_strdup(temp);
 	}
-	else if (brack)
+	else if (se[2])
 		to_change = dollar_comprehender(arg, tool->env, se[1]);
-	se[1] += brack;
+	se[1] += se[2];
 	free(arg);
 	return (put_param_in(cmd, se, to_change, tool->env));
 }

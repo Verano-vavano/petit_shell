@@ -6,19 +6,39 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 14:18:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:48:54 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shellpticflesh.h"
 
+static bool	path_check(char **paths, char *path_cmd, t_process_cmd *cmd)
+{
+	char	*full_path;
+	int		i;
+
+	i = 0;
+	while (paths[i])
+	{
+		full_path = check_path(paths[i], path_cmd);
+		if (full_path)
+		{
+			if (cmd->cmd_name)
+				free(cmd->cmd_name);
+			cmd->cmd_name = full_path;
+			free_char_etoile_etoile(paths);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
 static int	rel_search(t_process_cmd *cmd, char *path)
 {
 	char	**paths;
 	char	*path_cmd;
-	char	*full_path;
-	int		i;
 
 	if (!path)
 		return (128);
@@ -31,20 +51,8 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 		free_char_etoile_etoile(paths);
 		return (1);
 	}
-	i = 0;
-	while (paths[i])
-	{
-		full_path = check_path(paths[i], path_cmd);
-		if (full_path)
-		{
-			if (cmd->cmd_name)
-				free(cmd->cmd_name);
-			cmd->cmd_name = full_path;
-			free_char_etoile_etoile(paths);
-			return (0);
-		}
-		i++;
-	}
+	if (path_check(paths, path_cmd, cmd))
+		return (0);
 	free_char_etoile_etoile(paths);
 	free(path_cmd);
 	return (127);

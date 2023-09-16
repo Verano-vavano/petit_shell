@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:16:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:57:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 		if (cmd->content[start] == '(' && (!quoted
 				|| (quoted != '\'' && start && cmd->content[start - 1] == '$')))
 		{
-			if (start != 0 && cmd->content[start - 1] == '$')
-				repl = true;
+			repl = (start != 0 && cmd->content[start - 1] == '$');
 			if (!repl && only_repl)
 				return (0);
 			ret = perform_exec(cmd, env, start, repl);

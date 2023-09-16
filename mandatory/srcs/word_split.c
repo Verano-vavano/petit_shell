@@ -6,97 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:37:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:23:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-static void	handle_one(t_command *cmd, t_command *to_merge, int *se)
-{
-	char	*temp;
-	char	*temp2;
-
-	temp = ft_strndup(cmd->content, se[0]);
-	if (!temp)
-		return ;
-	if (!to_merge->content)
-		temp2 = ft_strjoin(temp, cmd->content + se[0] + se[1] + 1);
-	else
-		temp2 = ft_strjoin(temp, to_merge->content);
-	free(temp);
-	if (!temp2)
-		return ;
-	if (!to_merge->content)
-	{
-		free(cmd->content);
-		free(to_merge);
-		cmd->content = temp2;
-		return ;
-	}
-	temp = ft_strjoin(temp2, cmd->content + se[0] + se[1] + 1);
-	free(temp2);
-	if (!temp)
-		return ;
-	free(cmd->content);
-	cmd->content = temp;
-	free(to_merge->content);
-	free(to_merge);
-}
-
-static void	change_to_merge(t_command *cmd, t_command *to_merge, int *se)
-{
-	char		*temp;
-	char		*temp2;
-
-	if (to_merge->content)
-	{
-		temp = ft_strndup(cmd->content, se[0]);
-		if (!temp)
-			return ;
-		temp2 = ft_strjoin(temp, to_merge->content);
-		if (!temp2)
-			return ;
-		free(temp);
-		free(to_merge->content);
-		cmd->content = temp2;
-	}
-	if (to_merge)
-		free(to_merge);
-}
-
-static void	merge_it(t_command *cmd, t_command *to_merge, int *se)
-{
-	t_command	*now;
-	t_command	*end;
-	bool		free_org;
-	char		*temp;
-	char		*temp2;
-	char		*org;
-
-	if (!to_merge->next)
-		return (handle_one(cmd, to_merge, se));
-	org = cmd->content;
-	now = to_merge->next;
-	free_org = (to_merge && to_merge->content);
-	change_to_merge(cmd, to_merge, se);
-	end = cmd->next;
-	cmd->next = now;
-	while (now && now->next)
-		now = now->next;
-	temp = ft_strdup(org + se[0] + se[1] + 1);
-	if (!temp)
-		return ;
-	temp2 = ft_strjoin(now->content, temp);
-	now->next = end;
-	free(temp);
-	if (!temp2)
-		return ;
-	free(now->content);
-	now->content = temp2;
-	if (free_org)
-		free(org);
-}
 
 static t_command	*split_it(char *newer, char *ifs)
 {
