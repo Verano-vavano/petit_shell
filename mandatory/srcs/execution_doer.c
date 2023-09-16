@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 19:33:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 00:48:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 		if (waitpid(-1, &status, 0) == ret->pid)
 			exit_st = status;
 	}
-	if (g_sig_rec)
+	if (g_sig_rec == SIGINT)
 		printfd(STDOUT_FILENO, "\n");
+	else if (g_sig_rec == SIGQUIT)
+		printf("Quit (core dumped)\n");
 	if (exit_st == -1)
 		exit_st = status;
 	if (err)

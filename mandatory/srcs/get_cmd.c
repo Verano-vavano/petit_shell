@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 22:30:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 01:02:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no)
 	here_docs = *hd_no;
 	while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != DELIM)
 	{
-		if (cmd->purpose == COMMAND && cmd->content[0])
+		if (cmd->purpose == COMMAND && cmd->content)
 		{
 			cmd_processing->cmd[i] = cmd->content;
 			i++;

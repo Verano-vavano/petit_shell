@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 18:23:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 01:06:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static t_command	*split_it(char *newer, char *ifs)
 	i = 0;
 	while (now && newer[i])
 	{
+		signal(SIGINT, SIG_DFL);
 		to_dup = search_next_ifs(newer + i, ifs);
 		now->content = ft_strndup(newer + i, to_dup);
 		i += to_dup;
-		while (newer[i] && ft_strchr(ifs, newer[i]))
-			i++;
+		i++;
 		if (newer[i] && now->content)
 		{
 			now->next = ft_calloc(1, sizeof (t_command));
