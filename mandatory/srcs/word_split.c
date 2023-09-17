@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 20:05:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 01:06:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 14:30:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static t_command	*split_it(char *newer, char *ifs)
 		to_dup = search_next_ifs(newer + i, ifs);
 		now->content = ft_strndup(newer + i, to_dup);
 		i += to_dup;
-		i++;
 		if (newer[i] && now->content)
 		{
 			now->next = ft_calloc(1, sizeof (t_command));
@@ -36,6 +35,7 @@ static t_command	*split_it(char *newer, char *ifs)
 			if (now)
 				now->purpose = COMMAND;
 		}
+		i += (newer[i] != 0);
 	}
 	return (to_merge);
 }

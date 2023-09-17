@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 19:29:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 14:35:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static char	*ps_basic_expansion(char *ps, t_tool *tool)
 	ps_cmd.next = NULL;
 	parameter_expansion(&ps_cmd, tool);
 	command_substitution(&ps_cmd, tool->env, true);
-	if (ps_cmd.content)
-		quote_remove_cmd(&ps_cmd);
 	return (ps_cmd.content);
 }
 
