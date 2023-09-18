@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 00:19:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 09:48:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ typedef struct s_process_cmd
 {
 	char			**cmd;
 	char			*cmd_name;
-	bool			is_builtin;
 	t_redir_pipe	*redir;
+	bool			is_builtin;
 	bool			sub_cmd;
+	bool			is_parenthesis;
 }				t_process_cmd;
 
 typedef struct s_env

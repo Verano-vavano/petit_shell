@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 14:36:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/17 15:04:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	better_strlen(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!quoted && is_strict_meta(s[i]))
+		if (!quoted && is_strict_meta(s[i]) && !in_par)
 			return (i);
 		j = redir_parser(s + i, quoted);
 		if (j && !i)

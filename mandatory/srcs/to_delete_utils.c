@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:49:19 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/16 16:35:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 09:17:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shellpticflesh.h"
@@ -16,7 +16,7 @@ void	print_cmd(t_command *cmd)
 	printfd(STDOUT_FILENO, "--begin print cmd--\n");
 	while (cmd != NULL && cmd->content != NULL)
 	{
-		printfd(STDOUT_FILENO, "%s\n", cmd->content);
+		printfd(STDOUT_FILENO, "%s %d\n", cmd->content, cmd->purpose);
 		cmd = cmd->next;
 	}
 	printfd(STDOUT_FILENO, "--end print cmd--\n");
