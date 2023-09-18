@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 16:45:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 11:50:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_loop(char *line, int f, int i, int d)
 		if (f && is_strict_meta(line[i]))
 			return (syntax_error(line + i, -1));
 		else if (!q && ((is_metachar(line[i]) && check_metachar(line + i))
-				|| (line[i] == '(' && check_parenthesis(line + i, f, d))
+				|| (line[i] == '(' && check_parenthesis(line, f, d, i))
 				|| (line[i] == '{' && f && check_cbrackets(line + i))
 				|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
 			return (2);

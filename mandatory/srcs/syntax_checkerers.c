@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:55:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/09 18:47:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 11:51:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	check_metachar(char *line)
 	return (0);
 }
 
-int	check_parenthesis(char *line, int first, int dollar)
+int	check_parenthesis(char *line, int first, int dollar, int i)
 {
-	int	i;
 	int	j;
 
-	i = 1;
+	if (i != 0 && !is_separator(line[i - 1]))
+		return (0);
+	i++;
 	while (is_separator(line[i]))
 		i++;
 	if ((first || dollar) && line[i] != ')' && line[i] != '\0')

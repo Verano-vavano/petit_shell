@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 09:48:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 11:52:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int			understand_the_line(t_command *cmd);
 // syntax checker
 int			check_syntax(char *line);
 int			check_metachar(char *line);
-int			check_parenthesis(char *line, int first, int dollar);
+int			check_parenthesis(char *line, int first, int dollar, int i);
 int			check_cbrackets(char *line);
 int			redir_ok(char *line);
 
