@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 09:11:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 09:51:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ static int	not_ended(char *s)
 	char	quoted;
 	int		par;
 	bool	backslashed;
+	bool	s_meta;
 
 	i = 0;
 	quoted = 0;
 	par = 0;
 	backslashed = false;
+	s_meta = false;
 	while (s[i])
 	{
-		printf("%d %d %d\n", quoted, s[i], backslashed);
 		if (s[i] == quoted && !backslashed)
 			quoted = 0;
 		else if (s[i] == '\\' && !backslashed)
@@ -38,9 +39,11 @@ static int	not_ended(char *s)
 			backslashed = false;
 		else if (s[i] == '\'' || s[i] == '"')
 			quoted = s[i];
+		s_meta = (!quoted && (s[i] == '&' || s[i] == '|'
+					|| (s_meta && is_separator(s[i]))));
 		i++;
 	}
-	return (backslashed || quoted || par);
+	return (backslashed || quoted || par || s_meta);
 }
 
 static int	check_ender(char *line)
@@ -69,8 +72,12 @@ static char	*new_line_add(char *line, bool nl, t_tool *tool)
 	char	*joined;
 
 	new_line = NULL;
+	signal(SIGINT, sig_main);
+	signal(SIGQUIT, sig_main);
 	while (!new_line || !(*new_line))
 		new_line = new_prompt(2, tool);
+	signal(SIGINT, sig_catch);
+	signal(SIGQUIT, sig_catch);
 	if (nl)
 	{
 		joined = ft_strjoin(line, "\n");
