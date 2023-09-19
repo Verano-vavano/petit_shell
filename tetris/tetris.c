@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:00:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/08/28 22:38:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/18 22:22:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	init_maper(t_map *maper, int col, char **args)
 	maper->prev = -1;
 	fd = open("/etc/vconsole.conf", O_RDONLY);
 	if (fd == -1)
-		maper->keyboard = 'q';
+		maper->keyboard = 'a';
 	else
 		maper->keyboard = get_kb(fd);
 	i = 0;
@@ -98,14 +98,20 @@ int	tetris(char **args)
 	t_map			*maper;
 	struct termios	old_term;
 
-	if (access("/usr/bin/sleep", X_OK) != 0)
+	printf("lol");
+	fflush(stdout);
+	if (access("/bin/sleep", X_OK) != 0)
 		return (1);
 	maper = ft_calloc(1, sizeof (t_map));
+	printf("lol");
+	fflush(stdout);
 	if ((!maper) | init_term())
 		return (1);
 	tputs(tgetstr("cl", NULL), 1, putchar);
 	l = tgetnum("li");
 	col = tgetnum("co");
+	printf("lol");
+	fflush(stdout);
 	if (col < 60 || l < HEIGHT_BOARD + 4)
 		return (1);
 	if (tcgetattr(STDIN_FILENO, &old_term) || init_termios(old_term))
