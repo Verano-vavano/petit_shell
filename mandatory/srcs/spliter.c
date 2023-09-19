@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 10:03:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 17:33:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	not_ended(char *s)
 			par--;
 		else if (backslashed)
 			backslashed = false;
-		else if (s[i] == '\'' || s[i] == '"')
+		else if (!quoted && (s[i] == '\'' || s[i] == '"'))
 			quoted = s[i];
 		s_meta = (!quoted && (s[i] == '&' || s[i] == '|'
 					|| (s_meta && is_separator(s[i]))));
