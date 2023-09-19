@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/16 18:23:20 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/19 22:02:53 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,17 +58,23 @@ GCC=gcc
 CFLAGS=-Wall -Wextra -Werror -g
 LINKERS=-lreadline -lncurses
 
+UNAME_S:=$(shell uname -s)
+ifeq (${UNAME_S},Darwin)
+	INCLUDE_RL=-I/usr/local/opt/readline/include
+	LINK_RL=-L/usr/local/opt/readline/lib
+endif
+
 all:${NAME}
 
 .c.o:
-	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} -c $< -o ${<:.c=.o}
+	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
 
 ${NAME}:${DEST}
 	@echo "Doing god's work"
 	@make -C ${LIBFT_PATH}
 	@make -C ${TETRIS_PATH}
 	@make -C ${PRINTFD_PATH}
-	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
+	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINK_RL} ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
 
 clean:
 	@${RM} ${DEST}

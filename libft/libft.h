@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:47:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:52:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <syscall.h>
+# include <sys/syscall.h>
 # include <time.h>
 
 # ifndef BUFFER_SIZE

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:11:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/12 23:00:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:59:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*special_parameter(char *arg, t_tool *tool)
 
 	take_len = (arg[0] == '#');
 	arg += take_len;
+	temp = NULL;
 	if (arg[0] == '0')
 		return (param_good_ret(ft_strdup(SHELL_NAME), take_len));
 	else if (arg[0] == '$')

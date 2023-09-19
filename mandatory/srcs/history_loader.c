@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:57:13 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 17:01:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:00:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_hist	*load_history(t_env *env)
 	hist = ft_calloc(1, sizeof (t_hist));
 	if (!hist)
 		return (0);
-	hist->hist_start = '\0';
+	hist->hist_start = 0;
 	histfile = get_histfile(env);
 	if (!histfile)
 		return (0);

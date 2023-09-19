@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:10:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/08 18:24:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:59:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	get_all_valid_files(t_command *cmd, int index, t_lf *lf)
 	DIR				*dir;
 
 	path = 0;
+	dir = NULL;
 	if (index != 0)
 		path = ft_strndup(cmd->content, index);
 	if (index == 0 || !path || !is_dir(path))

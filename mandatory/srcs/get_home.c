@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:09:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:11:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:52:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*get_home(t_env *env)
 	char	*home;
 	char	*username;
 
+	home = NULL;
 	username = ft_calloc(257, sizeof (char));
 	if (!username)
 		return (0);
