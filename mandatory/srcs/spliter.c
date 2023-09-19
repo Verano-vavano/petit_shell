@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 09:51:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 10:03:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,14 @@ static char	*new_line_add(char *line, bool nl, t_tool *tool)
 	new_line = NULL;
 	signal(SIGINT, sig_main);
 	signal(SIGQUIT, sig_main);
-	while (!new_line || !(*new_line))
-		new_line = new_prompt(2, tool);
+	new_line = new_prompt(2, tool);
 	signal(SIGINT, sig_catch);
 	signal(SIGQUIT, sig_catch);
+	if (!new_line)
+	{
+		printfd(STDERR_FILENO, "syntax error: unexpected EOF\n");
+		return (0);
+	}
 	if (nl)
 	{
 		joined = ft_strjoin(line, "\n");
