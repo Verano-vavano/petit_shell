@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 13:08:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/19 09:11:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,33 @@
 
 static int	not_ended(char *s)
 {
-	int		dos;
 	int		i;
-	char	c;
+	char	quoted;
+	int		par;
+	bool	backslashed;
 
-	c = 's';
-	i = -1;
-	dos = 0;
-	while (s[++i])
+	i = 0;
+	quoted = 0;
+	par = 0;
+	backslashed = false;
+	while (s[i])
 	{
-		if (is_delim(s[i]) && (i == 0 || s[i - 1] != '\\')
-			&& (c == s[i] || !is_delim(c)))
-		{
-			if (!is_delim(c) && s[i] != ')' && s[i] != '}')
-				c = s[i];
-			else if (c == s[i] && !dos)
-				c = ' ';
-			else if (dos && c == s[i])
-				dos--;
-			c = convert_to_closing(c);
-		}
-		dos = handle_parenthesis(&c, s[i], dos);
+		printf("%d %d %d\n", quoted, s[i], backslashed);
+		if (s[i] == quoted && !backslashed)
+			quoted = 0;
+		else if (s[i] == '\\' && !backslashed)
+			backslashed = true;
+		else if (s[i] == '(' && !quoted && !backslashed)
+			par++;
+		else if (s[i] == ')' && !quoted && !backslashed)
+			par--;
+		else if (backslashed)
+			backslashed = false;
+		else if (s[i] == '\'' || s[i] == '"')
+			quoted = s[i];
+		i++;
 	}
-	if (!is_delim(c) && i > 0 && s[i - 1] == '\\')
-		return (-1);
-	return ((is_delim(c) && c != ')' && c != '}') || dos);
+	return (backslashed || quoted || par);
 }
 
 static int	check_ender(char *line)
