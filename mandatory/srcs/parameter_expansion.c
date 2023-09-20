@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 00:28:27 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/21 00:02:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	put_param_in(t_command *cmd, int *se, char *to_change, t_env *env)
 
 	se[0]--;
 	ret = 0;
+	if (to_change)
+		to_change = backslash_it(to_change);
 	if (cmd->purpose == VAR_ASSIGN || cmd->purpose == PS_EXP)
 	{
 		temp = ft_strreplace(cmd->content, se[0], se[1] + 1, to_change);
@@ -100,7 +102,7 @@ static int	parameter_seeker(t_command *cmd, t_tool *tool)
 	while (cmd->content[i])
 	{
 		quoted = is_quoted(cmd->content, i, quoted);
-		if (cmd->content[i] == '$'
+		if (cmd->content[i] == '$' && (i == 0 || cmd->content[i - 1] != '\\')
 			&& cmd->content[i + 1] && !is_separator(cmd->content[i + 1])
 			&& cmd->content[i + 1] != '\'' && cmd->content[i + 1] != '"'
 			&& quoted != '\'' && cmd->content[i + 1] != '(')

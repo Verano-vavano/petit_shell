@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:11:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 21:59:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:57:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,33 @@ char	*special_parameter(char *arg, t_tool *tool)
 		temp = ft_itoa(tool->rt_val);
 	ret = param_good_ret(temp, take_len);
 	return (ret);
+}
+
+char	*backslash_it(char *p)
+{
+	int		i;
+	char	*newer;
+
+	i = 0;
+	while (p[i])
+	{
+		newer = 0;
+		if (p[i] == '\\')
+			newer = ft_strreplace(p, i, 1, "\\\\");
+		else if (p[i] == '"')
+			newer = ft_strreplace(p, i, 1, "\\\"");
+		else if (p[i] == '\'')
+			newer = ft_strreplace(p, i, 1, "\\'");
+		else if (p[i] == '$')
+			newer = ft_strreplace(p, i, 1, "\\$");
+		else
+			i--;
+		if (newer)
+		{
+			free(p);
+			p = newer;
+		}
+		i += 2;
+	}
+	return (p);
 }

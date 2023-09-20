@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:10:08 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/21 00:09:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	usearch(char *s, char c)
 	while (s[i])
 	{
 		quoted = is_quoted(s, i, quoted);
-		if (s[i] == c && !quoted)
+		if (s[i] == c && !quoted
+			&& (s[i] != '?' || (i == 0 || s[i - 1] != '$')))
 			return (i);
 		i++;
 	}

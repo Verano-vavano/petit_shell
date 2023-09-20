@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 11:52:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:57:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int			parameter_expansion(t_command *cmd, t_tool *tool);
 int			find_arg_len(char *s, bool brack, char quoted);
 bool		is_special_param(char *arg);
 char		*special_parameter(char *arg, t_tool *tool);
+char		*backslash_it(char *p);
 
 // command substitution
 long		command_substitution(t_command *cmd, t_env *env, bool only_repl);

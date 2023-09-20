@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 12:03:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/21 00:05:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*quote_removal(char *cmd)
 		quoted[1] = is_quoted(cmd, i_bkd[0], quoted[0]);
 		temp = quote_rm_check(quoted, i_bkd, cmd);
 		quoted[0] = quoted[1];
-		if (temp)
+		if (temp && temp != cmd)
 		{
 			free(cmd);
 			cmd = temp;
