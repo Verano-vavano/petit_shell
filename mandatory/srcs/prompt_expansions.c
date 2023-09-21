@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:41:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:32:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/21 12:50:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static char	*get_exp_val(char c, t_tool *tool)
 		return (ft_strdup(get_hostname(username, tool->env)));
 	else if (c == 'w' || c == 'W')
 		return (get_arranged_cwd(tool->env, c == 'W'));
+	else if (c == '\\')
+		return (ft_strdup("\\"));
 	return (0);
 }
 
@@ -73,7 +75,7 @@ char	*ps_cool_expansion(char *ps, t_tool *tool)
 				free(to_insert);
 			}
 			else
-				new = ft_strreplace(ps, i, 2, "\0");
+				new = ft_strreplace(ps, i, 1, "\\");
 			if (new)
 			{
 				free(ps);

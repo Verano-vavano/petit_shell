@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:02:02 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 00:06:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/21 12:42:35 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ bool	is_valid_fe(char *file, char *matcher)
 
 	i[0] = 0;
 	i[1] = 0;
-	printf("%s\n", matcher);
 	qmat = quote_removal(matcher);
 	if (!qmat || ((qmat[0] == '*' || qmat[0] == '?') && file[0] == '.'))
 		return (false);
