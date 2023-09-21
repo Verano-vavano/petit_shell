@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 14:35:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/21 13:44:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	print_ps0(t_tool *tool)
 	char	*ps_expanded;
 
 	ps0 = env_getval("PS0", tool->env);
+	if (ps0)
+		ps0 = ft_strdup(ps0);
 	if (ps0)
 	{
 		ps_expanded = ps_cool_expansion(ps0, tool);
