@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/14 18:37:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 07:30:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	get_heredoc_file(int hd, int mode)
 static void	write_heredoc(int fd, char *eof, t_tool *tool)
 {
 	char	*line;
+	char	*temp;
 	int		lines;
 
 	eof = quote_removal(ft_strdup(eof));
@@ -49,13 +50,17 @@ static void	write_heredoc(int fd, char *eof, t_tool *tool)
 			warning_heredoc_eof(lines, eof);
 			break ;
 		}
-		line[ft_strchr_int(line, '\n')] = '\0';
 		if (!ft_strcmp(line, eof))
 		{
 			free(line);
 			break ;
 		}
-		line[ft_strchr_int(line, '\n')] = '\n';
+		temp = ft_strjoin(line, "\n");
+		if (temp)
+		{
+			free(line);
+			line = temp;
+		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 		lines++;
