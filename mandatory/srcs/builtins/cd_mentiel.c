@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/14 10:52:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/24 13:51:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,33 @@ int	simple_cd(char *dest, t_tool **tool)
 	return (0);
 }
 
+static bool	check_moving(char *dest)
+{
+	if (dest[0] == '.')
+	{
+		if ((!dest[1] || dest[1] == '/'))
+			return (false);
+		else if (dest[1] == '.'
+			&& (!dest[2] || dest[2] == '/'))
+			return (false);
+	}
+	return (true);
+}
+
 int	check_cdpath(char *dest, t_tool **tool)
 {
 	char	**cdpath;
 	int		i;
 	int		ret;
 	char	*concat_path;
+	bool	shmoving;
 
 	cdpath = env_getval_split("CDPATH", (*tool)->env);
 	if (!cdpath)
 		return (1);
 	i = -1;
-	while (cdpath[++i])
+	shmoving = check_moving(dest);
+	while (cdpath[++i] && shmoving)
 	{
 		concat_path = concat_multiple((char *[]){cdpath[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)

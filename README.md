@@ -32,6 +32,7 @@ PS0, PS1, PS2, PROMPT_COMMAND
 - PS expansions allow \ expansions such as \n \w or \u
 - Colors in PS_EXPANSION with \c (\cr for red, \cB for bold blue...)
 Signal handling
+CD follows symlinks
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
 - Hell is a builtin printing a pun around the metal genre. We hardcoded a new random function using the asm instruction to generate pseudo-random number to choose the pun. And they all are funny.
