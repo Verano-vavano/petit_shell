@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 13:19:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/24 11:33:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(int ac, char **av, char **envp)
 	tool.rt_val = 0;
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);
+	tool.cwd = 0;
 	while (42)
 	{
 		g_sig_rec = 0;

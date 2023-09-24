@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:03:32 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 11:01:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 13:00:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static long	aexec(t_process_cmd *c_p, t_tool *t, t_ret_cmd *ret, int *n_cmd)
 	if (c_p->is_builtin && n_cmd[1] == 1)
 	{
 		close_pipes(ret->pipes);
-		return (exec_bltin(c_p, t, true, t->c_env));
+		return (exec_bltin(c_p, t, true));
 	}
 	else
 		crt_child(c_p, t, ret);

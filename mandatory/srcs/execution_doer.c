@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 10:57:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 12:59:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 					ft_strlen(cmd->cmd[0]) - 2), &empty_tool, false));
 	}
 	if (cmd->is_builtin)
-		exit(exec_bltin(cmd, t, false, c_env));
+		exit(exec_bltin(cmd, t, false));
 	else
 		execve(cmd->cmd_name, cmd->cmd, c_env);
 	exit(0);

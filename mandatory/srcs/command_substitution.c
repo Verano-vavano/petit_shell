@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 14:51:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 12:28:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 
 static int	good_ret(long ret, bool repl)
 {
-	if (ret < 0)
-		return (ret * (-1));
-	else if (!repl)
+	if (!repl)
 		return (ret);
+	else if (ret < 0)
+		return (ret * (-1));
 	else
 		return (-1);
 }

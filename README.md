@@ -20,6 +20,7 @@ Fully functional history
 - Better file management, as we close useless files, whereas bash keeps them until the end of the cmd
 - Heredocs succesfully handled. ^D ends it the same way as Bash.
 Redirection from fd to fd (n<&m)
+Parenthesis priorities with full and partial redirections
 Syntax error handling
 Taking variables into account (IFS, CDPATH)
 PS0, PS1, PS2, PROMPT_COMMAND

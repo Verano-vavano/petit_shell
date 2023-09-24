@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:35:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 18:33:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 13:03:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	change_pwd(char *dest, t_tool **tool)
 	t_env	*pwd;
 
 	cwd = getcwd(NULL, 0);
+	if ((*tool)->cwd)
+	{
+		free((*tool)->cwd);
+		(*tool)->cwd = NULL;
+	}
 	if (!cwd)
 		no_behind(dest, &((*tool)->env), tool);
 	else

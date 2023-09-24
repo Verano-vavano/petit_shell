@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 13:55:46 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 12:58:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
 void		crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret);
 
 // builtin_exec
-long		exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env);
+long		exec_bltin(t_process_cmd *cmd, t_tool *t, bool one);
 
 // get_cmd
 int			handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd);
@@ -354,7 +354,7 @@ void		heredoc_handle(int sig);
 
 /*---------------BUILTINS------------------*/
 int			metal_injection(void);
-int			exit_hell(char **cmd, long ret, char **c_env, bool one);
+int			exit_hell(char **cmd, long ret, t_tool *tool, bool one);
 int			echo_des_enfers(char **cmd);
 int			env_infernal(t_env *env, bool export);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);

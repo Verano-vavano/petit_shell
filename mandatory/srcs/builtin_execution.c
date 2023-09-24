@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 11:54:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 12:59:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
+static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 {
 	int	pid;
 
@@ -20,7 +20,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 	{
 		if (one)
 			printfd(STDOUT_FILENO, "exit\n");
-		exit_hell(cmd->cmd, t->rt_val, c_env, one);
+		exit_hell(cmd->cmd, t->rt_val, t, one);
 	}
 	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
 	{
@@ -37,7 +37,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 	return (1);
 }
 
-long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
+static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 {
 	if (ft_strcmp("hell", cmd->cmd_name) == 0)
 		return (metal_injection());
@@ -54,7 +54,7 @@ long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
 		return (print_working_damnation(t->cwd));
 	else
-		return (more_bltn(cmd, t, one, c_env));
+		return (more_bltn(cmd, t, one));
 }
 
 static void	builtin_redirections(t_redir_pipe *redir)
@@ -81,7 +81,7 @@ static void	redir_back(int in, int out, int err)
 	close(err);
 }
 
-long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
+long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one)
 {
 	long	ret_val;
 	int		save_in;
@@ -96,7 +96,7 @@ long	exec_bltin(t_process_cmd *cmd, t_tool *t, bool one, char **c_env)
 		builtin_redirections(cmd->redir);
 		print_ps0(t);
 	}
-	ret_val = find_exec_bltn(cmd, t, one, c_env);
+	ret_val = find_exec_bltn(cmd, t, one);
 	if (one)
 		redir_back(save_in, save_out, save_err);
 	close_files(cmd->redir);

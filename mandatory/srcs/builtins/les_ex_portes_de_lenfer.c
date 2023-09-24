@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/15 18:27:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/22 12:32:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 				env_update(*cmd, true, env);
 		}
 		else
-			printfd(WRITE, "export : `%s': not a valid identifier\n", *cmd);
+		{
+			printfd(ERR, "export : `%s': not a valid identifier\n", *cmd);
+			if (!cmd[1])
+				return (1);
+		}
 		cmd++;
 	}
 	return (ret);
