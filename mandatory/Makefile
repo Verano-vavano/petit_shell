@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/25 10:50:15 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/25 11:31:14 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
 	 get_hostname.c		get_cwd.c				builtins/les_ex_portes_de_lutil.c\
 	 braces_coma_expansion_more.c				command_subst_exec.c\
 	 history_loader.c	execution_mainloop.c	word_split_merger.c\
-	 shellptrc.c
+	 shellptrc.c		prompt_colors.c
 SRCS_DIR=$(addprefix srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 

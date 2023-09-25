@@ -31,6 +31,7 @@ PS0, PS1, PS2, PROMPT_COMMAND
 - PS expansions allow complexe prompts such as : PS1='|->$? _$$_ $ ' and can be on par with PROMPT_COMMAND
 - PS expansions allow \ expansions such as \n \w or \u
 - Colors in PS_EXPANSION with \c (\cr for red, \cB for bold blue...)
+-- Allows more complexe colors parameters such as blinking and italic (PS1='\cisR\s\c0w \ciG\v\c0w \cdp[\W]\c0w \c25c($?)\c0w \cW>\c0w ')
 Signal handling
 CD follows symlinks
 2 builtin easter eggs (tetris, hell)

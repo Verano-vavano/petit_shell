@@ -6,55 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:41:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 13:37:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 11:37:25 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static char	*change_bold_color(char c)
-{
-	if (c == 'N')
-		return (ft_strdup(BLACK_BOLD));
-	else if (c == 'R')
-		return (ft_strdup(RED_BOLD));
-	else if (c == 'G')
-		return (ft_strdup(GREEN_BOLD));
-	else if (c == 'Y')
-		return (ft_strdup(YELLOW_BOLD));
-	else if (c == 'B')
-		return (ft_strdup(BLUE_BOLD));
-	else if (c == 'P')
-		return (ft_strdup(PURPLE_BOLD));
-	else if (c == 'C')
-		return (ft_strdup(CYAN_BOLD));
-	else
-		return (ft_strdup(WHITE_BOLD));
-}
-
-static char	*change_color(char c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (change_bold_color(c));
-	else if (c == 'n')
-		return (ft_strdup(BLACK));
-	else if (c == 'r')
-		return (ft_strdup(RED));
-	else if (c == 'g')
-		return (ft_strdup(GREEN));
-	else if (c == 'y')
-		return (ft_strdup(YELLOW));
-	else if (c == 'b')
-		return (ft_strdup(BLUE));
-	else if (c == 'p')
-		return (ft_strdup(PURPLE));
-	else if (c == 'c')
-		return (ft_strdup(CYAN));
-	else
-		return (ft_strdup(WHITE));
-}
-
-static char	*get_exp_val(char c, char next, t_tool *tool)
+static char	*get_exp_val(char c, char *s, t_tool *tool, int *to_repl)
 {
 	char	username[2048];
 
@@ -83,7 +41,7 @@ static char	*get_exp_val(char c, char next, t_tool *tool)
 	else if (c == '\\')
 		return (ft_strdup("\\"));
 	else if (c == 'c')
-		return (change_color(next));
+		return (prompt_color(s, to_repl));
 	return (0);
 }
 
@@ -106,18 +64,18 @@ char	*ps_cool_expansion(char *ps, t_tool *tool)
 	int		i;
 	char	*to_insert;
 	char	*new;
-	bool	is_color;
+	int		is_color;
 
 	i = -1;
 	while (ps[++i])
 	{
 		if (ps[i] == '\\')
 		{
-			is_color = (ps[i + 1] == 'c');
-			if (is_color)
-				to_insert = get_exp_val(ps[i + 1], ps[i + 2], tool);
+			is_color = 0;
+			if (ps[i + 1] == 'c')
+				to_insert = get_exp_val(ps[i + 1], ps + i + 2, tool, &is_color);
 			else
-				to_insert = get_exp_val(ps[i + 1], 0, tool);
+				to_insert = get_exp_val(ps[i + 1], 0, tool, &is_color);
 			if (to_insert)
 			{
 				new = ft_strreplace(ps, i, 2 + is_color, to_insert);

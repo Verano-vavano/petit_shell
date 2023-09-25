@@ -1,0 +1,46 @@
+Colors in PS Expansions :
+
+\c initiates a color marker.
+The marker must end with a color letter, otherwise the next letter will be interpreted as one and will be removed.
+Color letters are as follow :
+n : black
+r : red
+g : green
+y : yellow
+b : blue
+p : purple
+c : cyan
+any other letter : white
+
+\cr will put all following characters in red.
+
+Capital color letters will also put the text in bold.
+\cR will put all following characters in bold red.
+
+Color parameters allows more styling and must be written between the color marker and the color letter.
+They can either be only letters, or only numbers.
+Letter color parameters :
+i : italic
+s : underlined
+d : blinking
+I : inverted
+
+\cisR will put all following characters in italic underlined bold red.
+
+Numeric color parameters :
+0 : None
+1 : Bold
+2 : Italic
+3 : Underlined
+4 : Blinking
+5 : Inverted
+
+\c123r is the same as \c23R and the same as \cisR.
+
+!! Be careful while working with styling ! Styling will be kept until removed by a no-styler.
+If you have a bold text at some point, you need to remove it by adding either a color without parameter or a color with a NULL parameter.
+-> "\cR All text is bold and red \cr but not anymore"
+-> "\ciR All text has style \c0r but not anymore"
+
+
+To sum it all up, colors markers can be pretty tricky. So if you don't want to fool around much with them, I recommand you to only use \c with lowercase and uppercase letters, so you have colors and bold characters.

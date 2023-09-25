@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:20:05 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 18:20:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 11:13:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ t_env	*dup_env(t_env *env)
 		return (NULL);
 	new->key = ft_strdup(env->key);
 	if (env->value != NULL)
-	{
-		new->value = malloc(sizeof(char *) * ft_strlen(env->value));
-		if (!new->value)
-			return (free(new), NULL);
 		new->value = ft_strdup(env->value);
-	}
 	else
 		new->value = NULL;
 	new->next = NULL;

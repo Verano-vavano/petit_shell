@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 10:49:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 11:57:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,6 @@
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
 # define CLEAR_LINE "\033[K"
-# define BLACK "\001\e[0;30m\002"
-# define RED "\001\e[0;31m\002"
-# define GREEN "\001\e[0;32m\002"
-# define YELLOW "\001\e[0;33m\002"
-# define BLUE "\001\e[0;34m\002"
-# define PURPLE "\001\e[0;35m\002"
-# define CYAN "\001\e[0;36m\002"
-# define WHITE "\001\e[0;37m\002"
-# define BLACK_BOLD "\001\e[1;30m\002"
-# define RED_BOLD "\001\e[1;31m\002"
-# define GREEN_BOLD "\001\e[1;32m\002"
-# define YELLOW_BOLD "\001\e[1;33m\002"
-# define BLUE_BOLD "\001\e[1;34m\002"
-# define PURPLE_BOLD "\001\e[1;35m\002"
-# define CYAN_BOLD "\001\e[1;36m\002"
-# define WHITE_BOLD "\001\e[1;37m\002"
 
 # define TEMP "/tmp/temp_shellptic_"
 # define RC ".shellptrc"
@@ -314,6 +298,7 @@ void		add_hist_struct(t_hist *hist, char *line, int histsize, bool count);
 char		*new_prompt(int n_ps, t_tool *tool);
 void		print_ps0(t_tool *tool);
 char		*ps_cool_expansion(char *ps, t_tool *tool);
+char		*prompt_color(char *s, int *to_repl);
 
 /*---------------UTILITIES------------------*/
 // cleaning
