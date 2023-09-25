@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/24 14:03:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:49:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define TEMP "/tmp/temp_shellptic_"
 # define READ STDIN_FILENO
 # define WRITE STDOUT_FILENO
 # define ERR STDERR_FILENO
@@ -60,6 +59,9 @@
 # define PURPLE_BOLD "\001\e[1;35m\002"
 # define CYAN_BOLD "\001\e[1;36m\002"
 # define WHITE_BOLD "\001\e[1;37m\002"
+
+# define TEMP "/tmp/temp_shellptic_"
+# define RC ".shellptrc"
 
 enum	e_cmd_part
 {
@@ -156,6 +158,8 @@ typedef struct s_list_file
 
 // shellpticflesh
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
+
+void		exec_shellptrc(t_tool *tool);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char **cmd, bool add_line, t_tool *tool);

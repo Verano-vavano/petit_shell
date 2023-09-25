@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/22 13:05:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/24 16:50:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ int	exit_hell(char **cmd, long ret, t_tool *tool, bool one)
 	{
 		if (!str_not_long(cmd[1]))
 		{
-			write(2, "exit: ", 6);
-			write(2, cmd[1], ft_strlen(cmd[1]));
-			write(2, ": numeric argument required\n", 28);
+			printfd(ERR, "exit: %s: numeric argument required\n", cmd[1]);
 			exit_code = 2;
 		}
 		else
@@ -79,5 +77,6 @@ int	exit_hell(char **cmd, long ret, t_tool *tool, bool one)
 		free_char_etoile_etoile(tool->c_env);
 	if (one && tool->cwd)
 		free(tool->cwd);
+	free_whole_env(tool->env);
 	exit(exit_code % 256);
 }

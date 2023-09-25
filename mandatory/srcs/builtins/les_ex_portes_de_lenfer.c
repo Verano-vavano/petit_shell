@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/22 12:32:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/24 14:19:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,15 @@ static int	print_env(t_env *ptr)
 	return (0);
 }
 
+static bool	print_unvalid(char *cmd)
+{
+	printfd(ERR, "export : `%s': not a valid identifier\n", cmd);
+	return (1);
+}
+
 int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 {
 	t_env	*ptr;
-	int		ret;
 
 	if (!cmd[1] && (!env || !(*env)))
 		return (0);
@@ -79,7 +84,6 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 	if (!cmd[1])
 		return (print_env(ptr));
 	cmd++;
-	ret = 0;
 	while (*cmd)
 	{
 		if (check_assign(*cmd))
@@ -89,13 +93,9 @@ int	les_ex_portes_de_lenfer(char **cmd, t_env **env)
 			else
 				env_update(*cmd, true, env);
 		}
-		else
-		{
-			printfd(ERR, "export : `%s': not a valid identifier\n", *cmd);
-			if (!cmd[1])
-				return (1);
-		}
+		else if (print_unvalid(*cmd) && !cmd[1])
+			return (1);
 		cmd++;
 	}
-	return (ret);
+	return (0);
 }

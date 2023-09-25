@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:05:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/24 14:08:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/24 16:55:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,27 @@ void	env_update(char *str, bool is_exported, t_env **env)
 {
 	char	**tmp;
 	t_env	*ptr;
-	bool	assign;
 	bool	add;
 	char	*new;
 
-	assign = ft_strchr(str, '=');
 	tmp = one_split(str, '=');
 	add = (tmp[0][ft_strlen(tmp[0]) - 1] == '+');
 	if (add)
 		tmp[0][ft_strlen(tmp[0]) - 1] = 0;
 	ptr = env_getptr(tmp[0], *env);
 	if (!ptr)
-	{
 		env_add(env_new_specific(tmp[0], tmp[1], is_exported), env);
-		return (free_char_etoile_etoile(tmp));
-	}
-	new = 0;
-	if (assign && add && ptr->value)
-		new = ft_strjoin(ptr->value, tmp[1]);
-	else if (assign && (!add || ptr->value))
-		new = ft_strdup(tmp[1]);
-	if (ptr->value && assign)
-		free(ptr->value);
-	if (assign)
+	if (tmp[1] && ptr)
+	{
+		if (add && ptr->value)
+			new = ft_strjoin(ptr->value, tmp[1]);
+		else
+			new = ft_strdup(tmp[1]);
+		if (ptr->value)
+			free(ptr->value);
 		ptr->value = new;
-	if (!ptr->is_exported)
+	}
+	if (ptr && !ptr->is_exported)
 		ptr->is_exported = is_exported;
 	free_char_etoile_etoile(tmp);
 }

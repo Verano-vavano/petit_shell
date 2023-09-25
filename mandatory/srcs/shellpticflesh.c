@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/24 11:33:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 11:02:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,14 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	long		rt_val;
 
 	lexed = spliter_init(&line, add_line, tool);
+	free(line);
 	if (!lexed)
 		return (2);
 	else if (!lexed->content)
+	{
+		free(lexed);
 		return (0);
+	}
 	rt_val = line_beauty(lexed, tool);
 	if (rt_val)
 		return (rt_val);
@@ -102,7 +106,6 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	rt_val = exec_loop(lexed, tool, &heredoc_no);
 	unlink_heredocs(lexed);
 	free_command(lexed);
-	free(line);
 	return (tool->rt_val);
 }
 
@@ -117,6 +120,7 @@ int	main(int ac, char **av, char **envp)
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);
 	tool.cwd = 0;
+	exec_shellptrc(&tool);
 	while (42)
 	{
 		g_sig_rec = 0;
