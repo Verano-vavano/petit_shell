@@ -6,44 +6,38 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 17:33:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 20:28:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
+// I ain't scared of no norm
 static int	not_ended(char *s)
 {
 	int		i;
-	char	quoted;
+	char	q;
 	int		par;
 	bool	backslashed;
-	bool	s_meta;
+	bool	m;
 
-	i = 0;
-	quoted = 0;
+	i = -1;
+	q = 0;
 	par = 0;
 	backslashed = false;
-	s_meta = false;
-	while (s[i])
+	m = false;
+	while (s[++i])
 	{
-		if (s[i] == quoted && !backslashed)
-			quoted = 0;
-		else if (s[i] == '\\' && !backslashed)
-			backslashed = true;
-		else if (s[i] == '(' && !quoted && !backslashed)
-			par++;
-		else if (s[i] == ')' && !quoted && !backslashed)
-			par--;
-		else if (backslashed)
-			backslashed = false;
-		else if (!quoted && (s[i] == '\'' || s[i] == '"'))
-			quoted = s[i];
-		s_meta = (!quoted && (s[i] == '&' || s[i] == '|'
-					|| (s_meta && is_separator(s[i]))));
-		i++;
+		if (s[i] == q && !backslashed)
+			q = 0;
+		else if ((s[i] == '(' || s[i] == ')') && !q && !backslashed)
+			par += (1 * (s[i] == '(')) + (-1 * (s[i] == ')'));
+		else if (!q && (s[i] == '\'' || s[i] == '"') && !backslashed)
+			q = s[i];
+		backslashed = (s[i] == '\\' && !backslashed);
+		m = (!q && (s[i] == '&' || s[i] == '|' || (m && is_separator(s[i]))));
 	}
-	return (backslashed || quoted || par || s_meta);
+	return (backslashed || q || par || m);
 }
 
 static int	check_ender(char *line)
@@ -71,26 +65,22 @@ static char	*new_line_add(char *line, bool nl, t_tool *tool)
 	char	*new_line;
 	char	*joined;
 
-	new_line = NULL;
 	signal(SIGINT, sig_main);
 	signal(SIGQUIT, sig_main);
 	new_line = new_prompt(2, tool);
 	signal(SIGINT, sig_catch);
 	signal(SIGQUIT, sig_catch);
 	if (!new_line)
-	{
 		printfd(STDERR_FILENO, "syntax error: unexpected EOF\n");
-		return (0);
-	}
 	if (nl)
 	{
 		joined = ft_strjoin(line, "\n");
 		free(line);
-		if (!joined)
-			return (0);
 	}
 	else
 		joined = line;
+	if (!joined || !new_line)
+		return (0);
 	line = ft_strjoin(joined, new_line);
 	free(new_line);
 	free(joined);

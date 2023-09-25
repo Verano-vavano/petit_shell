@@ -6,11 +6,26 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:41:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 11:37:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:07:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+static char	*more_get_exp(char c, char *s, t_tool *tool, int *to_repl)
+{
+	char	username[2048];
+
+	if (c == 'H')
+		return (ft_strdup(get_hostname(username, tool->env)));
+	else if (c == 'w' || c == 'W')
+		return (get_arranged_cwd(tool->env, c == 'W'));
+	else if (c == '\\')
+		return (ft_strdup("\\"));
+	else if (c == 'c')
+		return (prompt_color(s + 2, to_repl));
+	return (0);
+}
 
 static char	*get_exp_val(char c, char *s, t_tool *tool, int *to_repl)
 {
@@ -34,15 +49,8 @@ static char	*get_exp_val(char c, char *s, t_tool *tool, int *to_repl)
 			return (ft_ltoa(LONG_MAX));
 		return (ft_ltoa(tool->hist->hist_end->num_cmd + 1));
 	}
-	else if (c == 'H')
-		return (ft_strdup(get_hostname(username, tool->env)));
-	else if (c == 'w' || c == 'W')
-		return (get_arranged_cwd(tool->env, c == 'W'));
-	else if (c == '\\')
-		return (ft_strdup("\\"));
-	else if (c == 'c')
-		return (prompt_color(s, to_repl));
-	return (0);
+	else
+		return (more_get_exp(c, s, tool, to_repl));
 }
 
 /*	PS_EXPANSION applied to PS0, 1 and 2 !
@@ -69,26 +77,21 @@ char	*ps_cool_expansion(char *ps, t_tool *tool)
 	i = -1;
 	while (ps[++i])
 	{
-		if (ps[i] == '\\')
+		if (ps[i] != '\\')
+			continue ;
+		is_color = (ps[i + 1] == 'c');
+		to_insert = get_exp_val(ps[i + 1], ps + i, tool, &is_color);
+		if (to_insert)
+			new = ft_strreplace(ps, i, 2 + is_color, to_insert);
+		else
+			new = ft_strreplace(ps, i, 1, "\\");
+		if (new)
 		{
-			is_color = 0;
-			if (ps[i + 1] == 'c')
-				to_insert = get_exp_val(ps[i + 1], ps + i + 2, tool, &is_color);
-			else
-				to_insert = get_exp_val(ps[i + 1], 0, tool, &is_color);
-			if (to_insert)
-			{
-				new = ft_strreplace(ps, i, 2 + is_color, to_insert);
-				free(to_insert);
-			}
-			else
-				new = ft_strreplace(ps, i, 1, "\\");
-			if (new)
-			{
-				free(ps);
-				ps = new;
-			}
+			free(ps);
+			ps = new;
 		}
+		if (to_insert)
+			free(to_insert);
 	}
 	return (ps);
 }

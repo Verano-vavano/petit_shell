@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 11:02:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:10:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	int			heredoc_no;
 	long		rt_val;
 
+	if (!(*line))
+		return (0);
 	lexed = spliter_init(&line, add_line, tool);
 	free(line);
 	if (!lexed)
@@ -134,8 +136,6 @@ int	main(int ac, char **av, char **envp)
 			printfd(STDOUT_FILENO, "exit\n");
 			exit(tool.rt_val);
 		}
-		else if (!(*line))
-			continue ;
 		tool.rt_val = cmd_processing(line, &tool, true);
 	}
 }

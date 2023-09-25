@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:27:21 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 12:20:53 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 15:07:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 static char	*change_color(char c)
 {
-	c = (c * (c <= 'z' && c >= 'a')) + ((c + ('a' - 'A')) * (c <= 'Z' && c>= 'A'));
+	c = (c * (c <= 'z' && c >= 'a'))
+		+ ((c + ('a' - 'A')) * (c <= 'Z' && c >= 'A'));
 	if (c == 'n')
 		return (ft_strdup(BLACK));
 	else if (c == 'r')
@@ -53,12 +54,18 @@ static bool	color_param(char c, t_color *colors)
 	return (0);
 }
 
-static char	*clean_strjoin(char *s1, char *s2)
+static char	*clean_strjoin(char *s1, char *s2, bool free_1, bool free_2)
 {
 	char	*ret;
 
-	ret = ft_strjoin(s1, s2);
-	free(s1);
+	if (s1 && s2)
+		ret = ft_strjoin(s1, s2);
+	else
+		ret = 0;
+	if (free_1 && s1)
+		free(s1);
+	if (free_2 && s2)
+		free(s2);
 	return (ret);
 }
 
@@ -68,17 +75,17 @@ static char	*add_params(t_color *colors)
 
 	ret = ft_strdup(START_COLOR);
 	if (ret && colors->bold)
-		ret = clean_strjoin(ret, BOLD_C);
+		ret = clean_strjoin(ret, BOLD_C, true, false);
 	if (ret && colors->italic)
-		ret = clean_strjoin(ret, ITALIC_C);
+		ret = clean_strjoin(ret, ITALIC_C, true, false);
 	if (ret && colors->underlined)
-		ret = clean_strjoin(ret, ULINED_C);
+		ret = clean_strjoin(ret, ULINED_C, true, false);
 	if (ret && colors->blinking)
-		ret = clean_strjoin(ret, BLINK_C);
+		ret = clean_strjoin(ret, BLINK_C, true, false);
 	if (ret && colors->inverted)
-		ret = clean_strjoin(ret, INVERT_C);
+		ret = clean_strjoin(ret, INVERT_C, true, false);
 	if (ret && ft_strcmp(ret, START_COLOR) == 0)
-		ret = clean_strjoin(ret, NORMAL_C);
+		ret = clean_strjoin(ret, NORMAL_C, true, false);
 	return (ret);
 }
 
@@ -89,18 +96,12 @@ char	*prompt_color(char *s, int *to_repl)
 	char	*to_ret;
 	char	*color_code;
 
-	(*to_repl)++;
 	colors = ft_calloc(1, sizeof (t_color));
 	num = is_num(*s);
-	while (*s && ((num && is_num(*s)) || (!num && !is_num(*s))))
-	{
-		if (color_param(*s, colors))
-			break ;
-		(*to_repl)++;
+	while (*s && ((num && is_num(*s)) || (!num && !is_num(*s)))
+		&& !(color_param(*s, colors)) && ++(*to_repl))
 		s++;
-	}
-	if (!colors->bold)
-		colors->bold = (*s <= 'Z' && *s >= 'A');
+	colors->bold = (colors->bold || (*s <= 'Z' && *s >= 'A'));
 	to_ret = add_params(colors);
 	if (colors)
 		free(colors);
@@ -112,10 +113,7 @@ char	*prompt_color(char *s, int *to_repl)
 		free(to_ret);
 		return (0);
 	}
-	to_ret = clean_strjoin(to_ret, color_code);
-	free(color_code);
-	if (!to_ret)
-		return (0);
-	color_code = clean_strjoin(to_ret, END_COLOR);
+	to_ret = clean_strjoin(to_ret, color_code, true, true);
+	color_code = clean_strjoin(to_ret, END_COLOR, true, false);
 	return (color_code);
 }

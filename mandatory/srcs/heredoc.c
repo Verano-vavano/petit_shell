@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:31:39 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/22 07:30:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:19:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ static void	write_heredoc(int fd, char *eof, t_tool *tool)
 	char	*temp;
 	int		lines;
 
-	eof = quote_removal(ft_strdup(eof));
-	lines = 1;
-	while (true)
+	lines = 0;
+	while (++lines)
 	{
 		line = new_prompt(2, tool);
 		if (!line)
@@ -56,16 +55,12 @@ static void	write_heredoc(int fd, char *eof, t_tool *tool)
 			break ;
 		}
 		temp = ft_strjoin(line, "\n");
-		if (temp)
-		{
-			free(line);
-			line = temp;
-		}
-		write(fd, line, ft_strlen(line));
 		free(line);
-		lines++;
+		if (!temp)
+			break ;
+		write(fd, temp, ft_strlen(temp));
+		free(temp);
 	}
-	free(eof);
 }
 
 static int	heredoc_child(int fd, char *eof, t_tool *tool)
@@ -78,7 +73,9 @@ static int	heredoc_child(int fd, char *eof, t_tool *tool)
 	else if (pid == 0)
 	{
 		signal(SIGINT, heredoc_handle);
+		eof = quote_removal(ft_strdup(eof));
 		write_heredoc(fd, eof, tool);
+		free(eof);
 		exit(0);
 	}
 	while (waitpid(pid, 0, WNOHANG) == 0)
