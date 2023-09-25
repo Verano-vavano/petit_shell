@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/26 00:21:08 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/26 00:38:36 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,7 @@ endif
 
 COUNT=0
 
-all:${NAME}
+all: ${NAME}
 
 .c.o:
 	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
@@ -122,7 +122,7 @@ ${PRINTFD}:
 	@echo "Compiling PRINTFD..."
 	@make -s -C ${PRINTFD_PATH}
 
-${NAME}:${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
+${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@$(call max_count)
 	@$(call move_progress_bar, COUNT)
 	@echo
@@ -135,19 +135,19 @@ clean:
 	@${RM} ${DEST}
 	@echo "Cleaning LIBFT..."
 	@make -s -C ${LIBFT_PATH}
+	@${RM} ${LIBFT}
 	@echo "Cleaning Tetris..."
 	@make -s -C ${TETRIS_PATH}
+	@${RM} ${TETRIS}
 	@echo "Cleaning Printfd..."
 	@make -s -C ${PRINTFD_PATH}
+	@${RM} ${PRINTFD}
 	@echo -e -n "\e[0m"
 	@echo "-----"
 
 fclean: clean
 	@${RM} ${NAME}
-	@${RM} ${LIBFT}
-	@${RM} ${PRINTFD}
-	@${RM} ${TETRIS}
 
 re: fclean all
 
-.PHONY:all premain .c.o ${NAME} clean fclean
+.PHONY:all .c.o clean fclean

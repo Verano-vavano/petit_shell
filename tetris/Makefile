@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/08/09 18:02:17 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/26 00:39:02 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ all:${NAME}
 	@${GCC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:${DEST}
-	@echo "Doing god's work"
 	@ar crs ${NAME} ${DEST}
 
 clean:
