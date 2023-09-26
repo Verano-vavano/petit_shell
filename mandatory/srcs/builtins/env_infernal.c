@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:47:35 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/15 18:16:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/20 13:15:24 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@ void	print_paths(t_env *ptr)
 	}
 }
 
-int	env_infernal(t_env *env, bool export)
+int	env_infernal(t_env *env, bool exported)
 {
 	t_env	*ptr;
 
 	ptr = env;
 	while (ptr)
 	{
-		if (ptr->is_exported && (export || (ptr->value)))
+		if (ptr->is_exported && (exported || (ptr->value)))
 		{
-			if (export)
+			if (exported)
 				printfd(STDOUT_FILENO, "%s", "declare -x ");
 			printfd(STDOUT_FILENO, "%s", ptr->key);
-			if (ptr->value && (export || ptr->value[0]))
+			if (ptr->value && (exported || ptr->value[0]))
 			{
 				printfd(STDOUT_FILENO, "=");
-				if (export)
+				if (exported)
 					printfd(STDOUT_FILENO, "\"");
 				if (ptr->value[0])
 					printfd(STDOUT_FILENO, "%s", ptr->value);
-				if (export)
+				if (exported)
 					printfd(STDOUT_FILENO, "\"");
 			}
 			printfd(STDOUT_FILENO, "\n");

@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/26 21:08:47 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/26 20:42:13 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ SRCS=shellpticflesh.c\
 	 builtins/metal_injection.c  builtins/exit_hell.c  builtins/echo_des_enfers.c\
 	 builtins/env_infernal.c  builtins/les_ex_portes_de_lenfer.c  builtins/les_ex_portes_de_lutil.c  builtins/unset_et_damnation.c\
 	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
-	 cleaning.c  utils.c  char_utils.c  more_char_utils.c
+	 cleaning.c  utils.c  char_utils.c  more_char_utils.c\
+	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
+	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\
+	 math/operator.c math/utils.c
 SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 NO_OF_FILES:=$(words $(SRCS))

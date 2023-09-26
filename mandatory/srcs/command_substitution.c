@@ -6,11 +6,12 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/22 12:28:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/26 17:07:51 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+#include <unistd.h>
 
 static int	find_end_comm(char *s)
 {
@@ -106,7 +107,9 @@ long	command_substitution(t_command *cmd, t_env *env, bool only_repl)
 	skip_first = false;
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
+		if (is_math(cmd->content))
+			do_math(cmd, env);
+		else if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			next = cmd->next;
 			ret = srch_exec_comm(cmd, env, only_repl);

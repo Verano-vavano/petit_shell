@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 12:42:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/26 17:07:46 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,7 +345,7 @@ void		heredoc_handle(int sig);
 int			metal_injection(void);
 int			exit_hell(char **cmd, long ret, t_tool *tool, bool one);
 int			echo_des_enfers(char **cmd);
-int			env_infernal(t_env *env, bool export);
+int			env_infernal(t_env *env, bool exported);
 int			les_ex_portes_de_lenfer(char **cmd, t_env **env);
 t_env		*dup_env(t_env *env);
 void		sort_env(t_env *head);
@@ -378,5 +378,9 @@ t_env		*env_new_specific(char *key, char *value, bool is_exported);
 /*----------------TO_DELETE_UTILS----------------*/
 void		print_char_arr(char **arr);
 void		print_cmd(t_command *cmd);
+
+/*----------------MATH----------------*/
+bool	is_math(const char *str);
+bool	do_math(t_command *cmd, t_env *env);
 
 #endif
