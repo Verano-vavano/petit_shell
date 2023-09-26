@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/26 00:38:36 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/26 16:14:31 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,14 +44,30 @@ SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 NO_OF_FILES:=$(words $(SRCS))
 
+START=0
+
+define change_bar_color
+	if [ $1 -eq 1 ]; then \
+		echo -e -n "\e[0;31m"; \
+	elif [ $1 -eq 12 ]; then \
+		echo -e -n "\e[0;33m"; \
+	elif [ $1 -eq 24 ]; then \
+		echo -e -n "\e[0;32m"; \
+	elif [ $1 -eq 36 ]; then \
+		echo -e -n "\e[0;36m"; \
+	fi
+endef
+
 define move_progress_bar
-	@if [ ${COUNT} -eq 0 ]; then \
+	@if [ ${START} -eq 0 ]; then \
 		echo -e -n "\e[0;31m"; \
 		echo "COMPILING SHELLPTICFLESH"; \
 		echo -e -n "\e[0m"; \
 		echo; \
 		echo -e -n "\e[0G"; \
+		$(eval START = 1) \
 	fi
+	@echo -e -n "\e[?25l"
 	@$(eval COUNT := $(shell bash -c 'echo $$(($(COUNT) + 1))'))
 	@echo -n "${COUNT} / ${NO_OF_FILES}"
 	@$(eval PERCENT := $(shell bash -c 'echo $$(($(COUNT) * 100 / $(NO_OF_FILES)))'))
@@ -59,20 +75,23 @@ define move_progress_bar
 	@$(eval current := 1)
 	@$(eval MAX := $(shell bash -c 'echo $$(($(PERCENT) / 2))'))
 	@for i in $$(seq 1 50); do\
+		$(call change_bar_color, $$i); \
 		if [ "$$i" -le "$(MAX)" ]; then \
 			echo -n "#"; \
 		else \
 			echo -n " "; \
 		fi \
 	done
+	@echo -e -n "\e[0m"
 	@echo -n "] "
 	@if [ "${PERCENT}" -lt 100 ]; then \
 		echo -e -n "\e[3;37m"; \
 	else \
-		echo -e -n "\e[1;3;32m"; \
+		echo -e -n "\e[1;3;36m"; \
 	fi
 	@echo "${PERCENT}%"
 	@echo -e -n "\e[0;0m"
+	@echo -e -n "\e[?25h"
 endef
 
 define max_count
@@ -111,23 +130,28 @@ all: ${NAME}
 	$(call move_progress_bar, COUNT)
 
 ${LIBFT}:
+	@echo -e -n "\e[3;33m"
 	@echo "Compiling LIBFT..."
 	@make -s -C ${LIBFT_PATH}
 
 ${TETRIS}:
+	@echo -e -n "\e[3;34m"
 	@echo "Compiling TETRIS..."
 	@make -s -C ${TETRIS_PATH}
 
 ${PRINTFD}:
+	@echo -e -n "\e[3;35m"
 	@echo "Compiling PRINTFD..."
 	@make -s -C ${PRINTFD_PATH}
 
 ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@$(call max_count)
 	@$(call move_progress_bar, COUNT)
-	@echo
+	@echo -e "\e[?25h"
 	@echo -e -n "\e[3;33m"
 	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINK_RL} ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
+	@echo -e -n "\e[1;31m"
+	@echo "SHELLPTICFLESH COMPILED"
 
 clean:
 	@echo -e -n "\e[0;32m"
