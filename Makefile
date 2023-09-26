@@ -6,40 +6,40 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/26 16:14:31 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/26 21:08:47 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=./minishell
 
-SRCS=shellpticflesh.c	line_comprehension.c	purposer.c\
-	 parse_args.c		parse_args_utils.c		spliter.c\
-	 char_utils.c		utils.c					cleaning.c\
-	 error_manager.c	heredoc.c				builtins/metal_injection.c\
-	 more_char_utils.c	builtins/exit_hell.c \
-	 execution.c		syntax_checker.c		builtins/echo_des_enfers.c \
-	 env.c builtins/env_infernal.c builtins/les_ex_portes_de_lenfer.c env_utils.c \
-	 builtins/unset_et_damnation.c				line_expansions.c\
-	 tilde_expansion.c	get_home.c builtins/cd_mentiel.c builtins/print_working_damnation.c \
-	 env_utils2.c		braces_expansion.c		execution_utils.c\
-	 get_cmd.c			files.c					get_path.c\
-	 redirections.c		env_utils3.c			quote_removal.c\
-	 builtin_execution.c						warnings.c\
-	 signals.c			braces_dots_expansions.c\
-	 parameter_expansion.c braces_coma_expansion.c\
-	 braces_dots_expansions_more.c				command_substitution.c\
-	 filename_expansion.c						history.c\
-	 prompt.c			word_split.c			get_output.c\
-	 execution_doer.c	lf_utils.c				fe_utils.c\
-	 file_check.c		fe_subverif.c			file_opening.c\
-	 check_path.c		history_utils.c			param_exp_utils.c\
-	 syntax_checkerers.c						word_split_utils.c\
-	 to_delete_utils.c	builtins/cd_mentiellement_util.c\
-	 env_init_utils.c	prompt_expansions.c		get_username.c\
-	 get_hostname.c		get_cwd.c				builtins/les_ex_portes_de_lutil.c\
-	 braces_coma_expansion_more.c				command_subst_exec.c\
-	 history_loader.c	execution_mainloop.c	word_split_merger.c\
-	 shellptrc.c		prompt_colors.c
+SRCS=shellpticflesh.c\
+	 signals.c  error_manager.c  warnings.c\
+	 env.c  env_init_utils.c  env_utils.c  env_utils2.c  env_utils3.c\
+	 history.c  history_loader.c  history_utils.c\
+	 shellptrc.c\
+	 prompt.c  prompt_expansions.c  prompt_colors.c\
+	 get_home.c  get_username.c  get_hostname.c  get_cwd.c\
+	 spliter.c  parse_args.c  parse_args_utils.c\
+	 syntax_checker.c  syntax_checkerers.c\
+	 line_comprehension.c  purposer.c\
+	 heredoc.c\
+	 line_expansions.c\
+	 braces_expansion.c  braces_coma_expansion.c  braces_coma_expansion_more.c\
+	 braces_dots_expansions.c  braces_dots_expansions_more.c\
+	 tilde_expansion.c\
+	 parameter_expansion.c  param_exp_utils.c\
+	 command_substitution.c  command_subst_exec.c  get_output.c\
+	 filename_expansion.c  fe_subverif.c  file_check.c  fe_utils.c  lf_utils.c\
+	 word_split.c  word_split_utils.c  word_split_merger.c\
+	 quote_removal.c\
+	 execution.c  execution_mainloop.c  execution_doer.c  execution_utils.c\
+	 get_cmd.c  get_path.c  check_path.c\
+	 files.c  file_opening.c  redirections.c\
+	 builtin_execution.c\
+	 builtins/metal_injection.c  builtins/exit_hell.c  builtins/echo_des_enfers.c\
+	 builtins/env_infernal.c  builtins/les_ex_portes_de_lenfer.c  builtins/les_ex_portes_de_lutil.c  builtins/unset_et_damnation.c\
+	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
+	 cleaning.c  utils.c  char_utils.c  more_char_utils.c
 SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 NO_OF_FILES:=$(words $(SRCS))
@@ -125,6 +125,8 @@ COUNT=0
 
 all: ${NAME}
 
+bonus: ${NAME}
+
 .c.o:
 	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
 	$(call move_progress_bar, COUNT)
@@ -153,19 +155,31 @@ ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@echo -e -n "\e[1;31m"
 	@echo "SHELLPTICFLESH COMPILED"
 
-clean:
+clean_libft:
+	@echo -e -n "\e[0;32m"
+	@echo "Cleaning LIBFT..."
+	@make clean -s -C ${LIBFT_PATH}
+	@echo -e -n "\e[0m"
+	@${RM} ${LIBFT}
+
+clean_tetris:
+	@echo -e -n "\e[0;32m"
+	@echo "Cleaning Tetris..."
+	@make -s -C ${TETRIS_PATH}
+	@echo -e -n "\e[0m"
+	@${RM} ${TETRIS}
+
+clean_printfd:
+	@echo -e -n "\e[0;32m"
+	@echo "Cleaning Printfd..."
+	@make -s -C ${PRINTFD_PATH}
+	@echo -e -n "\e[0m"
+	@${RM} ${PRINTFD}
+
+clean: clean_libft clean_tetris clean_printfd
 	@echo -e -n "\e[0;32m"
 	@echo "Cleaning Shellpticflesh..."
 	@${RM} ${DEST}
-	@echo "Cleaning LIBFT..."
-	@make -s -C ${LIBFT_PATH}
-	@${RM} ${LIBFT}
-	@echo "Cleaning Tetris..."
-	@make -s -C ${TETRIS_PATH}
-	@${RM} ${TETRIS}
-	@echo "Cleaning Printfd..."
-	@make -s -C ${PRINTFD_PATH}
-	@${RM} ${PRINTFD}
 	@echo -e -n "\e[0m"
 	@echo "-----"
 
@@ -174,4 +188,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:all .c.o clean fclean
+.PHONY:all .c.o clean fclean clean_libft clean_tetris clean_printf
