@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 00:18:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/27 16:43:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ static int	check_rel(t_process_cmd *cmd)
 	int		last;
 
 	last = 0;
-	while (cmd->cmd_name[last])
+	while (cmd && cmd->cmd_name && cmd->cmd_name[last])
 	{
 		last += ft_strchr_int(cmd->cmd_name + last, '/');
+		if (!cmd->cmd_name[last])
+			return (0);
 		now = ft_strndup(cmd->cmd_name, last + 1);
 		if (!is_dir(now) && access(now, F_OK) != 0)
 		{
