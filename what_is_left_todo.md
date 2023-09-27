@@ -1,2 +1,2 @@
 echo (
-relink
+alias

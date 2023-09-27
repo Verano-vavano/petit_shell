@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/26 17:07:46 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:32:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,19 @@ typedef struct s_hist
 	t_hist_ll	*hist_end;
 }				t_hist;
 
+typedef struct s_alias
+{
+	char			*cmd;
+	char			*replacer;
+	struct s_alias	*next;
+}				t_alias;
+
 typedef struct s_tool
 {
 	t_env	*env;
 	char	**c_env;
 	t_hist	*hist;
+	t_alias	*alias;
 	long	rt_val;
 	char	*cwd;
 }				t_tool;
