@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:41:08 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 13:45:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/27 17:01:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
 	}
 	else
 		cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
+	close(se[3]);
 	if (out)
 		free(out);
 }

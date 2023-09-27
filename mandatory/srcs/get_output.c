@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 22:28:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/13 11:11:18 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:58:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*get_output(int *pipes)
 		ret = temp;
 	}
 	ret[ft_strlen(ret) - 1] = '\0';
+	close(pipes[0]);
 	return (ret);
 }
