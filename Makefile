@@ -6,16 +6,13 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/28 13:23:31 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/28 14:41:35 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=./minishell
 
-SRCDIR=./mandatory/srcs
-OBJDIR=./mandatory/obj
-
-FILES=shellpticflesh.c\
+SRCS=shellpticflesh.c\
 	 signals.c  error_manager.c  warnings.c\
 	 env.c  env_init_utils.c  env_utils.c  env_utils2.c  env_utils3.c\
 	 history.c  history_loader.c  history_utils.c\
@@ -46,9 +43,9 @@ FILES=shellpticflesh.c\
 	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
 	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\
 	 math/operator.c math/utils.c
-SRC=$(addprefix $(SRCDIR)/, ${FILES})
-DEST=$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
-NO_OF_FILES:=$(words $(FILES))
+SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
+DEST=${SRCS_DIR:.c=.o}
+NO_OF_FILES:=$(words $(SRCS))
 
 START=0
 LAST_PERCENT=0
@@ -65,6 +62,38 @@ define change_bar_color
 	fi
 endef
 
+define move_progress_bar
+	@if [ ${START} -eq 0 ]; then \
+		echo -e -n "\\e[0;31m"; \
+		echo "COMPILING SHELLPTICFLESH"; \
+		echo -e -n "\\e[0m["; \
+		echo; \
+		echo -e -n "\\e[G"; \
+		$(eval START = 1) \
+	fi
+	@echo -e -n "\\e[?25l\\e[1A\\e[G"
+	@$(eval COUNT := $(shell bash -c 'echo $$(($(COUNT) + 1))'))
+	@$(eval PERCENT := $(shell bash -c 'echo $$(($(COUNT) * 100 / $(NO_OF_FILES)))'))
+	@$(eval current := 1)
+	@$(eval MAX := $(shell bash -c 'echo $$(($(PERCENT) / 2))'))
+	@echo -e -n "\\e[${LAST_PERCENT}C"
+	@for i in $$(seq ${LAST_PERCENT} ${MAX}); do\
+		$(call change_bar_color, $$i); \
+		echo -n "#"; \
+	done
+	@echo -e -n "\\e[G\\e[51C"
+	@echo -e -n "\\e[0m"
+	@echo -n "] "
+	@if [ "${PERCENT}" -lt 100 ]; then \
+		echo -e -n "\\e[3;37m"; \
+	else \
+		echo -e -n "\\e[1;3;36m"; \
+	fi
+	@echo "${PERCENT}% | ${COUNT} / ${NO_OF_FILES}"
+	@echo -e -n "\\e[0;0m"
+	@echo -e -n "\\e[?25h"
+	@$(eval LAST_PERCENT = ${MAX})
+endef
 
 define max_count
 	@$(eval COUNT := $(shell bash -c 'echo $$(($(NO_OF_FILES) - 1))'))
@@ -99,92 +128,60 @@ all: ${NAME}
 
 bonus: ${NAME}
 
-$(OBJDIR)/%.o:$(SRCDIR)/%.c
-	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o $@
-	@if [ ${START} -eq 0 ]; then \
-		echo -e -n "\\e[0;31m"; \
-		echo "COMPILING SHELLPTICFLESH"; \
-		echo -e -n "\\e[0m"; \
-		echo; \
-		echo -e -n "\\e[G"; \
-		$(eval START = 1) \
-	fi
-	@echo -e -n "\\e[?25l"
-	@$(eval COUNT := $(shell bash -c 'echo $$(($(COUNT) + 1))'))
-	@echo -n "${COUNT} / ${NO_OF_FILES}"
-	@$(eval PERCENT := $(shell bash -c 'echo $$(($(COUNT) * 100 / $(NO_OF_FILES)))'))
-	@echo -e -n "\\e[G\\e[1A[\\e[G"
-	@$(eval current := 1)
-	@$(eval MAX := $(shell bash -c 'echo $$(($(PERCENT) / 2))'))
-	@echo -e -n "\\e[${LAST_PERCENT}C"
-	@for i in $$(seq ${LAST_PERCENT} ${MAX}); do\
-		$(call change_bar_color, $$i); \
-		echo -n "#"; \
-	done
-	@echo -e -n "\\e[G\\e[51C"
-	@echo -e -n "\\e[0m"
-	@echo -n "] "
-	@if [ "${PERCENT}" -lt 100 ]; then \
-		echo -e -n "\\e[3;37m"; \
-	else \
-		echo -e -n "\\e[1;3;36m"; \
-	fi
-	@echo "${PERCENT}%"
-	@echo -e -n "\\e[0;0m"
-	@echo -e -n "\\e[?25h"
-	@$(eval LAST_PERCENT = ${MAX})
+.c.o:
+	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
+	$(call move_progress_bar, COUNT)
 
 ${LIBFT}:
-	@echo -e -n '\e[3;33m'
+	@echo -e -n "\e[3;33m"
 	@echo "Compiling LIBFT..."
 	@make -s -C ${LIBFT_PATH}
 
 ${TETRIS}:
-	@echo -e -n '\e[3;34m'
+	@echo -e -n "\e[3;34m"
 	@echo "Compiling TETRIS..."
 	@make -s -C ${TETRIS_PATH}
 
 ${PRINTFD}:
-	@echo -e -n '\e[3;35m'
+	@echo -e -n "\e[3;35m"
 	@echo "Compiling PRINTFD..."
 	@make -s -C ${PRINTFD_PATH}
 
 ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@$(call max_count)
 	@$(call move_progress_bar, COUNT)
-	@echo -e '\e[?25h'
-	@echo -e -n '\e[3;33m'
+	@echo -e -n "\\e[?25h\\e[3;33m"
 	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINK_RL} ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
-	@echo -e -n '\e[1;31m'
+	@echo -e -n "\e[1;31m"
 	@echo "SHELLPTICFLESH COMPILED"
-	@echo -e -n '\e[0m'
+	@echo -e -n "\e[0m"
 
 clean_libft:
-	@echo -e -n '\e[0;32m'
+	@echo -e -n "\e[0;32m"
 	@echo "Cleaning LIBFT..."
 	@make clean -s -C ${LIBFT_PATH}
-	@echo -e -n '\e[0m'
+	@echo -e -n "\e[0m"
 	@${RM} ${LIBFT}
 
 clean_tetris:
-	@echo -e -n '\e[0;32m'
+	@echo -e -n "\e[0;32m"
 	@echo "Cleaning Tetris..."
 	@make -s -C ${TETRIS_PATH}
-	@echo -e -n '\e[0m'
+	@echo -e -n "\e[0m"
 	@${RM} ${TETRIS}
 
 clean_printfd:
-	@echo -e -n '\e[0;32m'
+	@echo -e -n "\e[0;32m"
 	@echo "Cleaning Printfd..."
 	@make -s -C ${PRINTFD_PATH}
-	@echo -e -n '\e[0m'
+	@echo -e -n "\e[0m"
 	@${RM} ${PRINTFD}
 
 clean: clean_libft clean_tetris clean_printfd
-	@echo -e -n '\e[0;32m'
+	@echo -e -n "\e[0;32m"
 	@echo "Cleaning Shellpticflesh..."
 	@${RM} ${DEST}
-	@echo -e -n '\e[0m'
+	@echo -e -n "\e[0m"
 	@echo "-----"
 
 fclean: clean
