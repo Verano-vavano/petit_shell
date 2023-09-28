@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 18:14:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:28:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ t_command	*spliter_init(char **cmd, bool add_line, t_tool *tool);
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
 int			understand_the_line(t_command *cmd);
+bool		check_assign(char *s);
 
 // syntax checker
 int			check_syntax(char *line);
@@ -237,6 +238,9 @@ int			get_path_star_fe(char *cnt);
 char		*ft_strstr_fe(char *haystack, char *needle);
 bool		not_over(char *s);
 int			move_end_stars(char *qmat);
+
+// alias expansion
+void		alias_expansion(t_command *cmd, t_tool *tool);
 
 // word split
 int			word_split(t_command *cmd, char *newer, int *se, t_env *env);

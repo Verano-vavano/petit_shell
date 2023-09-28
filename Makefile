@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/28 17:52:51 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/28 19:20:15 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS=shellpticflesh.c\
 	 builtins/metal_injection.c  builtins/exit_hell.c  builtins/echo_des_enfers.c\
 	 builtins/env_infernal.c  builtins/les_ex_portes_de_lenfer.c  builtins/les_ex_portes_de_lutil.c  builtins/unset_et_damnation.c\
 	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
-	 builtins/hellias.c\
+	 builtins/hellias.c  alias_expansion.c\
 	 cleaning.c  utils.c  char_utils.c  more_char_utils.c\
 	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
 	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\

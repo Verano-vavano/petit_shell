@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 11:44:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:28:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static enum e_cmd_part	redir_post(t_command *cmd, char *s)
 	return (UNDEFINED);
 }
 
-static bool	check_assign(char *s)
+bool	check_assign(char *s)
 {
 	int	i;
 

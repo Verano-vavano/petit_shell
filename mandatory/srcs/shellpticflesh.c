@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 18:07:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 21:23:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ static long	line_beauty(t_command *lexed, t_tool *tool)
 	return (0);
 }
 
+static bool	has_command(t_command *cmd)
+{
+	while (cmd)
+	{
+		if (cmd && cmd->content && cmd->content[0] && cmd->purpose == COMMAND)
+			return (true);
+		cmd = cmd->next;
+	}
+	return (false);
+}
+
 static long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 {
 	long	rt_val;
@@ -73,8 +84,13 @@ static long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 			lexed = lexed->next;
 		rt_val = expand_cmd(lexed, tool);
 		quote_remove_cmd(lexed);
+		alias_expansion(lexed, tool);
 		if (rt_val < 0)
-			rt_val = execute_the_line(lexed, tool, hd_no);
+		{
+			rt_val = 0;
+			if (has_command(lexed))
+				rt_val = execute_the_line(lexed, tool, hd_no);
+		}
 		assign_vars(lexed, &(tool->env));
 		while (lexed && lexed->purpose != CMD_DELIM)
 			lexed = lexed->next;
@@ -131,6 +147,8 @@ int	main(int ac, char **av, char **envp)
 		signal(SIGINT, sig_main);
 		signal(SIGQUIT, sig_main);
 		line = new_prompt(1, &tool);
+		if (g_sig_rec == SIGINT)
+			tool.rt_val = 130;
 		signal(SIGINT, sig_catch);
 		signal(SIGQUIT, sig_catch);
 		if (!line)

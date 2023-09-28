@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 18:23:01 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 16:32:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 21:23:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	sig_main(int sig)
 {
+	g_sig_rec = sig;
 	if (sig == SIGQUIT)
 	{
 		printfd(STDOUT_FILENO, "%s", CLEAR_LINE);

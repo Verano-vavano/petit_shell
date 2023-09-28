@@ -1,3 +1,2 @@
 echo (
-alias
-toutes les var assign + premier command
+alias 'bonjour mdr'=12

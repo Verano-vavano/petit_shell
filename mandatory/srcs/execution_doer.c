@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/24 16:50:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 21:11:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
 	int	n;
 
 	n = 0;
-	if (hist && n_cmd == 1 && ft_strcmp(cmd->content, "exit") == 0)
+	if (hist && n_cmd == 1 && cmd->content
+		&& ft_strcmp(cmd->content, "exit") == 0)
 	{
 		while (cmd && cmd->purpose != CMD_DELIM && cmd->purpose != DELIM)
 		{
