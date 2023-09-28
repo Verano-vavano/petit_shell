@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 10:40:09 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 10:57:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 21:47:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,21 @@ static char	*get_rc_file(t_tool *tool)
 	return (rc);
 }
 
-void	exec_shellptrc(t_tool *tool)
+static void	execute_rc(int fd_rc, t_tool *tool)
 {
 	char	*cmd;
+
+	cmd = get_next_line(fd_rc);
+	while (cmd)
+	{
+		cmd_processing(cmd, tool, false);
+		cmd = get_next_line(fd_rc);
+	}
+	close(fd_rc);
+}
+
+void	exec_shellptrc(t_tool *tool)
+{
 	char	*rc_file;
 	int		fd_rc;
 
@@ -36,13 +48,9 @@ void	exec_shellptrc(t_tool *tool)
 		return ;
 	fd_rc = open(rc_file, O_RDONLY);
 	free(rc_file);
-	if (fd_rc < 3)
-		return ;
-	cmd = get_next_line(fd_rc);
-	while (cmd)
-	{
-		cmd_processing(cmd, tool, false);
-		cmd = get_next_line(fd_rc);
-	}
-	close(fd_rc);
+	if (fd_rc >= 3)
+		execute_rc(fd_rc, tool);
+	fd_rc = open("./.shellptrc", O_RDONLY);
+	if (fd_rc >= 3)
+		execute_rc(fd_rc, tool);
 }

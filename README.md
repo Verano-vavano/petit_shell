@@ -34,6 +34,9 @@ PS0, PS1, PS2, PROMPT_COMMAND
 -- Allows more complexe colors parameters such as blinking and italic (PS1='\cisR\s\c0w \ciG\v\c0w \cdp[\W]\c0w \c25c($?)\c0w \cW>\c0w ')
 Signal handling
 CD follows symlinks
+Alias builtin included
+Shellptrc file executed line by line at launch (both in executable dir and home dir)
+.shellpstart file is printed out at launch
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
 - Hell is a builtin printing a pun around the metal genre. We hardcoded a new random function using the asm instruction to generate pseudo-random number to choose the pun. And they all are funny.
