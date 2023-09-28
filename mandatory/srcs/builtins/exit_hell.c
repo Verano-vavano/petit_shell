@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:15:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/24 16:50:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:15:35 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int	exit_hell(char **cmd, long ret, t_tool *tool, bool one)
 	if (one && tool->cwd)
 		free(tool->cwd);
 	free_whole_env(tool->env);
+	free_alias(tool->alias_start);
 	exit(exit_code % 256);
 }

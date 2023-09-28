@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/27 17:30:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:07:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ int	main(int ac, char **av, char **envp)
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);
 	tool.cwd = 0;
-	tool.alias = 0;
+	tool.alias_start = 0;
+	tool.alias_end = 0;
 	exec_shellptrc(&tool);
 	while (42)
 	{

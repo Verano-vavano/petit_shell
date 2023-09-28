@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/24 16:54:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:14:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ void	free_whole_env(t_env *env)
 		ptr = next;
 	}
 	env = NULL;
+}
+
+void	free_alias(t_alias *alias)
+{
+	t_alias *next;
+
+	while (alias)
+	{
+		if (alias->cmd)
+			free(alias->cmd);
+		if (alias->replacer)
+			free(alias->replacer);
+		next = alias->next;
+		free(alias);
+		alias = next;
+	}
 }
 
 int	free_command(t_command *l)

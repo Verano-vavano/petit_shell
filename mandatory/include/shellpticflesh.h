@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/27 17:32:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:14:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ typedef struct s_tool
 	t_env	*env;
 	char	**c_env;
 	t_hist	*hist;
-	t_alias	*alias;
+	t_alias	*alias_start;
+	t_alias *alias_end;
 	long	rt_val;
 	char	*cwd;
 }				t_tool;
@@ -313,6 +314,7 @@ char		*prompt_color(char *s, int *to_repl);
 int			free_command(t_command *l);
 void		free_env(t_env *env);
 void		free_whole_env(t_env *env);
+void		free_alias(t_alias *alias);
 
 // utils
 t_command	*init_command_arg(t_command *start);
@@ -362,6 +364,7 @@ int			cd_mentiel(char **cmd, t_tool **tool);
 void		change_oldpwd(t_env **env);
 void		change_pwd(char *dest, t_tool **t);
 int			print_working_damnation(char *cwd);
+int			hellias(char **args, t_tool *tool);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/
