@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 19:20:53 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 21:19:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:25:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_command	*smol_split(char *s)
 	return (to_ret);
 }
 
-static void	perform_alias_exp(t_command *cmd, t_tool *tool)
+static bool	perform_alias_exp(t_command *cmd, t_tool *tool)
 {
 	t_alias		*replacer;
 	t_command	*splited;
@@ -72,14 +72,14 @@ static void	perform_alias_exp(t_command *cmd, t_tool *tool)
 
 	replacer = get_alias(cmd->content, tool->alias_start);
 	if (!replacer)
-		return ;
+		return (false);
 	newer = ft_strdup(replacer->replacer);
 	if (!newer)
-		return ;
+		return (false);
 	splited = smol_split(newer);
 	free(newer);
 	if (!splited)
-		return;
+		return (false);
 	free(cmd->content);
 	cmd->content = splited->content;
 	cmd->purpose = splited->purpose;
@@ -89,11 +89,13 @@ static void	perform_alias_exp(t_command *cmd, t_tool *tool)
 		cmd = cmd->next;
 	cmd->next = end;
 	free(splited);
+	return (true);
 }
 
 void	alias_expansion(t_command *cmd, t_tool *tool)
 {
 	bool	changed;
+	char	*old_str;
 
 	while (cmd && cmd->purpose == VAR_ASSIGN)
 	{
@@ -108,4 +110,18 @@ void	alias_expansion(t_command *cmd, t_tool *tool)
 		if (cmd->purpose == VAR_ASSIGN)
 			cmd = cmd->next;
 	}
+	if (!cmd)
+		return ;
+	old_str = ft_strdup(cmd->content);
+	while (cmd && old_str && perform_alias_exp(cmd, tool))
+	{
+		if (!ft_strcmp(old_str, cmd->content))
+		{
+			free(old_str);
+			return ;
+		}
+		free(old_str);
+		old_str = ft_strdup(cmd->content);
+	}
+	free(old_str);
 }

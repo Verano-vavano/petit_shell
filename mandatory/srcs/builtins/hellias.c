@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:48:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 13:27:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:24:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static bool	change_alias_val(char *key, char *alias, t_tool *tool)
 	{
 		if (!ft_strcmp(key, alias_search->cmd))
 		{
+			free(key);
 			free(alias_search->replacer);
 			alias_search->replacer = alias;
 			return (true);
@@ -163,6 +164,8 @@ static bool	add_alias(char *arg, t_tool *tool)
 
 int	hellias(char **args, t_tool *tool)
 {
+	char	*ptr;
+
 	if (!tool)
 		return (1);
 	args++;
@@ -172,7 +175,8 @@ int	hellias(char **args, t_tool *tool)
 	{
 		while (*args)
 		{
-			if (ft_strchr(*args, '='))
+			ptr = ft_strchr(*args, '=');
+			if (ptr && ptr != *args)
 			{
 				if (!add_alias(*args, tool) && !args[1])
 					return (1);

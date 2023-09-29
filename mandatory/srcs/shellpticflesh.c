@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 13:08:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:19:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 	{
 		if (lexed->purpose == CMD_DELIM)
 			lexed = lexed->next;
+		signal(SIGINT, SIG_DFL);
 		alias_expansion(lexed, tool);
 		rt_val = expand_cmd(lexed, tool);
 		quote_remove_cmd(lexed);
