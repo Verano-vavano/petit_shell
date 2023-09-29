@@ -1,3 +1,10 @@
+![logo](images/logo.png)
+# Minishell!
+We are Hugo and Thibault, our team name is <b>Über Tigo</b>
+
+This is a project done during our cursus at [42 School](https://42.fr/en/homepage/). The assignement was to code a little [ shell ](https://en.wikipedia.org/wiki/Shell_(computing))
+
+# Original directives
 Functionalities :
 Braces, tilde and parameter expansion
 - Braces include inbracated (and not) coma expansion and not inbricated dots expansion
