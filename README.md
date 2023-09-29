@@ -50,6 +50,7 @@ export : export variables to be used externally
 unset : removes variable
 pwd : prints working directory
 source (.) : executes all lines in a file
+: : ne fait rien et ignore donc toute la commande
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
 - Hell is a builtin printing a pun around the metal genre. We hardcoded a new random function using the asm instruction to generate pseudo-random number to choose the pun. And they all are funny.

@@ -1,4 +1,4 @@
-c_quoting
+c_quoting err valgrind
 |&
 advanced pattern matching
 builtin declare ?

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 21:32:38 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/30 00:01:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ enum	e_cmd_part
 	VAR_ASSIGN,
 	PS_EXP,
 	ERROR
+};
+
+enum	e_quotes
+{
+	NOQUOTES,
+	SQUOTES,
+	DQUOTES,
+	CQUOTES
 };
 
 typedef struct s_command
