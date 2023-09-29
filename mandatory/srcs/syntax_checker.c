@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 11:50:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 13:16:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_loop(char *line, int f, int i, int d)
 	q = 0;
 	while (line[i])
 	{
+		if (line[i] == '#')
+			return (0);
 		q = is_quoted(line, i, q);
 		if (f && is_strict_meta(line[i]))
 			return (syntax_error(line + i, -1));

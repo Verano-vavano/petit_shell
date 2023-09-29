@@ -36,6 +36,7 @@ Signal handling
 CD follows symlinks
 Alias builtin included
 Shellptrc file executed line by line at launch (both in executable dir and home dir)
+- use './minishell --norc' to avoid rc execution
 .shellpstart file is printed out at launch
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.

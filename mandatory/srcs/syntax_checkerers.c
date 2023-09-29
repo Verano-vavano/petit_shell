@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:55:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 11:51:24 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 13:21:01 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	check_parenthesis(char *line, int first, int dollar, int i)
 {
 	int	j;
 
+	if (!first && !dollar)
+		return (syntax_error(line + i, 1));
 	if (i != 0 && !is_separator(line[i - 1]))
 		return (0);
 	i++;
