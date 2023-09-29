@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 19:28:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 13:06:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_list_file
 // shellpticflesh
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
+bool		check_rc(int ac, char **av);
 void		exec_shellptrc(t_tool *tool);
 
 /*--------------SPLIT-----------------*/

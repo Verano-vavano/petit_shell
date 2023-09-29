@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 02:06:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 13:08:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,17 +130,18 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
+	bool	exec_rc;
 	t_tool	tool;
 
-	(void)ac;
-	(void)av;
+	exec_rc = check_rc(ac, av);
 	tool.rt_val = 0;
 	tool.env = env_init(envp);
 	tool.hist = load_history(tool.env);
 	tool.cwd = 0;
 	tool.alias_start = 0;
 	tool.alias_end = 0;
-	exec_shellptrc(&tool);
+	if (exec_rc)
+		exec_shellptrc(&tool);
 	while (42)
 	{
 		g_sig_rec = 0;
