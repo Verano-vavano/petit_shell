@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:57:09 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:00:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 	}
 	else if (ft_strcmp("alias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (hellias(cmd->cmd, t));
+	else if (ft_strcmp("unalias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (unhellias(cmd->cmd, t));
 	else if (ft_strcmp(":", cmd->cmd_name) == 0 || !cmd->sub_cmd)
 		return (0);
 	return (1);

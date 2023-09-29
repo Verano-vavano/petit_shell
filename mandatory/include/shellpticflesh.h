@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:18:47 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:13:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,7 @@ void		change_oldpwd(t_env **env);
 void		change_pwd(char *dest, t_tool **t);
 int			print_working_damnation(char *cwd);
 int			hellias(char **args, t_tool *tool);
+int			unhellias(char **cmd, t_tool *t);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/
