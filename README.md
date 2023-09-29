@@ -34,12 +34,22 @@ PS0, PS1, PS2, PROMPT_COMMAND
 - Colors in PS_EXPANSION with \c (\cr for red, \cB for bold blue...)
 -- Allows more complexe colors parameters such as blinking and italic (PS1='\cisR\s\c0w \ciG\v\c0w \cdp[\W]\c0w \c25c($?)\c0w \cW>\c0w ')
 Signal handling
-CD follows symlinks
-Alias builtin included
 Shellptrc file executed line by line at launch (both in executable dir and home dir)
 - use './minishell --norc' to avoid rc execution
 './minishell -c' can be used to execute a single command (can include &&, || and ;)
 .shellpstart file is printed out at launch
+
+BUILTINS :
+cd : change directory
+echo : prints on stdout (-neE)
+env : prints env
+exit : exits shell with status
+alias : allow alias expansion to change command
+unalias : removes an alias
+export : export variables to be used externally
+unset : removes variable
+pwd : prints working directory
+source (.) : executes all lines in a file
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
 - Hell is a builtin printing a pun around the metal genre. We hardcoded a new random function using the asm instruction to generate pseudo-random number to choose the pun. And they all are funny.
