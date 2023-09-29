@@ -23,6 +23,7 @@ Redirection from fd to fd (n<&m)
 Parenthesis priorities with full and partial redirections
 Syntax error handling
 Taking variables into account (IFS, CDPATH)
+RANDOM variable using custom randint
 PS0, PS1, PS2, PROMPT_COMMAND
 - PS0 is written is stdout every time a function outputs
 - PS1 is the beginning of the main prompt
@@ -37,6 +38,7 @@ CD follows symlinks
 Alias builtin included
 Shellptrc file executed line by line at launch (both in executable dir and home dir)
 - use './minishell --norc' to avoid rc execution
+'./minishell -c' can be used to execute a single command (can include &&, || and ;)
 .shellpstart file is printed out at launch
 2 builtin easter eggs (tetris, hell)
 - Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.

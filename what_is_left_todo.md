@@ -1,9 +1,7 @@
 c_quoting
 |&
 advanced pattern matching
-$RANDOM
 builtin declare
-builtin :
 builtin printf
 builtins . et source
 builtin unalias
