@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:21:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:22:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ int	main(int ac, char **av, char **envp)
 	bool	exec_rc;
 	t_tool	tool;
 
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO) || !isatty(STDERR_FILENO))
+		return (1);
 	exec_rc = check_rc(ac, av);
 	tool.rt_val = 0;
 	tool.cwd = 0;

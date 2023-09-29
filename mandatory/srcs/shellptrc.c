@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 10:40:09 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 13:09:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:36:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ static char	*get_rc_file(t_tool *tool)
 	return (rc);
 }
 
-static void	execute_rc(int fd_rc, t_tool *tool)
+long	execute_rc(int fd_rc, t_tool *tool)
 {
+	long	ret;
 	char	*cmd;
 
 	cmd = get_next_line(fd_rc);
 	while (cmd)
 	{
-		cmd_processing(cmd, tool, false);
+		ret = cmd_processing(cmd, tool, false);
 		cmd = get_next_line(fd_rc);
 	}
 	close(fd_rc);
+	return (ret);
 }
 
 void	exec_shellptrc(t_tool *tool)

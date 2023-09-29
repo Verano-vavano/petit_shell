@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:13:12 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 20:37:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_list_file
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
 bool		check_rc(int ac, char **av);
+long		execute_rc(int fd_rc, t_tool *tool);
 void		exec_shellptrc(t_tool *tool);
 
 /*--------------SPLIT-----------------*/
@@ -372,6 +373,7 @@ void		change_pwd(char *dest, t_tool **t);
 int			print_working_damnation(char *cwd);
 int			hellias(char **args, t_tool *tool);
 int			unhellias(char **cmd, t_tool *t);
+int			source_of_styx(char **cmd, t_tool *t);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/
