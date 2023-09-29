@@ -20,6 +20,11 @@ ALPHANUM+=$NUM
 export HISTFILE='~/.shellpt_history'
 
 alias *='echo *'
+alias *c='echo *.c'
+alias *cpp='echo *.cpp'
+alias *h='echo *.h'
+alias *o='echo *.o'
+alias .*='echo .*'
 alias ?='echo ?'
 
 alias .='cd .'
