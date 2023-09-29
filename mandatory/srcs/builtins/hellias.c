@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:48:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 19:05:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 13:27:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,12 @@ static bool	add_alias(char *arg, t_tool *tool)
 	key = ft_strndup(arg, equal_sign);
 	if (!key)
 		return (false);
+	if (ft_strchr(key, ' '))
+	{
+		printfd(ERR, "alias: `%s': invalid alias name\n", key);
+		free(key);
+		return (false);
+	}
 	alias = ft_strdup(arg + equal_sign + 1);
 	if (!alias)
 	{
@@ -166,7 +172,12 @@ int	hellias(char **args, t_tool *tool)
 	{
 		while (*args)
 		{
-			if (!print_alias(*args, tool) && !add_alias(*args, tool))
+			if (ft_strchr(*args, '='))
+			{
+				if (!add_alias(*args, tool) && !args[1])
+					return (1);
+			}
+			else if (!print_alias(*args, tool))
 			{
 				printfd(ERR, "alias: %s: not found\n", *args);
 				if (!args[1])
