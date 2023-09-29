@@ -1,3 +1,7 @@
+# THIS FILE SERVES AS A BASIS TO A SHELLRC
+# WE RECOMMEND YOU TO ADD YOUR OWN COMMANDS TO ~/.shellptrc
+# IF NEEDED, YOU CAN STILL DELETE OR MODIFY HERE
+
 # Init file that is printed out at start of shell
 # Modify it as you wish
 cat .shellptstart
@@ -5,9 +9,20 @@ cat .shellptstart
 export DESKTOP='${HOME}/Desktop'
 export BUREAU='${HOME}/Bureau'
 
+export LOWERALPHA=abcdefghijklmnopqrstuvwxyz
+export UPPERALPHA=ABCDEFGHIJKLMNOPQRSTUVWXYZ
+export NUM=0123456789
+export ALPHA=${LOWERALPHA}
+ALPHA+=${UPPERALPHA}
+export ALPHANUM=$ALPHA
+ALPHANUM+=$NUM
+
+export HISTFILE='~/.shellpt_history'
+
 alias *='echo *'
 alias ?='echo ?'
 
+alias .='cd .'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -19,7 +34,20 @@ alias cds='cd srcs'
 alias cdb='cd bonus'
 alias cdm='cd mandatory'
 
+alias mkdir='mkdir -pv'
+alias rmrf='rm -rf'
+
 alias _='sudo'
+
+alias c=clear
+alias e=exit
+#alias h=history
+alias q=exit
+
+# tres importants
+alias emacs=vim
+alias vi=vim
+alias nano=vim
 
 alias l='ls -lah'
 alias l.='ls -d .* --color=auto'
