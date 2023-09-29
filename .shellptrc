@@ -56,7 +56,7 @@ alias ll='ls -lh'
 alias ls='ls --color=tty'
 alias ks='echo "you meant ls ?"; ls'
 
-# GIT STUFF STOLEN FROM ZSH
+# GIT STUFF STOLEN FROM OHMYZSH
 alias g=git
 alias ga='git add'
 alias gaa='git add --all'
