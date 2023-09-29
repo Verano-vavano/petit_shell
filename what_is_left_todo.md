@@ -1,9 +1,6 @@
 c_quoting
 |&
 advanced pattern matching
-./minishell -c
-./minishell --help
-./minishell --version
 $RANDOM
 builtin declare
 builtin :

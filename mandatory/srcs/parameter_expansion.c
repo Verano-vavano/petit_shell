@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 00:02:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 19:41:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ static char	*dollar_comprehender(char *arg, t_env *env)
 	bool	dollar;
 	char	*param;
 	char	*param_val;
-	char	*temp;
 
 	param_val = NULL;
-	temp = NULL;
+	arg += (arg[0] == '{');
 	dollar = (arg[0] == '#');
-	param = ft_strdup(arg + dollar);
+	param = ft_strndup(arg + dollar, ft_strlen(arg + dollar)
+		- ((arg + dollar)[ft_strlen(arg + dollar)] == '}'));
 	if (!param)
 		return (0);
 	if (env_contain(param, env))
-		temp = env_getval(param, env);
-	param_val = ft_strdup(temp);
-	if (dollar && temp && param_val)
+		param_val = ft_strdup(env_getval(param, env));
+	else if (!ft_strcmp(param, "RANDOM"))
+		param_val = ft_itoa(ft_randint(0, 32767));
+	if (dollar && param_val)
 	{
 		len = ft_strlen(param_val);
 		free(param);
@@ -68,7 +69,6 @@ static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char q)
 	int		se[3];
 	char	*arg;
 	char	*to_change;
-	char	*temp;
 
 	to_change = NULL;
 	se[0] = i + 1;
@@ -79,13 +79,7 @@ static int	parameter_expand_it(t_command *cmd, int i, t_tool *tool, char q)
 		return (1);
 	if (is_special_param(arg))
 		to_change = special_parameter(arg, tool);
-	else if (!se[2] && env_contain(arg, tool->env))
-	{
-		temp = env_getval(arg, tool->env);
-		if (temp)
-			to_change = ft_strdup(temp);
-	}
-	else if (se[2])
+	else
 		to_change = dollar_comprehender(arg, tool->env);
 	se[1] += se[2];
 	free(arg);
