@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 18:14:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 19:18:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,10 @@ int	free_command(t_command *l)
 	if (l)
 		free(l);
 	return (-1);
+}
+
+void	free_tool(t_tool *tool)
+{
+	free_whole_env(tool->env);
+	free_alias(tool->alias_start);
 }

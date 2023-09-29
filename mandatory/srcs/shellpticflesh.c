@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:19:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 19:21:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 	{
 		if (lexed->purpose == CMD_DELIM)
 			lexed = lexed->next;
-		signal(SIGINT, SIG_DFL);
 		alias_expansion(lexed, tool);
 		rt_val = expand_cmd(lexed, tool);
 		quote_remove_cmd(lexed);
@@ -107,8 +106,13 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	int			heredoc_no;
 	long		rt_val;
 
-	if (!(*line))
+	if (!line)
 		return (0);
+	if (!(*line))
+	{
+		free(line);
+		return (0);
+	}
 	lexed = spliter_init(&line, add_line, tool);
 	free(line);
 	if (!lexed)
@@ -128,19 +132,45 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	return (tool->rt_val);
 }
 
+static int	check_exec(int ac, char **av, t_tool *tool)
+{
+	int	ret;
+
+	av++;
+	while (ac > 1)
+	{
+		if (!ft_strcmp(*av, "-c"))
+		{
+			ret = 0;
+			if (ac >= 2)
+				ret = cmd_processing(ft_strdup(av[1]), tool, false);
+			free_tool(tool);
+			return (-1 * (ret == 0) + ret * (ret != 0));
+		}
+		ac--;
+		av++;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
+	int		ret;
 	bool	exec_rc;
 	t_tool	tool;
 
 	exec_rc = check_rc(ac, av);
 	tool.rt_val = 0;
-	tool.env = env_init(envp);
-	tool.hist = load_history(tool.env);
 	tool.cwd = 0;
+	tool.env = env_init(envp);
+	tool.hist = 0;
 	tool.alias_start = 0;
 	tool.alias_end = 0;
+	ret = check_exec(ac, av, &tool);
+	if (ret)
+		return (0 * (ret == -1) + ret * (ret != -1));
+	tool.hist = load_history(tool.env);
 	if (exec_rc)
 		exec_shellptrc(&tool);
 	while (42)

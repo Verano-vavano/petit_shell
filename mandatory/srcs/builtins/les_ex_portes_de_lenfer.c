@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:45:59 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/25 11:12:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 19:04:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,6 @@ char	**dup_paths(char **paths)
 		cpy[i] = ft_strdup(paths[i]);
 	cpy[i] = NULL;
 	return (cpy);
-}
-
-static bool	check_assign(char *s)
-{
-	int	i;
-
-	if (is_valid_var_char(s[0]) && is_num(s[0]))
-		return (false);
-	else if (s[0] == '=')
-		return (false);
-	i = 0;
-	while (s[i] && s[i] != '=')
-	{
-		if (!is_valid_var_char(s[i]))
-			return (s[i] == '+' && s[i + 1] == '=');
-		i++;
-	}
-	return (true);
 }
 
 static int	print_env(t_env *ptr)

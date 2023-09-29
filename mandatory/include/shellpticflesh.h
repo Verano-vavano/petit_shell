@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 13:06:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/29 19:18:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ int			free_command(t_command *l);
 void		free_env(t_env *env);
 void		free_whole_env(t_env *env);
 void		free_alias(t_alias *alias);
+void		free_tool(t_tool *tool);
 
 // utils
 t_command	*init_command_arg(t_command *start);
