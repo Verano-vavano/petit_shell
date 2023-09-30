@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/30 01:23:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/09/30 03:50:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*quote_rm_check(char *quoted, int *i_bkd, char *cmd)
 
 	i = i_bkd[0];
 	backslashed = i_bkd[1];
-	if (quoted[0] == CQUOTES && cmd[i - 1] == '\\')
+	if (quoted[0] == CQUOTES && i > 0 && cmd[i - 1] == '\\')
 	{
 		i_bkd[0]--;
 		temp = replace_escaped(cmd, i - 1);
@@ -70,7 +70,7 @@ char	*quote_removal(char *cmd)
 			free(cmd);
 			cmd = temp;
 		}
-		dollar = (!(quoted[0]) && cmd[i_bkd[0]] == '$');
+		dollar = (i_bkd[0] >= 0 && !(quoted[0]) && cmd[i_bkd[0]] == '$');
 	}
 	return (cmd);
 }
