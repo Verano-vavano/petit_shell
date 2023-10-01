@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/09/29 23:32:08 by hdupire          ###   ########.fr        #
+#    Updated: 2023/09/30 04:07:19 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS=shellpticflesh.c\
 	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
 	 builtins/hellias.c  alias_expansion.c  builtins/unhellias.c\
 	 builtins/source_of_styx.c\
+	 builtins/printferno.c\
 	 cleaning.c  utils.c  char_utils.c  more_char_utils.c  word_utils.c\
 	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
 	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\

@@ -1,0 +1,23 @@
+# : %x %X
+rajoute 0x si non nul (ou 0X)
+
+0 : %d %i %x %X
+Rajoute des 0 à gauche pour compléter espaces.
+Ignoré si flag - (pas ignoré dans précision)
+
+- : tous
+Justification sur la droite
+
+' ': %d %i
+Laisse un espace devant les nombres positifs
+Ignoré si flag +
+
+LES FLAGS DOIVENT ÊTRE AVANT LES LARGEURS DE CHAMP ET LA PRECISION
+
+LARGEUR DE CHAMP
+Largeur minimale (peut être plus grande si nécessaire)
+MIN LENGTH OF WHOLE FIELD
+
+PRECISION :
+Si largeur < précision, compléter avec 0
+MAX LENGTH OF SUBSTITUTED ARG

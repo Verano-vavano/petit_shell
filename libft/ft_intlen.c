@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_valid_num.c                                     :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 14:22:28 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/01 14:36:17 by hdupire          ###   ########.fr       */
+/*   Created: 2023/09/30 15:57:49 by hdupire           #+#    #+#             */
+/*   Updated: 2023/09/30 15:59:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	is_valid_num(char *s)
+int	ft_intlen(int i)
 {
-	int	i;
+	int	len;
 
-	if (!s)
-		return (true);
-	if (!is_dgt(s[0]) && s[0] != '-' && s[0] != '+')
-		return (false);
-	i = 1;
-	while (s[i])
+	len = (i <= 0);
+	while (i)
 	{
-		if (!is_dgt(s[i]))
-			return (false);
-		i++;
+		i /= 10;
+		len++;
 	}
-	return (true);
+	return (len);
 }
