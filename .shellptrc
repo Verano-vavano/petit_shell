@@ -17,8 +17,6 @@ ALPHA+=${UPPERALPHA}
 export ALPHANUM=$ALPHA
 ALPHANUM+=$NUM
 
-export HISTFILE='~/.shellpt_history'
-
 alias *='echo *'
 alias *c='echo *.c'
 alias *cpp='echo *.cpp'

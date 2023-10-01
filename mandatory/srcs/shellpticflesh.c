@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:22:56 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/01 21:23:44 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,10 @@ int	main(int ac, char **av, char **envp)
 		if (!line)
 		{
 			printfd(STDOUT_FILENO, "exit\n");
+			write_hist(tool.hist, tool.env);
+			free_history(tool.hist);
+			free_whole_env(tool.env);
+			free_alias(tool.alias_start);
 			exit(tool.rt_val);
 		}
 		tool.rt_val = cmd_processing(line, &tool, true);
