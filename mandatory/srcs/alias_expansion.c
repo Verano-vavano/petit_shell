@@ -6,22 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 19:20:53 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:25:11 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:34:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-static t_alias	*get_alias(char *content, t_alias *alias)
-{
-	while (alias)
-	{
-		if (!ft_strcmp(content, alias->cmd))
-			return (alias);
-		alias = alias->next;
-	}
-	return (0);
-}
 
 static t_command	*smol_split(char *s)
 {
@@ -30,11 +19,9 @@ static t_command	*smol_split(char *s)
 	int			len_arg;
 
 	to_ret = ft_calloc(1, sizeof (t_command));
-	if (!to_ret)
-		return (0);
 	now = to_ret;
 	len_arg = ft_strlen_arg(s, 0);
-	while (*s && len_arg)
+	while (now && *s && len_arg)
 	{
 		now->content = ft_strndup(s, len_arg);
 		if (!now->content)
@@ -49,16 +36,7 @@ static t_command	*smol_split(char *s)
 			break ;
 		s += len_arg + 1;
 		len_arg = ft_strlen_arg(s, 0);
-		if (*s && len_arg)
-		{
-			now->next = ft_calloc(1, sizeof (t_command));
-			if (!now->next)
-			{
-				free_command(to_ret);
-				return (0);
-			}
-			now = now->next;
-		}
+		now = al_add_new_command(s, len_arg, now, &to_ret);
 	}
 	return (to_ret);
 }
@@ -92,6 +70,17 @@ static bool	perform_alias_exp(t_command *cmd, t_tool *tool)
 	return (true);
 }
 
+static void	alias_exp_vars(t_command **cmd, bool *changed, t_tool *tool)
+{
+	while (*cmd && !(*changed))
+	{
+		perform_alias_exp(*cmd, tool);
+		(*changed) = ((*cmd)->purpose != VAR_ASSIGN);
+		if ((*cmd)->purpose == VAR_ASSIGN)
+			(*cmd) = (*cmd)->next;
+	}
+}
+
 void	alias_expansion(t_command *cmd, t_tool *tool)
 {
 	bool	changed;
@@ -103,13 +92,7 @@ void	alias_expansion(t_command *cmd, t_tool *tool)
 		cmd = cmd->next;
 	}
 	changed = false;
-	while (cmd && !changed)
-	{
-		perform_alias_exp(cmd, tool);
-		changed = (cmd->purpose != VAR_ASSIGN);
-		if (cmd->purpose == VAR_ASSIGN)
-			cmd = cmd->next;
-	}
+	alias_exp_vars(&cmd, &changed, tool);
 	if (!cmd)
 		return ;
 	old_str = ft_strdup(cmd->content);

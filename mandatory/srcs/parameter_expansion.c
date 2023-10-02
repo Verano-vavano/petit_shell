@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:41:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:02:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*dollar_comprehender(char *arg, t_env *env)
 	arg += (arg[0] == '{');
 	dollar = (arg[0] == '#');
 	param = ft_strndup(arg + dollar, ft_strlen(arg + dollar)
-		- ((arg + dollar)[ft_strlen(arg + dollar)] == '}'));
+			- ((arg + dollar)[ft_strlen(arg + dollar)] == '}'));
 	if (!param)
 		return (0);
 	if (env_contain(param, env))

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/26 17:07:51 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:37:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,5 @@ long	command_substitution(t_command *cmd, t_env *env, bool only_repl)
 	}
 	if (skip_first)
 		return (ret);
-	else
-		return (-1);
+	return (-1);
 }

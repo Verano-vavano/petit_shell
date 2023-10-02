@@ -6,13 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:02:02 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:11:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:02:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static void	move_to_next(char *qr_match, char *file, int *i, int *j)
+static bool	move_to_next(char *qr_match, char *file, int *i, int *j)
 {
 	char	*cpy;
 	char	*finder;
@@ -27,10 +27,11 @@ static void	move_to_next(char *qr_match, char *file, int *i, int *j)
 		else
 			(*i) = -1;
 		free(cpy);
-		return ;
+		return (true);
 	}
 	(*i)++;
 	(*j)++;
+	return (true);
 }
 
 static bool	check_end(char *qr_match, char *file)
@@ -52,28 +53,14 @@ static bool	check_end(char *qr_match, char *file)
 	return (true);
 }
 
-bool	is_valid_fe(char *file, char *matcher)
+static int	file_check_loop(char *file, char *qmat, int *i)
 {
-	int		i[2];
-	bool	ret;
-	char	*qmat;
+	int	ret;
 
-	i[0] = 0;
-	i[1] = 0;
-	qmat = quote_removal(ft_strdup(matcher));
-	if (!qmat || ((qmat[0] == '*' || qmat[0] == '?') && file[0] == '.'))
-	{
-		if (qmat)
-			free(qmat);
-		return (false);
-	}
 	while (file[i[0]] && qmat[i[1]] && !(qmat[i[1]] == '/'))
 	{
-		if (not_over(qmat + i[1]))
-		{
-			move_to_next(qmat, file, i, i + 1);
+		if (not_over(qmat + i[1]) && move_to_next(qmat, file, i, i + 1))
 			continue ;
-		}
 		else if (qmat[i[1]] == '*')
 		{
 			ret = check_end(qmat + i[1], file + i[0]);
@@ -89,6 +76,27 @@ bool	is_valid_fe(char *file, char *matcher)
 		i[0]++;
 		i[1]++;
 	}
+	return (-1);
+}
+
+bool	is_valid_fe(char *file, char *matcher)
+{
+	int		i[2];
+	int		ret;
+	char	*qmat;
+
+	i[0] = 0;
+	i[1] = 0;
+	qmat = quote_removal(ft_strdup(matcher));
+	if (!qmat || ((qmat[0] == '*' || qmat[0] == '?') && file[0] == '.'))
+	{
+		if (qmat)
+			free(qmat);
+		return (false);
+	}
+	ret = file_check_loop(file, qmat, i);
+	if (ret != -1)
+		return (ret);
 	i[1] += move_end_stars(qmat + i[1]);
 	ret = ((!qmat[i[1]] || qmat[i[1]] == '/') && !file[i[0]]);
 	free(qmat);

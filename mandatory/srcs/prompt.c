@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 13:44:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:49:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	execute_prompt_command(t_tool *tool)
 {
 	char	*temp;
 	char	*command;
+	long	save_ret;
 
 	if (!tool)
 		return ;
@@ -65,7 +66,9 @@ static void	execute_prompt_command(t_tool *tool)
 	command = ft_strdup(temp);
 	if (!command)
 		return ;
+	save_ret = tool->rt_val;
 	cmd_processing(command, tool, false);
+	tool->rt_val = save_ret;
 }
 
 // PS1 : Main read

@@ -6,16 +6,17 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/02 02:29:46 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/02 22:51:35 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=./minishell
 
-SRCS=shellpticflesh.c\
+SRCS=shellpticflesh.c  shellpticflesh_more.c\
 	 signals.c  error_manager.c  warnings.c\
 	 env.c  env_init_utils.c  env_utils.c  env_utils2.c  env_utils3.c\
 	 history.c  history_loader.c  history_utils.c\
+	 var_assign.c\
 	 shellptrc.c\
 	 prompt.c  prompt_expansions.c  prompt_colors.c\
 	 get_home.c  get_username.c  get_hostname.c  get_cwd.c\
@@ -39,7 +40,8 @@ SRCS=shellpticflesh.c\
 	 builtins/metal_injection.c  builtins/exit_hell.c  builtins/echo_des_enfers.c\
 	 builtins/env_infernal.c  builtins/les_ex_portes_de_lenfer.c  builtins/les_ex_portes_de_lutil.c  builtins/unset_et_damnation.c\
 	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
-	 builtins/hellias.c  alias_expansion.c  builtins/unhellias.c\
+	 builtins/hellias.c  builtins/hellias_sort.c builtins/hellias_print.c\
+	 alias_expansion.c  alias_utils.c  builtins/unhellias.c\
 	 builtins/source_of_styx.c\
 	 builtins/printf/printferno.c  builtins/printf/printf_arg_modifier.c\
 	 builtins/printf/format_arg.c  builtins/printf/printf_init_helper.c\

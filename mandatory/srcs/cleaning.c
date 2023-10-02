@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:25:59 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:18:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:37:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_whole_env(t_env *env)
 
 void	free_alias(t_alias *alias)
 {
-	t_alias *next;
+	t_alias	*next;
 
 	while (alias)
 	{

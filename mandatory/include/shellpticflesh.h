@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/30 04:05:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 23:09:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,15 @@ typedef struct s_list_file
 // shellpticflesh
 long		cmd_processing(char *line, t_tool *tool, bool add_line);
 
+long		line_beauty(t_command *lexed, t_tool *tool);
+long		exit_processing(t_command *lexed, long rt_val);
+long		exec_loop(t_command *lexed, t_tool *tool, int *hd_no);
+
 bool		check_rc(int ac, char **av);
 long		execute_rc(int fd_rc, t_tool *tool);
 void		exec_shellptrc(t_tool *tool);
+
+void		assign_vars(t_command *cmd, t_env **env);
 
 /*--------------SPLIT-----------------*/
 t_command	*spliter_init(char **cmd, bool add_line, t_tool *tool);
@@ -251,6 +257,8 @@ int			move_end_stars(char *qmat);
 
 // alias expansion
 void		alias_expansion(t_command *cmd, t_tool *tool);
+t_alias		*get_alias(char *content, t_alias *alias);
+t_command	*al_add_new_command(char *s, int l, t_command *n, t_command **st);
 
 // word split
 int			word_split(t_command *cmd, char *newer, int *se, t_env *env);
@@ -384,6 +392,9 @@ void		change_oldpwd(t_env **env);
 void		change_pwd(char *dest, t_tool **t);
 int			print_working_damnation(char *cwd);
 int			hellias(char **args, t_tool *tool);
+void		sort_alias(t_tool *tool);
+void		print_whole_alias(t_tool *tool);
+bool		print_alias(char *arg, t_tool *tool);
 int			unhellias(char **cmd, t_tool *t);
 int			source_of_styx(char **cmd, t_tool *t);
 int			tetris(char **args);

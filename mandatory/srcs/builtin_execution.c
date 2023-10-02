@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/30 03:56:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:35:43 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 		else
 			return (0 * waitpid(pid, 0, 0));
 	}
-	else if (ft_strcmp("alias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
-		return (hellias(cmd->cmd, t));
-	else if (ft_strcmp("unalias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
-		return (unhellias(cmd->cmd, t));
-	else if (ft_strcmp(".", cmd->cmd_name) == 0 || ft_strcmp("source", cmd->cmd_name) == 0)
+	else if (ft_strcmp(".", cmd->cmd_name) == 0
+		|| ft_strcmp("source", cmd->cmd_name) == 0)
 		return (source_of_styx(cmd->cmd, t));
 	else if (ft_strcmp(":", cmd->cmd_name) == 0 || !cmd->sub_cmd)
 		return (0);
@@ -61,6 +58,10 @@ static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 		return (cd_mentiel(cmd->cmd, &t));
 	else if (ft_strcmp("pwd", cmd->cmd_name) == 0)
 		return (print_working_damnation(t->cwd));
+	else if (ft_strcmp("alias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (hellias(cmd->cmd, t));
+	else if (ft_strcmp("unalias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
+		return (unhellias(cmd->cmd, t));
 	else
 		return (more_bltn(cmd, t, one));
 }
