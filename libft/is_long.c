@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 02:07:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/01 14:28:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/01 22:07:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ bool	is_long(char *s, bool alnum)
 	int		i;
 	char	*long_lim;
 
-	if (alnum && !is_valid_num(s))
+	if (!s || (alnum && !is_valid_num(s)))
 		return (false);
-	size_max = ft_longlen(LONG_MIN);
+	if (s[0] == '-')
+		size_max = ft_longlen(LONG_MIN) + 1;
+	else
+		size_max = ft_longlen(LONG_MAX);
 	len_s = ft_strlen(s);
 	if (len_s != (size_t) size_max)
 		return (len_s < (size_t) size_max);
