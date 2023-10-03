@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 23:09:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:28:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_hist_ll
 {
 	char				*content;
 	long				num_cmd;
+	struct s_hist_ll	*prev;
 	struct s_hist_ll	*next;
 }				t_hist_ll;
 
@@ -318,12 +319,16 @@ void		close_pipes(int *pipes);
 t_hist		*load_history(t_env *env);
 void		add_to_hist(t_env *env, t_hist *hist, char *line);
 void		write_hist(t_hist *hist, t_env *env);
-void		free_history(t_hist *hist);
+void		free_history(t_hist *hist, bool free_big);
 char		*get_histfile(t_env *env);
 int			get_histsize(char *type, int stdval, t_env *env);
 void		remove_first_el(t_hist *hist);
 void		add_all_hist(t_hist *hist);
-void		add_hist_struct(t_hist *hist, char *line, int histsize, bool count);
+void		add_hist_struct(t_hist *hist, char *line, int histsize);
+
+void		print_whole_hist(t_hist *hist);
+void		print_index_hist(t_hist *hist, long index);
+int			print_range_hist(long range, t_hist *hist);
 
 /*--------PROMPT----------*/
 char		*new_prompt(int n_ps, t_tool *tool);
@@ -396,6 +401,7 @@ void		sort_alias(t_tool *tool);
 void		print_whole_alias(t_tool *tool);
 bool		print_alias(char *arg, t_tool *tool);
 int			unhellias(char **cmd, t_tool *t);
+int			beastory(char **cmd, t_tool *t);
 int			source_of_styx(char **cmd, t_tool *t);
 int			tetris(char **args);
 

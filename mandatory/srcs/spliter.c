@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 16:27:22 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/02 23:27:11 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,6 @@ static int	not_ended(char *s)
 		m = (!q && (s[i] == '&' || s[i] == '|' || (m && is_separator(s[i]))));
 	}
 	return (backslashed || q || par || m);
-}
-
-static int	check_ender(char *line)
-{
-	int		i;
-	char	c;
-
-	i = 0;
-	c = 'L';
-	while (line[i])
-	{
-		if (line[i] == '|')
-			c = '|';
-		if (!line[i + 1] && line[i] == '\\')
-			return (1);
-		else if (c == '|' && !is_separator(line[i]))
-			c = 'L';
-		i++;
-	}
-	return (c != 'L');
 }
 
 static char	*new_line_add(char *line, bool nl, t_tool *tool)
@@ -103,7 +83,7 @@ t_command	*spliter_init(char **line, bool add_line, t_tool *tool)
 		where_did_we_fail = not_ended(*line);
 		if (where_did_we_fail == -1)
 			(*line)[ft_strlen(*line) - 1] = '\0';
-		if (!where_did_we_fail && !check_ender(*line))
+		if (!where_did_we_fail)
 			break ;
 		*line = new_line_add(*line, where_did_we_fail != -1, tool);
 	}

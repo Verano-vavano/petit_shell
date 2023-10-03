@@ -6,14 +6,12 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 23:10:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:16:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 #include "libft.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 int	g_sig_rec;
 
@@ -96,7 +94,7 @@ static int	clean_exit(t_tool tool)
 	write_hist(tool.hist, tool.env);
 	if (tool.cwd)
 		free(tool.cwd);
-	free_history(tool.hist);
+	free_history(tool.hist, true);
 	free_whole_env(tool.env);
 	free_alias(tool.alias_start);
 	return (tool.rt_val);
@@ -122,9 +120,7 @@ int	main(int ac, char **av, char **envp)
 		signal(SIGINT, sig_catch);
 		signal(SIGQUIT, sig_catch);
 		if (!line)
-		{
 			exit(clean_exit(tool));
-		}
 		tool.rt_val = cmd_processing(line, &tool, true);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:46:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/30 03:55:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 01:23:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ bool	check_builtin(char *cmd, bool is_rel)
 			&& ft_strcmp("cd", cmd) && ft_strcmp("pwd", cmd)
 			&& ft_strcmp("alias", cmd) && ft_strcmp("unalias", cmd)
 			&& ft_strcmp(".", cmd) && ft_strcmp("source", cmd)
+			&& ft_strcmp("history", cmd)
 			&& ft_strcmp(":", cmd)))
 		return (true);
 	return (false);

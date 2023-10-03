@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 21:11:13 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:17:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
 			cmd = cmd->next;
 		}
 		write_hist(hist, env);
-		free_history(hist);
+		free_history(hist, true);
 	}
 }

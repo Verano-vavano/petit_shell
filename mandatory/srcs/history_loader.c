@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:57:13 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/19 22:00:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:17:02 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	cpy_history(t_hist *hist, char *histfile, int histsize)
 		if (line && *line)
 		{
 			line[ft_strlen(line) - 1] = '\0';
-			add_hist_struct(hist, line, histsize, false);
+			add_hist_struct(hist, line, histsize);
 		}
 		if (line)
 			free(line);

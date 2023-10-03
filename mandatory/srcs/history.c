@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 13:31:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:13:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	create_hist_ll(t_hist *hist)
 	return (false);
 }
 
-void	add_hist_struct(t_hist *hist, char *line, int histsize, bool count)
+void	add_hist_struct(t_hist *hist, char *line, int histsize)
 {
 	t_hist_ll	*hist_now;
 	bool		first;
@@ -68,11 +68,12 @@ void	add_hist_struct(t_hist *hist, char *line, int histsize, bool count)
 		hist_now->next = ft_calloc(1, sizeof (t_hist_ll));
 		if (!hist_now->next)
 			return ;
+		hist_now->next->prev = hist_now;
 		hist_now = hist_now->next;
 		hist->hist_end = hist->hist_end->next;
 	}
 	hist_now->content = ft_strdup(line);
-	if (count && last_num != LONG_MAX)
+	if (last_num != LONG_MAX)
 		hist_now->num_cmd = last_num + 1;
 	hist->len_hist++;
 	while (hist->len_hist > histsize)
@@ -88,8 +89,8 @@ void	add_to_hist(t_env *env, t_hist *hist, char *line)
 		&& ft_strcmp(hist->hist_end->content, line) == 0)
 		return ;
 	histsize = get_histsize("HISTSIZE", STD_HISTSIZE, env);
-	refresh = (histsize <= hist->len_hist);
-	add_hist_struct(hist, line, histsize, true);
+	refresh = (hist && histsize <= hist->len_hist);
+	add_hist_struct(hist, line, histsize);
 	add_history(line);
 	if (refresh)
 	{

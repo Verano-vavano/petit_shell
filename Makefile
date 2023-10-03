@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/02 22:51:35 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/03 01:15:59 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c\
 	 builtins/printf/printferno.c  builtins/printf/printf_arg_modifier.c\
 	 builtins/printf/format_arg.c  builtins/printf/printf_init_helper.c\
 	 builtins/printf/printf_modifier_utils.c  builtins/printf/printf_loop.c\
+	 builtins/beastory.c  builtins/beastory_print.c\
 	 cleaning.c  utils.c  char_utils.c  more_char_utils.c  word_utils.c\
 	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
 	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\

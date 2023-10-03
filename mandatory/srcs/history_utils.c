@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:31:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:12:14 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:15:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ void	remove_first_el(t_hist *hist)
 	hist->len_hist--;
 }
 
-void	free_history(t_hist *hist)
+void	free_history(t_hist *hist, bool free_big)
 {
 	while (hist->len_hist)
 		remove_first_el(hist);
-	free(hist);
+	if (free_big)
+		free(hist);
 }
 
 void	add_all_hist(t_hist *hist)

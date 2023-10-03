@@ -56,6 +56,8 @@ unalias : removes an alias
 export : export variables to be used externally
 unset : removes variable
 pwd : prints working directory
+printf : prints formated input (allows %csdixX with accuracy, field spacing and the following flags : # ' ' - 0 +)
+history : basic history management (-w writes in histfile, -c clears history, -i writes content at index, no arg printfs everything, and a numeric argument prints n argument)
 source (.) : executes all lines in a file
 : : ne fait rien et ignore donc toute la commande
 2 builtin easter eggs (tetris, hell)
