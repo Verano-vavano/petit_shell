@@ -4,7 +4,69 @@ We are Hugo and Thibault, our team name is <b>Über Tigo</b>
 
 This is a project done during our cursus at [42 School](https://42.fr/en/homepage/). The assignement was to code a little [ shell ](https://en.wikipedia.org/wiki/Shell_(computing))
 
-# Original directives
+# Main functionalities
+Here are the main functionalities of our Shellpticflesh !
+## At the start
+## Prompt
+## Spltting
+## Expansions
+Shellpticflesh performs the following expansions in this order :
+- Alias expansion
+- Braces expansion
+- Tilde expansion
+- Parameter expansion
+- Command substitution
+- Arithmetic expansion
+- Filename expansion
+### Alias expansion
+Alias expansion will replace every variable assignements and the first command according to the aliaces created with the alias builtin.
+`alias ls='ls --color=auto'` <br>
+`ls # replaced accordingly` <br>
+### Braces expansion
+Braces expansions are of 2 kinds. <br>
+- Braces **coma** expansions which will distributes contained text to the outside text.
+- Braces **dots** expansions which will replace the string with all the values contained between the limits such as `{l_bound..u_bound..step}`
+### Tilde expansion
+Tilde expansion will replace all unquoted tildes that are parts of the command with the HOME directory.<br>
+First of and foremost, it will search for the HOME directory inside the HOME variable of the shell.<br>
+If not found, it will get the username with `whoami` or the $USERNAME variable, and search in the /etc/passwd file.<br>
+If not successful, it will try to use `/Users/username`.<br>
+If not successful, the tilde is left unmodified.<br>
+Tilde expansion also replaces `~+` with PWD, and `~-` with OLDPWD.<br>
+### Parameter expansion
+Parameters expansions are simplified in this version compared to Bash.<br>
+Every text from the command that is unquoted or within double quotes will be interpreted as a parameter expandable string.<br>
+If within braces, the parameter can also include the # to return the length of the parameter. `echo ${#var}`<br>
+Parameter expansion will search in the environment (local as well as exported) and replace the value if found, or remove the string if not found.<br>
+Following arguments are considered __special parameters__:<br>
+- 0 : replaces with shell name.
+- ? : replaces with last return status.
+- $ : replaces with current pid (obtained with a syscall as getpid isn't allowed)
+- RANDOM : replaces with a random value ranging from 0 to 32767 (random function also built with inline asm)
+Parameter expansion is then modified by word splitting.
+### Command substitution
+Command substitution are of sorts `$(cmd)`.<br>
+The command substitution will be replaced with the output of the content of the parenthesis.<br>
+Other fd can be substituted like so `$(cmd fd>&1)`.<br>
+Command substitution is then modified by word splitting.
+### Arithmetic expansion
+TBA
+### Filename expansion
+Filename expansion will be used on commands, var assignements and redirections (if output is one file).<br>
+It will look through all files in directories to find matching ones.<br>
+. and .. are not listed except if filename expansion searches for hidden files.<br>
+There are two filename indicators :<br>
+- `*` which allows strings of any length and of any characters
+- `?` which only allows one character length
+For example, `*p?` will search for any files and directories in the current directory that has the letter 'p' in the previous to last character spot.
+### Word splitting
+Word split is a feature that will separate one element into multiple elements.<br>
+Its functioning can be modified with the IFS variable, which, if unset, is equal to a space character, a tab character and a new line character.<br>
+Every time a IFS char is found, the word is splitted into 2 elements.
+## Redirections
+## Execution
+## History
+<br><br><br>
 Functionalities :
 Braces, tilde and parameter expansion
 - Braces include inbracated (and not) coma expansion and not inbricated dots expansion
