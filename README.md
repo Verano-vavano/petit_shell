@@ -8,7 +8,7 @@ This is a project done during our cursus at [42 School](https://42.fr/en/homepag
 Here are the main functionalities of our Shellpticflesh !
 ## At the start
 ## Prompt
-## Spltting
+## Splitting
 ## Expansions
 Shellpticflesh performs the following expansions in this order :
 - Alias expansion

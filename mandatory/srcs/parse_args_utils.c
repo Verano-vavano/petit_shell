@@ -6,17 +6,17 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/17 15:04:46 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:09:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static int	redir_parser(char *s, char quoted)
+static int	redir_parser(char *s, char quoted, int in_par)
 {
 	int	i;
 
-	if (quoted)
+	if (quoted || in_par)
 		return (0);
 	i = 0;
 	while (s[i] && is_num(s[i]))
@@ -49,7 +49,7 @@ int	better_strlen(char *s)
 	{
 		if (!quoted && is_strict_meta(s[i]) && !in_par)
 			return (i);
-		j = redir_parser(s + i, quoted);
+		j = redir_parser(s + i, quoted, in_par);
 		if (j && !i)
 			return (i + j);
 		else if (j)

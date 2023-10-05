@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:55:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 19:07:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:02:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	redir_ok(char *line)
 		i++;
 	while (line[i] && is_separator(line[i]))
 		i++;
-	if (is_metachar(line[i]))
+	if (is_metachar(line[i]) && (line[i] != '&' || i != 1))
 		return (syntax_error(line + i, -1));
 	if (!line[i] || (line[i] == '&' && line[i + 1] == '\0'))
 		return (syntax_error("newline", 7));
