@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/05 18:24:42 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/05 18:30:11 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,16 +105,9 @@ define move_progress_bar
 		printf "#"; \
 	done
 	@tput hpa 0; tput cuf 51
-	@tput sgr0
+	@printf "${RESET}"
 	@printf "] "
-	@if [ "${PERCENT}" -lt 100 ]; then \
-		tput setaf 7; tput bold; \
-	else \
-		tput setaf 6; tput bold; \
-	fi
 	@echo "${PERCENT}% | ${COUNT} / ${NO_OF_FILES}"
-	@tput sgr0
-	@tput cnorm
 	@$(eval LAST_PERCENT = ${MAX})
 endef
 
