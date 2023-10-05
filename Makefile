@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/05 18:04:06 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/05 18:24:42 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ define move_progress_bar
 	@$(eval current := 1)
 	@$(eval MAX := $(shell bash -c 'echo $$(($(PERCENT) / 2))'))
 	@printf "["
-	@for i in $$(seq ${LAST_PERCENT} ${MAX}); do\
+	@for i in $$(seq 1 ${LAST_PERCENT}); do\
 		$(call change_bar_color, $$i); \
 		printf "#"; \
 	done
