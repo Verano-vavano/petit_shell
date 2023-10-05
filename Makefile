@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/05 18:30:11 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/05 18:31:57 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,7 +168,7 @@ ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@$(call move_progress_bar, COUNT)
 	@printf "${SHOW_CURSOR}${YELLOW}" # TODO is this needed?
 	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINK_RL} ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
-	@printf "${RED}${BOLD}"
+	@printf "${GREEN}${BOLD}"
 	@echo "SHELLPTICFLESH COMPILED"
 	@printf "${RESET}"
 	@printf ${SHOW_CURSOR}
@@ -195,7 +195,7 @@ clean: clean_libft clean_tetris clean_printfd
 	@echo "${MAGENTA}Cleaning Shellpticflesh..."
 	@${RM} ${DEST}
 	@printf "${RESET}"
-	@echo "-----"
+	@echo "~~~~"
 
 fclean: clean
 	@${RM} ${NAME}
