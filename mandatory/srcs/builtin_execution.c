@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/03 01:23:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/05 15:24:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 		return (echo_des_enfers(cmd->cmd));
 	else if (ft_strcmp("printf", cmd->cmd_name) == 0)
 		return (printferno(cmd->cmd));
+	else if (ft_strcmp("pff", cmd->cmd_name) == 0)
+		return (print_formated_hell(cmd->cmd));
 	else if (ft_strcmp("env", cmd->cmd_name) == 0)
 		return (env_infernal(t->env, false));
 	else if (ft_strcmp("export", cmd->cmd_name) == 0 && !cmd->sub_cmd)
