@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 23:37:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/05 12:23:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ void	quote_remove_cmd(t_command *cmd)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		cmd->content = quote_removal(cmd->content);
+		if (!(cmd->purpose == COMMAND && cmd->content[0] == '('
+			&& cmd->content[ft_strlen(cmd->content) - 1] == ')'))
+			cmd->content = quote_removal(cmd->content);
 		cmd = cmd->next;
 	}
 }

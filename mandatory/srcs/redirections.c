@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:23:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/05 12:06:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/05 12:15:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	perform_redirections(t_process_cmd *cmd, t_ret_cmd *ret)
 		dup_redir(redir, ret);
 		redir = redir->next;
 	}
+	is_out_redir = 0;
 	if (!is_in_read_duped && ret->fd > -1)
 		dup2(ret->fd, STDIN_FILENO);
 	else if (!is_in_read_duped)
