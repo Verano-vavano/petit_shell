@@ -70,8 +70,8 @@ Alias expansion will replace every variable assignements and the first command a
 `ls # replaced accordingly` <br>
 ### Braces expansion
 Braces expansions are of 2 kinds. <br>
-- Braces **coma** expansions which will distributes contained text to the outside text.
-- Braces **dots** expansions which will replace the string with all the values contained between the limits such as `{l_bound..u_bound..step}`
+- Braces **coma** expansions which will distributes contained text to the outside text. Expansions might be inbricated.
+- Braces **dots** expansions which will replace the string with all the values contained between the limits such as `{l_bound..u_bound..step}`. Expansions cannot be inbricated.
 ### Tilde expansion
 Tilde expansion will replace all unquoted tildes that are parts of the command with the HOME directory.<br>
 First of and foremost, it will search for the HOME directory inside the HOME variable of the shell.<br>
@@ -109,15 +109,118 @@ For example, `*p?` will search for any files and directories in the current dire
 Word split is a feature that will separate one element into multiple elements.<br>
 Its functioning can be modified with the IFS variable, which, if unset, is equal to a space character, a tab character and a new line character.<br>
 Every time a IFS char is found, the word is splitted into 2 elements.
+## Quote removal
+Quote removal is, as its name suggests, the removal of every unnecessary quotes.<br>
+- When unquoted, every quotes will be removed, except if backslashed. All backslashes will be removed.
+- When single quoted, every character is kept.
+- When C-quoted ($''), every character is modified according to C-printf standard.
+- When double quoted, every character is kept. The backslash is kept only if there is a special character after it.
 ## Redirections
+Redirections in Shellpticflesh include :
+- `[n]>&m` or `[n]>file` which overwrites the content of the file descriptor 'm' or of the file 'file' with the content of n. n is by default stdout.
+- `[n]>>&m` or `[n]>>file` which appends to the file descriptor 'm' or to the file 'file' with the content of n. n is by default stdout.
+- `[n]<&m` or `[n]<file` which reads from the file descriptor 'm' or from the file 'file'. n is by default stdin.
+- `[n]<<word` which reads the content of stdin until the word 'word' is encountered or until the eof, and is considered to be the read entrypoint of n. n is by default stdin. (**heredoc**)
+- `[n]<<<string` which sets the content of the file descriptor n as the string 'string'. n is by default stdin. (**herestring**)
+- `[n]<>&m` or `[n]<>file` which sets the read and write points of n as the file descriptor 'm' or as the file 'file'. n is by default stdin.
 ## Execution
+The execution is set in three parts : searching the command and setting it up, performing the redirections, and executing the command.<br>
+This order of operation differs from Bash, as Bash performs the redirections first.<br>
+The downside in doing that is that in case of a command not found or a permission denied, the loop crashes and must be ended prematuraly with a SIGINT.<br>
+Doing like Shellpticflesh avoids that, but leads to another issue. A `command not found...` string might need to be redirected as such in bash : `unknown_command 2>a`. Doing so isn't possible in our Shell, but there is an easy way around this, which is to add parenthesis like so : `(unknown_command) 2>a`.
+### Set up
+The set up of the execution is pretty straight forward :
+- get the command name and arguments and all the redirections.
+- get the command path.
+- create a child to execute the command.
+### Performing redirections
+The child is now created to avoid any time loss and make sure that the operations are done in aproximate order.<br>
+The redirections are performed as dictated above.
+### Executing the command
+The command is then executed with execve (see man).<br>
+If there is piping, the output is written in a temporary pipe which will serve as the read entry of the next command (except if the output is already redirected).
+## Builtins
+Shellpticflesh contains multiple builtins :
+### echo
+`echo` is a simple command which will just write all of its arguments in stdout.<br>
+If -n is not provided, then it will add a newline character at the end.<br>
+If -e is provided, the output is formated to allow for special characters such as `\n` or `\e` to be interpreted.
+### printf
+`printf` is very similar to C printf. It formats the output according to extra given arguments.<br>
+It allows following formats :
+- `%c` replaces with a character. When no character is given, it is replaced with no character. When a string is given, it is replaced with the first character.
+- `%s` replaces with a string. When no string is given, it is replaced with no character.
+- `%d` and `%i` replaces with a long number. If no number is given or if the number is larger than a large, it is replaced with a 0.
+- `%x` and `%X` replaces with the hexadecimal of a long number. Small x puts characters in lowercase, whereas big x puts them in uppercase. When an error occurs with the argument, it is also replaced with a 0.
+The following flags can be added before the letter :
+- `#` adds a `0x` or a `0X` to a `%x` or a `%X` format if the number isn't NULL.
+- `0` adds zeroes instead of spaces when spacing is needed (see spacing after).
+- `-` puts the spacing after the argument. It overrides the '0' flag.
+- ` ` adds a space in front of positive numbers (`%d` and `%i`).
+- `+` adds a plus character in front of positive numbers. Overrides the ' ' flag.
+After the flags can be added a 'field length'. This length represents the minimum length of the field, and will add spaces before the argument to complete what is needed.<br>
+Accuracy can also be added at the end, right before the format indicator. It must be separated with a dot as such `%[flags][spacing][.accuracy]format`. Accuracy will modify the argument according to its type and the accuracy size. A number will be added zeroes to get the right size, but a string will be cropped if longer.<br>
+Also, the string is formated the same way as `echo -e`.
+### pff
+`pff` stands for 'print formated file'.<br>
+`pff` isn't an essential builtin as it doesn't need to be a builtin, but its purpose can be encountered frequently.<br>
+As `cat`, `pff` will open files and read their content on stdout. It will return 1 if any file fails to open.<br>
+`pff` will read every line, but prints them with `echo -e`, so the output will be formated, allowing colors and other formating options in files.
+### env
+`env` prints out every exported arguments of the variable scope.
+### export
+`export` allows you to export variables and declare them. Using `export` with no arguments also prints out all the exported variables, even ones with no value.
+### unset
+`unset` must be used to unset variables, which means removing them from the variable list. They will no longer be exported, nor assigned to a value.
+### cd
+`cd` is used to navigate through directories. It can move you relatively to where you are, or through an absolute link.<br>
+The `CDPATH` variable can be set to look for directories outside of yours to search through.<br>
+The `PWD` and `OLDPWD` will be set accordingly.<br>
+Deleting a parent folder will not cause `cd` to crash, as `PWD` checks if the file you're in still exists.<br>
+### pwd
+`pwd` simply prints the current working directory in stdout.
+### alias
+`alias` allows the creation of a new alias. `alias` with no argument prints out all the aliaces.<br>
+Aliaces are a link key-value that replaces in the command line every variable assignements as well as the first COMMAND marked word by the value.<br>
+For example, the alias `alias ls='ls --color=auto'` will always replace `ls` with `ls --color=auto`.
+### unalias
+`unalias` simply removes a named alias from the list.
+### history
+`history` in Shellpticflesh works differently as in Bash.<br>
+- `history` with no argument will print out the whole history list.
+- `history -c` or `history -C` will clear the history list. It will also erase the content of the history file at the end of the program. Using `-C` skips the warning.
+- `history -i` will print the history line at index 'i'.
+- `history -w` will write the content of the history in the history file.
+- `history n` with n being a long number will print the `n` last entries in history.
+### exit
+`exit` will exit the program with either a given value or the last returned value.
+### . or source
+`.` and `source` are the same builtins.<br>
+They open a file and execute every line one by one in the same shell process.
+### :
+`:` is a very useful builtin.<br>
+Its purpose is almighty and must be used with care, as a malpractice might quickly happen.<br>
+Some underestimate its power and fall under its claws of torment and power.<br>
+In all seriousness, it doesn't do anything and voids out all the arguments.
+### hell
+`hell` is a builtin that prints out a pun around the metal genre.<br>
+It is randomized, and they are all funny, I swear.
+### tetris
+`tetris` is a real builtin in our shell.<br>
+It is entirely coded in the terminal thanks to `tputs`<br>
+The internal timer is counted with `/bin/sleep`, so if it isn't found, tetris won't launch.<br>
+The random aspect of the code is based on either the `rdrand` on asm x86_64. If `rdrand` isn't supported, it will be based on mathematical operations around the time and the pid of the shell.<br>
+Have fun !
 ## History
+The history is by default stored in a file at `~/.shellpt_history`. Every line is added on `readline` history, and stored in a separate linked list as well.<br>
+History file can be modified with the `HISTFILE` variable.<br>
+History size can be modified with the `HISTSIZE` variable.<br>
+And finally, history file size can be modified with the `HISTFILESIZE` variable.
+
+
+
 <br><br><br>
 Functionalities :
-Braces, tilde and parameter expansion
-- Braces include inbracated (and not) coma expansion and not inbricated dots expansion
-- Tilde expansion searches extensively before giving up (its determined)
-- $var && ${var} works. Handles ${#var}
 Command substitution
 - Handles $(cmd) which replaces it with the stdout of cmd
 Filename expansion
