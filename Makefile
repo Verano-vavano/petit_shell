@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/05 18:31:57 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/06 10:24:30 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c\
 	 files.c  file_opening.c  redirections.c\
 	 builtin_execution.c\
 	 builtins/metal_injection.c  builtins/exit_hell.c  builtins/echo_des_enfers.c\
+	 builtins/print_formated_hell.c\
 	 builtins/env_infernal.c  builtins/les_ex_portes_de_lenfer.c  builtins/les_ex_portes_de_lutil.c  builtins/unset_et_damnation.c\
 	 builtins/cd_mentiel.c  builtins/cd_mentiellement_util.c  builtins/print_working_damnation.c\
 	 builtins/hellias.c  builtins/hellias_sort.c builtins/hellias_print.c\
@@ -80,9 +81,9 @@ define change_bar_color
 	elif [ $1 -lt 24 ]; then \
 		printf "${YELLOW}"; \
 	elif [ $1 -lt 36 ]; then \
-		printf "${BLUE}"; \
-	else \
 		printf "${GREEN}"; \
+	else \
+		printf "${CYAN}"; \
 	fi
 endef
 
@@ -100,13 +101,20 @@ define move_progress_bar
 	@$(eval current := 1)
 	@$(eval MAX := $(shell bash -c 'echo $$(($(PERCENT) / 2))'))
 	@printf "["
-	@for i in $$(seq 1 ${LAST_PERCENT}); do\
+	@tput hpa 0
+	@tput cuf ${LAST_PERCENT}
+	@for i in $$(seq ${LAST_PERCENT} ${MAX}); do\
 		$(call change_bar_color, $$i); \
 		printf "#"; \
 	done
 	@tput hpa 0; tput cuf 51
 	@printf "${RESET}"
 	@printf "] "
+	@if [ "${PERCENT}" -lt 100 ]; then \
+		printf "${WHITE}"; \
+	else \
+		printf "${CYAN}${BOLD}"; \
+	fi
 	@echo "${PERCENT}% | ${COUNT} / ${NO_OF_FILES}"
 	@$(eval LAST_PERCENT = ${MAX})
 endef
@@ -154,7 +162,7 @@ ${LIBFT}:
 	@printf "${RESET}"
 
 ${TETRIS}:
-	@echo "${GREEN}Compiling TETRIS..."
+	@echo "${BLUE}Compiling TETRIS..."
 	@make -s -C ${TETRIS_PATH}
 	@printf "${RESET}"
 
@@ -166,7 +174,6 @@ ${PRINTFD}:
 ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@$(call max_count)
 	@$(call move_progress_bar, COUNT)
-	@printf "${SHOW_CURSOR}${YELLOW}" # TODO is this needed?
 	@${GCC} ${CFLAGS} ${DEST} -o ${NAME} -L${LIBFT_PATH} -lft -L${TETRIS_PATH} -ltetris -L${PRINTFD_PATH} -lprintfd ${LINK_RL} ${LINKERS} ${LIBFT} ${TETRIS} ${PRINTFD}
 	@printf "${GREEN}${BOLD}"
 	@echo "SHELLPTICFLESH COMPILED"
@@ -174,7 +181,7 @@ ${NAME}: ${LIBFT} ${TETRIS} ${PRINTFD} ${DEST}
 	@printf ${SHOW_CURSOR}
 
 clean_libft:
-	@echo "${RED}Cleaning LIBFT..."
+	@echo "${GREEN}Cleaning LIBFT..."
 	@make clean -s -C ${LIBFT_PATH}
 	@printf "${RESET}"
 	@${RM} ${LIBFT}
@@ -186,13 +193,13 @@ clean_tetris:
 	@${RM} ${TETRIS}
 
 clean_printfd:
-	@echo "${YELLOW}Cleaning Printfd..."
+	@echo "${GREEN}Cleaning Printfd..."
 	@make -s -C ${PRINTFD_PATH}
 	@printf "${RESET}"
 	@${RM} ${PRINTFD}
 
 clean: clean_libft clean_tetris clean_printfd
-	@echo "${MAGENTA}Cleaning Shellpticflesh..."
+	@echo "${GREEN}Cleaning Shellpticflesh..."
 	@${RM} ${DEST}
 	@printf "${RESET}"
 	@echo "~~~~"
