@@ -139,6 +139,9 @@ The redirections are performed as dictated above.
 ### Executing the command
 The command is then executed with execve (see man).<br>
 If there is piping, the output is written in a temporary pipe which will serve as the read entry of the next command (except if the output is already redirected).
+### File descriptors
+A standard execution without any redirections takes 3 file descriptors, however many there are pipes.<br>
+If the limit is reached, the execution will fail.
 ## Builtins
 Shellpticflesh contains multiple builtins :
 ### echo
@@ -211,68 +214,20 @@ It is entirely coded in the terminal thanks to `tputs`<br>
 The internal timer is counted with `/bin/sleep`, so if it isn't found, tetris won't launch.<br>
 The random aspect of the code is based on either the `rdrand` on asm x86_64. If `rdrand` isn't supported, it will be based on mathematical operations around the time and the pid of the shell.<br>
 Have fun !
+## Post execution
+When the execution is over, it checks if the line is over, or if it should continue.<br>
+If `&&` is encountered at the end of the executed part, the rest will be executed if and only if the first command returned 0.<br>
+On the same logic, if `||` is encountered, it will be executed if and only if the first command failed (non-zero return status).<br>
+Finally, if `;` is encountered, it will execute the rest no matter what, which allows multiple command execution on a single line.<br>
+Parenthesis can be used to modify priorities : `(cmd1 || cmd2) && cmd3` != `cmd1 || cmd2 && cmd3`.
 ## History
 The history is by default stored in a file at `~/.shellpt_history`. Every line is added on `readline` history, and stored in a separate linked list as well.<br>
 History file can be modified with the `HISTFILE` variable.<br>
 History size can be modified with the `HISTSIZE` variable.<br>
 And finally, history file size can be modified with the `HISTFILESIZE` variable.
-
-
-
-<br><br><br>
-Functionalities :
-Command substitution
-- Handles $(cmd) which replaces it with the stdout of cmd
-Filename expansion
-- Handles partial search (l* searches for files that start with l)
-- Handles both * and ?
-Word split
-- According to IFS
-Quote removal (for both cmd and heredoc delim)
-Execution using only 3 fds
-Local and exported environment
-Fully functional history
-- History file can be changed with var. HISTFILE. History size can be changed with HISTSIZE and the history file size can be changed with HISTFILESIZE.
-&& || ;
-< << <<< > >> <>
-- Better file management, as we close useless files, whereas bash keeps them until the end of the cmd
-- Heredocs succesfully handled. ^D ends it the same way as Bash.
-Redirection from fd to fd (n<&m)
-Parenthesis priorities with full and partial redirections
-Syntax error handling
-Taking variables into account (IFS, CDPATH)
-RANDOM variable using custom randint
-PS0, PS1, PS2, PROMPT_COMMAND
-- PS0 is written is stdout every time a function outputs
-- PS1 is the beginning of the main prompt
-- PS2 is the beginning of secondary prompts (heredocs && incomplete lines)
-- Performs PROMPT_COMMAND before each prompt
-- PS expansions allow complexe prompts such as : PS1='|->$? _$$_ $ ' and can be on par with PROMPT_COMMAND
-- PS expansions allow \ expansions such as \n \w or \u
-- Colors in PS_EXPANSION with \c (\cr for red, \cB for bold blue...)
--- Allows more complexe colors parameters such as blinking and italic (PS1='\cisR\s\c0w \ciG\v\c0w \cdp[\W]\c0w \c25c($?)\c0w \cW>\c0w ')
-Signal handling
-Shellptrc file executed line by line at launch (both in executable dir and home dir)
-- use './minishell --norc' to avoid rc execution
-'./minishell -c' can be used to execute a single command (can include &&, || and ;)
-.shellpstart file is printed out at launch
-
-BUILTINS :
-cd : change directory
-echo : prints on stdout (-neE)
-env : prints env
-exit : exits shell with status
-alias : allow alias expansion to change command
-unalias : removes an alias
-export : export variables to be used externally
-unset : removes variable
-pwd : prints working directory
-printf : prints formated input (allows %csdixX with accuracy, field spacing and the following flags : # ' ' - 0 +)
-history : basic history management (-w writes in histfile, -c clears history, -i writes content at index, no arg printfs everything, and a numeric argument prints n argument)
-source (.) : executes all lines in a file
-: : ne fait rien et ignore donc toute la commande
-2 builtin easter eggs (tetris, hell)
-- Fully functional Tetris working with Termcap and Termios. The forking for the internal timer might be a bit heavy, but without threads, it was the only way. Cannot work without sleep.
-- Hell is a builtin printing a pun around the metal genre. We hardcoded a new random function using the asm instruction to generate pseudo-random number to choose the pun. And they all are funny.
-
-- The ÜBER TIGO
+## PS0
+PS0 is a variable of the Shell that is printed on the stdout every time a command is executed.<br>
+PS0 goes through all the PS expansions. It is useful to modify output color, print informations on runtime or do whatever you want.
+<br><br>
+Thanks for reading and have fun with it !<br>
+The ÜBER TIGO
