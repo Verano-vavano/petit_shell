@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/05 15:30:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 11:36:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,6 +364,7 @@ int			is_cmd_delim(char *c);
 int			is_num(char c);
 int			is_all_num(char *s);
 char		is_quoted(char *s, int i, char quoted);
+char		is_quoted_bk(char *s, int i, char quoted, bool bk);
 
 // word_utils
 char		*replace_escaped(char *cmd, int i);

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 11:10:50 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 11:49:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	not_ended(char *s)
 	{
 		if ((s[i] == '(' || s[i] == ')') && !q && !backslashed)
 			par += (1 * (s[i] == '(')) + (-1 * (s[i] == ')'));
-		backslashed = (s[i] == '\\' && !backslashed);
 		m = (!q && (s[i] == '&' || s[i] == '|' || (m && is_separator(s[i]))));
-		q = is_quoted(s, i, q);
+		q = is_quoted_bk(s, i, q, backslashed);
+		backslashed = (q != '\'' && s[i] == '\\' && !backslashed);
 	}
 	return (backslashed || q || par || m);
 }

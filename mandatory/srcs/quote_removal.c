@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 11:08:15 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 11:48:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,16 @@ static char	*last_rm_checks(char *cmd, char *quoted, int *i_bkd, int i)
 {
 	if (!quoted[0] && cmd[i] == '\\' && !i_bkd[1])
 	{
-		i_bkd[1] = true;
 		i_bkd[0]--;
 		return (ft_strreplace(cmd, i, 1, "\0"));
 	}
 	if (quoted[0] != quoted[1] && (quoted[0] != CQUOTES || quoted[1] != '\''))
 	{
 		i_bkd[0] -= 1 + (quoted[1] == CQUOTES);
-		i_bkd[1] = false;
 		if (quoted[1] == CQUOTES)
 			return (ft_strreplace(cmd, i - 1, 2, "\0"));
 		return (ft_strreplace(cmd, i, 1, "\0"));
 	}
-	i_bkd[1] = false;
 	return (0);
 }
 
@@ -40,6 +37,8 @@ static char	*quote_rm_check(char *quoted, int *i_bkd, char *cmd)
 
 	i = i_bkd[0];
 	backslashed = i_bkd[1];
+	i_bkd[1] = (!backslashed && quoted[0] != '\'' && cmd[i] == '\\');
+	//printf("%c %d %d\n", cmd[i], quoted[0], backslashed);
 	if (quoted[0] == CQUOTES && i > 0 && cmd[i - 1] == '\\')
 	{
 		temp = replace_escaped(cmd, i - 1);
@@ -51,12 +50,12 @@ static char	*quote_rm_check(char *quoted, int *i_bkd, char *cmd)
 	}
 	if (!quoted[0] && backslashed)
 		return (0);
-	if (quoted[0] != '\'' && i > 0 && cmd[i - 1] == '\\' && !backslashed
-		&& (cmd[i] == '\\' || cmd[i] == '"' || cmd[i] == '$'))
+	if (!backslashed && quoted[0] != '\'' && cmd[i] == '\\'
+		&& (quoted[0] != '"' || (cmd[i] == '\\' || cmd[i] == '"' || cmd[i] == '$')))
 	{
 		i_bkd[0]--;
 		i_bkd[1] = true;
-		return (ft_strreplace(cmd, i - 1, 1, "\0"));
+		return (ft_strreplace(cmd, i, 1, "\0"));
 	}
 	return (last_rm_checks(cmd, quoted, i_bkd, i));
 }
@@ -75,7 +74,7 @@ char	*quote_removal(char *cmd)
 	while (cmd && cmd[++i_bkd[0]])
 	{
 		temp = 0;
-		quoted[1] = is_quoted(cmd, i_bkd[0], quoted[0]);
+		quoted[1] = is_quoted_bk(cmd, i_bkd[0], quoted[0], i_bkd[1]);
 		if (quoted[1] == '\'' && dollar)
 			quoted[1] = CQUOTES;
 		temp = quote_rm_check(quoted, i_bkd, cmd);
