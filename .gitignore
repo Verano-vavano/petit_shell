@@ -5,7 +5,7 @@
 *.a
 *.gch
 minishell
-valgrind-out.txt
+valgrind-out.txt*
 *.out
 bonus
 minishell_tester

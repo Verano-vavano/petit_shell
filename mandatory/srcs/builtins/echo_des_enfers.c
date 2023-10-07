@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:54:37 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/29 21:31:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 10:52:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	is_arg(char *arg, bool *newline, bool *escape)
 static void	echo_arg(char *cmd, bool escape)
 {
 	char	*temp;
-	bool	first;
 	int		i;
 
-	first = true;
+	if (!cmd)
+		return ;
 	if (escape)
 	{
 		i = 0;
@@ -51,16 +51,15 @@ static void	echo_arg(char *cmd, bool escape)
 				temp = replace_escaped(cmd, i);
 				if (temp)
 				{
-					if (!first)
-						free(cmd);
+					free(cmd);
 					cmd = temp;
-					first = false;
 				}
 			}
 			i++;
 		}
 	}
 	printf("%s", cmd);
+	free(cmd);
 }
 
 int	echo_des_enfers(char **cmd)
@@ -78,7 +77,7 @@ int	echo_des_enfers(char **cmd)
 			i++;
 		while (cmd[i])
 		{
-			echo_arg(cmd[i], escape);
+			echo_arg(ft_strdup(cmd[i]), escape);
 			if (cmd[i + 1])
 				printf(" ");
 			i++;

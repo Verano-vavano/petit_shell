@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:32:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/30 01:04:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 11:07:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ char	is_quoted(char *s, int i, char quoted)
 {
 	if (quoted == CQUOTES && (i == 0 || s[i - 1] != '\\') && s[i] == '\'')
 		return (0);
-	if ((s[i] == '\'' || s[i] == '"') && (i == 0 || s[i - 1] != '\\')
+	if (s[i] == '\'' && (s[i] == quoted || !quoted))
+		return (!quoted * s[i]);
+	if (s[i] == '"' && (i == 0 || s[i - 1] != '\\')
 		&& (s[i] == quoted || !quoted))
 		return (!quoted * s[i]);
 	return (quoted);

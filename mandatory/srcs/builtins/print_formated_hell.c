@@ -6,21 +6,46 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:25:06 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/05 15:32:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 10:37:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
+static char	**set_args_echo(char *line)
+{
+	char	**cmd;
+
+	cmd = ft_calloc(4, sizeof (char *));
+	if (!cmd)
+		return (0);
+	cmd[0] = ft_strdup("echo");
+	if (cmd[0])
+		cmd[1] = ft_strdup("-ne");
+	if (cmd[0] && cmd[1])
+		cmd[2] = line;
+	else
+	{
+		free_char_etoile_etoile(cmd);
+		return (0);
+	}
+	return (cmd);
+}
+
 static void	pff_readfile(int fd)
 {
 	char	*line;
+	char	**cmd;
 
 	line = get_next_line(fd);
 	while (line && *line)
 	{
-		echo_des_enfers((char *[]) {"echo", "-ne", line, 0});
-		free(line);
+		cmd = set_args_echo(line);
+		if (cmd)
+		{
+			echo_des_enfers(cmd);
+			free_char_etoile_etoile(cmd);
+		}
 		line = get_next_line(fd);
 	}
 	close(fd);
