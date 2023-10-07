@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/07 11:35:44 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/07 15:22:57 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,6 +145,9 @@ UNAME_S:=$(shell uname -s)
 ifeq (${UNAME_S},Darwin)
 	INCLUDE_RL=-I/usr/local/opt/readline/include
 	LINK_RL=-L/usr/local/opt/readline/lib
+	DEFINE_OS='OS="darwin"'
+else
+	DEFINE_OS='OS="linux"'
 endif
 
 COUNT=0
@@ -154,7 +157,7 @@ all: ${NAME}
 bonus: ${NAME}
 
 .c.o:
-	@${GCC} ${CFLAGS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
+	@${GCC} ${CFLAGS} -D${DEFINE_OS} -I ${INCLUDES} -I ${LIBFT_PATH} ${INCLUDE_RL} -c $< -o ${<:.c=.o}
 	$(call move_progress_bar, COUNT)
 
 ${LIBFT}:
