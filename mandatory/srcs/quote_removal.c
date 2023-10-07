@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:10:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 12:11:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 12:27:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,14 @@ static char	*quote_rm_check(char *quoted, int *i_bkd, char *cmd)
 	if (quoted[0] == CQUOTES && i > 0 && cmd[i - 1] == '\\')
 	{
 		temp = replace_escaped(cmd, i - 1);
-		if (temp)
-		{
-			i_bkd[0]--;
+		if (temp && i_bkd[0]-- > -500)
 			return (temp);
-		}
 	}
 	if (!quoted[0] && backslashed)
 		return (0);
-	if (!backslashed && quoted[0] != CQUOTES && quoted[0] != '\'' && cmd[i] == '\\'
-		&& (quoted[0] != '"' || (cmd[i + 1] == '\\' || cmd[i + 1] == '"' || cmd[i + 1] == '$')))
+	if (!backslashed && quoted[0] != CQUOTES
+		&& quoted[0] != '\'' && cmd[i] == '\\' && (quoted[0] != '"'
+			|| (cmd[i + 1] == '\\' || cmd[i + 1] == '"' || cmd[i + 1] == '$')))
 	{
 		i_bkd[0]--;
 		i_bkd[1] = true;
@@ -93,7 +91,7 @@ void	quote_remove_cmd(t_command *cmd)
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
 		if (!(cmd->purpose == COMMAND && cmd->content[0] == '('
-			&& cmd->content[ft_strlen(cmd->content) - 1] == ')'))
+				&& cmd->content[ft_strlen(cmd->content) - 1] == ')'))
 			cmd->content = quote_removal(cmd->content);
 		cmd = cmd->next;
 	}

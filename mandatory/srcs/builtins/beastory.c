@@ -6,12 +6,22 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 23:59:35 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/03 20:29:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 12:18:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 #include "history.h"
+
+static void	write_it_in(t_hist_ll *hist_now, int fd)
+{
+	while (hist_now)
+	{
+		write(fd, hist_now->content, ft_strlen(hist_now->content));
+		write(fd, "\n", 1);
+		hist_now = hist_now->next;
+	}
+}
 
 static void	write_hist_soft(t_hist *hist, t_env *env)
 {
@@ -37,12 +47,7 @@ static void	write_hist_soft(t_hist *hist, t_env *env)
 		free(histfile);
 		return ;
 	}
-	while (hist_now)
-	{
-		write(fd, hist_now->content, ft_strlen(hist_now->content));
-		write(fd, "\n", 1);
-		hist_now = hist_now->next;
-	}
+	write_it_in(hist_now, fd);
 	close(fd);
 	free(histfile);
 }
@@ -54,7 +59,8 @@ static void	clear_hist(t_tool *tool, char **cmd)
 
 	if (cmd[1][1] == 'c')
 	{
-		printfd(WRITE, "Do you want to clear the whole history ? (the history file will be emptied) [y/n] > ");
+		printf("Do you want to clear the whole history ?");
+		printf("the history file will be emptied) [y/n] > ");
 		readed = read(READ, read_buf, 1023);
 		if (readed == -1)
 			return ;
@@ -84,6 +90,9 @@ int	beastory(char **cmd, t_tool *tool)
 	else if (is_long(cmd[1], true))
 		ret = print_range_hist(ft_atol(cmd[1]), tool->hist);
 	if (ret == 2)
-		printfd(ERR, "usage: history: [-cC] [-d offset] or [n] or [-i offset] or [-w]\n");
+	{
+		printfd(ERR, "usage: history: [-cC] [-d offset] or [n] or [-i offset]");
+		printfd(ERR, " or [-w]\n");
+	}
 	return (ret);
 }

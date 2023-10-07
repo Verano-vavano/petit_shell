@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/05 15:24:21 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 12:27:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 	else if (ft_strcmp(".", cmd->cmd_name) == 0
 		|| ft_strcmp("source", cmd->cmd_name) == 0)
 		return (source_of_styx(cmd->cmd, t));
-	else if (ft_strcmp(":", cmd->cmd_name) == 0 || !cmd->sub_cmd)
-		return (0);
-	return (1);
+	else if (ft_strcmp("history", cmd->cmd_name) == 0)
+		return (beastory(cmd->cmd, t));
+	return (ft_strcmp(":", cmd->cmd_name) == 0 || !cmd->sub_cmd);
 }
 
 static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
@@ -64,8 +64,6 @@ static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 		return (hellias(cmd->cmd, t));
 	else if (ft_strcmp("unalias", cmd->cmd_name) == 0 && !cmd->sub_cmd)
 		return (unhellias(cmd->cmd, t));
-	else if (ft_strcmp("history", cmd->cmd_name) == 0)
-		return (beastory(cmd->cmd, t));
 	else
 		return (more_bltn(cmd, t, one));
 }

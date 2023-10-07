@@ -4,7 +4,7 @@
 
 # Init file that is printed out at start of shell
 # Modify it as you wish
-cat .shellptstart
+pff .shellptstart
 
 export DESKTOP='${HOME}/Desktop'
 export BUREAU='${HOME}/Bureau'
