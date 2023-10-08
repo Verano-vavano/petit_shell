@@ -6,9 +6,6 @@
 # Modify it as you wish
 pff .shellptstart
 
-export DESKTOP='${HOME}/Desktop'
-export BUREAU='${HOME}/Bureau'
-
 export LOWERALPHA=abcdefghijklmnopqrstuvwxyz
 export UPPERALPHA=ABCDEFGHIJKLMNOPQRSTUVWXYZ
 export NUM=0123456789
@@ -32,7 +29,6 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias cd..='cd ..'
 
-alias -='cd $OLDPWD'
 alias cds='cd srcs'
 alias cdb='cd bonus'
 alias cdm='cd mandatory'
@@ -44,7 +40,7 @@ alias _='sudo'
 
 alias c=clear
 alias e=exit
-#alias h=history
+alias h=history
 alias q=exit
 
 # tres importants

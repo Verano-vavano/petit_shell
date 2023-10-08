@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/03 20:17:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/08 15:13:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	if (cmd->is_parenthesis)
 	{
 		empty_tool.env = t->env;
+		empty_tool.alias_start = t->alias_start;
+		empty_tool.alias_end = t->alias_end;
 		empty_tool.hist = 0;
 		exit(cmd_processing(ft_strndup(cmd->cmd[0] + 1,
 					ft_strlen(cmd->cmd[0]) - 2), &empty_tool, false));
