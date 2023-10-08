@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 19:20:53 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 15:34:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/08 14:15:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_command	*smol_split(char *s)
 			return (0);
 		}
 		now->purpose = COMMAND;
-		if (check_assign(now->content))
+		if (check_assign(now->content, false))
 			now->purpose = VAR_ASSIGN;
 		if (!s[len_arg])
 			break ;

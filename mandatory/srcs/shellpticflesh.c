@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 15:20:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 15:35:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	init_shell(t_tool *tool, int ac, char **av, char **envp)
 	tool->alias_end = 0;
 	ret = check_exec(ac, av, tool);
 	if (ret)
-		return (0 * (ret == -1) + ret * (ret != -1));
+		return (ret);
 	tool->hist = load_history(tool->env);
 	if (exec_rc)
 		exec_shellptrc(tool);
@@ -108,7 +108,7 @@ int	main(int ac, char **av, char **envp)
 
 	ret = init_shell(&tool, ac, av, envp);
 	if (ret)
-		return (ret);
+		return (0 * (ret == -1) + ret * (ret != -1));
 	while (42)
 	{
 		g_sig_rec = 0;

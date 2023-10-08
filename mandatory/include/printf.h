@@ -6,15 +6,15 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:18:17 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 02:31:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 12:32:50 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 # define PRINTF_H
 
-#include <stdbool.h>
-#include <stdlib.h>
+# include <stdbool.h>
+# include <stdlib.h>
 
 typedef struct s_printf_flags
 {

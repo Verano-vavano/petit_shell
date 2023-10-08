@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:00:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/28 19:28:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/08 14:12:47 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static enum e_cmd_part	redir_post(t_command *cmd, char *s)
 	return (UNDEFINED);
 }
 
-bool	check_assign(char *s)
+bool	check_assign(char *s, bool exporting)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ bool	check_assign(char *s)
 		}
 		i++;
 	}
-	if (s[i] == '=')
+	if (s[i] == '=' || exporting)
 		return (true);
 	return (false);
 }
@@ -68,7 +68,7 @@ static enum e_cmd_part	get_purpose(t_command *cmd, enum e_cmd_part purpose)
 	char	*s;
 
 	s = cmd->content;
-	if (purpose == VAR_ASSIGN && check_assign(cmd->content))
+	if (purpose == VAR_ASSIGN && check_assign(cmd->content, false))
 	{
 		cmd->purpose = purpose;
 		return (purpose);

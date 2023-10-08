@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 11:36:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/08 14:12:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct s_tool
 	char	**c_env;
 	t_hist	*hist;
 	t_alias	*alias_start;
-	t_alias *alias_end;
+	t_alias	*alias_end;
 	long	rt_val;
 	char	*cwd;
 }				t_tool;
@@ -177,7 +177,7 @@ t_command	*spliter_init(char **cmd, bool add_line, t_tool *tool);
 /*---------------LINE COMPREHENSION------------------*/
 // line_comprehension
 int			understand_the_line(t_command *cmd);
-bool		check_assign(char *s);
+bool		check_assign(char *s, bool exporting);
 
 // syntax checker
 int			check_syntax(char *line);
@@ -431,7 +431,7 @@ void		print_char_arr(char **arr);
 void		print_cmd(t_command *cmd);
 
 /*----------------MATH----------------*/
-bool	is_math(const char *str);
-bool	do_math(t_command *cmd, t_env *env);
+bool		is_math(const char *str);
+bool		do_math(t_command *cmd, t_env *env);
 
 #endif

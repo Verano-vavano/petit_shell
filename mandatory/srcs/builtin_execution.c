@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 12:27:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/07 12:59:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 		return (source_of_styx(cmd->cmd, t));
 	else if (ft_strcmp("history", cmd->cmd_name) == 0)
 		return (beastory(cmd->cmd, t));
-	return (ft_strcmp(":", cmd->cmd_name) == 0 || !cmd->sub_cmd);
+	return (0);
 }
 
 static long	find_exec_bltn(t_process_cmd *cmd, t_tool *t, bool one)
