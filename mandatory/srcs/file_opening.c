@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:15:27 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/27 17:14:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/08 14:30:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ int	open_read_file(t_command *cmd, t_redir_pipe *redir, int hd)
 	}
 	else if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
 		redir->fd_read = get_heredoc_file(hd, READ);
-	if (cmd->purpose != IN_FILE && cmd->purpose != IN_OUT_FILE)
-		redir->opened_read = 0;
 	return (0);
 }
