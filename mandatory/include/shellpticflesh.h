@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 10:17:24 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:42:45 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_settings
 {
 	bool	rc;
 	short	ps;
+	bool	hist;
 	int		c;
 }				t_set;
 
@@ -289,7 +290,7 @@ long		execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
 long		ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd);
 
 // execution_doer
-void		check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd);
+void		check_hist(t_command *cmd, t_tool *tool, int n_cmd);
 long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
 void		crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret);
 

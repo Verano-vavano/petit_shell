@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:08:52 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 15:01:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:42:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no)
 	tool->c_env = re_char_etoile_etoilise_env(tool->env);
 	ret_cmd.pid = -1;
 	ret_cmd.fd = -1;
-	check_hist(cmd, tool->hist, tool->env, n_cmd[0]);
+	check_hist(cmd, tool, n_cmd[0]);
 	ret = 0;
 	while (cmd && n_cmd[0] && ret <= 0)
 		ret = ex_loop(&cmd, tool, &ret_cmd, n_cmd);

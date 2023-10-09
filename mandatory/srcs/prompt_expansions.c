@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:41:40 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/25 17:07:43 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:34:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*more_get_exp(char c, char *s, t_tool *tool, int *to_repl)
 		return (get_arranged_cwd(tool->env, c == 'W'));
 	else if (c == '\\')
 		return (ft_strdup("\\"));
+	else if (c == '$')
+		return (ft_strdup("$"));
 	else if (c == 'c')
 		return (prompt_color(s + 2, to_repl));
 	return (0);

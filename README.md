@@ -8,9 +8,16 @@ This is a project done during our cursus at [42 School](https://42.fr/en/homepag
 Here are the main functionalities of our Shellpticflesh !
 ## At the start
 The shell doesn't start if STDIN, STDOUT and STDERR aren't TTY, for safety reasons.<br>
+The shell then launches the history, and asks the user for a prompt.<br>
+### Shell arguments
+- `-c` or `--compute` will execute the next argument, and exit the shell with its return status.
+- `-n` or `--norc` will not execute the rc-files with the source builtin (./.shellptrc and ~/.shellptrc).
+- `-p` or `--nops` will not assign a default value to PS1 and PS2.
+- `-b` or `--bps` will assign a basic value to PS1 and PS2, lighter than the original one. PS1 will equal '\s-\v\$ ' and PS2 will equal '> ', just like Bash.
+- `-d` or `--debug` will launch Shellpticflesh with both `-n` and `-b` options on.
+- `-h` or `--nohist` will not write the history automatically at the end onto .shellpthistory. You would need to use `history -w`.
 If the argument `-c` is provided, the remaining arguments will be executed, and the shell will be close.<br>
 If the shell isn't launched with the argument `-n` or `--norc`, it will execute every lines of the file ./.shellptrc and $HOME/.shellptrc, the same way as the builtins `.` and `source` do.<br>
-The shell then launches the history, and asks the user for a prompt.<br>
 ## Prompt
 The prompt is the main key to the interactivity of a shell.
 ### Prompt management
@@ -34,6 +41,7 @@ Every prompt begins with either PS1 or PS2. Both are submitted to the prompt exp
   - `\#` replaces with current command number since history.
   - `\c` replaces with color marker (see PS colors).
   - `\\` replaces with a \ character.
+  - `\$` replaces with a $ character.
 - Parameter expansion (see below).
 - Command substitution (see below).
 ### PS colors

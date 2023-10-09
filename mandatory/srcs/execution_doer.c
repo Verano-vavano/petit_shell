@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 15:37:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:43:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 	return (WEXITSTATUS(exit_st));
 }
 
-void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
+void	check_hist(t_command *cmd, t_tool *tool, int n_cmd)
 {
-	int	n;
+	t_hist	*hist;
+	int		n;
 
 	n = 0;
+	hist = tool->hist;
 	if (hist && n_cmd == 1 && cmd->content
 		&& ft_strcmp(cmd->content, "exit") == 0)
 	{
@@ -94,7 +96,8 @@ void	check_hist(t_command *cmd, t_hist *hist, t_env *env, int n_cmd)
 				return ;
 			cmd = cmd->next;
 		}
-		write_hist(hist, env);
+		if (tool && tool->settings.hist)
+			write_hist(hist, tool->env);
 		free_history(hist, true);
 	}
 }

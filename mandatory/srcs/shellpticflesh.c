@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 10:14:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:41:51 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	get_settings(int ac, char **av, t_set *settings)
 	int	i;
 
 	i = 0;
+	settings->hist = true;
 	settings->rc = true;
 	settings->ps = 2;
 	settings->c = 0;
@@ -70,6 +71,8 @@ static void	get_settings(int ac, char **av, t_set *settings)
 			settings->rc = false;
 			settings->ps = 1;
 		}
+		else if (ft_strcmp(av[i], "-h") == 0 || !ft_strcmp(av[i], "--nohist"))
+			settings->hist = false;
 		i++;
 	}
 }
@@ -102,7 +105,8 @@ static int	init_shell(t_tool *tool, int ac, char **av, char **envp)
 
 static int	clean_exit(t_tool tool)
 {
-	write_hist(tool.hist, tool.env);
+	if (tool.settings.hist)
+		write_hist(tool.hist, tool.env);
 	if (tool.cwd)
 		free(tool.cwd);
 	free_history(tool.hist, true);
