@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 15:41:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:37:25 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 	start = 0;
 	repl = false;
 	ret = -1;
-	while (cmd->content[start])
+	while (cmd && cmd->content && cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
 		if (cmd->content[start] == '(' && (!quoted
@@ -92,6 +92,7 @@ static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 			ret = perform_exec(cmd, env, start, repl);
 			if (ret)
 				break ;
+			start = -1;
 		}
 		start++;
 	}

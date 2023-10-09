@@ -16,8 +16,6 @@ The shell then launches the history, and asks the user for a prompt.<br>
 - `-b` or `--bps` will assign a basic value to PS1 and PS2, lighter than the original one. PS1 will equal '\s-\v\$ ' and PS2 will equal '> ', just like Bash.
 - `-d` or `--debug` will launch Shellpticflesh with both `-n` and `-b` options on.
 - `-h` or `--nohist` will not write the history automatically at the end onto .shellpthistory. You would need to use `history -w`.
-If the argument `-c` is provided, the remaining arguments will be executed, and the shell will be close.<br>
-If the shell isn't launched with the argument `-n` or `--norc`, it will execute every lines of the file ./.shellptrc and $HOME/.shellptrc, the same way as the builtins `.` and `source` do.<br>
 ## Prompt
 The prompt is the main key to the interactivity of a shell.
 ### Prompt management
