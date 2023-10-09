@@ -6,25 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 10:40:09 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/29 20:36:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 10:01:20 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-bool	check_rc(int ac, char **av)
-{
-	av++;
-	while (ac > 1)
-	{
-		if (ft_strcmp(*av, "--norc") == 0
-			|| ft_strcmp(*av, "-n") == 0)
-			return (0);
-		ac--;
-		av++;
-	}
-	return (1);
-}
 
 static char	*get_rc_file(t_tool *tool)
 {

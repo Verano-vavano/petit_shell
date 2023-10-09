@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 15:03:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 10:14:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,47 +44,58 @@ long	cmd_processing(char *line, t_tool *tool, bool add_line)
 	return (exit_processing(lexed, tool->rt_val));
 }
 
-static int	check_exec(int ac, char **av, t_tool *tool)
+static void	get_settings(int ac, char **av, t_set *settings)
 {
-	int	ret;
+	int	i;
 
-	av++;
-	while (ac > 1)
+	i = 0;
+	settings->rc = true;
+	settings->ps = 2;
+	settings->c = 0;
+	while (i < ac)
 	{
-		if (!ft_strcmp(*av, "-c"))
+		if (ft_strcmp(av[i], "-c") == 0 || ft_strcmp(av[i], "--compute") == 0)
 		{
-			ret = 0;
-			if (ac >= 2)
-				ret = cmd_processing(ft_strdup(av[1]), tool, false);
-			free_tool(tool);
-			return (-1 * (ret == 0) + ret * (ret != 0));
+			settings->c = i;
+			return ;
 		}
-		ac--;
-		av++;
+		else if (ft_strcmp(av[i], "-n") == 0 || ft_strcmp(av[i], "--norc") == 0)
+			settings->rc = false;
+		else if (ft_strcmp(av[i], "-p") == 0 || ft_strcmp(av[i], "--nops") == 0)
+			settings->ps = 0;
+		else if (ft_strcmp(av[i], "-b") == 0 || ft_strcmp(av[i], "--bps") == 0)
+			settings->ps = 1;
+		else if (ft_strcmp(av[i], "-d") == 0 || !ft_strcmp(av[i], "--debug"))
+		{
+			settings->rc = false;
+			settings->ps = 1;
+		}
+		i++;
 	}
-	return (0);
 }
 
 static int	init_shell(t_tool *tool, int ac, char **av, char **envp)
 {
-	bool	exec_rc;
 	int		ret;
 
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)
 		|| !isatty(STDERR_FILENO))
 		return (1);
-	exec_rc = check_rc(ac, av);
+	get_settings(ac, av, &(tool->settings));
 	tool->rt_val = 0;
 	tool->cwd = 0;
-	tool->env = env_init(envp);
+	tool->env = env_init(envp, &(tool->settings));
 	tool->hist = 0;
 	tool->alias_start = 0;
 	tool->alias_end = 0;
-	ret = check_exec(ac, av, tool);
-	if (ret)
-		return (ret);
+	if (tool->settings.c)
+	{
+		ret = cmd_processing(ft_strdup(av[tool->settings.c + 1]), tool, false);
+		free_tool(tool);
+		return (-1 * (ret == 0) + ret * (ret != 0));
+	}
 	tool->hist = load_history(tool->env);
-	if (exec_rc)
+	if (tool->settings.rc)
 		exec_shellptrc(tool);
 	return (0);
 }

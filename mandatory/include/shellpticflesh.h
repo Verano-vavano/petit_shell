@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 14:12:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 10:17:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@
 # define SHELL_VERSION "1.0"
 
 # define STD_PS1 "PS1=\\c0w\\cR\\s \\cG\\v \\cp[\\W] \\cc($?) \\cW> \\cw"
+# define STD_LOW_PS1 "PS1=\\s-\\v\\$ "
 # define STD_PS2 "PS2=\\cR|-> \\cw"
+# define STD_LOW_PS2 "PS2=> "
 # define STD_PATH "PATH=/.local/bin:/bin:/usr/local/bin:/usr/bin"
 
 # define CLEAR_LINE "\033[K"
@@ -132,6 +134,13 @@ typedef struct s_alias
 	struct s_alias	*next;
 }				t_alias;
 
+typedef struct s_settings
+{
+	bool	rc;
+	short	ps;
+	int		c;
+}				t_set;
+
 typedef struct s_tool
 {
 	t_env	*env;
@@ -139,6 +148,7 @@ typedef struct s_tool
 	t_hist	*hist;
 	t_alias	*alias_start;
 	t_alias	*alias_end;
+	t_set	settings;
 	long	rt_val;
 	char	*cwd;
 }				t_tool;
@@ -165,7 +175,6 @@ long		line_beauty(t_command *lexed, t_tool *tool);
 long		exit_processing(t_command *lexed, long rt_val);
 long		exec_loop(t_command *lexed, t_tool *tool, int *hd_no);
 
-bool		check_rc(int ac, char **av);
 long		execute_rc(int fd_rc, t_tool *tool);
 void		exec_shellptrc(t_tool *tool);
 
@@ -410,7 +419,7 @@ int			tetris(char **args);
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var, bool is_exported);
 char		**one_split(char *str, char c);
-t_env		*env_init(char **envp);
+t_env		*env_init(char **envp, t_set *settings);
 void		increment_shlvl(t_env **env);
 /*----------------ENV_UTILS----------------*/
 void		env_add(t_env *newest, t_env **env);

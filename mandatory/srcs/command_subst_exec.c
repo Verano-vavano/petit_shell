@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:41:08 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 09:36:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 09:45:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
 
 	dup2(se[3], STDOUT_FILENO);
 	out = get_output(se + 4);
-	out[ft_strlen(out) - 1] = 0;
+	if (out && *out)
+		out[ft_strlen(out) - 1] = 0;
 	if (out && *out && cmd->purpose != VAR_ASSIGN && cmd->purpose != PS_EXP)
 	{
 		if (word_split(cmd, out, se, env))

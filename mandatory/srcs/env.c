@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/16 13:52:20 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 10:16:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_env	*env_new(char *env_var, bool is_exported)
 	return (new);
 }
 
-static void	init_variables(t_env **env)
+static void	init_variables(t_env **env, t_set *settings)
 {
 	char	cwd[1024];
 	char	*temp_pwd;
@@ -68,9 +68,19 @@ static void	init_variables(t_env **env)
 	if (!env_contain("PATH", *env))
 		env_add(env_new(STD_PATH, true), env);
 	if (!env_contain("PS1", *env))
-		env_add(env_new(STD_PS1, false), env);
+	{
+		if (settings->ps == 2)
+			env_add(env_new(STD_PS1, false), env);
+		else if (settings->ps == 1)
+			env_add(env_new(STD_LOW_PS1, false), env);
+	}
 	if (!env_contain("PS2", *env))
-		env_add(env_new(STD_PS2, false), env);
+	{
+		if (settings->ps == 2)
+			env_add(env_new(STD_PS2, false), env);
+		else if (settings->ps == 1)
+			env_add(env_new(STD_LOW_PS2, false), env);
+	}
 	if (!env_contain("PWD", *env) && getcwd(cwd, 1024))
 	{
 		temp_pwd = ft_strjoin("PWD=", cwd);
@@ -83,7 +93,7 @@ static void	init_variables(t_env **env)
 	increment_shlvl(env);
 }
 
-t_env	*env_init(char **envp)
+t_env	*env_init(char **envp, t_set *settings)
 {
 	t_env	*env;
 	int		i;
@@ -92,6 +102,6 @@ t_env	*env_init(char **envp)
 	i = 0;
 	while (envp[i])
 		env_add(env_new(envp[i++], true), &env);
-	init_variables(&env);
+	init_variables(&env, settings);
 	return (env);
 }
