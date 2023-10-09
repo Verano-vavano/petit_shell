@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:07:11 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/09 10:16:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:49:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,7 @@ static void	init_variables(t_env **env, t_set *settings)
 
 	if (!env_contain("PATH", *env))
 		env_add(env_new(STD_PATH, true), env);
-	if (!env_contain("PS1", *env))
-	{
-		if (settings->ps == 2)
-			env_add(env_new(STD_PS1, false), env);
-		else if (settings->ps == 1)
-			env_add(env_new(STD_LOW_PS1, false), env);
-	}
-	if (!env_contain("PS2", *env))
-	{
-		if (settings->ps == 2)
-			env_add(env_new(STD_PS2, false), env);
-		else if (settings->ps == 1)
-			env_add(env_new(STD_LOW_PS2, false), env);
-	}
+	init_ps(env, settings);
 	if (!env_contain("PWD", *env) && getcwd(cwd, 1024))
 	{
 		temp_pwd = ft_strjoin("PWD=", cwd);

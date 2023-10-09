@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 16:42:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:49:37 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,6 +422,7 @@ t_env		*env_new(char *env_var, bool is_exported);
 char		**one_split(char *str, char c);
 t_env		*env_init(char **envp, t_set *settings);
 void		increment_shlvl(t_env **env);
+void		init_ps(t_env **env, t_set *settings);
 /*----------------ENV_UTILS----------------*/
 void		env_add(t_env *newest, t_env **env);
 void		env_del(char *del, t_env **env);

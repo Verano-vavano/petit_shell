@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:12:14 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/16 13:55:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:50:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,23 @@ void	increment_shlvl(t_env **env)
 			return (free(temp_lvl));
 		}
 		env_add(env_new("SHLVL=1", true), env);
+	}
+}
+
+void	init_ps(t_env **env, t_set *settings)
+{
+	if (!env_contain("PS1", *env))
+	{
+		if (settings->ps == 2)
+			env_add(env_new(STD_PS1, false), env);
+		else if (settings->ps == 1)
+			env_add(env_new(STD_LOW_PS1, false), env);
+	}
+	if (!env_contain("PS2", *env))
+	{
+		if (settings->ps == 2)
+			env_add(env_new(STD_PS2, false), env);
+		else if (settings->ps == 1)
+			env_add(env_new(STD_LOW_PS2, false), env);
 	}
 }

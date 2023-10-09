@@ -33,6 +33,8 @@ alias cds='cd srcs'
 alias cdb='cd bonus'
 alias cdm='cd mandatory'
 
+alias norminette='~/.local/bin/norminette'
+
 alias mkdir='mkdir -pv'
 alias rmrf='rm -rf'
 

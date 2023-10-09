@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 17:37:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:48:22 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 	quoted = '\0';
 	start = 0;
 	repl = false;
-	ret = -1;
 	while (cmd && cmd->content && cmd->content[start])
 	{
 		quoted = is_quoted(cmd->content, start, quoted);
@@ -108,8 +107,6 @@ long	command_substitution(t_command *cmd, t_env *env, bool only_repl)
 	skip_first = false;
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		/*if (is_math(cmd->content))
-			do_math(cmd, env);*/
 		if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			next = cmd->next;

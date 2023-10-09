@@ -6,13 +6,13 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/07 15:22:57 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/09 17:52:01 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=./minishell
 
-SRCS=shellpticflesh.c  shellpticflesh_more.c\
+SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 signals.c  error_manager.c  warnings.c\
 	 env.c  env_init_utils.c  env_utils.c  env_utils2.c  env_utils3.c\
 	 history.c  history_loader.c  history_utils.c\

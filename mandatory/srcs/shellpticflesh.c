@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 16:41:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:53:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,21 @@
 
 int	g_sig_rec;
 
-long	cmd_processing(char *line, t_tool *tool, bool add_line)
+static void	init_settings(t_set *settings)
 {
-	t_command	*lexed;
-	int			heredoc_no;
-	long		rt_val;
-
-	if (!line || !(*line))
-	{
-		if (line)
-			free(line);
-		return (0);
-	}
-	lexed = spliter_init(&line, add_line, tool);
-	free(line);
-	if (!lexed)
-		return (2);
-	if (!lexed->content)
-	{
-		free(lexed);
-		return (0);
-	}
-	rt_val = line_beauty(lexed, tool);
-	if (rt_val)
-		return (rt_val);
-	heredoc_no = 0;
-	rt_val = exec_loop(lexed, tool, &heredoc_no);
-	return (exit_processing(lexed, tool->rt_val));
+	settings->hist = true;
+	settings->rc = true;
+	settings->ps = 2;
+	settings->c = 0;
 }
 
 static void	get_settings(int ac, char **av, t_set *settings)
 {
 	int	i;
 
-	i = 0;
-	settings->hist = true;
-	settings->rc = true;
-	settings->ps = 2;
-	settings->c = 0;
-	while (i < ac)
+	i = -1;
+	init_settings(settings);
+	while (++i < ac)
 	{
 		if (ft_strcmp(av[i], "-c") == 0 || ft_strcmp(av[i], "--compute") == 0)
 		{
@@ -73,7 +49,6 @@ static void	get_settings(int ac, char **av, t_set *settings)
 		}
 		else if (ft_strcmp(av[i], "-h") == 0 || !ft_strcmp(av[i], "--nohist"))
 			settings->hist = false;
-		i++;
 	}
 }
 
