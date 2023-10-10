@@ -4,6 +4,16 @@ We are Hugo and Thibault, our team name is <b>Über Tigo</b>
 
 This is a project done during our cursus at [42 School](https://42.fr/en/homepage/). The assignement was to code a little [ shell ](https://en.wikipedia.org/wiki/Shell_(computing))
 
+# Install
+To install Shellpticflesh, you will need :
+- `git` to clone the repo (optional, you can just download it if you feel audacious)
+- `gcc` to compile the .c files and launch the Makefile
+- `readline` and `readline devel` (readline development tools) for the prompt
+- `curses` and `curses devel` (curses development tools) for tetris.<br>
+Note that readline and curses are often already installed on freshly installed linux and mac distros.<br>
+Shellpticflesh isn't designed to be portable to Windows due to the contraints of the exercise ! If you want to launch it, please be sure to run it on a Linux-based or MacOS-based computer.<br>
+The shell is also only made for x86_64 architectures. Other CPU architectures may result in undefined behaviour in the Tetris game and the $$ parameter.
+
 # Main functionalities
 Here are the main functionalities of our Shellpticflesh !
 ## At the start

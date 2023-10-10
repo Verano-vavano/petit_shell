@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 13:54:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 16:00:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ static int	init_shell(t_tool *tool, int ac, char **av, char **envp)
 
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)
 		|| !isatty(STDERR_FILENO))
+	{
+		printfd(ERR, "TTY Error\n");
 		return (1);
+	}
 	get_settings(ac, av, &(tool->settings));
 	tool->rt_val = 0;
 	tool->cwd = 0;
