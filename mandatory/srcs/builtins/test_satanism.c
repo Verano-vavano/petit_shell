@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 22:43:06 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 23:01:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ static int	get_operator_type(char **cmd, int start, bool brack)
 		}
 		i++;
 	}
-	i -= 2;
-	if (i < 0)
+	i -= (1 + brack);
+	if (i + brack < 0)
 		return (-1);
-	else if (i == 0)
+	else if (i + brack == 0)
 		return (0);
-	else if (i > 2)
+	else if (i + brack > 2)
 	{
 		printfd(ERR, "%s: too many arguments\n", cmd[0]);
 		return (-2);
