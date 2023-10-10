@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/27 16:43:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:08:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 	char	*path_cmd;
 
 	if (!path)
-		return (128);
-	paths = ft_split(path, ':');
+		paths = ft_split("./", ':');
+	else
+		paths = ft_split(path, ':');
 	if (!paths)
 		return (1);
 	path_cmd = ft_strjoin("/", cmd->cmd_name);
@@ -55,7 +56,7 @@ static int	rel_search(t_process_cmd *cmd, char *path)
 		return (0);
 	free_char_etoile_etoile(paths);
 	free(path_cmd);
-	return (127);
+	return (127 * (path != 0) + 128 * (path == 0));
 }
 
 static int	check_rel(t_process_cmd *cmd)
@@ -111,7 +112,9 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	if (err_catcher)
 		return (command_error(cmd->cmd[0], err_catcher));
 	else if (!path || !(*path) || relative)
-		return (check_rel(cmd));
+		err_catcher = check_rel(cmd);
+	if (err_catcher)
+		return (command_error(cmd->cmd[0], err_catcher));
 	err_catcher = rel_search(cmd, path);
 	if (err_catcher != 0)
 		return (command_error(cmd->cmd[0], err_catcher));
