@@ -6,11 +6,16 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 23:01:09 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 23:20:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+static bool	is_continuation(char *cmd)
+{
+	return (!ft_strcmp(cmd, "-a") || !ft_strcmp(cmd, "-o"));
+}
 
 static int	double_expr_test(char **cmd, char *cmd_name)
 {
@@ -65,7 +70,7 @@ static int	get_operator_type(char **cmd, int start, bool brack)
 	int	i;
 
 	i = 0;
-	while (cmd && cmd[i + start])
+	while (cmd && cmd[i + start] && !is_continuation(cmd[i + start]))
 	{
 		if (!cmd[i + start + 1] && brack && ft_strcmp("]", cmd[i + start]))
 		{
@@ -87,7 +92,7 @@ static int	get_operator_type(char **cmd, int start, bool brack)
 	return (i);
 }
 
-int	test_satanism(char **cmd)
+int	test_satanism(char **cmd, bool last_ret)
 {
 	int		ret;
 	bool	negate;
@@ -95,11 +100,14 @@ int	test_satanism(char **cmd)
 	int		operator_type;
 	int		start;
 
+	if ((!ft_strcmp(*cmd, "-a") && last_ret == 1)
+		|| (!ft_strcmp(*cmd, "-o") && last_ret == 0))
+		return (last_ret);
 	ret = 0;
 	brack = (cmd[0][0] == '[');
 	start = 1;
 	negate = false;
-	if (ft_strcmp(cmd[start], "!") == 0)
+	if (cmd[start] && ft_strcmp(cmd[start], "!") == 0)
 	{
 		start++;
 		negate = true;
@@ -111,7 +119,12 @@ int	test_satanism(char **cmd)
 		ret = single_expr_test(cmd + start, cmd[0]);
 	else if (operator_type == 2)
 		ret = double_expr_test(cmd + start, cmd[0]);
-	if (negate && ret != 2)
-		return (!ret);
+	if (ret == 2)
+		return (ret);
+	if (negate)
+		ret = !ret;
+	cmd += start + operator_type + brack + 1;
+	if (cmd && *cmd)
+		return (test_satanism(cmd, ret));
 	return (ret);
 }
