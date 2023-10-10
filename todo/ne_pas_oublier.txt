@@ -1,51 +1,8 @@
-$"" $'' "" ''
-signaux
-environnement (_, old_pwd, pwd)
-!! !?
-!^
-!:2
-!:2-
-!*
-!:$ ou !$ (dernier arg entre)
-$! last pid
-$$ cur pid
-
 (x=10; ((x++)); echo $x; exit $x; echo lol)
 echo $(x=10; ((x++)); echo $x)
 
-unexpected token -> 258
-
---
-
-POUR L'ENV:
-
-CDPATH -> cd
-HOME
-IFS (word expansion, je pense pas obligatoire)
-PATH -> if 0-length dir, = ./
-PS1 -> truc au debut de chaque ligne
-PS2 -> truc au debut de chaque ligne quand il demande plus
-
-_ -> last argument
-SHELLPTICFLESH -> pathname de l'exec
-
-THEORIQUEMENT, seuls PWD, SHLVL et _ sont definis au lancement du shell
-
---
-
-TRUCS CHELOUS DU PETIT SHELL
-ls hrewher | echo lol | << a > b (d'abord here_docs, puis message d'erreur quand fini)
-echo $'\n' && echo \n && echo '\n' && echo "\n"
-
---
-
 SYNTAX ERROR
------ < >, > <, <<<, >>>, < <, > >
------ ( not at beginning of cmd (after start, ;, && or ||)
------ () (closing after opening without anything within)
------ { } (with n spaces within and nothing before)
------ | or ; or || or && with nothing before
------ | |
+<<<, >>>
 
 
 echo lol\
@@ -54,22 +11,6 @@ bonjour
 --> echo lolbonjour
 
 -----
-
-WORD SPLITTING
-bash va word splitter lors de la command expansion et de la parameter expansion (unquoted) en fonction de IFS
-string="apple,banana,orange"
-echo $string
-IFS=','
-echo $string
-
------
-
-LOCAL
-PS1
-PS2
-
-PROMPT CONTROL PARSING
-https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 
 EXPANS ARITH:
 id++ id--
@@ -87,19 +28,4 @@ expr ? expr : expr (TERNAIRE !!!)
 = *= /= %= += -= <<= >>= &= ^= |=
 
 
-BRACES EXPANSION
-{a,b}
-{a,{a,b}}
-{a{a,b}}
-{a..b}
-{a..b..1}
-{00..15}
-ambiguous redirect
-bad substitution
-
 &> ou &>> : redirige STDOUT et STDERR
-echo lol >/dev/stdout
-<<-word (enleve tabs)
-
-dans execution, definir les variables dans l'enfant s'il y a au moins une commande, sinon dans le papa
-si pas de commandes, d'abord assignments, puis redirections

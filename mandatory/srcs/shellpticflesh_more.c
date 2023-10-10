@@ -6,22 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 22:51:03 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/08 15:07:30 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 18:14:18 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-static bool	has_command(t_command *cmd)
-{
-	while (cmd)
-	{
-		if (cmd && cmd->content && cmd->content[0] && cmd->purpose == COMMAND)
-			return (true);
-		cmd = cmd->next;
-	}
-	return (false);
-}
 
 static bool	still_going(t_command *lexed, bool start, long rt_val)
 {
@@ -46,11 +35,7 @@ long	exec_loop(t_command *lexed, t_tool *tool, int *hd_no)
 		rt_val = expand_cmd(lexed, tool);
 		quote_remove_cmd(lexed);
 		if (rt_val < 0)
-		{
-			rt_val = 0;
-			if (has_command(lexed))
-				rt_val = execute_the_line(lexed, tool, hd_no);
-		}
+			rt_val = execute_the_line(lexed, tool, hd_no);
 		assign_vars(lexed, &(tool->env));
 		while (lexed && lexed->purpose != CMD_DELIM)
 			lexed = lexed->next;
