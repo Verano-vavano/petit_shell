@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:08:42 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 13:08:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:39:15 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	get_cmd_path(t_process_cmd *cmd, t_env *env)
 	else if (!path || !(*path) || relative)
 		err_catcher = check_rel(cmd);
 	if (err_catcher)
-		return (command_error(cmd->cmd[0], err_catcher));
+		return (err_catcher);
 	err_catcher = rel_search(cmd, path);
 	if (err_catcher != 0)
 		return (command_error(cmd->cmd[0], err_catcher));
