@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:17:30 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 12:59:45 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:55:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static long	more_bltn(t_process_cmd *cmd, t_tool *t, bool one)
 	{
 		if (one)
 			printfd(STDOUT_FILENO, "exit\n");
-		exit_hell(cmd->cmd, t->rt_val, t, one);
+		return (exit_hell(cmd->cmd, t->rt_val, t, one));
 	}
 	else if (ft_strcmp("tetris", cmd->cmd_name) == 0 && one)
 	{
