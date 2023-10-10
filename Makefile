@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/09 17:52:01 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/10 16:53:39 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,10 +49,10 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 builtins/printf/printf_modifier_utils.c  builtins/printf/printf_loop.c\
 	 builtins/beastory.c  builtins/beastory_print.c\
 	 cleaning.c  utils.c  char_utils.c  more_char_utils.c  word_utils.c\
-	 is_quoted.c\
-	 math/assign.c math/char_checking.c math/char_checking2.c math/clean_input.c\
-	 math/do_math.c math/is_math.c math/math_delete.c math/operations_ll.c\
-	 math/operator.c math/utils.c
+	 is_quoted.c \
+	 math/math.c math/is_math.c math/clean_input.c math/expr_ll.c \
+	 math/char_checking.c math/ft_atoiii.c math/to_delete_utils.c \
+	 math/calculate.c math/ft_iiitoa.c
 SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 NO_OF_FILES:=$(words $(SRCS))

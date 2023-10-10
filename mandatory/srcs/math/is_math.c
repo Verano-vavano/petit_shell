@@ -1,21 +1,33 @@
-#include "math.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_math.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/05 20:19:57 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/10/08 16:18:50 by tcharanc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool is_math(const char *cmd)
+#include "shellpticflesh.h"
+// check for '(())' construct in given string
+bool is_math(const char *str)
 {
-	while(*cmd)
+	while(*str)
 	{
-		if (*cmd == '(' && *(cmd + 1) == '(')
+		if (*str == '(' && *(str + 1) == '(')
 		{
-			cmd += 2;
-			while(*cmd)
+			str += 2;
+			while(*str)
 			{
-				if (*cmd == ')' && *(cmd + 1) == ')')
+				if (*str == ')' && *(str + 1) == ')')
 					return (true);
-				cmd++;
+				str++;
 			}
 		}
 		else
-			cmd++;
+			str++;
 	}
 	return (false);
 }

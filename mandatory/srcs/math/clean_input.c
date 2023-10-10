@@ -1,73 +1,34 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   clean_input.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 13:24:02 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/20 15:00:28 by tcharanc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "libft.h"
 #include "math.h"
-#include <unistd.h>
+#include "shellpticflesh.h"
+#include <stddef.h>
+
 
 static bool is_ignore_char(char c)
 {
-	return (c == '$' || c == '"' || is_newline(c));
+	return (c == '\n' || c == '"' || c == '$');
 }
 
-static size_t len_no_junk(const char *cmd)
+char *clean_input(const char *input)
 {
 	size_t len;
+	size_t i;
+	size_t j;
+	char *clean;
 
-	len = 0;
-	while(is_spc(*cmd))
-		cmd++;
-	while(*cmd)
-	{
-		if (*cmd == '$' && *(cmd + 1) == '(' && *(cmd + 2) == '(')
-		{
-			cmd += 3;
-			while(is_spc(*cmd))
-				cmd++;
-		}
-		else if (*cmd == ')' && *(cmd + 1) == ')')
-			cmd += 2;
-		else if (!is_ignore_char(*cmd++))
-			len++;
-	}
-	return (len);
-}
-
-//  remove from input string
-//  - leading whitespaces
-//  - $((
-//  - ))
-//  - $
-//  - "
-char *clean_input(const char *cmd)
-{
-	char *without_delimiters;
-	int	i;
-
-	without_delimiters = malloc(sizeof(char) * (len_no_junk(cmd) + 1));
-	if (!without_delimiters)
+	len = ft_strlen(input) - 5;
+	i = 2;
+	j = 0;
+	while(input[++i])
+		if (is_ignore_char(input[i]))
+			len--;
+	clean = malloc(sizeof(char) * (len - 1));
+	if (!clean)
 		return (NULL);
-	i = 0;
-	while(*cmd)
-	{
-		if (*cmd == '$' && *(cmd + 1) == '(' && *(cmd + 2) == '(')
-		{
-			cmd += 3;
-			while(is_spc(*cmd))
-				cmd++;
-		}
-		else if (*cmd == ')' && *(cmd + 1) == ')')
-			cmd += 2;
-		else if (!is_ignore_char(*cmd))
-			without_delimiters[i++] = *cmd++;
-	}
-	without_delimiters[i] = '\0';
-	return (without_delimiters);
+	i = 2;
+	while (input[++i] && j < len)
+		if (!is_ignore_char(input[i]))
+			clean[j++] = input[i];
+	clean[j] = '\0';
+	return (clean);
 }
