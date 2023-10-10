@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 17:49:37 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:39:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,10 +356,23 @@ void		free_tool(t_tool *tool);
 
 // utils
 t_command	*init_command_arg(t_command *start);
-bool		is_dir(char *path);
 int			usearch(char *s, char c);
 bool		is_file_valid(char *file, int mode);
 bool		is_valid_var_char(char c);
+
+// file_utils
+bool		is_dir(char *path);
+bool		is_lnk(char *path);
+bool		is_blk(char *path);
+bool		is_reg(char *path);
+bool		is_empty_file(char *path);
+
+// file_utils2
+bool		is_chr(char *path);
+bool		is_fifo(char *path);
+bool		is_sock(char *path);
+bool		is_gid(char *path);
+bool		is_uid(char *path);
 
 // char_utils
 int			is_strict_meta(char c);
@@ -415,6 +428,7 @@ int			unhellias(char **cmd, t_tool *t);
 int			beastory(char **cmd, t_tool *t);
 int			source_of_styx(char **cmd, t_tool *t);
 int			print_formated_hell(char **cmd);
+int			test_satanism(char **cmd);
 int			tetris(char **args);
 
 /*----------------ENV---------------------*/

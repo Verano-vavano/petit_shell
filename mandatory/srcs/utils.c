@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:17:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 00:09:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/10 21:27:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ t_command	*init_command_arg(t_command *start)
 		return (0);
 	}
 	return (new_arg);
-}
-
-bool	is_dir(char *path)
-{
-	struct stat	file_stat;
-
-	if (lstat(path, &file_stat) == 0)
-		return (S_ISDIR(file_stat.st_mode));
-	return (false);
 }
 
 int	usearch(char *s, char c)
