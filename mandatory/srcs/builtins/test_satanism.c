@@ -6,11 +6,13 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 20:26:39 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 23:50:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
+
+int	search_and_perform_test(char **cmd, char *cmd_name, int narg);
 
 static int	double_expr_arit_test(char **cmd, char *cmd_name)
 {
@@ -111,12 +113,94 @@ static int	single_expr_test(char **cmd, char *cmd_name)
 	return (2);
 }
 
-static int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
+static int	test_three(char **cmd)
+{
+	char	*op;
+
+	if (cmd[0] && cmd[1] && cmd[2])
+	{
+		op = cmd[1];
+		if (!ft_strcmp(op, "=") || !ft_strcmp(op, "==")
+			|| !ft_strcmp(op, "!=") || !ft_strcmp(op, ">")
+			|| !ft_strcmp(op, "<") || !ft_strcmp(op, "-ef")
+			|| !ft_strcmp(op, "-nt") || !ft_strcmp(op, "-ot")
+			|| !ft_strcmp(op, "-eq") || !ft_strcmp(op, "-ne")
+			|| !ft_strcmp(op, "-lt") || !ft_strcmp(op, "-le")
+			|| !ft_strcmp(op, "-gt") || !ft_strcmp(op, "-ge"))
+			return (3);
+	}
+	return (0);
+}
+
+static int	test_two(char **cmd)
+{
+	char	sc;
+
+	if (cmd[0] && cmd[1] && cmd[1][0])
+	{
+		sc = cmd[0][1];
+		if (ft_strlen(cmd[0]) == 2 && cmd[0][0] == '-'
+			&& (sc == 'a' || sc == 'b' || sc == 'c' || sc == 'd' || sc == 'e'
+				|| sc == 'f' || sc == 'g' || sc == 'h' || sc == 'n' || sc == 'p'
+				|| sc == 'r' || sc == 'L' || sc == 'S' || sc == 's' || sc == 't'
+				|| sc == 'u' || sc == 'w' || sc == 'x' || sc == 'z'))
+			return (2);
+	}
+	return (0);
+}
+
+static char	**go_to_end(char **cmd, char *cmd_name)
+{
+	while (cmd && *cmd && (cmd_name[0] != '[' || cmd[1] != 0))
+		cmd++;
+	return (cmd);
+}
+
+static int	try_more(char **cmd, char *cmd_name)
+{
+	bool	neg;
+	int		narg;
+	int		ret;
+
+	neg = false;
+	while (ft_strcmp(*cmd, "!") == 0)
+	{
+		neg ^= 1;
+		cmd++;
+	}
+	narg = 0;
+	narg = test_three(cmd);
+	if (!narg)
+		narg = test_two(cmd);
+	if (!narg)
+		narg = 1;
+	ret = search_and_perform_test(cmd, cmd_name, narg);
+	cmd += narg;
+	if (!cmd || !(*cmd))
+		return (ret);
+	else if (ft_strcmp(*cmd, "-a") || ft_strcmp(*cmd, "-o"))
+	{
+		if (cmd[0][1] == 'a' && ret == 0)
+			return (try_more(cmd + 1, cmd_name));
+		else if (cmd[0][1] == 'o' && ret == 1)
+			return (try_more(cmd + 1, cmd_name));
+		cmd = go_to_end(cmd, cmd_name);
+		if (!cmd || !(*cmd) || (cmd_name[0] == '[' && !cmd[1]))
+			return (ret);
+	}
+	else if (cmd[0][0] == '-')
+		printfd(ERR, "%s: syntax error: `%s' unexpected\n", cmd_name, cmd[0]);
+	else
+		printfd(ERR, "%s: too many arguments\n", cmd_name);
+	return (2);
+}
+
+int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 {
 	bool	neg;
 
 	neg = false;
-	while (ft_strcmp(*cmd, "!") == 0)
+	while (*cmd && ft_strcmp(*cmd, "!") == 0)
 	{
 		neg ^= 1;
 		narg--;
@@ -130,6 +214,8 @@ static int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 		return ((single_expr_test(cmd, cmd_name)) ^ neg);
 	else if (narg == 3)
 		return ((double_expr_test(cmd, cmd_name)) ^ neg);
+	else
+		return (try_more(cmd, cmd_name) ^ neg);
 	return (0 ^ neg);
 }
 
