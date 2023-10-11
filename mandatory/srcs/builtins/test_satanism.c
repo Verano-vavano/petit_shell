@@ -6,24 +6,20 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 23:20:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 19:29:24 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static bool	is_continuation(char *cmd)
-{
-	return (!ft_strcmp(cmd, "-a") || !ft_strcmp(cmd, "-o"));
-}
-
+/*
 static int	double_expr_test(char **cmd, char *cmd_name)
 {
 	if (!ft_strcmp(cmd[1], "="))
 		return (ft_strcmp(cmd[0], cmd[2]) != 0);
 	printfd(ERR, "%s: %s: unary operator expected\n", cmd_name, *cmd);
 	return (2);
-}
+}*/
 
 static int	single_expr_test(char **cmd, char *cmd_name)
 {
@@ -65,66 +61,46 @@ static int	single_expr_test(char **cmd, char *cmd_name)
 	return (2);
 }
 
-static int	get_operator_type(char **cmd, int start, bool brack)
+static int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 {
-	int	i;
+	bool	neg;
 
-	i = 0;
-	while (cmd && cmd[i + start] && !is_continuation(cmd[i + start]))
+	neg = false;
+	if (ft_strcmp(*cmd, "!") == 0)
 	{
-		if (!cmd[i + start + 1] && brack && ft_strcmp("]", cmd[i + start]))
-		{
-			printfd(ERR, "%s: missing `]'\n", cmd[0]);
-			return (-2);
-		}
-		i++;
+		neg = true;
+		narg--;
+		cmd++;
 	}
-	i -= (1 + brack);
-	if (i + brack < 0)
-		return (-1);
-	else if (i + brack == 0)
-		return (0);
-	else if (i + brack > 2)
-	{
-		printfd(ERR, "%s: too many arguments\n", cmd[0]);
-		return (-2);
-	}
-	return (i);
+	if (narg == 0)
+		return (1 ^ neg);
+	else if (narg == 1)
+		return ((**cmd == 0) ^ neg);
+	else if (narg == 2)
+		return ((single_expr_test(cmd, cmd_name)) ^ neg);
+	return (0 ^ neg);
 }
 
-int	test_satanism(char **cmd, bool last_ret)
+int	test_satanism(char **cmd)
 {
-	int		ret;
-	bool	negate;
-	bool	brack;
-	int		operator_type;
-	int		start;
+	int	ret;
+	int	narg;
 
-	if ((!ft_strcmp(*cmd, "-a") && last_ret == 1)
-		|| (!ft_strcmp(*cmd, "-o") && last_ret == 0))
-		return (last_ret);
-	ret = 0;
-	brack = (cmd[0][0] == '[');
-	start = 1;
-	negate = false;
-	if (cmd[start] && ft_strcmp(cmd[start], "!") == 0)
+	signal(SIGINT, SIG_DFL);
+	narg = 1;
+	while (cmd[narg])
+		narg++;
+	narg--;
+	if (cmd[0][0] == '[')
 	{
-		start++;
-		negate = true;
+		if (ft_strcmp(cmd[narg], "]"))
+		{
+			printfd(ERR, "[: missing `]'\n");
+			return (2);
+		}
+		cmd[narg] = 0;
+		narg--;
 	}
-	operator_type = get_operator_type(cmd, start, brack);
-	if (operator_type < 0)
-		return (operator_type * (-1));
-	if (operator_type == 1)
-		ret = single_expr_test(cmd + start, cmd[0]);
-	else if (operator_type == 2)
-		ret = double_expr_test(cmd + start, cmd[0]);
-	if (ret == 2)
-		return (ret);
-	if (negate)
-		ret = !ret;
-	cmd += start + operator_type + brack + 1;
-	if (cmd && *cmd)
-		return (test_satanism(cmd, ret));
+	ret = search_and_perform_test(cmd + 1, cmd[0], narg);
 	return (ret);
 }

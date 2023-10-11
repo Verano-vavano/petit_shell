@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 12:33:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 13:32:23 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	better_strlen(char *s)
 		else if (j)
 			return (i);
 		quoted = is_quoted(s, i, quoted);
-		in_par += (1 * (s[i] == '(' && !quoted))
-			+ (-1 * (s[i] == ')' && !quoted));
+		in_par += (1 * (s[i] == '(' && !quoted && (i == 0 || s[i - 1] != '\\')))
+			+ (-1 * (s[i] == ')' && !quoted && (i == 0 || s[i - 1] != '\\')));
 		if (is_separator(s[i]) && !quoted && !in_par)
 			return (i);
 		i++;
