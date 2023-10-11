@@ -69,8 +69,6 @@ TEST -> compris entre -a, -o, (, ), [, ], test
 -o -a -> regarder dernière return value : si faux, avancer jusqu'à closing parenthesis ou fin
 
 ERREURS:
-Manque de unary operator
-Manque de binary operator
 Too many arguments
 
 compte total total (jusque fin ou jusque parenthese)

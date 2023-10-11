@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 12:42:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 20:09:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,6 +373,11 @@ bool		is_fifo(char *path);
 bool		is_sock(char *path);
 bool		is_gid(char *path);
 bool		is_uid(char *path);
+
+// file_two_utils
+bool		files_ef(char *file1, char *file2);
+bool		files_nt(char *file1, char *file2);
+bool		files_ot(char *file1, char *file2);
 
 // char_utils
 int			is_strict_meta(char c);

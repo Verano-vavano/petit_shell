@@ -15,5 +15,4 @@
 
 # Le reste
 
-\> \<
-\( \)
+-v pour test
