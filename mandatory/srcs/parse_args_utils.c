@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 17:51:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:33:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	redir_parser(char *s, char quoted, int in_par)
 	i = 0;
 	while (s[i] && is_num(s[i]))
 		i++;
-	if (s[i] != '<' && s[i] != '>')
+	if ((s[i] != '<' && s[i] != '>') || (i == 0 || s[i - 1] != '\\'))
 		return (0);
 	while (s[i] && (s[i] == '<' || s[i] == '>'))
 		i++;
@@ -47,7 +47,7 @@ int	better_strlen(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!quoted && is_strict_meta(s[i]) && !in_par)
+		if (!quoted && is_strict_meta(s[i]) && !in_par && (i == 0 || s[i - 1] != '\\'))
 			return (i);
 		j = redir_parser(s + i, quoted, in_par);
 		if (j && !i)

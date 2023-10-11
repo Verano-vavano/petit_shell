@@ -1,0 +1,14 @@
+// Ce qu'on fera quand on fera 42sh
+
+If, switch, while, for
+Exécution de fichier
+Goto
+Advanced pattern matching (filename expansion)
+Portage Windows
+Historique auto-complétif (comme zsh) 
+Refactoring quasi total (plus de norme je crois, et ça nous permettra de remettre les trucs au clair)
+Sauvegarder score tetris
+Nouveau jeu cool ! (soit ncurses, soit dans fenêtre graphique)
+Cyperpunk avec ray-tracing évidemment
+Plus de builtins !
+Et évidemment recoder un OS entier basé sur notre Shell (après Arch Linux, Arch Enemy !)

@@ -1,0 +1,69 @@
+0 ARG : 
+[ ] -> 1
+
+1 ARG : 
+[ arg ] -> arg != 0
+
+2 ARG :
+[ ! arg ] -> arg == 0
+[ unary_op arg ] -> vrai si unary vrai
+
+3 ARG :
+[ ! unary_op arg ]
+[ arg binary_op arg ]
+[ ( arg ) ]
+sinon 1
+
+4 ARG :
+[ ! arg binary_op arg ]
+[ ( unary_op arg ) ]
+
+
+
+
+
+
+[ \( -d mandatory -a -d bonus \) -o -f minishell ]
+IN_PAR = 0;
+( -> IN_PAR = 1
+-d mandatory -> TRUE
+-a TRUE donc CONTINUE
+-d bonus -> FALSE
+) -> IN_PAR = 0
+-o FALSE donc CONTINUE
+-f minishell -> TRUE
+return TRUE
+
+[ \( -d bonus -a -d mandatory \) -o -f minishell ]
+IN_PAR = 0;
+( -> IN_PAR = 1
+-d bonus -> FALSE
+-a FALSE donc BREAK : avance jusque fin
+) -> IN_PAR = 0
+-o FALSE donc CONTINUE
+-f minishell -> TRUE
+return TRUE
+
+[ \( -d bonus -o \( -d mandatory -a -f minishell \) \) -a \( -f minishell -a -t 1 \) ]
+IN_PAR = 0;
+( -> IN_PAR = 1
+-d bonus -> FALSE
+-o FALSE donc CONTINUE
+( -> IN_PAR = 2
+-d mandatory -> TRUE
+-a TRUE donc CONTINUE
+-f minishell -> TRUE
+) -> IN_PAR = 1
+) -> IN_PAR = 0
+-a TRUE donc CONTINUE
+( -> IN_PAR = 1
+-f minishell -> TRUE
+-a TRUE donc CONTINUE
+-t 1 -> TRUE
+) -> IN_PAR = 0
+return TRUE
+
+( IN_PAR++
+) IN_PAR--
+TEST -> compris entre -a, -o, (, ), [, ], test
+-o -a -> regarder dernière return value : si faux, avancer jusqu'à closing parenthesis ou fin

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:56:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 17:57:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:34:06 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	redirection_check(t_command *cmd, char *s)
 		cmd->purpose = REDIR_ID;
 		return (IN_OUT_FILE);
 	}
-	if (s[i] == '<')
+	if (s[i] == '<' && s[i - 1] != '\\')
 		return (check_redir_type('<', IN_FILE, cmd, s + i));
-	else if (s[i] == '>')
+	else if (s[i] == '>' && s[i - 1] != '\\')
 		return (check_redir_type('>', OUT_FILE, cmd, s + i));
 	return (UNDEFINED);
 }
