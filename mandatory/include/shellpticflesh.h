@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 14:17:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 16:04:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,10 @@ long		execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
 
 // execution_mainloop
 long		ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd);
+
+// execution loop utils
+void		init_cp(t_process_cmd *cmd_processing, t_tool *t, t_command *cmd);
+bool		has_command(t_command *cmd);
 
 // execution_doer
 void		check_hist(t_command *cmd, t_tool *tool, int n_cmd);

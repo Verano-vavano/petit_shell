@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 13:05:16 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 13:32:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 16:08:56 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int	handle_parenthesis(char *c, char c2, int dos)
 	return (dos);
 }
 
+static bool	bked(int i, char *s)
+{
+	return (i != 0 && s[i - 1] == '\\');
+}
+
 int	better_strlen(char *s)
 {
 	int		i;
@@ -47,7 +52,7 @@ int	better_strlen(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!quoted && is_strict_meta(s[i]) && !in_par && (i == 0 || s[i - 1] != '\\'))
+		if (!quoted && is_strict_meta(s[i]) && !in_par && !bked(i, s))
 			return (i);
 		j = redir_parser(s + i, quoted, in_par);
 		if (j && !i)
@@ -55,8 +60,8 @@ int	better_strlen(char *s)
 		else if (j)
 			return (i);
 		quoted = is_quoted(s, i, quoted);
-		in_par += (1 * (s[i] == '(' && !quoted && (i == 0 || s[i - 1] != '\\')))
-			+ (-1 * (s[i] == ')' && !quoted && (i == 0 || s[i - 1] != '\\')));
+		in_par += (1 * (s[i] == '(' && !quoted && !bked(i, s)))
+			+ (-1 * (s[i] == ')' && !quoted && !bked(i, s)));
 		if (is_separator(s[i]) && !quoted && !in_par)
 			return (i);
 		i++;

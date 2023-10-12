@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:03:32 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 18:18:46 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 16:06:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static long	aexec(t_process_cmd *c_p, t_tool *t, t_ret_cmd *ret, int *n_cmd)
 	return (-1);
 }
 
-static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool not_empty)
+static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool n_empty)
 {
-	if (!not_empty)
+	if (!n_empty)
 		return (0);
 	if (err_status < 0)
 		return (err_status * (-1));
@@ -70,24 +70,11 @@ static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool not_empt
 	return (0);
 }
 
-static void	init_cp(t_process_cmd *cmd_processing, t_tool *tool, t_command *cmd)
+static long	quit_before_aexec(t_process_cmd *cmd_processing, long err_status)
 {
-	cmd_processing->is_builtin = false;
-	cmd_processing->is_parenthesis = (cmd && cmd->content
-			&& cmd->content[0] == '(' && ft_strchr(cmd->content, ')'));
-	cmd_processing->cmd_name = 0;
-	cmd_processing->sub_cmd = !(tool->hist);
-}
-
-static bool	has_command(t_command *cmd)
-{
-	while (cmd)
-	{
-		if (cmd && cmd->content && cmd->content[0] && cmd->purpose == COMMAND)
-			return (true);
-		cmd = cmd->next;
-	}
-	return (false);
+	free(cmd_processing->cmd_name);
+	free(cmd_processing->cmd);
+	return (err_status);
 }
 
 // RET > 0 : break
@@ -113,11 +100,7 @@ long	ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 	if (!cmd_processing.is_parenthesis)
 		err_status = get_cmd_path(&cmd_processing, tool->env);
 	if (err_status > 0 && n_cmd[0] == 1)
-	{
-		free(cmd_processing.cmd_name);
-		free(cmd_processing.cmd);
-		return (err_status);
-	}
+		return (quit_before_aexec(&cmd_processing, err_status));
 	err_status = aexec(&cmd_processing, tool, ret, n_cmd);
 	if (err_status != -1)
 		return (err_status);

@@ -176,7 +176,7 @@ The following flags can be added before the letter :
 - `0` adds zeroes instead of spaces when spacing is needed (see spacing after).
 - `-` puts the spacing after the argument. It overrides the '0' flag.
 - ` ` adds a space in front of positive numbers (`%d` and `%i`).
-- `+` adds a plus character in front of positive numbers. Overrides the ' ' flag.<br>
+- `+` adds a plus character in front of positive numbers. Overrides the ' ' flag.<br><a/>
 After the flags can be added a 'field length'. This length represents the minimum length of the field, and will add spaces before the argument to complete what is needed.<br>
 Accuracy can also be added at the end, right before the format indicator. It must be separated with a dot as such `%[flags][spacing][.accuracy]format`. Accuracy will modify the argument according to its type and the accuracy size. A number will be added zeroes to get the right size, but a string will be cropped if longer.<br>
 Also, the string is formated the same way as `echo -e`.
@@ -239,7 +239,7 @@ Unary tests consists of an operator followed by an argument. Unary tests are as 
 - `-u` : user_id is set
 - `-w` : file is writable
 - `-x` : file is executable
-- `-z` : arg is an empty string<br>
+- `-z` : arg is an empty string<br><a/>
 Binary tests consists of an argument, followed by an operator and another argument. The binary operators are :
 - `=` and `==` : the strings are the same
 - `!=` : the strings are different

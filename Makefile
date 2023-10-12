@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/12 14:16:43 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/12 16:03:39 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 filename_expansion.c  fe_subverif.c  file_check.c  fe_utils.c  lf_utils.c\
 	 word_split.c  word_split_utils.c  word_split_merger.c\
 	 quote_removal.c\
-	 execution.c  execution_mainloop.c  execution_doer.c  execution_utils.c\
+	 execution.c  execution_mainloop.c  execution_loop_utils.c  execution_doer.c  execution_utils.c\
 	 get_cmd.c  get_path.c  check_path.c\
 	 files.c  file_opening.c  redirections.c\
 	 builtin_execution.c\
