@@ -80,6 +80,14 @@ si 4 : binaire nég + gérer 'et'
 
 si 5 ou plus :
 DECOUPAGE : ! -> ( ) -> -a et -o
+Regarder si 3 possible (cmd[1] est un test binaire)
+Si oui, alors on le fait
+Si non, regarder si 2 possible (cmd[0] est un test unitaire)
+Si oui, alors on le fait
+Si non, alors 1
+
+Si après test, pas de ] ou de NULL ou de -o ou de -a TOO MANY ARGUMENTS
+si commence par -, alors unexepceted
 
  0  -> ARG1 != '!' et de '('
 lol -a mdr \( -f minishell \)

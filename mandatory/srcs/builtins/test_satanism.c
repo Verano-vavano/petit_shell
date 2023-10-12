@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 23:50:32 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 11:23:09 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	double_expr_arit_test(char **cmd, char *cmd_name)
 	}
 	else
 		return (2 + 0 * printfd(ERR,
-				"%s: %s: unary operator expected\n", cmd_name, *cmd));
+				"%s: %s: binary operator expected\n", cmd_name, *cmd));
 	if (!ft_strcmp(cmd[1], "-eq"))
 		return (arg1 != arg2);
 	else if (!ft_strcmp(cmd[1], "-ne"))
@@ -163,7 +163,7 @@ static int	try_more(char **cmd, char *cmd_name)
 	int		ret;
 
 	neg = false;
-	while (ft_strcmp(*cmd, "!") == 0)
+	while (*cmd && ft_strcmp(*cmd, "!") == 0)
 	{
 		neg ^= 1;
 		cmd++;
@@ -209,7 +209,7 @@ int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 	if (narg == 0)
 		return (1 ^ neg);
 	else if (narg == 1)
-		return ((**cmd == 0) ^ neg);
+		return ((*cmd == 0 || **cmd == 0) ^ neg);
 	else if (narg == 2)
 		return ((single_expr_test(cmd, cmd_name)) ^ neg);
 	else if (narg == 3)
@@ -239,7 +239,7 @@ int	test_satanism(char **cmd)
 		cmd[narg] = 0;
 		narg--;
 	}
-	ret = search_and_perform_test(cmd + 1, cmd[0], narg);
+	ret = try_more(cmd + 1, cmd[0]);
 	if (ret == 2 || ret == 3)
 		return (2);
 	return (ret);
