@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 23:11:51 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 15:22:18 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 17:43:13 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*special_parameter(char *arg, t_tool *tool)
 	temp = NULL;
 	if (arg[0] == '0')
 		return (param_good_ret(ft_strdup(SHELL_NAME), take_len));
-	else if (arg[0] == '$' && ft_strchr(OS, "darwin" != 0))
+	else if (arg[0] == '$' && ft_strcmp(OS, "darwin") != 0)
 		temp = ft_ltoa(ft_getpid());
 	else if (arg[0] == '?')
 		temp = ft_itoa(tool->rt_val);

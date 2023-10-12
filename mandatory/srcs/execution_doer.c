@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 16:43:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 17:45:31 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ long	wait_father(t_ret_cmd *ret, int n_cmd, long err)
 	int	exit_st;
 	int	status;
 
-	close(ret->fd);
+	if (ret->fd != -1)
+		close(ret->fd);
 	exit_st = -1;
 	status = 0;
 	while (--n_cmd != -1)
