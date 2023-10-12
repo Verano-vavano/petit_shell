@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 11:23:09 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 11:34:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,16 +177,16 @@ static int	try_more(char **cmd, char *cmd_name)
 	ret = search_and_perform_test(cmd, cmd_name, narg);
 	cmd += narg;
 	if (!cmd || !(*cmd))
-		return (ret);
+		return (ret ^ neg);
 	else if (ft_strcmp(*cmd, "-a") || ft_strcmp(*cmd, "-o"))
 	{
 		if (cmd[0][1] == 'a' && ret == 0)
-			return (try_more(cmd + 1, cmd_name));
+			return (try_more(cmd + 1, cmd_name) ^ neg);
 		else if (cmd[0][1] == 'o' && ret == 1)
-			return (try_more(cmd + 1, cmd_name));
+			return (try_more(cmd + 1, cmd_name) ^ neg);
 		cmd = go_to_end(cmd, cmd_name);
 		if (!cmd || !(*cmd) || (cmd_name[0] == '[' && !cmd[1]))
-			return (ret);
+			return (ret ^ neg);
 	}
 	else if (cmd[0][0] == '-')
 		printfd(ERR, "%s: syntax error: `%s' unexpected\n", cmd_name, cmd[0]);
