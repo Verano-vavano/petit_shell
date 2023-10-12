@@ -176,7 +176,7 @@ The following flags can be added before the letter :
 - `0` adds zeroes instead of spaces when spacing is needed (see spacing after).
 - `-` puts the spacing after the argument. It overrides the '0' flag.
 - ` ` adds a space in front of positive numbers (`%d` and `%i`).
-- `+` adds a plus character in front of positive numbers. Overrides the ' ' flag.
+- `+` adds a plus character in front of positive numbers. Overrides the ' ' flag.<br>
 After the flags can be added a 'field length'. This length represents the minimum length of the field, and will add spaces before the argument to complete what is needed.<br>
 Accuracy can also be added at the end, right before the format indicator. It must be separated with a dot as such `%[flags][spacing][.accuracy]format`. Accuracy will modify the argument according to its type and the accuracy size. A number will be added zeroes to get the right size, but a string will be cropped if longer.<br>
 Also, the string is formated the same way as `echo -e`.
@@ -216,6 +216,44 @@ For example, the alias `alias ls='ls --color=auto'` will always replace `ls` wit
 ### . or source
 `.` and `source` are the same builtins.<br>
 They open a file and execute every line one by one in the same shell process.
+### [ or test
+`test` and `[` refer to the same builtin.<br>
+They can be used to test conditions. `[` must be ended with `]`.<br>
+Conditions can be enclosed in parenthesis, or separated with `-a` for 'and' and `-o` for 'or'.<br>
+This builtin doesn't output anything, but sets the return value to the return value of the conditions.<br>
+An empty string results in false, whereas a non-empty string results in true.<br>
+Unary tests consists of an operator followed by an argument. Unary tests are as follow :
+- `-a` and `-e` : file exists
+- `-b` : file is block device
+- `-c` : file is character special
+- `-d` : arg is a directory
+- `-f` : file is regular file
+- `-g` : group-id is set
+- `-h` and `-L` : arg is a symbolic link
+- `-n` : arg is not an empty string
+- `-p` : arg is a named pipe
+- `-r` : file is readable
+- `-S` : arg is a socket
+- `-s` : file is not empty
+- `-t` : arg is a tty
+- `-u` : user_id is set
+- `-w` : file is writable
+- `-x` : file is executable
+- `-z` : arg is an empty string<br>
+Binary tests consists of an argument, followed by an operator and another argument. The binary operators are :
+- `=` and `==` : the strings are the same
+- `!=` : the strings are different
+- `>` : arg1 is greater than arg2 following ASCII rule set
+- `<` : arg1 is smaller than arg2 following ASCII rule set
+- `-ef` : arg1 and arg2 have the same device and inode numbers
+- `-nt` : arg1 has a more recent modification date
+- `-ot` : arg1 has an older modification date
+- `-eq` : the number arg1 is equal to the number arg2
+- `-ne` : the number arg1 is not equal to the number arg2
+- `-lt` : the number arg1 is lesser than the number arg2
+- `-le` : the number arg1 is lesser than or equal to the number arg2
+- `-gt` : the number arg1 is greater than the number arg2
+- `-ge` : the number arg1 is greater than or equal to the number arg2
 ### :
 `:` is a very useful builtin.<br>
 Its purpose is almighty and must be used with care, as a malpractice might quickly happen.<br>

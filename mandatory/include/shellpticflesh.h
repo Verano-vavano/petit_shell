@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/11 20:09:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 14:17:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,8 +433,15 @@ int			unhellias(char **cmd, t_tool *t);
 int			beastory(char **cmd, t_tool *t);
 int			source_of_styx(char **cmd, t_tool *t);
 int			print_formated_hell(char **cmd);
-int			test_satanism(char **cmd);
 int			tetris(char **args);
+
+int			test_satanism(char **cmd);
+int			double_expr_test(char **cmd, char *cmd_name);
+int			single_expr_test(char **cmd, char *cmd_name);
+int			test_three(char **cmd);
+int			test_two(char **cmd);
+char		**go_to_end(char **cmd, char *cmd_name, int *in_par);
+int			search_and_perform_test(char **cmd, char *cmd_name, int narg);
 
 /*----------------ENV---------------------*/
 t_env		*env_new(char *env_var, bool is_exported);

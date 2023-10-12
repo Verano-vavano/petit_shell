@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/11 19:55:40 by hdupire          ###   ########.fr        #
+#    Updated: 2023/10/12 14:16:43 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 builtins/printf/format_arg.c  builtins/printf/printf_init_helper.c\
 	 builtins/printf/printf_modifier_utils.c  builtins/printf/printf_loop.c\
 	 builtins/beastory.c  builtins/beastory_print.c\
-	 builtins/test_satanism.c\
+	 builtins/test_satanism.c  builtins/test_satanism_tests.c  builtins/test_satanism_utils.c\
 	 cleaning.c  utils.c  file_utils.c  file_utils2.c file_two_utils.c  char_utils.c  more_char_utils.c  word_utils.c\
 	 is_quoted.c \
 	 math/math.c math/is_math.c math/clean_input.c math/expr_ll.c \
