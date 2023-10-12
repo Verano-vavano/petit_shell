@@ -6,13 +6,11 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 11:34:03 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/12 13:46:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
-
-int	search_and_perform_test(char **cmd, char *cmd_name, int narg);
 
 static int	double_expr_arit_test(char **cmd, char *cmd_name)
 {
@@ -149,53 +147,30 @@ static int	test_two(char **cmd)
 	return (0);
 }
 
-static char	**go_to_end(char **cmd, char *cmd_name)
+static char	**go_to_end(char **cmd, char *cmd_name, int *in_par)
 {
 	while (cmd && *cmd && (cmd_name[0] != '[' || cmd[1] != 0))
+	{
+		if (*in_par && ft_strcmp(*cmd, ")") == 0)
+		{
+			(*in_par)--;
+			return (cmd + 1);
+		}
 		cmd++;
+	}
+	if (*in_par)
+	{
+		printfd(ERR, "%s: `)' expected", cmd_name);
+		if (cmd_name[0] == '[')
+			printfd(ERR, ", found ]\n");
+		else
+			printfd(ERR, "\n");
+		return (0);
+	}
 	return (cmd);
 }
 
-static int	try_more(char **cmd, char *cmd_name)
-{
-	bool	neg;
-	int		narg;
-	int		ret;
-
-	neg = false;
-	while (*cmd && ft_strcmp(*cmd, "!") == 0)
-	{
-		neg ^= 1;
-		cmd++;
-	}
-	narg = 0;
-	narg = test_three(cmd);
-	if (!narg)
-		narg = test_two(cmd);
-	if (!narg)
-		narg = 1;
-	ret = search_and_perform_test(cmd, cmd_name, narg);
-	cmd += narg;
-	if (!cmd || !(*cmd))
-		return (ret ^ neg);
-	else if (ft_strcmp(*cmd, "-a") || ft_strcmp(*cmd, "-o"))
-	{
-		if (cmd[0][1] == 'a' && ret == 0)
-			return (try_more(cmd + 1, cmd_name) ^ neg);
-		else if (cmd[0][1] == 'o' && ret == 1)
-			return (try_more(cmd + 1, cmd_name) ^ neg);
-		cmd = go_to_end(cmd, cmd_name);
-		if (!cmd || !(*cmd) || (cmd_name[0] == '[' && !cmd[1]))
-			return (ret ^ neg);
-	}
-	else if (cmd[0][0] == '-')
-		printfd(ERR, "%s: syntax error: `%s' unexpected\n", cmd_name, cmd[0]);
-	else
-		printfd(ERR, "%s: too many arguments\n", cmd_name);
-	return (2);
-}
-
-int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
+static int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 {
 	bool	neg;
 
@@ -214,9 +189,61 @@ int	search_and_perform_test(char **cmd, char *cmd_name, int narg)
 		return ((single_expr_test(cmd, cmd_name)) ^ neg);
 	else if (narg == 3)
 		return ((double_expr_test(cmd, cmd_name)) ^ neg);
-	else
-		return (try_more(cmd, cmd_name) ^ neg);
 	return (0 ^ neg);
+}
+
+static int	try_more(char **cmd, char *cmd_name, int in_par)
+{
+	bool	neg;
+	int		narg;
+	int		ret;
+
+	neg = false;
+	while (*cmd && ft_strcmp(*cmd, "!") == 0)
+	{
+		neg ^= 1;
+		cmd++;
+	}
+	if (*cmd && ft_strcmp(*cmd, "(") == 0)
+		return (try_more(cmd + 1, cmd_name, in_par + 1) ^ neg);
+	narg = 0;
+	narg = test_three(cmd);
+	if (!narg)
+		narg = test_two(cmd);
+	if (!narg)
+		narg = 1;
+	ret = search_and_perform_test(cmd, cmd_name, narg);
+	cmd += narg;
+	while (cmd && *cmd && in_par && !ft_strcmp(*cmd, ")"))
+	{
+		in_par--;
+		cmd++;
+	}
+	if (!cmd || !(*cmd))
+		return (ret ^ neg);
+	if (ft_strcmp(*cmd, "-a") || ft_strcmp(*cmd, "-o"))
+	{
+		if (cmd[0][1] == 'a' && ret == 0)
+			return (try_more(cmd + 1, cmd_name, in_par) ^ neg);
+		else if (cmd[0][1] == 'o' && ret == 1)
+			return (try_more(cmd + 1, cmd_name, in_par) ^ neg);
+		cmd = go_to_end(cmd, cmd_name, &in_par);
+		if (!cmd)
+			return (2);
+		if (!(*cmd) || (cmd_name[0] == '[' && !cmd[1]))
+			return (ret ^ neg);
+		if (cmd[0][1] == 'a' && ret == 0)
+			return (try_more(cmd + 1, cmd_name, in_par) ^ neg);
+		else if (cmd[0][1] == 'o' && ret == 1)
+			return (try_more(cmd + 1, cmd_name, in_par) ^ neg);
+		else if (cmd[0][1] == 'a' || cmd[0][1] == 'o')
+			return (ret ^ neg);
+	}
+	else if (cmd[0][0] == '-')
+		printfd(ERR, "%s: syntax error: `%s' unexpected\n", cmd_name, cmd[0]);
+	else
+		printfd(ERR, "%s: too many arguments\n", cmd_name);
+	return (2);
 }
 
 int	test_satanism(char **cmd)
@@ -239,7 +266,7 @@ int	test_satanism(char **cmd)
 		cmd[narg] = 0;
 		narg--;
 	}
-	ret = try_more(cmd + 1, cmd[0]);
+	ret = try_more(cmd + 1, cmd[0], 0);
 	if (ret == 2 || ret == 3)
 		return (2);
 	return (ret);
