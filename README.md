@@ -282,6 +282,12 @@ And finally, history file size can be modified with the `HISTFILESIZE` variable.
 ## PS0
 PS0 is a variable of the Shell that is printed on the stdout every time a command is executed.<br>
 PS0 goes through all the PS expansions. It is useful to modify output color, print informations on runtime or do whatever you want.
+## IF statements
+Right now, if statements aren't available in Shellpticflesh, but there is a way around it.<br>
+A basic if statement can be replaced like this `[ condition ] && (commands)`.<br>
+In the same logic, an if-else statement can be done like so `([ condition ] && (if commands)) || (else commands)`.<br>
+Finally, an if-else if-else statement can be done as such `([ condition1 ] && (if commands)) || ([ condition2 ] && (else if commands)) || (else commands)`<br>
+A correct if-statement will soon be implemanted, but this alternative works really well.<br>
 <br><br>
 Thanks for reading and have fun with it !<br>
 The ÜBER TIGO
