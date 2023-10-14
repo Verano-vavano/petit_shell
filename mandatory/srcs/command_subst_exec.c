@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:41:08 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 09:45:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:56:34 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
 {
+	char	*temp;
 	char	*out;
 
 	dup2(se[3], STDOUT_FILENO);
@@ -31,7 +32,11 @@ static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
 			*ret = -120;
 	}
 	else
-		cmd->content = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
+	{
+		temp = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
+		free(cmd->content);
+		cmd->content = temp;
+	}
 	close(se[3]);
 	if (out)
 		free(out);
