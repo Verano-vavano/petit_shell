@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/14 17:46:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/15 09:36:12 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define SHELL_NAME "Shellpticflesh"
 # define SHELL_VERSION "1.0"
 
-# define STD_PS1 "PS1=\\c0w\\cR\\s \\cG\\v \\cp[\\W] $(([ $? -ne 0 ] && echo -e \"\\e[1;31m\") || echo -e \"\\e[1;36m\")($?) \\cW> \\cw"
+# define STD_PS1 "PS1=\\c0w\\cR\\s \\cG\\v \\cp[\\W] $( ([ $? -ne 0 ] && echo -e \"\\e[1;31m\") || echo -e \"\\e[1;36m\")($?) \\cW> \\cw"
 # define STD_LOW_PS1 "PS1=\\s-\\v\\$ "
 # define STD_PS2 "PS2=\\cR|-> \\cw"
 # define STD_LOW_PS2 "PS2=> "
