@@ -1,40 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   to_delete_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/15 10:48:30 by tcharanc          #+#    #+#             */
+/*   Updated: 2023/10/15 10:50:26 by tcharanc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "math.h"
 #include <unistd.h>
 
-// print to stdout the given Sign enum
-void	print_sign_enum(t_expr_ll *expr)
-{
-	char *arr[] = {
-		"NO",
-		"PLUS",
-		"MINUS",
-		"DIV",
-		"MULT"
-	};
-	printf("%s\n",arr[expr->sign]);
-}
-
 // Print the whole expression
-void print_expr(t_expr_ll *expr)
+void	print_expr(t_expr_ll *expr)
 {
-    printf("value = %lld\n", expr->value);
-    if (expr->var_name != NULL)
-        printf("var_name = %s\n", expr->var_name);
-    if (expr->var_value != NULL)
-        printf("var_value = %s\n", expr->var_value);
-    printf("given sign = %d\n", expr->sign);
-    printf("index = %ld\n", expr->index);
-    printf("Sign = ");
-    print_sign_enum(expr);
+	printf("value = %lld\n", expr->value);
+	if (expr->var_name != NULL)
+		printf("var_name = %s\n", expr->var_name);
+	if (expr->var_value != NULL)
+		printf("var_value = %s\n", expr->var_value);
+	printf("given sign = %d\n", expr->sign);
+	printf("index = %ld\n", expr->index);
+	printf("Sign = %d\n", expr->sign);
 }
 
-void print_all_exprs(t_expr_ll *expr)
+void	print_all_exprs(t_expr_ll *expr)
 {
+	t_expr_ll	*ptr;
+	int			i;
+
 	if (!expr)
 		return ;
-	t_expr_ll *ptr = expr;
-	int i = 0;
-	while(1)
+	i = 0;
+	ptr = expr;
+	while (1)
 	{
 		printfd(STDOUT_FILENO, "---elem %d---\n", i);
 		print_expr(ptr);

@@ -6,16 +6,16 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:13:15 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 09:19:09 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/15 09:48:49 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 #include <unistd.h>
 
-void actualize_ll(t_expr_ll *curr_expr)
+void	actualize_ll(t_expr_ll *curr_expr)
 {
-	t_expr_ll *next_expr;
+	t_expr_ll	*next_expr;
 
 	curr_expr->sign = curr_expr->next->sign;
 	next_expr = curr_expr->next->next;
@@ -25,10 +25,10 @@ void actualize_ll(t_expr_ll *curr_expr)
 
 bool	resolved_priority(t_expr_ll *expr_ll)
 {
-	t_expr_ll *ptr;
+	t_expr_ll	*ptr;
 
 	ptr = expr_ll;
-	while(ptr->next)
+	while (ptr->next)
 	{
 		if (ptr->sign == MULT || ptr->sign == DIV)
 		{
@@ -44,15 +44,15 @@ bool	resolved_priority(t_expr_ll *expr_ll)
 	return (false);
 }
 
-long long calculate(t_expr_ll *expr_ll)
+long long	calculate(t_expr_ll *expr_ll)
 {
-	t_expr_ll *ptr;
+	t_expr_ll	*ptr;
 
-	while(1)
+	while (1)
 		if (!resolved_priority(expr_ll))
 			break ;
 	ptr = expr_ll;
-	while(ptr->next)
+	while (ptr->next)
 	{
 		if (ptr->sign == PLUS)
 			ptr->value = ptr->value + ptr->next->value;
