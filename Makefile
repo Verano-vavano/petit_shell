@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/19 17:09:11 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/19 17:42:06 by tcharanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 is_quoted.c \
 	 math/ft_atoiii.c math/char_checking.c math/clean_input.c math/is_math.c \
 	math/to_delete_utils.c math/calculate.c math/math.c math/ft_iiitoa.c \
-	math/expr_last.c math/expr_add.c math/free_expr.c math/expr_create.c
+	math/expr_last.c math/expr_add.c math/free_expr.c math/expr_create.c \
+	math/math_errors.c math/print_math_error.c
 SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})
 DEST=${SRCS_DIR:.c=.o}
 NO_OF_FILES:=$(words $(SRCS))

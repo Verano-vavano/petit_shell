@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 10:48:00 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:48:45 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+// TODO refaire le parsing pour eviter le dernier if.
 static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 {
 	size_t	i;
@@ -27,6 +28,8 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 	while (is_spc(clean[i]))
 		i++;
 	while (is_sign(clean[i]))
+		i++;
+	if (i == ft_strlen(clean) - 1)
 		i++;
 	return (i);
 }
@@ -56,6 +59,8 @@ bool	do_math(t_command *cmd, t_env *env)
 	if (!clean)
 		return (false);
 	expr_ll = init_expr_ll(clean, env);
+	if (math_errors(expr_ll, clean))
+		return (false);
 	free(cmd->content);
 	cmd->content = ft_iiitoa(calculate(expr_ll));
 	free(clean);

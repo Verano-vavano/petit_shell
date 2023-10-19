@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/19 17:06:38 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:39:45 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ intmax_t	ft_atoiii(const char *str);
 //--------FT_ATOIII-------//
 // une vraiment grosse string! (peut etre)
 char		*ft_iiitoa(long long n);
+//--------CHECK_ERROR-------//
+int			math_errors(t_expr_ll *expr_ll, char *clean);
+//--------PRINT_MATH_ERROR-------//
+int			print_math_error(char *error_msg, char *clean, int i);
 //--------TO_DELETE_UTILS-------//
 // de la poubelle qu'il va falloir supprimer
 void		print_sign_enum(t_expr_ll *expr);
