@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 10:57:56 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:06:38 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ bool		is_digit(char c);
 bool		is_sign(char c);
 //--------CLEAN_INPUT-------//
 char		*clean_input(const char *input);
-//--------EXPR_LL-------//
+//--------EXPR_LAST-------//
 t_expr_ll	*expr_last(t_expr_ll *expr_ll);
+//--------EXPR_LL-------//
 t_expr_ll	*expr_create(int i, char *clean, t_env *env);
+//--------EXPR_ADD-------//
 bool		expr_add(t_expr_ll *newest, t_expr_ll **expr);
+//--------FREE_EXPR-------//
 void		free_expr(t_expr_ll *expr_ll);
 void		free_expr_ll(t_expr_ll *expr_ll);
-//--------EXPR_LL-------//
+//--------CALCULATE-------//
 long long	calculate(t_expr_ll *expr_ll);
 //--------FT_ATOIII-------//
 // un vraiment gros atoi

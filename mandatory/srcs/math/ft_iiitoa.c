@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:23:48 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 10:44:35 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:59:16 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,26 @@ void	rev_str(char *str, int len)
 	}
 }
 
+int	fill_str(char *str, long long n, int neg)
+{
+	int	len;
+
+	len = 0;
+	while (n > 0)
+	{
+		str[len] = (char)((n % 10) + '0');
+		n /= 10;
+		len++;
+	}
+	if (neg)
+	{
+		str[len] = '-';
+		len++;
+	}
+	str[len] = '\0';
+	return (len);
+}
+
 char	*ft_iiitoa(long long n)
 {
 	int		len;
@@ -70,19 +90,7 @@ char	*ft_iiitoa(long long n)
 	result = malloc((len + neg + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
-	len = 0;
-	while (n > 0)
-	{
-		result[len] = (char)((n % 10) + '0');
-		n /= 10;
-		len++;
-	}
-	if (neg)
-	{
-		result[len] = '-';
-		len++;
-	}
-	result[len] = '\0';
+	len = fill_str(result, n, neg);
 	rev_str(result, len);
 	return (result);
 }
