@@ -10,5 +10,8 @@ Refactoring quasi total (plus de norme je crois, et ça nous permettra de remett
 Sauvegarder score tetris
 Nouveau jeu cool ! (soit ncurses, soit dans fenêtre graphique)
 Cyperpunk avec ray-tracing évidemment
+	-> dwarf fortress avec du raytracing (vive minirt)
 Plus de builtins !
+-> je propose de recoder la command cal!
 Et évidemment recoder un OS entier basé sur notre Shell (après Arch Linux, Arch Enemy !)
+-> builtin chat IRC
