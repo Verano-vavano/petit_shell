@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/19 17:21:26 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:02:34 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ static void	fill_created(t_expr_ll *created, char *clean, int i)
 	j = i;
 	while (is_digit(clean[j]))
 		j++;
-	created->var_value = malloc(sizeof(char) * (j - i + 1));
-	j = 0;
-	while (is_digit(clean[i]))
-		created->var_value[j++] = clean[i++];
-	created->var_value[j] = '\0';
-	created->value = ft_atoiii(created->var_value);
+	if (j > i)
+	{
+		created->var_value = malloc(sizeof(char) * (j - i + 1));
+		j = 0;
+		while (is_digit(clean[i]))
+			created->var_value[j++] = clean[i++];
+		created->var_value[j] = '\0';
+		created->value = ft_atoiii(created->var_value);
+	}
 	if (!clean[i])
 		return ;
 	while (clean[i] && is_spc(clean[i]))

@@ -6,16 +6,11 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/19 17:48:45 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:14:57 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
-#include "libft.h"
-#include "shellpticflesh.h"
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
 
 // TODO refaire le parsing pour eviter le dernier if.
 static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
@@ -50,6 +45,7 @@ t_expr_ll	*init_expr_ll(char *clean, t_env *env)
 }
 
 // return true if the given input is a valid arithmetic expression.
+// TODO skip command if not expanded
 bool	do_math(t_command *cmd, t_env *env)
 {
 	char		*clean;
