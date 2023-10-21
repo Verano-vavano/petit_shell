@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/21 11:02:34 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:37:15 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ static t_sign	sign_determine(char c)
 	else if (c == '*')
 		return (MULT);
 	return (NO);
+}
+
+static t_sign sign_neg_or_pos(char *clean)
+{
+	int i;
+	int neg_count;
+
+	i = 0;
+	neg_count = 0;
+	while(clean[i] && (clean[i] == '-' && clean[i] == '+'))
+		if (clean[i] == '-')
+			neg_count++;
+	if (neg_count % 2)
+		return (PLUS);
+	return (MINUS);
 }
 
 static void	fill_created(t_expr_ll *created, char *clean, int i)
@@ -50,7 +65,10 @@ static void	fill_created(t_expr_ll *created, char *clean, int i)
 		return ;
 	while (clean[i] && is_spc(clean[i]))
 		i++;
-	created->sign = sign_determine(clean[i]);
+	if (clean[i] == '-' || clean[i] == '+')
+		created->sign = sign_neg_or_pos(&clean[i]);
+	else
+		created->sign = sign_determine(clean[i]);
 }
 
 // Create a new expression link.

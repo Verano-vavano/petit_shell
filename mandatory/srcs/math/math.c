@@ -1,5 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -22,7 +20,10 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 		i++;
 	while (is_spc(clean[i]))
 		i++;
-	while (is_sign(clean[i]))
+	if (clean[i] == '-' || clean[i] == '+')
+		while (clean[i] == '-' || clean[i] == '+')
+			i++;
+	else if (is_sign(clean[i]))
 		i++;
 	if (i == ft_strlen(clean) - 1)
 		i++;
