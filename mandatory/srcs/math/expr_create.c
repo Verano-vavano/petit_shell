@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/21 11:37:15 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:43:09 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static t_sign	sign_determine(char c)
 	return (NO);
 }
 
-static t_sign sign_neg_or_pos(char *clean)
+static t_sign	sign_neg_or_pos(char *clean)
 {
-	int i;
-	int neg_count;
+	int	i;
+	int	neg_count;
 
 	i = 0;
 	neg_count = 0;
-	while(clean[i] && (clean[i] == '-' && clean[i] == '+'))
+	while (clean[i] && (clean[i] == '-' && clean[i] == '+'))
 		if (clean[i] == '-')
 			neg_count++;
 	if (neg_count % 2)
