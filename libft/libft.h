@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:13:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/01 14:29:01 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:28:05 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int		ft_longlen(long n);
 char	*ft_strrchr(const char *s, int c);
 bool	is_long(char *s, bool alnum);
 char	*hexa(long l, bool maj);
+bool	ft_isalpha(char c);
 
 #endif

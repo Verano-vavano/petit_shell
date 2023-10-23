@@ -6,10 +6,11 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/21 11:43:09 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:38:48 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "math.h"
 #include <stdint.h>
 #include <unistd.h>
@@ -50,13 +51,13 @@ static void	fill_created(t_expr_ll *created, char *clean, int i)
 
 	created->index = i;
 	j = i;
-	while (is_digit(clean[j]))
+	while (is_digit(clean[j]) || ft_isalpha(clean[j]))
 		j++;
 	if (j > i)
 	{
 		created->var_value = malloc(sizeof(char) * (j - i + 1));
 		j = 0;
-		while (is_digit(clean[i]))
+		while (is_digit(clean[i]) || ft_isalpha(clean[i]))
 			created->var_value[j++] = clean[i++];
 		created->var_value[j] = '\0';
 		created->value = ft_atoiii(created->var_value);

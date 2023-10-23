@@ -6,12 +6,11 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:22:46 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/21 11:12:34 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:06:39 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
-#include <unistd.h>
 
 int	math_errors(t_expr_ll *expr_ll, char *clean)
 {
@@ -20,6 +19,8 @@ int	math_errors(t_expr_ll *expr_ll, char *clean)
 	ptr = expr_ll;
 	while (ptr)
 	{
+		if (!is_all_num(ptr->var_value) || (ptr->next && !is_all_num(ptr->next->var_value)))
+			return (print_special_math_error(clean, ptr));
 		if (ptr->sign != NO && !ptr->next)
 			return (print_math_error("operand expected", clean, ptr->index));
 		if (ptr->sign == DIV && ptr->next->value == 0)
@@ -29,6 +30,8 @@ int	math_errors(t_expr_ll *expr_ll, char *clean)
 					clean, ptr->next->index));
 		if (ptr->var_value == NULL && ptr->sign > 2)
 			return (print_math_error("operand expected", clean, ptr->index));
+		if (ptr->sign > MINUS && !ptr->next->var_value && ptr->next->sign > MINUS)
+			return (print_math_error("operand expected", clean, ptr->next->index));
 		ptr = ptr->next;
 	}
 	return (0);

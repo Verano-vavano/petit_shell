@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/19 17:39:45 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:43:21 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ intmax_t	ft_atoiii(const char *str);
 char		*ft_iiitoa(long long n);
 //--------CHECK_ERROR-------//
 int			math_errors(t_expr_ll *expr_ll, char *clean);
+int			print_special_math_error(char *clean, t_expr_ll *ptr);
 //--------PRINT_MATH_ERROR-------//
 int			print_math_error(char *error_msg, char *clean, int i);
 //--------TO_DELETE_UTILS-------//

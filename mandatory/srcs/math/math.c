@@ -6,11 +6,12 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/21 11:43:39 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:26:17 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
+#include <ctype.h>
 
 // TODO refaire le parsing pour eviter le dernier if.
 static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
@@ -18,7 +19,7 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 	size_t	i;
 
 	i = expr_last(expr_ll)->index;
-	while (is_digit(clean[i]))
+	while (is_digit(clean[i]) || ft_isalpha(clean[i]))
 		i++;
 	while (is_spc(clean[i]))
 		i++;
@@ -42,7 +43,10 @@ t_expr_ll	*init_expr_ll(char *clean, t_env *env)
 	i = 0;
 	expr_ll = NULL;
 	while (clean[i] && expr_add(expr_create(i, clean, env), &expr_ll))
+	{
+		printf("added expr \n");
 		i = parsed_len(expr_ll, clean);
+	}
 	print_all_exprs(expr_ll);
 	return (expr_ll);
 }
@@ -55,9 +59,11 @@ bool	do_math(t_command *cmd, t_env *env)
 	t_expr_ll	*expr_ll;
 
 	clean = clean_input(cmd->content);
+	printf("bonjour 1\n");
 	if (!clean)
 		return (false);
 	expr_ll = init_expr_ll(clean, env);
+	printf("bonjour 2\n");
 	if (math_errors(expr_ll, clean))
 		return (false);
 	free(cmd->content);
