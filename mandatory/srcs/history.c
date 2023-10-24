@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 11:27:45 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 16:38:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:11:28 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	write_hist(t_hist *h, t_env *env)
 	while (histsize < h->len_hist)
 		remove_first_el(h);
 	fd = open(histfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	free(histfile);
 	if (fd < 0)
 		return ;
 	while (h->len_hist)
@@ -35,7 +36,6 @@ void	write_hist(t_hist *h, t_env *env)
 		remove_first_el(h);
 	}
 	close(fd);
-	free(histfile);
 }
 
 static bool	create_hist_ll(t_hist *hist)
