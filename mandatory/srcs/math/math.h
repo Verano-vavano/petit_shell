@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/23 16:43:21 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:10:24 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,5 @@ int			math_errors(t_expr_ll *expr_ll, char *clean);
 int			print_special_math_error(char *clean, t_expr_ll *ptr);
 //--------PRINT_MATH_ERROR-------//
 int			print_math_error(char *error_msg, char *clean, int i);
-//--------TO_DELETE_UTILS-------//
-// de la poubelle qu'il va falloir supprimer
-void		print_sign_enum(t_expr_ll *expr);
-void		print_expr(t_expr_ll *expr);
-void		print_all_exprs(t_expr_ll *expr);
 
 #endif

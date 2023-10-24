@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:13:15 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 09:48:49 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:10:49 by tcharanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ long long	calculate(t_expr_ll *expr_ll)
 			ptr->value = ptr->value - ptr->next->value;
 		actualize_ll(ptr);
 	}
-	print_all_exprs(expr_ll);
 	return (ptr->value);
 }
