@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 15:10:24 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:43:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char		*clean_input(const char *input);
 //--------EXPR_LAST-------//
 t_expr_ll	*expr_last(t_expr_ll *expr_ll);
 //--------EXPR_LL-------//
-t_expr_ll	*expr_create(int i, char *clean, t_env *env);
+t_expr_ll	*expr_create(int i, char *clean);
 //--------EXPR_ADD-------//
 bool		expr_add(t_expr_ll *newest, t_expr_ll **expr);
 //--------FREE_EXPR-------//

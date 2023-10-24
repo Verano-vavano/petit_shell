@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/15 09:36:12 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:44:19 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,6 +473,6 @@ void		print_cmd(t_command *cmd);
 
 /*----------------MATH----------------*/
 bool		is_math(const char *str);
-bool		do_math(t_command *cmd, t_env *env);
+bool		do_math(t_command *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/23 16:38:48 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:51:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,10 @@ static void	fill_created(t_expr_ll *created, char *clean, int i)
 
 // Create a new expression link.
 // for that parse the string
-t_expr_ll	*expr_create(int i, char *clean, t_env *env)
+t_expr_ll	*expr_create(int i, char *clean)
 {
 	t_expr_ll	*created;
 
-	(void)env;
 	created = malloc(sizeof(t_expr_ll));
 	if (!created)
 		return (NULL);

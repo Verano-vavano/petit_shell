@@ -1,3 +1,8 @@
+$((1+1))
+$((1 + +1)) SEG FAULT
+$((1 + (1))) USELESS SYNTAX ERROR
+
+
 # Des leaks!
 ==14600== 27 bytes in 1 blocks are definitely lost in loss record 20 of 83
 ==14600==    at 0x4841794: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)

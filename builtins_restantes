@@ -1,0 +1,16 @@
+builtin
+compgen :
+-a aliases
+-b builtins
+-c commands
+-d directories
+-e exported shell variables
+-f files
+-g groups ?
+-k shell reserved keywords (implement but of no use rn)
+-u usernames ?
+-v variables
+eval
+fc -l -s
+help
+kill
