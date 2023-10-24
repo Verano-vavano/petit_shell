@@ -6,11 +6,20 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:22:46 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/23 17:49:17 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:12:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
+
+static bool	is_valid_num_arg(char *arg)
+{
+	while (is_sign(*arg))
+		arg++;
+	while (is_num(*arg))
+		arg++;
+	return (*arg == '\0');
+}
 
 int	math_errors(t_expr_ll *expr_ll, char *clean)
 {
@@ -19,8 +28,8 @@ int	math_errors(t_expr_ll *expr_ll, char *clean)
 	ptr = expr_ll;
 	while (ptr)
 	{
-		if (!is_all_num(ptr->var_value)
-			|| (ptr->next && !is_all_num(ptr->next->var_value)))
+		if (!ptr->var_value || !is_valid_num_arg(ptr->var_value)
+			|| (ptr->next && !is_valid_num_arg(ptr->next->var_value)))
 			return (print_special_math_error(clean, ptr));
 		if (ptr->sign != NO && !ptr->next)
 			return (print_math_error("operand expected", clean, ptr->index));

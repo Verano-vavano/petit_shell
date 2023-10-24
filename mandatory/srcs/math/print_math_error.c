@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:32:00 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/23 17:50:50 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:53:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	print_special_math_error(char *clean, t_expr_ll *ptr)
 {
 	char	*error_token;
 
-	if (!is_all_num(ptr->var_value))
+	if (ptr->var_value && !is_all_num(ptr->var_value))
 		error_token = ptr->var_value;
 	else
 		error_token = get_error_token(&clean[ptr->index], ptr);

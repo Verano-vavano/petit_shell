@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:48:30 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/08 17:49:27 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:08:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ intmax_t	ft_atoiii(const char *str)
 	num = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			neg = -1;
+			neg *= -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')

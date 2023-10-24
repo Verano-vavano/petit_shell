@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:19:22 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 17:06:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/24 19:30:05 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_sign	sign_neg_or_pos(char *clean)
 
 	i = 0;
 	neg_count = 0;
-	while (clean[i] && (clean[i] == '-' || clean[i] == '+'))
+	while (clean[i] && (clean[i] == '-' || clean[i] == '+' || is_spc(clean[i])))
 	{
 		if (clean[i] == '-')
 			neg_count++;
@@ -54,12 +54,16 @@ static void	fill_created(t_expr_ll *created, char *clean, int i)
 
 	created->index = i;
 	j = i;
+	while (is_sign(clean[j]))
+		j++;
 	while (is_digit(clean[j]) || ft_isalpha(clean[j]))
 		j++;
 	if (j > i)
 	{
 		created->var_value = malloc(sizeof(char) * (j - i + 1));
 		j = 0;
+		while (is_sign(clean[i]))
+			created->var_value[j++] = clean[i++];
 		while (is_digit(clean[i]) || ft_isalpha(clean[i]))
 			created->var_value[j++] = clean[i++];
 		created->var_value[j] = '\0';

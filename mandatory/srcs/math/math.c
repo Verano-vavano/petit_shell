@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 18:22:28 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/24 19:13:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 	size_t	i;
 
 	i = expr_last(expr_ll)->index;
+	while (is_sign(clean[i]))
+		i++;
 	while (is_digit(clean[i]) || ft_isalpha(clean[i]))
 		i++;
 	while (is_spc(clean[i]))
 		i++;
 	if (clean[i] == '-' || clean[i] == '+')
-		while (clean[i] == '-' || clean[i] == '+')
+		while (clean[i] == '-' || clean[i] == '+' || is_spc(clean[i]))
 			i++;
 	else if (is_sign(clean[i]))
 		i++;
@@ -53,7 +55,6 @@ bool	do_math(t_command *cmd)
 	char		*clean;
 	t_expr_ll	*expr_ll;
 
-	signal(SIGINT, SIG_DFL);
 	clean = clean_input(cmd->content);
 	if (!clean)
 		return (false);
