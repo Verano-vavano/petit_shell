@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 19:13:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/24 22:10:16 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,67 @@ t_expr_ll	*init_expr_ll(char *clean)
 	return (expr_ll);
 }
 
+static size_t	get_start(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '$' && cmd[i + 1] == '(' && cmd[i + 2] == '(')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+static size_t	get_end(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == ')' && cmd[i + 1] == ')')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+static bool insert_math(t_command *cmd, char *output, size_t i_start, size_t i_end)
+{
+	char	*temp;
+
+	temp = ft_strreplace(cmd->content, i_start, i_end - i_start + 2, output);
+	if (!temp)
+		return (true);
+	free(cmd->content);
+	cmd->content = temp;
+	return (true);
+}
+
 // return true if the given input is a valid arithmetic expression.
 // TODO skip command if not expanded
 bool	do_math(t_command *cmd)
 {
 	char		*clean;
 	t_expr_ll	*expr_ll;
+	size_t		i_start;
+	size_t		i_end;
+	char		*output;
 
-	clean = clean_input(cmd->content);
+	signal(SIGINT, SIG_DFL);
+	i_start = get_start(cmd->content);
+	i_end = get_end(cmd->content);
+	clean = clean_input(cmd->content, i_start, i_end);
 	if (!clean)
 		return (false);
 	expr_ll = init_expr_ll(clean);
 	if (math_errors(expr_ll, clean))
 		return (free_expr_ll(expr_ll), free(clean), false);
-	free(cmd->content);
-	cmd->content = ft_iiitoa(calculate(expr_ll));
+	output = ft_iiitoa(calculate(expr_ll));
 	free(clean);
 	free_expr_ll(expr_ll);
-	return (true);
+	return (insert_math(cmd, output, i_start, i_end));
 }
