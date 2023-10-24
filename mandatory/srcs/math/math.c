@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 17:01:48 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/24 17:03:33 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 			i++;
 	else if (is_sign(clean[i]))
 		i++;
-	// Je le retire parce que ça fixe le bug ((x+y)) qui renvoit une erreur
-	// Si ça bug quelque part, esssayer de le remettre
 	if (i == ft_strlen(clean) - 1 && is_spc(clean[i]))
 		i++;
 	return (i);
