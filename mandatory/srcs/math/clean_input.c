@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:27:16 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/15 10:28:11 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:23:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*clean_input(const char *input)
 	while (input[++i])
 		if (is_ignore_char(input[i]))
 			len--;
-	clean = malloc(sizeof(char) * (len - 1));
+	clean = ft_calloc(sizeof (char), len + 1);
 	if (!clean)
 		return (NULL);
 	i = 2;

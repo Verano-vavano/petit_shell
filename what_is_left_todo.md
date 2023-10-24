@@ -1,6 +1,4 @@
-$((1+1))
 $((1 + +1)) SEG FAULT
-$((1 + (1))) USELESS SYNTAX ERROR
 
 
 # Des leaks!
