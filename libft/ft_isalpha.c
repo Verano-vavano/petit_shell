@@ -6,13 +6,13 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:26:32 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/23 16:27:42 by tcharanc         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:29:00 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool ft_isalpha(char c)
+bool	ft_isalpha(char c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

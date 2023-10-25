@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:16:15 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/24 16:44:19 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 18:26:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define SHELL_NAME "Shellpticflesh"
 # define SHELL_VERSION "1.0"
 
-# define STD_PS1 "PS1=\\c0w\\cR\\s \\cG\\v \\cp[\\W] $( ([ $? -ne 0 ] && echo -e \"\\e[1;31m\") || echo -e \"\\e[1;36m\")($?) \\cW> \\cw"
+# define STD_PS1 "PS1=\\c0w\\cR\\s \\cG\\v \\cp[\\W] $( ([ $? -ne 0 ] && echo -e \"\\e[1;31m\") \
+	|| echo -e \"\\e[1;36m\")($?) \\cW> \\cw"
 # define STD_LOW_PS1 "PS1=\\s-\\v\\$ "
 # define STD_PS2 "PS2=\\cR|-> \\cw"
 # define STD_LOW_PS2 "PS2=> "
@@ -243,7 +244,7 @@ char		*special_parameter(char *arg, t_tool *tool);
 char		*backslash_it(char *p);
 
 // command substitution
-long		command_substitution(t_command *cmd, t_env *env, bool only_repl);
+long		command_substitution(t_command *cmd, t_env *env, bool o_r, long re);
 char		*get_output(int *pipes);
 int			command_it(char *cmd_sent, int *se, t_command *cmd, t_env *env);
 

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/24 22:03:35 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 18:25:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,24 @@ static long	perform_exec(t_command *cmd, t_env *env, int start, bool repl)
 	return (command_it(cmd_sent, se, cmd, env));
 }
 
-static int	good_ret(long ret, bool repl)
+static int	good_ret(long ret, bool repl, bool *skip_first)
 {
 	if (!repl)
+	{
+		if (ret >= 0)
+			*skip_first = true;
 		return (ret);
+	}
 	else if (ret < 0)
+	{
+		*skip_first = true;
 		return (ret * (-1));
+	}
 	else
 		return (-1);
 }
 
-static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
+static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl, bool *sf)
 {
 	bool	repl;
 	char	quoted;
@@ -95,41 +102,34 @@ static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl)
 			start = -1;
 		}
 	}
-	return (good_ret(ret, repl));
+	return (good_ret(ret, repl, sf));
 }
 
-long	command_substitution(t_command *cmd, t_env *env, bool only_repl)
+long	command_substitution(t_command *cmd, t_env *env, bool only_repl, long r)
 {
 	t_command	*next;
 	bool		skip_first;
-	long		ret;
 	char		**old;
 
 	skip_first = false;
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
+		next = cmd->next;
 		old = &(cmd->content);
 		if (is_math(cmd->content))
 		{
 			if (!do_math(cmd))
 				return (1);
-			if (&(cmd->content) == old)
+			else if (&(cmd->content) == old)
 				continue ;
 		}
 		else if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
-			next = cmd->next;
-			ret = srch_exec_comm(cmd, env, only_repl);
-			if (ret == 120)
+			r = srch_exec_comm(cmd, env, only_repl, &skip_first);
+			if (r == 120)
 				return (1);
-			else if (ret >= 0 && !skip_first)
-				skip_first = true;
-			cmd = next;
-			continue ;
 		}
-		cmd = cmd->next;
+		cmd = next;
 	}
-	if (skip_first)
-		return (ret);
-	return (-1);
+	return (r * skip_first + (-1) * !skip_first);
 }

@@ -6,15 +6,23 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:41:08 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/14 17:56:34 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:12:29 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shellpticflesh.h"
 
-static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
+static char	*just_replace(char *cmd_content, int *se, char *out)
 {
 	char	*temp;
+
+	temp = ft_strreplace(cmd_content, se[0], se[1] + 1, out);
+	free(cmd_content);
+	return (temp);
+}
+
+static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
+{
 	char	*out;
 
 	dup2(se[3], STDOUT_FILENO);
@@ -32,11 +40,7 @@ static void	replacer_cmd(t_command *cmd, int *se, int *ret, t_env *env)
 			*ret = -120;
 	}
 	else
-	{
-		temp = ft_strreplace(cmd->content, se[0], se[1] + 1, out);
-		free(cmd->content);
-		cmd->content = temp;
-	}
+		cmd->content = just_replace(cmd->content, se, out);
 	close(se[3]);
 	if (out)
 		free(out);

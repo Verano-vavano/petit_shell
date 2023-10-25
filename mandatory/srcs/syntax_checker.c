@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:13:48 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 16:09:23 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:08:39 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static int	check_loop(char *line, int f, int i, int d)
 		q = is_quoted(line, i, q);
 		if (f && is_strict_meta(line[i]))
 			return (syntax_error(line + i, -1));
-		else if (!q && (i == 0 || line[i - 1] != '\\') 
+		else if (!q && (i == 0 || line[i - 1] != '\\')
 			&& ((is_metachar(line[i]) && check_metachar(line + i))
 				|| (line[i] == '(' && check_parenthesis(line, f, d, i))
 				|| (line[i] == '{' && f && check_cbrackets(line + i))
 				|| ((line[i] == '<' || line[i] == '>') && redir_ok(line + i))))
 			return (2);
-		f = ((is_cmd_delim(line + i) || (!q && line[i] == '|') 
+		f = ((is_cmd_delim(line + i) || (!q && line[i] == '|')
 					|| (f && is_separator(line[i]))) && !q);
 		d = (line[i] == '$' || (d && line[i] == '('));
 		i += ((line[i] == '|' && line[i + 1] == '|')
