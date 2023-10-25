@@ -6,7 +6,7 @@
 #    By: hdupire <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/28 11:34:46 by hdupire           #+#    #+#              #
-#    Updated: 2023/10/23 17:57:33 by tcharanc         ###   ########.fr        #
+#    Updated: 2023/10/25 16:47:48 by hdupire          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRCS=shellpticflesh.c  shellpticflesh_more.c  cmd_processing.c\
 	 cleaning.c  utils.c  file_utils.c  file_utils2.c file_two_utils.c  char_utils.c  more_char_utils.c  word_utils.c\
 	 is_quoted.c \
 	 math/ft_atoiii.c math/char_checking.c math/clean_input.c math/is_math.c \
-	 math/calculate.c math/math.c math/ft_iiitoa.c \
+	 math/calculate.c math/math.c math/insert_math.c math/ft_iiitoa.c \
 	 math/expr_last.c math/expr_add.c math/free_expr.c math/expr_create.c \
 	 math/math_errors.c math/print_math_error.c
 SRCS_DIR=$(addprefix ./mandatory/srcs/, ${SRCS})

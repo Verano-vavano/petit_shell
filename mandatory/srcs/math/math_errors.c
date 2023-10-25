@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:22:46 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 19:12:59 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:52:42 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	math_errors(t_expr_ll *expr_ll, char *clean)
 	t_expr_ll	*ptr;
 
 	ptr = expr_ll;
-	while (ptr)
+	while (ptr && ptr->var_value)
 	{
-		if (!ptr->var_value || !is_valid_num_arg(ptr->var_value)
+		if (!is_valid_num_arg(ptr->var_value)
 			|| (ptr->next && !is_valid_num_arg(ptr->next->var_value)))
 			return (print_special_math_error(clean, ptr));
 		if (ptr->sign != NO && !ptr->next)

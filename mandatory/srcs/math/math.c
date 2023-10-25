@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 22:10:16 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:50:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,6 @@ static size_t	get_end(char *cmd)
 		i++;
 	}
 	return (0);
-}
-
-static bool insert_math(t_command *cmd, char *output, size_t i_start, size_t i_end)
-{
-	char	*temp;
-
-	temp = ft_strreplace(cmd->content, i_start, i_end - i_start + 2, output);
-	if (!temp)
-		return (true);
-	free(cmd->content);
-	cmd->content = temp;
-	return (true);
 }
 
 // return true if the given input is a valid arithmetic expression.

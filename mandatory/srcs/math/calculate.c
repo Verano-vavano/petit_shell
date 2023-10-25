@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:13:15 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 16:45:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:51:04 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	resolved_priority(t_expr_ll *expr_ll)
 	t_expr_ll	*ptr;
 
 	ptr = expr_ll;
-	while (ptr->next)
+	while (ptr && ptr->next)
 	{
 		if (ptr->sign == MULT || ptr->sign == DIV)
 		{
@@ -48,6 +48,8 @@ long long	calculate(t_expr_ll *expr_ll)
 {
 	t_expr_ll	*ptr;
 
+	if (!expr_ll)
+		return (0);
 	while (1)
 		if (!resolved_priority(expr_ll))
 			break ;

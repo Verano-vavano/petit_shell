@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 10:50:41 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/24 21:52:40 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:47:30 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ bool		is_digit(char c);
 bool		is_sign(char c);
 //--------CLEAN_INPUT-------//
 char		*clean_input(const char *input, size_t i_start, size_t i_end);
+//--------INSERT----------//
+bool insert_math(t_command *cmd, char *output, size_t i_start, size_t i_end);
 //--------EXPR_LAST-------//
 t_expr_ll	*expr_last(t_expr_ll *expr_ll);
 //--------EXPR_LL-------//
