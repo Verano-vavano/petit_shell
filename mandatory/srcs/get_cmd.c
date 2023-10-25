@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/18 09:26:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/25 20:27:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,12 @@ int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 	redir = get_redir_struct(cmd_p->redir, redir_from_fd);
 	err = open_redir_files(cmd->next, redir, hd);
 	if (err)
+	{
+		close_files(redir);
+		free_redirs(redir);
+		free(cmd_p->cmd);
 		return (err * (-1));
+	}
 	if (cmd_p->redir == 0)
 		cmd_p->redir = redir;
 	return (hd + (cmd->next->purpose == HERE_DOC_DELIM
