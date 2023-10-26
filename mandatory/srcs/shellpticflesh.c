@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:08:44 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/10 16:00:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/26 20:36:08 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int ac, char **av, char **envp)
 	int		ret;
 	t_tool	tool;
 
+	printf("--%s-%s by tcharanc and hdupire--\n", SHELL_NAME, SHELL_VERSION);
 	ret = init_shell(&tool, ac, av, envp);
 	if (ret)
 		return (0 * (ret == -1) + ret * (ret != -1));

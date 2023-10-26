@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/25 18:14:08 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:41:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	execute_prompt_command(t_tool *tool)
 	if (!tool)
 		return ;
 	temp = env_getval("PROMPT_COMMAND", tool->env);
-	if (!temp)
+	if (!temp || !(*temp))
 		return ;
 	command = ft_strdup(temp);
 	if (!command)
