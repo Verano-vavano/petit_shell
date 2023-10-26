@@ -112,7 +112,12 @@ The command substitution will be replaced with the output of the content of the 
 Other fd can be substituted like so `$(cmd fd>&1)`.<br>
 Command substitution is then modified by word splitting.
 ### Arithmetic expansion
-TBA
+Arithmetic expansion is a rich feature from bash that enables basic computing of mathematics.<br>
+The syntax is as follows : '$((expr))'. <br>
+Parenthesis are not available yet in the current version of the shell.<br>
+The following arithmetics can be performed : +, -, \*, /. <br>
+Priority of division and multiplication are taken into account. (1 + 2 * 3 = 7 and not 9).<br>
+Arithmetic expansions can be very useful in testing and equality conditions.
 ### Filename expansion
 Filename expansion will be used on commands, var assignements and redirections (if output is one file).<br>
 It will look through all files in directories to find matching ones.<br>
@@ -157,7 +162,8 @@ The command is then executed with execve (see man).<br>
 If there is piping, the output is written in a temporary pipe which will serve as the read entry of the next command (except if the output is already redirected).
 ### File descriptors
 A standard execution without any redirections takes 3 file descriptors, however many there are pipes.<br>
-If the limit is reached, the execution will fail.
+If the limit is reached, the execution will fail.<br>
+Right now, the base number of open file descriptors in our Shell is 15, compared to 14 in Bash, number that we cannot reduce due to the restrictions of the project and the usage of readline and ncurses.<br>
 ## Builtins
 Shellpticflesh contains multiple builtins :
 ### echo
