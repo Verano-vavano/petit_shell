@@ -14,6 +14,7 @@ ALPHA+=${UPPERALPHA}
 export ALPHANUM=$ALPHA
 ALPHANUM+=$NUM
 
+alias all='echo .* *'
 alias *='echo *'
 alias *c='echo *.c'
 alias *cpp='echo *.cpp'
@@ -22,7 +23,8 @@ alias *o='echo *.o'
 alias .*='echo .*'
 alias ?='echo ?'
 
-alias .='cd .'
+alias :q='exit'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
