@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/27 17:49:29 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:30:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	close(ret->pipes[1]);
 	if (ret->fd != -1)
 		close(ret->fd);
-	if (ret->n_cmd == 1)
+	if (t->hist && ret->n_cmd == 1)
 		print_ps0(t);
 	if (cmd->is_parenthesis)
 	{

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 00:19:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/27 17:50:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:16:38 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_whole_hist(t_hist *hist)
 	hist_now = hist->hist_start;
 	while (hist_now)
 	{
-		printfd(STDOUT_FILENO, "%5ld\t%s\n", hist_now->num_cmd, hist_now->content);
+		printf("%5ld\t%s\n", hist_now->num_cmd, hist_now->content);
 		hist_now = hist_now->next;
 	}
 }
@@ -47,7 +47,7 @@ void	print_index_hist(t_hist *hist, long index)
 			hist_now = hist_now->next;
 	}
 	if (hist_now->num_cmd == index)
-		printfd(STDOUT_FILENO, "%5ld\t%s\n", index, hist_now->content);
+		printf("%5ld\t%s\n", index, hist_now->content);
 }
 
 int	print_range_hist(long range, t_hist *hist)
@@ -71,7 +71,7 @@ int	print_range_hist(long range, t_hist *hist)
 	}
 	while (hist_now)
 	{
-		printfd(STDOUT_FILENO, "%5ld\t%s\n", hist_now->num_cmd, hist_now->content);
+		printf("%5ld\t%s\n", hist_now->num_cmd, hist_now->content);
 		hist_now = hist_now->next;
 	}
 	return (0);

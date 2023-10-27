@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:12:20 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/26 15:41:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:26:46 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	print_ps0(t_tool *tool)
 			ps_expanded = ps_basic_expansion(ps_expanded, tool);
 		if (ps_expanded)
 		{
-			write(1, ps_expanded, ft_strlen(ps_expanded));
+			printfd(STDOUT_FILENO, "%s", ps_expanded);
 			free(ps_expanded);
 		}
 		else
-			write(1, ps0, ft_strlen(ps0));
+			printfd(STDOUT_FILENO, "%s", ps0);
 	}
 }
 

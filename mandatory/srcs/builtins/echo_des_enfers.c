@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:54:37 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/27 17:45:26 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 18:54:59 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	echo_arg(char *cmd, bool escape)
 			i++;
 		}
 	}
-	printfd(STDOUT_FILENO, "%s", cmd);
+	if (*cmd)
+		printfd(STDOUT_FILENO, "%s", cmd);
 	free(cmd);
 }
 
