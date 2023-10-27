@@ -139,7 +139,7 @@ Quote removal is, as its name suggests, the removal of every unnecessary quotes.
 ## Redirections
 Redirections in Shellpticflesh include :
 - `[n]>&m` or `[n]>file` which overwrites the content of the file descriptor 'm' or of the file 'file' with the content of n. n is by default stdout.
-- `[n]>>&m` or `[n]>>file` which appends to the file descriptor 'm' or to the file 'file' with the content of n. n is by default stdout.
+- `[n]>>file` which appends to the file 'file' with the content of n. n is by default stdout.
 - `[n]<&m` or `[n]<file` which reads from the file descriptor 'm' or from the file 'file'. n is by default stdin.
 - `[n]<<word` which reads the content of stdin until the word 'word' is encountered or until the eof, and is considered to be the read entrypoint of n. n is by default stdin. (**heredoc**)
 - `[n]<<<string` which sets the content of the file descriptor n as the string 'string'. n is by default stdin. (**herestring**)

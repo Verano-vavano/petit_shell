@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:54:37 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/07 10:52:10 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:45:26 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	echo_arg(char *cmd, bool escape)
 			i++;
 		}
 	}
-	printf("%s", cmd);
+	printfd(STDOUT_FILENO, "%s", cmd);
 	free(cmd);
 }
 
@@ -79,11 +79,11 @@ int	echo_des_enfers(char **cmd)
 		{
 			echo_arg(ft_strdup(cmd[i]), escape);
 			if (cmd[i + 1])
-				printf(" ");
+				printfd(STDOUT_FILENO, " ");
 			i++;
 		}
 	}
 	if (newline)
-		printf("\n");
+		printfd(STDOUT_FILENO, "\n");
 	return (0);
 }
