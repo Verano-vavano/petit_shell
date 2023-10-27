@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 23:59:35 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 12:18:51 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:50:12 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	clear_hist(t_tool *tool, char **cmd)
 
 	if (cmd[1][1] == 'c')
 	{
-		printf("Do you want to clear the whole history ?");
-		printf("the history file will be emptied) [y/n] > ");
+		printfd(STDOUT_FILENO, "Do you want to clear the whole history ?");
+		printfd(STDOUT_FILENO, "the history file will be emptied) [y/n] > ");
 		readed = read(READ, read_buf, 1023);
 		if (readed == -1)
 			return ;

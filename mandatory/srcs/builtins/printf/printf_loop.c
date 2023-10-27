@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 02:28:55 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 02:41:25 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:51:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	print_correspondingly(char **m_str, char *arg)
 	arg = modify_arg(arg, flags, &ret);
 	if (arg)
 	{
-		printf("%s", arg);
+		printfd(STDOUT_FILENO, "%s", arg);
 		free(arg);
 	}
 	return (ret * (-1));
@@ -118,7 +118,7 @@ int	printf_loop(char **cmd, char *main_string)
 		if (*main_string == '%' && *(main_string + 1) == '%')
 		{
 			main_string++;
-			printf("%%");
+			printfd(STDOUT_FILENO, "%%");
 		}
 		else if (*main_string == '%')
 		{
@@ -127,7 +127,7 @@ int	printf_loop(char **cmd, char *main_string)
 				return (ret);
 		}
 		else
-			printf("%c", *main_string);
+			printfd(STDOUT_FILENO, "%c", *main_string);
 		main_string++;
 	}
 	free(save_base);

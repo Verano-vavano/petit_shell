@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:57:50 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/02 13:58:52 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:51:03 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_alias_key(t_alias *alias)
 {
-	printf("alias %s='%s'\n", alias->cmd, alias->replacer);
+	printfd(STDOUT_FILENO, "alias %s='%s'\n", alias->cmd, alias->replacer);
 }
 
 void	print_whole_alias(t_tool *tool)
