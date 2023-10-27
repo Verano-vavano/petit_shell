@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:07 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 18:29:55 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 {
 	size_t	i;
+	size_t	base_i;
 
 	i = expr_last(expr_ll)->index;
+	base_i = i;
 	while (is_sign(clean[i]))
 		i++;
 	while (is_digit(clean[i]) || ft_isalpha(clean[i]))
@@ -32,7 +34,7 @@ static size_t	parsed_len(t_expr_ll *expr_ll, char *clean)
 		i++;
 	if (i == ft_strlen(clean) - 1 && is_spc(clean[i]))
 		i++;
-	return (i);
+	return (i + (base_i == i));
 }
 
 // parse the cleaned_input into a linked list of expressions

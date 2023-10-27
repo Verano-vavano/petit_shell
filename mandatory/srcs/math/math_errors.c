@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:22:46 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/25 16:52:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 18:33:52 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static bool	is_valid_num_arg(char *arg)
 {
-	while (is_sign(*arg))
+	while (arg && is_sign(*arg))
 		arg++;
-	while (is_num(*arg))
+	while (arg && is_num(*arg))
 		arg++;
-	return (*arg == '\0');
+	return (!arg || *arg == '\0');
 }
 
 int	math_errors(t_expr_ll *expr_ll, char *clean)
