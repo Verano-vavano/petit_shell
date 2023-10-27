@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:34:35 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/15 17:57:00 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:25:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 static char	*replace_home(char *cwd, t_env *env)
 {
 	char	*home;
+	char	*temp;
 
 	home = get_home(env);
 	if (!home)
 		return (0);
 	if (ft_strncmp(cwd, home, ft_strlen(home)) == 0)
-		return (ft_strreplace(cwd, 0, ft_strlen(home), "~"));
+		temp = ft_strreplace(cwd, 0, ft_strlen(home), "~");
 	else
-		return (ft_strdup(cwd));
+		temp = ft_strdup(cwd);
+	free(home);
+	return (temp);
 }
 
 static char	*better_getcwd(t_env *env)

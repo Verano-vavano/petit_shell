@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:43:04 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/09 16:39:02 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:35:48 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_command	*spliter_init(char **line, bool add_line, t_tool *tool)
 	t_command		*cmd;
 	char			where_did_we_fail;
 
-	while (line && *line && **line)
+	while (add_line && line && *line && **line)
 	{
 		if (check_syntax(*line))
 		{

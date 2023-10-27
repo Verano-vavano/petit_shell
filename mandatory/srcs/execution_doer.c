@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:45:18 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 17:45:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 13:36:32 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	child(t_process_cmd *cmd, t_tool *t, char **c_env, t_ret_cmd *ret)
 	close(ret->pipes[0]);
 	perform_redirections(cmd, ret);
 	close(ret->pipes[1]);
-	close(ret->fd);
+	if (ret->fd != -1)
+		close(ret->fd);
 	if (ret->n_cmd == 1)
 		print_ps0(t);
 	if (cmd->is_parenthesis)
@@ -48,7 +49,8 @@ void	crt_child(t_process_cmd *cmd, t_tool *t, t_ret_cmd *ret)
 	else if (ret->pid == 0)
 		child(cmd, t, t->c_env, ret);
 	close(ret->pipes[1]);
-	close(ret->fd);
+	if (ret->fd != -1)
+		close(ret->fd);
 	ret->fd = dup(ret->pipes[0]);
 	close(ret->pipes[0]);
 	close_files(cmd->redir);
