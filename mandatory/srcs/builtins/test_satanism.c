@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:53:43 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/12 14:29:49 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 16:18:49 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	test_satanism(char **cmd)
 	int	ret;
 	int	narg;
 
-	signal(SIGINT, SIG_DFL);
 	narg = 1;
 	while (cmd[narg])
 		narg++;

@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:17:55 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/25 16:50:04 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/27 16:19:07 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ bool	do_math(t_command *cmd)
 	size_t		i_end;
 	char		*output;
 
-	signal(SIGINT, SIG_DFL);
 	i_start = get_start(cmd->content);
 	i_end = get_end(cmd->content);
 	clean = clean_input(cmd->content, i_start, i_end);
