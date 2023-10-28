@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/09/24 13:51:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/28 21:14:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ int	cd_home(t_tool **tool)
 	return (0);
 }
 
-int	simple_cd(char *dest, t_tool **tool)
+int	simple_cd(char *dest, t_tool **tool, bool free_it)
 {
+	printf("%s\n", dest);
 	if (access(dest, R_OK | X_OK) != 0)
 	{
 		write(2, "cd: ", 4);
 		perror(dest);
+		if (free_it)
+			free(dest);
 		return (1);
 	}
 	change_oldpwd(&((*tool)->env));
@@ -48,9 +51,13 @@ int	simple_cd(char *dest, t_tool **tool)
 	{
 		write(2, "cd: ", 4);
 		perror(dest);
+		if (free_it)
+			free(dest);
 		return (1);
 	}
 	change_pwd(dest, tool);
+	if (free_it)
+		free(dest);
 	return (0);
 }
 
@@ -85,7 +92,7 @@ int	check_cdpath(char *dest, t_tool **tool)
 		concat_path = concat_multiple((char *[]){cdpath[i], "/", dest, NULL });
 		if (access(concat_path, R_OK | X_OK) == 0)
 		{
-			ret = simple_cd(concat_path, tool);
+			ret = simple_cd(concat_path, tool, false);
 			free(concat_path);
 			free_char_etoile_etoile(cdpath);
 			return (ret);
@@ -105,7 +112,9 @@ int	cd_mentiel(char **cmd, t_tool **tool)
 	}
 	if (!cmd[1])
 		return (cd_home(tool));
+	else if (ft_strcmp(cmd[1], "-") == 0 && env_contain("OLDPWD", (*tool)->env))
+		return (simple_cd(ft_strdup(env_getval("OLDPWD", (*tool)->env)), tool, true));
 	else if (check_cdpath(cmd[1], tool) == 0)
 		return (0);
-	return (simple_cd(cmd[1], tool));
+	return (simple_cd(cmd[1], tool, false));
 }
