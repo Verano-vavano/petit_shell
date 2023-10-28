@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/28 21:21:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/28 21:42:14 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	cd_home(t_tool **tool)
 
 int	simple_cd(char *dest, t_tool **tool, bool free_it)
 {
-	printf("%s\n", dest);
 	if (access(dest, R_OK | X_OK) != 0)
 	{
 		write(2, "cd: ", 4);
