@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:34:33 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/28 21:14:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/28 21:21:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	cd_mentiel(char **cmd, t_tool **tool)
 	if (!cmd[1])
 		return (cd_home(tool));
 	else if (ft_strcmp(cmd[1], "-") == 0 && env_contain("OLDPWD", (*tool)->env))
-		return (simple_cd(ft_strdup(env_getval("OLDPWD", (*tool)->env)), tool, true));
+		return (simple_cd(ft_strdup(env_getval("OLDPWD", (*tool)->env))
+				, tool, true));
 	else if (check_cdpath(cmd[1], tool) == 0)
 		return (0);
 	return (simple_cd(cmd[1], tool, false));

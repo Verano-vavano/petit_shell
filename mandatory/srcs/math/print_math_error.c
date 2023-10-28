@@ -6,7 +6,7 @@
 /*   By: tcharanc <code@nigh.one>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:32:00 by tcharanc          #+#    #+#             */
-/*   Updated: 2023/10/27 18:26:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/28 21:21:53 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	print_special_math_error(char *clean, t_expr_ll *ptr)
 	else
 		error_token = get_error_token(&clean[ptr->index], ptr);
 	if (ptr->next && ptr->next->var_value && error_token)
-		printfd(STDERR_FILENO, "%s: %s: syntax error: %s (error token is \"%s\")\n",
+		printfd(ERR, "%s: %s: syntax error: %s (error token is \"%s\")\n",
 			PROG_NAME, error_token, "Value too great for base",
 			ptr->next->var_value);
 	else if (error_token)

@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:03:32 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/26 15:25:05 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/28 21:20:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool n_empty)
 	return (0);
 }
 
-static long	quit_before_aexec(t_process_cmd *cmd_processing, long err_status, t_ret_cmd *ret, int *n_cmd)
+static long	qaexec(t_process_cmd *c_p, long err, t_ret_cmd *ret, int *n_cmd)
 {
 	close_pipes(ret->pipes);
 	if (n_cmd[1] != 1 && n_cmd[0] != 1)
 		close(ret->fd);
-	free(cmd_processing->cmd_name);
-	free(cmd_processing->cmd);
-	close_files(cmd_processing->redir);
-	free_redirs(cmd_processing->redir);
-	return (err_status);
+	free(c_p->cmd_name);
+	free(c_p->cmd);
+	close_files(c_p->redir);
+	free_redirs(c_p->redir);
+	return (err);
 }
 
 // RET > 0 : break
@@ -106,7 +106,7 @@ long	ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd)
 	if (!cmd_processing.is_parenthesis)
 		err_status = get_cmd_path(&cmd_processing, tool->env);
 	if (err_status > 0 && n_cmd[0] == 1)
-		return (quit_before_aexec(&cmd_processing, err_status, ret, n_cmd));
+		return (qaexec(&cmd_processing, err_status, ret, n_cmd));
 	err_status = aexec(&cmd_processing, tool, ret, n_cmd);
 	if (err_status != -1)
 		return (err_status);
