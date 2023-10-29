@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:44 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 19:50:58 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ long	command_substitution(t_command *cmd, t_env *env, bool only_repl, long r)
 	{
 		next = cmd->next;
 		old = &(cmd->content);
-		if (is_math(cmd->content))
+		if (cmd->content && is_math(cmd->content))
 		{
 			if (!do_math(cmd))
 				return (1);
 			else if (&(cmd->content) == old)
 				continue ;
 		}
-		else if (ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
+		else if (cmd->content && ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
 		{
 			r = srch_exec_comm(cmd, env, only_repl, &skip_first);
 			if (r == 120)

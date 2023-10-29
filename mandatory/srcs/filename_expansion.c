@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 07:48:54 by hdupire           #+#    #+#             */
-/*   Updated: 2023/09/21 12:42:17 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 19:51:40 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	filename_expansion(t_command *cmd)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		if (cmd->content[usearch(cmd->content, '*')]
-			|| cmd->content[usearch(cmd->content, '?')])
+		if (cmd->content && (cmd->content[usearch(cmd->content, '*')]
+				|| cmd->content[usearch(cmd->content, '?')]))
 		{
 			if (cmd->purpose >= IN_FILE && cmd->purpose <= HERE_STRING
 				&& cmd->purpose != HERE_DOC_DELIM)

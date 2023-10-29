@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:03:32 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/28 21:20:36 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:14:57 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 		n[1]--;
 		if (r->fd != -1)
 			close(r->fd);
+		if (c_p->cmd)
+			free(c_p->cmd);
 		r->fd = -2;
 		return (1);
 	}

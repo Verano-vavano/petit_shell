@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:17:36 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/07 12:04:42 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 19:50:21 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	parameter_expansion(t_command *cmd, t_tool *tool)
 {
 	while (cmd && cmd->purpose != CMD_DELIM)
 	{
-		if (ft_strchr(cmd->content, '$'))
+		if (cmd->content && ft_strchr(cmd->content, '$'))
 		{
 			if (parameter_seeker(cmd, tool))
 				return (1);
