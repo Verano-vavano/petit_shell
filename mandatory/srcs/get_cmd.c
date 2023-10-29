@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 09:40:10 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/29 20:12:31 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:24:17 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	handle_files(t_process_cmd *cmd_p, t_command *cmd, int hd)
 			|| cmd->next->purpose == HERE_STRING));
 }
 
-static int	count_args(t_command *cmd)
+static char	**alloc_cmd(t_command *cmd)
 {
 	int	n;
 
@@ -101,17 +101,15 @@ static int	count_args(t_command *cmd)
 			n++;
 		cmd = cmd->next;
 	}
-	return (n);
+	return (ft_calloc(n + 1, sizeof (char *)));
 }
 
 int	get_cmd(t_process_cmd *cmd_processing, t_command *cmd, int *hd_no)
 {
-	int	n_args;
 	int	here_docs;
 	int	i;
 
-	n_args = count_args(cmd);
-	cmd_processing->cmd = ft_calloc(n_args + 1, sizeof (char *));
+	cmd_processing->cmd = alloc_cmd(cmd);
 	if (cmd_processing->cmd == 0)
 		return (1);
 	i = 0;

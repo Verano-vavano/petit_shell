@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/29 19:50:58 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:19:41 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ long	command_substitution(t_command *cmd, t_env *env, bool only_repl, long r)
 			else if (&(cmd->content) == old)
 				continue ;
 		}
-		else if (cmd->content && ft_strchr(cmd->content, '(') && ft_strchr(cmd->content, ')'))
+		else if (cmd->content && ft_strchr(cmd->content, '('))
 		{
 			r = srch_exec_comm(cmd, env, only_repl, &skip_first);
 			if (r == 120)

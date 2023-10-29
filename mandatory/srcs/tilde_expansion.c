@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:00:49 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/29 19:49:55 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:16:27 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int	need_tilde(t_command *cmd)
 			return (1);
 		cmd = cmd->next;
 	}
-	if (cmd && cmd->content && cmd->content[0] == '~' && cmd->purpose != CMD_DELIM)
+	if (cmd && cmd->content && cmd->content[0] == '~'
+		&& cmd->purpose != CMD_DELIM)
 		return (1);
 	return (0);
 }

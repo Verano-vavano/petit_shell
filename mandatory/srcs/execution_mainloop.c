@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:03:32 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/29 20:14:57 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/29 20:25:36 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static long	c_get(t_process_cmd *c_p, t_command **cmd, t_ret_cmd *r, int *n)
 		return (close_pipes(r->pipes), err_status * (-1));
 	else if (!c_p->cmd || !(*(c_p->cmd)))
 	{
-		r->fd = dup(r->pipes[0]);
 		close_pipes(r->pipes);
 		n[0]--;
 		n[1]--;
