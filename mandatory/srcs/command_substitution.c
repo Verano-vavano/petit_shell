@@ -6,7 +6,7 @@
 /*   By: hdupire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:37:31 by hdupire           #+#    #+#             */
-/*   Updated: 2023/10/29 20:19:41 by hdupire          ###   ########.fr       */
+/*   Updated: 2023/10/30 12:39:10 by hdupire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,19 @@ static int	good_ret(long ret, bool repl, bool *skip_first)
 static long	srch_exec_comm(t_command *cmd, t_env *env, bool only_repl, bool *sf)
 {
 	bool	repl;
-	char	quoted;
+	char	q;
 	int		start;
 	long	ret;
 
-	quoted = '\0';
+	q = '\0';
 	start = -1;
 	repl = false;
 	ret = -1;
 	while (cmd && cmd->content && cmd->content[++start])
 	{
-		quoted = is_quoted(cmd->content, start, quoted);
-		if (cmd->content[start] == '(' && (!quoted
-				|| (quoted != '\'' && start && cmd->content[start - 1] == '$')))
+		q = is_quoted(cmd->content, start, q);
+		if (cmd->content[start] == '(' && (!q
+				|| (q != '\'' && start && cmd->content[start - 1] == '$')))
 		{
 			repl = (start != 0 && cmd->content[start - 1] == '$');
 			if (!repl && only_repl)
